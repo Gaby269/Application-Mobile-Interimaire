@@ -41,53 +41,47 @@ public class Expe {
 		
 			
 	public static void main(String[] args) throws Exception{
-		// écriture dans le fichier .CSV
-		long fullTime = System.nanoTime();
 		int nbRes = 10;
 		int tailleDom = 17;
-	    FileWriter fichier_resultats;
-	    String[] benchs = {"test"}; 		// si on veut tester plusieurs Benchmarks
-	    
-	    //PARCOURT des Benchmarks
-	    for (String bench : benchs) {
-	    	String[] heure = (LocalTime.now().toString()).split("\\.")[0].split(":");
-		    fichier_resultats = new FileWriter("../resultats/result_bench"+bench+"_"+heure[0]+heure[1]+heure[2]+".csv",false); // créer le fichier csv de sortie	    	fichier_resultats.write("sep=;\n");
+	    FileWriter fichier_resultats; // 
+	    String[] benchs = {"bench1", "bench2"}; // si on veut tester plusieurs Benchmarks
+	    for (String bench : benchs) { // pour tous les benchmarks différents
+		    fichier_resultats = new FileWriter("../resultats/result_"+bench+".csv",false); // écriture dans le fichier .CSV
 	    	fichier_resultats.write("Durete;% solutions;temps moyen (s)\n"); // en-tête du fichier
 		    
-		    // Parsing des réseaux
-	    	String path = "../reseaux/bench"+bench+"/";	//recuperation du chemin dans le dossier reseaux
-			File reseaux = new File(path); 				// fichiers des reseaux
-			File ficNames[] = reseaux.listFiles(); 		// liste des fichiers
-			int nbDiff = ficNames.length; 				// nb de fichiers
+		    // parsing des réseaux
+	    	String path = "../reseaux/"+bench+"/";
+			File reseaux = new File(path); // fichiers des reseaux
+			File ficNames[] = reseaux.listFiles(); // liste des fichiers
+			int nbDiff = ficNames.length; // nb de fichiers
 			
-			//PARCOURT DES RESEAUX
-			for (int i=0; i<nbDiff; i++) { 					// pour chaque réseau
-				String fic = ficNames[i].getName();			//recuperer le nom du fichier
+			for (int i=0; i<nbDiff; i++) { // pour chaque réseau
+				String fic = ficNames[i].getName();
 				BufferedReader readFile = new BufferedReader(new FileReader(path+fic));
-				System.out.println("\n" + fic + " :\n");	//affichage du fichier
+				System.out.println("\n" + fic + " :\n");
 				
-				int nbSoluce = 0; 						// nombre de reseaux avec au moins une solution
+				int nbSoluce = 0; // nombre de reseaux avec au moins une solution
 				int nbTO = 0;
 				double tempsMoyen = 0;
 				
-				for(int nb=1 ; nb<=nbRes; nb++) { 		// pour chaque reseau
-					Model model=lireReseau(readFile);
-					Solver solver = model.getSolver();
-					solver.limitTime("30s");
+				for(int nb=1 ; nb<=nbRes; nb++) { // pour chaque reseau
+					Model model=lireReseau(readFile); // création du modèle
+					Solver solver = model.getSolver(); // initialisation du soleveur
+					solver.limitTime("30s"); // set du TO à 30s
 					
-					System.out.println("Résolution du réseau "+nb);
+					System.out.println("Résolution du réseau "+nb); // indication visuelle de l'avancée du benchmark
 					long startTime = System.nanoTime();
-					if (solver.solve()) { 					//si le modèle à au moins une solution
-						tempsMoyen += System.nanoTime() - startTime;
+					if (solver.solve()) { //si le modèle à au moins une solution
+						tempsMoyen += System.nanoTime() - startTime; // calcul du temps d'exécution
 						System.out.println("Solution trouvée\n");
 						nbSoluce++;
 					}
 					else if (solver.isStopCriterionMet()){
 						System.out.println("Time out !\n");
-						nbTO++;
+						nbTO++; // incrémentation du compteur de Timeouts
 					}
 					else {
-						tempsMoyen += System.nanoTime() - startTime;
+						tempsMoyen += System.nanoTime() - startTime; // calcul du temps d'exécution
 						System.out.println("Pas de solution\n");
 					}
 				}
@@ -99,10 +93,10 @@ public class Expe {
 			    fichier_resultats.write(durete + ";" + pourcentage + "%;" + tempsMoy + "\n");
 			    
 			} // fin du parsing de tous les fichiers
-			fichier_resultats.close();
-			double tempsS = (double)(System.nanoTime()-fullTime) / 1000000000;
-			System.out.println("Temps total du benchmark : " + tempsS + "s");
-		}
+			
+			fichier_resultats.close(); // fermeture du FileWriter
+			
+		}// fin de tous les benchmarks
 		return;	
 	}
 	
