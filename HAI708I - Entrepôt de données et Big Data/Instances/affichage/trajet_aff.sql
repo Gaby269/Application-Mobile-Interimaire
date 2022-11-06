@@ -1,5 +1,5 @@
 -- INSERT INTO Date VALUES (id, dateEntiere, numJour, nomJour, numMois, 
-	-- nomMois, annee, saison, isWeekend, isVacances, isJoursFerié, 
+	-- nomMois, annee, saison, isWeekend, isVacances, isJoursFerie, 
 	-- isFermeDate);
 INSERT INTO Date VALUES (1, "01/10/2022", 1, "SAMEDI", 10, 
 	"OCTOBRE", 2022, "AUTOMNE", 4, 1, 0, 0, 
@@ -15,7 +15,7 @@ INSERT INTO Temps VALUES (1, "11:00:00", 11, 0, 0, "AM",
 
 
 -- INSERT INTO Visiteurs VALUES (id, nom, prenom, age, sexe, 
-	-- adresse, ville, departement, pays, nationnalité, 
+	-- adresse, ville, departement, pays, nationnalite, 
 	-- tel, mail, nb_enfants);
 INSERT INTO Visiteurs VALUES (1, "FOURBET", "MATHILDE", 54, "FEMME", 
 	"8 RUE HENRI", 	"BEZIERS", 	34, "FRANCE", "FRANCE", 
