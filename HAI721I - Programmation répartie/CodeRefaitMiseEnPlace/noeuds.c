@@ -398,7 +398,7 @@ int accepter(int dS, struct sockaddr_in adr){
 
 
 /////////////////////////
-// PROGRAME PRINCIPALE //
+// PROGRAME PRINCIPAL  //
 /////////////////////////
 /// @brief Fonction main
 /// @param argc nb d'argument

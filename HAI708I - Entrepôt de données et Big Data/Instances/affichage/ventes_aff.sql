@@ -1,5 +1,5 @@
 -- INSERT INTO Date VALUES (id, dateEntiere, numJour, nomJour, numMois, 
-	-- nomMois, annee, saison, isWeekend, isVacances, isJoursFerié, 
+	-- nomMois, annee, saison, isWeekend, isVacances, isJoursFerie, 
 	-- isFermeDate);
 INSERT INTO Date VALUES (1, "01/10/2022", 1, "SAMEDI", 10, 
 	"OCTOBRE", 2022, "AUTOMNE", 4, 1, 0, 0, 
@@ -48,12 +48,12 @@ INSERT INTO Produits VALUES (2, "MAGRET DE CANARD", "RICHEPLAT", 25, "ALIMENTATI
 	"18-99", "REFREGIRATEUR", "***", "NON", 50, 
 	200, "BEIGE");
 INSERT INTO Produits VALUES (3, "BONNET LION", "ZOOBONNET", 15, "SOUVENIRS",
-	"S", "CARTON", "***", "NON", 20, 
+	"S", "CARTON", "***", "OUI", 20, 
 	100, "BEIGE");
 
 
 -- INSERT INTO Visiteurs VALUES (id, nom, prenom, age, sexe, adresse, 
-	-- ville, departement, pays, nationnalité, tel, mail, nb_enfants);
+	-- ville, departement, pays, nationnalite, tel, mail, nb_enfants);
 INSERT INTO Visiteurs VALUES (1, "JEAN", "PRENOM", 12, "HOMME", "8 RUE HENRI", 
 	"BEZIERS", "HERAULT", "FRANCE", "FRANCAIS", "***", "***", 0);
 

@@ -1,4 +1,4 @@
--- INSERT INTO Date VALUES (id, dateEntiere, numJour, nomJour, numMois, nomMois, annee, saison, isWeekend, isVacances, isJoursFerié, isFermeDate);
+-- INSERT INTO Date VALUES (id, dateEntiere, numJour, nomJour, numMois, nomMois, annee, saison, isWeekend, isVacances, isJoursFerie, isFermeDate);
 INSERT INTO Date VALUES (1, "01/10/2022", 1, "SAMEDI", 10, "OCTOBRE", 2022, "AUTOMNE", 4, 1, 0, 0, 0);
 
 
@@ -21,11 +21,11 @@ INSERT INTO Vendeurs VALUES (3, "LEVAIN", "YASSINE", 31, "HOMME", 1350, "SUCRERI
 -- INSERT INTO Produits VALUES (id, nom, marque, prix, type, tranche_age, type_stockage, code_barre, auto_retour, taille_cm, poids_g, couleur);
 INSERT INTO Produits VALUES (1, "BOULKIPIK", "BONBONFEU", 0.12, "SUCRERIE", "7-18", "SACHETS", "***", "NON", 1, 15, "ROUGE");
 INSERT INTO Produits VALUES (2, "MAGRET DE CANARD", "RICHEPLAT", 25, "ALIMENTATION", "18-99", "REFREGIRATEUR", "***", "NON", 50, 200, "BEIGE");
-INSERT INTO Produits VALUES (3, "BONNET LION", "ZOOBONNET", 15, "SOUVENIRS", "S", "CARTON", "***", "NON", 20, 100, "BEIGE");
+INSERT INTO Produits VALUES (3, "BONNET LION", "ZOOBONNET", 15, "SOUVENIRS", "S", "CARTON", "***", "OUI", 20, 100, "BEIGE");
 
 
--- INSERT INTO Visiteurs VALUES (id, nom, prenom, age, sexe, adresse, ville, departement, pays, nationnalité, tel, mail, nb_enfants);
-INSERT INTO Visiteurs VALUES (1, "JEAN", "PRENOM", 12, "HOMME", "8 RUE HENRI", "BEZIERS", "HERAULT", "FRANCE", "FRANCAIS", "***", "***", 0);
+-- INSERT INTO Visiteurs VALUES (id, nom, prenom, age, sexe, adresse, ville, departement, pays, nationnalite, tel, mail, nb_enfants);
+INSERT INTO Visiteurs VALUES (1, "LEGRAND", "IVES", 12, "HOMME", "8 RUE HENRI", "BEZIERS", "HERAULT", "FRANCE", "FRANCAIS", "***", "***", 0);
 
 
 -- INSERT INTO Ventes VALUES (stand, vendeur, visiteur, produit, heure, date, quantite_achat, montant_achat);
