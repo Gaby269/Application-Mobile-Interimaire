@@ -332,59 +332,6 @@ int accepter(int dS, struct sockaddr_in* adr){
 
 
 
-/*
-
-/// @brief Fonction qui detruit un processus dans du graphe
-/// @param descripteur descripteur du processus qu'on veut supprimer
-/// @param set 
-/// @param currentMax maximum courant des indices
-/// @param maxdS maximum des descripteurs
-/// @param procGraphe liste des processus qui font partie du graphe
-void deconnexionSousAnneau(
-    int descripteur, 
-    fd_set* set,
-    int* currentMax,
-    int* maxDescripteur,
-    struct sousAnneau sousAnneaux[]
-) {
-    
-    //FERMETURE DE LA SOCKET VOULU
-    FD_CLR(descripteur, set);
-    printf("\n[SERVEUR] Un sous-anneau s'est déconnecté\n");                          //Affichage
-    close(descripteur);                                                             //on ferme la socket du descripteur
-    
-    //RETRAINT D'UN PROCESSUS DE L LISTE EN RECalVULANT LE MAX
-    
-    //DONNEES
-    int i;                                                                      //on fixe un index
-    int max = procGraphe[0].dSProc;                                            //on veut trouver le maxium des descripteur
-    
-    //PARCOURT DE LA LISTE
-    for (i=0; i<currentMax; i++) {                                              //on parcourt les processus dans la liste
-        if (procGraphe[i].dSProc == descripteur) break;                        //si on arrive au descripteur qu'on veut supprimer on arrete et on a l'index
-        if (max < procGraphe[i].dSProc) max = procGraphe[i].dSProc;           //on modifie le maximum des descripteur
-    }
-    if (i == currentMax) return ERREUR;                                             //si l'indexe est la taille du tableau le descripteur n'existe pas on s'arrete
-
-    //MODIFICATION DE LA LISTE
-    while (i < currentMax-1) {                                                  //tant que l'indexe est plus petit que la taille -1 
-        procGraphe[i] = procGraphe[i+1];                                      //on change le processus à l'index par l'index+1
-        if (max < procGraphe[i].dSProc) max = procGraphe[i].dSProc;           //on recalcul le max
-        i++;                                                                    //et on parcourt la liste pour modifier tous les éléments du tableau
-    }
-
-    //ATTRIBUTION MAX
-    int newMax = max;                                                               //recalculage du max
-    if (newMax == ERREUR) {                                                             //si erreur alors le processus n'est pas dans la liste
-        printf("\n[SERVEUR] Problème: le processus n'est aps dans la liste'\n");
-    } else {                                                                        //sinon
-        currentMax--;                                                            //on decremente le maximum courant
-        maxdS = newMax;                                                            //et on change le maximum
-    }
-}
-
-
-*/
 
 
 
