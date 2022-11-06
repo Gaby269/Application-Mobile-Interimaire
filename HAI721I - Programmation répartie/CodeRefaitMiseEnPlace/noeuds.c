@@ -43,14 +43,18 @@ struct procGraphe {
 
 
 
+
 /// @brief Structure des inforamtions avec la requete les inforamtions que l'on a besoin selon la requete et l'adresse du processus 
 struct infos_procGraphe {
-    int requete;                    //requete qu'on veut
-    int info1;                      //information 1 qu'on a besoin
-    int info2;                      //informations 2 qu'on a besoin
-    struct sockaddr_in adrProc;     //adresse du processus dont on parle
+    int requete;                            //requete qu'on veut
+    int indice;                             //indice du noeud courant sur le graphe
+    int descripteur;                        //descripteur du noeud
+    int nbVoisin;                           //nb de voisins du noeud
+    int voisins[NOEUDS_MAX];                //tableau de la liste des adresses des voisins
+    //int info1;                            //information 1 qu'on a besoin
+    //int info2;                            //informations 2 qu'on a besoin
+    struct sockaddr_in adrProc;             //adresse du processus dont on parle
 };
-
 
 
 //////////////////////
@@ -403,16 +407,23 @@ int accepter(int dS, struct sockaddr_in adr){
 int main(int argc, char *argv[]) {
 
     //ETAPE 1 : GESTION DES INFORMATIONS
-    if (argc != 4){
-        printf("\n[UTILISATION] %s ip_serveur port_serveur port_client nbVoisin\n", argv[0]);
+    if (argc != 6){
+        printf("\n[UTILISATION] %s ip_serveur port_serveur port_client nbVoisin listeVoisin (par ex : [1,3,4] sans espace)\n", argv[0]);
         exit(1);
     }
 
-    char* adresseIP = argv[1];
-    char* port_serveur = argv[2];
-    char* port_client = argv[3];
-    //int nbVoisin = atoi(argv[4]);       
+    char* adresseIP = argv[1];          //adresse ip du serveur
+    char* port_serveur = argv[2];       //port du serveur
+    char* port_client = argv[3];        //port du client
+    int nbVoisin = atoi(argv[4]);       //nb de voisin du noeud
+    char* listeVoisin = argv[5];        //liste des voisin du noeud
 
+    int voisins[nbVoisin];              //declare un tableau des voisins
+    for (int i=0; i<nbVosin; i++){              //parcourt du tableau des voisins
+        int indiceChar = 1;                     //indice dans la chaine de caractère
+        voisins[i] = listeVoisin[indiceChar];   //on donne a voisins[i] le caractère chiffre correspondant a l'indice de noeud dans le graphe
+        indiceChar+=2;
+    }
 
     //ETAPE 2 : CREATION DE LA SOCKET QUI DISCUTE AVEC SERVEUR
     int dSProcCS = creationSocket();
