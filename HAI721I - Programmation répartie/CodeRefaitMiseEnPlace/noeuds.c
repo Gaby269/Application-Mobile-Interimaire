@@ -505,15 +505,19 @@ int main(int argc, char *argv[]) {
     printf("\n       Adresse du processus : %s\n       Port : %d", adrProcJ, portProcJ);
     printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d", indice_proc, dSProcJGraphe);
     printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d",nbVoisin, voisins[0]);
-    for (int i=1; i<nbVoisin-1; i++){
-        printf(",%d", voisins[i]);
-    }
-    printf(",%d]\n\n", voisins[nbVoisin-1]);
+    if (nbVoisin > 1){                              //si le nb de voisins est plus grand on ajoute le code suivant pour l'affichage
+        for (int i=1; i<nbVoisin-1; i++){
+            printf(",%d", voisins[i]);
+        }
+        printf(",%d]\n\n", voisins[nbVoisin-1]);
+    } 
+    else{                                           //sinon on affiche juste la fin du tabelau
+        printf("]\n\n");
+    } 
 
-/*
 
-    //ETAPE 10 : RECEPTION DES IFNORAMTIONS DU PROCESSUS AVEC QUI DISCUTER
-    recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));
+    //ETAPE 10 : RECEPTION DES IFNORAMTIONS DES PROCESSUS AVEC QUI DISCUTER
+    recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));  //on reutilise la structure informations_proc pour la recepetion
     printf("\n[PROCESSUS] Reception d'un message");
 
 
