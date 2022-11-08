@@ -514,7 +514,7 @@ int main(int argc, char *argv[]) {
     else{                                           //sinon on affiche juste la fin du tabelau
         printf("]\n\n");
     } 
-
+/*
 
     //ETAPE 10 : RECEPTION DES IFNORAMTIONS DES PROCESSUS AVEC QUI DISCUTER
     recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));  //on reutilise la structure informations_proc pour la recepetion
