@@ -1,18 +1,18 @@
-# Anneau de processus
+# Coloration de graphe
 
-**Installation**
+**Installation** (ou construction des dossiers à la main)
 
 ```mkdir obj; mkdir bin; make```
 
 **Lancement**
 
 *Lancer le serveur* : ``bin/serveur port_serveur nb_noeud_graphe``  
-*Lancer autant de noeuds que spécifié*: ``bin/noeud ip_serveur port_serveur port_noeud_graphe``
+*Lancer autant de noeuds que donné dans le serveur*: ``bin/noeud ip_serveur port_serveur port_noeud_graphe indice_noeud nb_voisins liste_voisin (pas d'espace ex : [1,3,5])``
 
 
 **Disclaimer**
 
-Le serveur ainsi que les sous-anneaux utilisent le multiplexage: ce n'est pas nécessaire. 
+On a choisit d'utiliser le multiplexage pour le serveur et les noeuds mais ce n'était pas obligatoire.
 
 **Algo d'élection (déterminer qui sera le chef de la communauté de l'anneau) et de calcul de taille**  
 var Stockage[]  
