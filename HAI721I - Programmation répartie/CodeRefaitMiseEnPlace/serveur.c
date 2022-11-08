@@ -51,9 +51,7 @@ struct infos_procGraphe {
     int indice;                             //indice du noeud courant sur le graphe
     int descripteur;                        //descripteur du noeud
     int nbVoisin;                           //nb de voisins du noeud
-    int voisins[NOEUDS_MAX]; //tableau de la liste des adresses des voisins
-    //int info1;                              //information 1 qu'on a besoin
-    //int info2;                              //informations 2 qu'on a besoin
+    int voisins[NOEUDS_MAX];                //tableau de la liste des adresses des voisins
     struct sockaddr_in adrProc;             //adresse du processus dont on parle
 };
 
@@ -102,7 +100,7 @@ int sendTCP (int sock, void* info_proc, int sizeinfo_proc){
 void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
     //PREMIER APPEL POUR LA TAILLE                                                //creation d'une variable qui recupere la taille du message
-    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));     //on envoie la taille du message
+    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeinfo_proc);     //on envoie la taille du message
     
         //GESTION DES ERREURS
         if (res_premier_appel == ERREUR) {
@@ -185,7 +183,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
    //PREMIER APPEL POUR LA TAILLE
    int taille_info_proc = 1;                                                     //creation d'une variable qui recupere la taille du message
-   int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeof(int));        //on recoit la taille du message
+   int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeinfo_proc);        //on recoit la taille du message
    
       //GESTION DES ERREURS
       if (res_premier_appel == ERREUR) {
@@ -345,7 +343,7 @@ int main(int argc, char *argv[])
 
     // ETAPE 1 : GESTION PARAMETRES
     if (argc != 3){
-        printf("\n[UTILISATION] : %s port_serveur nombre_Noeuds\n", argv[0]);
+        printf("\n[UTILISATION] : %s port_serveur nombre_Noeuds\n\n", argv[0]);
         exit(1);
     }
 
@@ -362,7 +360,6 @@ int main(int argc, char *argv[])
 
     //ETAPE 3 : NOMMER SOCKET
     struct sockaddr_in adrServeur = nommageSocket(dSServeur, portServeur);              //nommer la socket avec son port
-    
     //AFFICHAGE
         //adresse
     char adrServeurAff[INET_ADDRSTRLEN];
@@ -370,29 +367,35 @@ int main(int argc, char *argv[])
         //port
     int portServeurAff = htons(adrServeur.sin_port);
         //affichage
-    printf("\n[SERVEUR] Le port est %hu\n", portServeurAff);                //affichage du port
+    printf("\n[SERVEUR] Le port est %d\n", portServeurAff);                //affichage du port
     printf("[SERVEUR] L'adresse est %s\n", adrServeurAff);                //affichage de l'adresse
 
 
     //ETAPE 4 : MISE SOUS ECOUTE
-    int nbMaxEcoute = 100;                                //on fixe le nombre de processus maximum pour attente 
+    int nbMaxEcoute = NOEUDS_MAX;                                //on fixe le nombre de processus maximum pour attente 
     ecouter(dSServeur, nbMaxEcoute);                      //on met en ecoute la socket serveur
     //AFFICHAGE
     printf("\n[SERVEUR] La mise en ecoute de la socket du serveur réussi !\n");
 
 
+    // ETAPE 4 : MISE EN PLACE DU MULTIPLEXAGE
+        //donnees util
+    int dSNoeud;                                            //declaration du descripteur
+    int nbMaxdS = dSServeur;                                //maximum des descripteurs
+    int nbNoeudCourant = 0;                                 //on declare le nombre de Noeud courant
+    int nbMaxNoeud = NOEUDS_MAX;                            //on declare un maximum de noeuds possibles
+    struct infos_procGraphe procGraphe[nbMaxNoeud];         //on declare un tableau de structure pour les informations des Noeuds connecté au sevreur
+    struct sockaddr_in sockNoeud;                           //on declare la socket du Noeud
+    socklen_t lgAdr;                                        //taille de l'adresse
+    
 
 
     //BOUCLE POUR RECEVOIR LES CLIENT
     while(1){
 
         //ETAPE 4 : ACCEPTATION DU NOEUD
-            //donnees
-        int nbNoeudCourant = 0;                                 //on declare le nombre de Noeud courant
-        struct infos_procGraphe procGraphe[nbMaxEcoute];           //on declare un tableau de structure pour les informations des Noeuds connecté au sevreur
-        struct sockaddr_in sockNoeud;                           //on declare la socket du Noeud
             //acceptation
-        int dSNoeud = accepter(dSServeur, &sockNoeud);          //on accepte le Noeud qui demande
+        dSNoeud= accept(dSServeur, (struct sockaddr*)&sockNoeud, &lgAdr);          //on accepte le Noeud qui demande
             //incrementation
         nbNoeudCourant++;                                   //incremente le nombre de noeud connecté actuellement
 
@@ -403,28 +406,27 @@ int main(int argc, char *argv[])
             //port
         int portNoeudAff = htons(sockNoeud.sin_port);
             //affichage
-        printf("\n[SERVEUR] Connexion d'un Noeud : %d%s::%hu\n", dSNoeud, adrNoeudAff, portNoeudAff);
-        printf("[SERVEUR] %d Noeuds sont connecté au serveur\n", nbNoeudCourant);       //affichage du nombre de Noeud connecté
+        printf("\n[SERVEUR] Connexion d'un Noeud : %d%s::%d\n", dSNoeud, adrNoeudAff, portNoeudAff);
+        if (nbNoeudCourant <= 1){
+            printf("[SERVEUR] %d Noeud est connecté au serveur\n", nbNoeudCourant);       //affichage du nombre de Noeud connecté
+        }
+        else printf("[SERVEUR] %d Noeuds sont connectés au serveur\n", nbNoeudCourant);       //affichage du nombre de Noeud connecté
 
-        
+      /*  
+   // MISE EN ATTENTE 
+      char d ;
+      printf("\n\n[SERVEUR] : Entrez un caractère avant l'envoie des informations : ");  //on demmande au client de entrez un message
+      scanf("%c", &d);
+   //FIN MISE EN ATTENTE
+*/
 
         //ETAPE 5 : RECEPTION DES INFORMATIONS DU Noeud
-            //donnees
-        int indiceNoeud;                                                            // indice du noeud
-        int descripteurNoeud;                                                       // descripteur du noeud
-        int nbVoisinCourant;                                                        // nb de voisins du noeud courant
-        int voisins[nbVoisinCourant];                                               // liste des indices des noeuds voisins
+            //donnees        
         struct infos_procGraphe info_proc;                                          // structure qui va recuperer les informations qu'un Noeud a envoyer
             //reception
         recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_procGraphe));       // reception des informations dans info_proc
             //modification des donnees
-        indiceNoeud = info_proc.indice;                                             // donner indice du noeud courant
-        descripteurNoeud = info_proc.descripteur;                                   // donner descripteur du noeud courant
-        nbVoisinCourant = info_proc.nbVoisin;                                       // donner le nombre de voisins
         sockNoeud = info_proc.adrProc;                                              // donner a sockNoeud l'adresse recu dans info_proc
-        for (int k=0; k<sizeof(voisins); k++){
-            voisins[k] = info_proc.voisins[k];                                                // donner la liste des voisins
-        }
 
         //AFFICHAGE
             //adresse
@@ -434,16 +436,16 @@ int main(int argc, char *argv[])
         int portNoeudRecv = htons(sockNoeud.sin_port);                                 //port du Noeud
             //affichage
         printf("\n[SERVEUR] Le Noeud n°%i de descripteur %i a pour adresse et port : %s:%i\n", info_proc.indice, info_proc.descripteur, adrNoeudRecv, portNoeudRecv);
-        printf("\n[SERVEUR] Le Noeud a %d de voisins\n", nbVoisinCourant);
+        printf("\n[SERVEUR] Le Noeud a %d voisins\n", info_proc.nbVoisin);
         
             //modification de la structure dans le tableau des noeuds
-        procGraphe[indiceNoeud].indice = indiceNoeud;                   //on attribut l'indice du noeud
-        procGraphe[indiceNoeud].descripteur = descripteurNoeud;      //on attribut le descripteur
-        procGraphe[indiceNoeud].nbVoisin = nbVoisinCourant;          //on attribut le nb de voisin
-        for (int k=0; k<sizeof(voisins); k++){
-            procGraphe[indiceNoeud].voisins[k] = voisins[k];                                                // donner la liste des voisins
+        procGraphe[info_proc.indice].indice = info_proc.indice;                   //on attribut l'indice du noeud
+        procGraphe[info_proc.indice].descripteur = info_proc.descripteur;      //on attribut le descripteur
+        procGraphe[info_proc.indice].nbVoisin = info_proc.nbVoisin;          //on attribut le nb de info_proc.voisins
+        for (int k=0; k<sizeof(info_proc.voisins); k++){
+            procGraphe[info_proc.indice].voisins[k] = info_proc.voisins[k];                                                // donner la liste des voisins
         }
-        procGraphe[indiceNoeud].adrProc = sockNoeud;                 //on attribut l' adresse
+        procGraphe[info_proc.indice].adrProc = sockNoeud;                 //on attribut l' adresse
 
 
 
@@ -486,7 +488,7 @@ int main(int argc, char *argv[])
                     info_proc.descripteur = procGraphe[indice_proc].descripteur;        //Recuperation du descripteur du voisins
                     info_proc.indice = procGraphe[indice_proc].indice;                  //recuperation de l'indice du voisin
                     info_proc.nbVoisin = procGraphe[indice_proc].nbVoisin;              //recuperation du nb de voisins
-                    for (int k=0; k<sizeof(voisins); k++){
+                    for (int k=0; k<sizeof(info_proc.voisins); k++){
                         info_proc.voisins[k] = procGraphe[indice_proc].voisins[k];                                                // donner la liste des voisins
                     }
                     info_proc.adrProc = procGraphe[indice_proc].adrProc;                //donne à la structure l'adresse de la liste du processus i+1
@@ -544,7 +546,7 @@ int main(int argc, char *argv[])
     FD_SET(dSServeur, &set);
     int maxdS = dSServeur;                          //on fixe le maximum des descripteur en commancant par la socket serveur
     struct sockaddr_in sockNoeud;                  //on declare la socket Noeud
-    int nbMaxAnneau = 100;                          //on fixe le nombre maximum d'anneau possible
+    int nbMaxAnneau = NOEUDS_MAX;                          //on fixe le nombre maximum d'anneau possible
     struct procGraphe procGraphe[nbMaxAnneau];     //on declare un tableau de tous les processus qui sont dans du graphe
     int nbNoeudCourant = 0;                       //on declare le maximum des anneau courant 
 

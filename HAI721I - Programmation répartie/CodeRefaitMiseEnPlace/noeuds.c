@@ -28,6 +28,7 @@
 #define FERMETURE 0
 
 #define TAILLE_MAX_STOCK 100        //maximum de stockage
+#define NOEUDS_MAX 100          //on fixe le nombre de noeud maximum qu'il peut y avoir dans un graphe
 
 
 ////////////////////////////////////////
@@ -51,8 +52,6 @@ struct infos_procGraphe {
     int descripteur;                        //descripteur du noeud
     int nbVoisin;                           //nb de voisins du noeud
     int voisins[NOEUDS_MAX];                //tableau de la liste des adresses des voisins
-    //int info1;                            //information 1 qu'on a besoin
-    //int info2;                            //informations 2 qu'on a besoin
     struct sockaddr_in adrProc;             //adresse du processus dont on parle
 };
 
@@ -106,12 +105,12 @@ void sendCompletTCP(int sock, void* informations_proc, int sizeinformations_proc
       if (res_premier_appel == ERREUR) {
          perror("\n[ERREUR] : Erreur lors de l'envoie de la taille du message : ");
          close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme car le reste
+         exit(1);          // on choisis ici d'arrêter le programme
       }
       if (res_premier_appel == FERMETURE) {
          perror("\n[ERREUR] : Abandon de la socket principale : ");
          close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme car le reste
+         exit(1);          // on choisis ici d'arrêter le programme
       }
 
    //DEUXIEME APPEL POUR LE MESSAGE
@@ -187,12 +186,12 @@ void recvCompletTCP(int sock, void* informations_proc, int sizeinformations_proc
         if (res_premier_appel == ERREUR) {
             perror("\n[ERREUR] : Erreur lors de la reception de la taille du message : ");
             close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme car le reste
+            exit(1);          // on choisis ici d'arrêter le programme
         }
         if (res_premier_appel == FERMETURE) {
             perror("\n[ERREUR] : Abandon de la socket principale : ");
             close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme car le reste
+            exit(1);          // on choisis ici d'arrêter le programme
         }
 
     //VERIFICATION DES TAILLES
@@ -208,12 +207,12 @@ void recvCompletTCP(int sock, void* informations_proc, int sizeinformations_proc
         if (res_deuxieme_appel == ERREUR) {
             perror("\n[ERREUR] : Erreur lors de la reception du message : ");
             close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme car le reste
+            exit(1);          // on choisis ici d'arrêter le programme
         }
         if (res_deuxieme_appel == FERMETURE) {
             perror("\n[ERREUR] : Abandon de la socket principale : ");
             close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme car le reste
+            exit(1);          // on choisis ici d'arrêter le programme
         }
 
 }
@@ -228,18 +227,15 @@ void recvCompletTCP(int sock, void* informations_proc, int sizeinformations_proc
 /// @return descripteur de la socket 
 int creationSocket (){
 
-    //int option = 1;
     int dS = socket(PF_INET, SOCK_STREAM, 0);  //on crée la socket enTCP
-    //setsockopt(dS, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
 
         //GESTION DES ERREUR
         if (dS == ERREUR){
             perror("[ERREUR] Problème lors de la création de la socket : ");
-            close(dS);  //on ferme la socket
-            exit(1);          //on sort du programme
+            close(dS);          //on ferme la socket
+            exit(1);            //on sort du programme
         }
 
-    printf("\n[PROCESSUS] Création de la socket réussie \n");
     return dS;        //on retourne le descripteur
 }
 
@@ -259,22 +255,18 @@ struct sockaddr_in nommageSocket(int dS, char * port){
     adrSocket.sin_addr.s_addr = INADDR_ANY;                     //Attache la socket àtoutes les interfaces réseaux locales : toutes les adresses de la station
     adrSocket.sin_port = htons((short) atoi(port)) ;            // on doit convertir la chaine de caractère en nombre
 
-    printf("\n[PROCESSUS] Le port est %hu\n", htons(adrSocket.sin_port));      //affichage du port
-
-    int res_bind_client = bind(dS,                                  // descripteur de socket
+    int res_bind_noeud = bind(dS,                                  // descripteur de socket
                                 (struct sockaddr*)&adrSocket,       // pointeur vers l'adresse
                                 sizeof(adrSocket)) ;                // longueur de l'adresse
 
 
         //GESTION ERREUR
-        if (res_bind_client == ERREUR) {
+        if (res_bind_noeud == ERREUR) {
             perror("\n\n[ERREUR] lors du nommage de la socket : ");
             close(dS);
-            exit(1); // on choisis ici d'arrêter le programme car le reste
-            // dependent du nommage meme si il peut le faire automatiquement.
+            exit(1); // on choisis ici d'arrêter le programme
         }
 
-    printf("\n[PROCESSUS] Nommage de la sokcet réussi");
     return adrSocket;
     
 }
@@ -305,7 +297,6 @@ struct sockaddr_in designationSocket(char * adresseIP, char* port){
     //RECUPERATION PORT
     sock.sin_port = htons( (short) atoi(port)) ;                             // port du processus aussi donnée en parametre exemple "3430"
 
-    printf("\n[PROCESSUS] Designation de la socket du serveur réussi");
     return sock;      //on retourne la socket designer
 
 }
@@ -350,17 +341,16 @@ void connexion(int dS, struct sockaddr_in* sock){
 /// @brief Fonction qui met en ecoute une socket
 /// @param dS descripteur de la socket qui se met en ecoute
 /// @param nbMaxAttente nombre maximum d'attente possible
-void ecouter(int nbProc, int dS){
+void ecouter(int dS, int nbProc){
    
     int nbmaxAttente = nbProc;                               //on doit avoir un nb max qui est le nombre de processus dans l'Graphe
-    int res_listen = listen(dS, nbmaxAttente);               //met en ecoute au max pour 10 clients
+    int res_listen = listen(dS, nbmaxAttente);               //met en ecoute au max pour NOEUDS_MAX noeuds
 
         //GESTION ERREUR
         if (res_listen == ERREUR) {
             perror("\n\n[ERREUR] : Erreur lors de la mise en ecoute de la socket : ");
             close(dS);
-            exit(1); // on choisis ici d'arrêter le programme car le reste
-            // dependent du nommage meme si il peut le faire automatiquement.
+            exit(1);
         }
 }
 
@@ -374,13 +364,13 @@ void ecouter(int nbProc, int dS){
 ////////////////////////////
 /// @brief Fonction qui accepte une socket
 /// @param dS descripteur de la socket qui veut etre eccepter
-/// @param adr adresse qui accepte le client
+/// @param adr adresse qui accepte le noeud
 /// @return entier qui est le descripteur de la socket accepter
 int accepter(int dS, struct sockaddr_in adr){
 
    socklen_t lgAdr = sizeof(struct sockaddr_in);   // sa taille
 
-   int res_dS = accept(dS, (struct sockaddr *) &adr, &lgAdr); //nouvelle socket cliente
+   int res_dS = accept(dS, (struct sockaddr *) &adr, &lgAdr); //nouvelle socket noeude
 
       //GESTION ERREUR
       if (res_dS == ERREUR) {
@@ -389,7 +379,7 @@ int accepter(int dS, struct sockaddr_in adr){
          exit(1); 
       }
 
-   return res_dS;    //retourne l'adresse du client qu'on vient d'accepter
+   return res_dS;    //retourne l'adresse du noeud qu'on vient d'accepter
 
 }
 
@@ -407,68 +397,120 @@ int accepter(int dS, struct sockaddr_in adr){
 int main(int argc, char *argv[]) {
 
     //ETAPE 1 : GESTION DES INFORMATIONS
-    if (argc != 6){
-        printf("\n[UTILISATION] %s ip_serveur port_serveur port_client nbVoisin listeVoisin (par ex : [1,3,4] sans espace)\n", argv[0]);
+    if (argc != 7){
+        printf("\n[UTILISATION] %s ip_serveur port_serveur port_noeud indice_proc nbVoisin listeVoisin (par ex : [1,3,4] sans espace)\n\n", argv[0]);
         exit(1);
     }
 
     char* adresseIP = argv[1];          //adresse ip du serveur
     char* port_serveur = argv[2];       //port du serveur
-    char* port_client = argv[3];        //port du client
-    int nbVoisin = atoi(argv[4]);       //nb de voisin du noeud
-    char* listeVoisin = argv[5];        //liste des voisin du noeud
+    char* port_noeud = argv[3];         //port du noeud
+    int indice_proc = atoi(argv[4]);    //indice du client
+    int nbVoisin = atoi(argv[5]);       //nb de voisin du noeud
+    char* listeVoisin = argv[6];        //liste des voisin du noeud
 
-    int voisins[nbVoisin];              //declare un tableau des voisins
-    for (int i=0; i<nbVosin; i++){              //parcourt du tableau des voisins
-        int indiceChar = 1;                     //indice dans la chaine de caractère
-        voisins[i] = listeVoisin[indiceChar];   //on donne a voisins[i] le caractère chiffre correspondant a l'indice de noeud dans le graphe
+    int voisins[nbVoisin];                          //declare un tableau des voisins
+    int indiceChar = 1;                             //on declare l'indice de la chaine de caratère
+    for (int i=0; i<nbVoisin; i++){                 //parcourt du tableau des voisins
+        voisins[i] = listeVoisin[indiceChar]-48;    //on donne a voisins[i] le caractère chiffre correspondant a l'indice de noeud dans le graphe
         indiceChar+=2;
     }
 
+    printf("\n[PROCESSUS] \033[4mInforamtions données en paramètres :\033[0m\n");
+    printf("\n       Adresse du serveur : %s\n       Port : %d", adresseIP, atoi(port_serveur));
+    printf("\n       Port du noeud : %d", atoi(port_noeud));
+    printf("\n       Indice du processus : %d", indice_proc);
+    printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d",nbVoisin, voisins[0]);
+    for (int i=1; i<nbVoisin-1; i++){
+        printf(",%d", voisins[i]);
+    }
+    printf(",%d]\n\n", voisins[nbVoisin-1]);
+
+
+
     //ETAPE 2 : CREATION DE LA SOCKET QUI DISCUTE AVEC SERVEUR
     int dSProcCS = creationSocket();
-    printf("\n[PROCESSUS] Création de dSProcCS: %i\n", dSProcCS);
+    //AFFICHAGE
+    //printf("\n[PROCESSUS] \033[4mSocket du noeud :\033[0m\n");
+    printf("\n[PROCESSUS] Création de la socket réussie\n");
+    printf("[PROCESSUS] Le descripteur du noeud est %d \n", dSProcCS);
+
 
     //ETAPE 3 : DESIGNATION DE LA SOCKET SERVEUR
     struct sockaddr_in sockServ = designationSocket(adresseIP, port_serveur);
+    //AFFICHAGE
+        //addresse
+    char adrServ[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &sockServ.sin_addr, adrServ, INET_ADDRSTRLEN);
+        //port
+    int portServ = htons((short) sockServ.sin_port);
+    printf("\n[PROCESSUS] Designation de la socket du serveur réussi\n");
+    printf("[PROCESSUS] Le serveur a donc pour informations : %s::%d\n", adrServ, portServ);
+
 
     //ETAPE 4 : DEMANDE DE CONNECTION DE LA SOCKET A L'ADRESSE
     connexion(dSProcCS, &sockServ);
+    //AFFICHAGE
     printf("\n[PROCESSUS] Connexion au serveur réussi !\n");
 
 
     //ETAPE 5 : CREATION de LA SOCKET PRECEDENT
     int dSProcJGraphe = creationSocket();
-    printf("\n[PROCESSUS] Creation de dSProcJGraphe: %i\n", dSProcJGraphe);
+    //AFFICHAGE
+    //printf("\n[PROCESSUS] \033[4mSocket du noeud :\033[0m\n");
+    printf("\n[PROCESSUS] Création de la socket réussie\n");
+    printf("[PROCESSUS] Le descripteur du noeud est %d \n", dSProcJGraphe);
+
 
 
     //ETAPE 6 : NOMMAGE DE LA SOCKET
-    struct sockaddr_in sockProcJ = nommageSocket(dSProcJGraphe,port_client);
-
-    //RECUPERATION ADRESSE ET PORT
+    struct sockaddr_in sockProcJ = nommageSocket(dSProcJGraphe, port_noeud);
+    //AFFICHAGE
+        //adresse
     char adrProcJ[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &sockProcJ.sin_addr, adrProcJ, INET_ADDRSTRLEN);
+        //port
     int portProcJ = htons((short) sockProcJ.sin_port);
+        //affichage
+    printf("\n[PROCESSUS] Nommage de la socket du noeud réussi\n");
+    printf("[PROCESSUS] Les informations du noeud par la socket de descripteur %d : %s::%i\n", dSProcJGraphe, adrProcJ, portProcJ);
 
-    //AFFICHAGE
-    printf("\n[PROCESSUS] Nommage de la socket de descripteur %d : %s:%i\n", dSProcJGraphe, adrProcJ, portProcJ);
 
 
     //ETAPE 7 : MISE SOUS ECOUTE DE LA SOCKET
-    int nbMaxAttente = 10;
-    ecouter(nbMaxAttente, dSProcJGraphe);
+    int nbMaxAttente = NOEUDS_MAX;
+    ecouter(dSProcJGraphe, nbMaxAttente);
+        //AFFICHAGE
+    printf("\n[PROCESSUS] La mise en ecoute de la socket du noeud précédent réussi !\n");
 
 
-    //ETAPE 8 : DONNEES DONNES AU SERVEUR
-    struct infos_procGraphe informations_proc;              //
-    informations_proc.requete = ADR_PROC;   //requete d'une adresse
-    informations_proc.adrProc = sockProcJ;         //donner l'adresse de la socket
 
-
-    //ETAPE 9 : ENVOIE DES INFORAMTIONS AU SERVEUR
+    //ETAPE 8 : ENVOIE DES INFORMATIONS AU SERVEUR
+        //inforamtions du noeud
+    struct infos_procGraphe informations_proc;      //declare la structure qu'on va envoyer au serveur
+    informations_proc.requete = ADR_PROC;           //requete d'une adresse
+    informations_proc.indice = indice_proc;         //donne l'indice du processus
+    informations_proc.descripteur = dSProcJGraphe;  //donne le descripteur
+    informations_proc.nbVoisin = nbVoisin;          //donne le nombre de voisins
+    for (int j=0; j<nbVoisin; j++){
+        informations_proc.voisins[j] = voisins[j];  //liste des voisins du processus
+    }
+    informations_proc.adrProc = sockProcJ;          //donner l'adresse de la socket
+        //envoie
     sendCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));
-    printf("\n[PROCESSUS] Envoi d'un message");
+    
+    //AFFICHAGE
+    printf("\n[PROCESSUS] Envoi des inforamtions réussi !\n");
+    printf("[PROCESSUS] \033[4mEnvoie des inforamtions suivantes :\033[0m\n");
+    printf("\n       Adresse du processus : %s\n       Port : %d", adrProcJ, portProcJ);
+    printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d", indice_proc, dSProcJGraphe);
+    printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d",nbVoisin, voisins[0]);
+    for (int i=1; i<nbVoisin-1; i++){
+        printf(",%d", voisins[i]);
+    }
+    printf(",%d]\n\n", voisins[nbVoisin-1]);
 
+/*
 
     //ETAPE 10 : RECEPTION DES IFNORAMTIONS DU PROCESSUS AVEC QUI DISCUTER
     recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));
@@ -765,4 +807,5 @@ int main(int argc, char *argv[]) {
             }
         }
     }
+    */
 }
