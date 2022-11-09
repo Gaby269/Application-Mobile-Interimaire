@@ -421,10 +421,15 @@ int main(int argc, char *argv[]) {
     printf("\n       Port du noeud : %d", atoi(port_noeud));
     printf("\n       Indice du processus : %d", indice_proc);
     printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d",nbVoisin, voisins[0]);
-    for (int i=1; i<nbVoisin-1; i++){
-        printf(",%d", voisins[i]);
+    if (nbVoisin > 1){  
+        for (int i=1; i<nbVoisin-1; i++){
+            printf(",%d", voisins[i]);
+        }
+        printf(",%d]\n\n", voisins[nbVoisin-1]);
     }
-    printf(",%d]\n\n", voisins[nbVoisin-1]);
+    else{                                           //sinon on affiche juste la fin du tabelau
+        printf("]\n\n");
+    } 
 
 
 
