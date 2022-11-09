@@ -23,7 +23,8 @@ int main(int argc, char * argv[]) {
     int cpt = 0;
 
     if (fichier != NULL) {
-        char** lignes = malloc(cpt * sizeof(char*)); // Tableau qui va contenir toutes les lignes du fichier
+
+        char** lignes = (char**)malloc(cpt * sizeof(char*)); // Tableau qui va contenir toutes les lignes du fichier
 
         while(fgets(ligne, TAILLE_MAX, fichier) != NULL) {cpt++;} // on compte le nombre de ligne comme un gitan       
     
@@ -34,6 +35,7 @@ int main(int argc, char * argv[]) {
             fgets(ligne, TAILLE_MAX, fichier);
             lignes[i] = strdup(ligne);
         }
+
         
     }
     else
@@ -42,6 +44,7 @@ int main(int argc, char * argv[]) {
     }
 
     fclose(fichier);
+    
 
     return 0;
 }
