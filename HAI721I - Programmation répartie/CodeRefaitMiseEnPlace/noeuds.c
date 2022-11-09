@@ -421,10 +421,15 @@ int main(int argc, char *argv[]) {
     printf("\n       Port du noeud : %d", atoi(port_noeud));
     printf("\n       Indice du processus : %d", indice_proc);
     printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d",nbVoisin, voisins[0]);
-    for (int i=1; i<nbVoisin-1; i++){
-        printf(",%d", voisins[i]);
+    if (nbVoisin > 1){
+        for (int i=1; i<nbVoisin-1; i++){
+            printf(",%d", voisins[i]);
+        }
+        printf(",%d]\n\n", voisins[nbVoisin-1]);
     }
-    printf(",%d]\n\n", voisins[nbVoisin-1]);
+    else{
+        printf("]\n\n");
+    }
 
 
 
@@ -487,17 +492,18 @@ int main(int argc, char *argv[]) {
 
     //ETAPE 8 : ENVOIE DES INFORMATIONS AU SERVEUR
         //inforamtions du noeud
-    struct infos_procGraphe informations_proc;      //declare la structure qu'on va envoyer au serveur
-    informations_proc.requete = ADR_PROC;           //requete d'une adresse
-    informations_proc.indice = indice_proc;         //donne l'indice du processus
-    informations_proc.descripteur = dSProcJGraphe;  //donne le descripteur
-    informations_proc.nbVoisin = nbVoisin;          //donne le nombre de voisins
+    struct infos_procGraphe *informations_proc = malloc(sizeof(struct infos_procGraphe));      //declare la structure qu'on va envoyer au serveur
+        //donne les truc    //(*p) le contenu de p va avoir la valeur
+    (*informations_proc).requete = ADR_PROC;           //requete d'une adresse
+    (*informations_proc).indice = indice_proc;         //donne l'indice du processus
+    (*informations_proc).descripteur = dSProcJGraphe;  //donne le descripteur
+    (*informations_proc).nbVoisin = nbVoisin;          //donne le nombre de voisins
     for (int j=0; j<nbVoisin; j++){
-        informations_proc.voisins[j] = voisins[j];  //liste des voisins du processus
+        (*informations_proc).voisins[j] = voisins[j];  //liste des voisins du processus
     }
-    informations_proc.adrProc = sockProcJ;          //donner l'adresse de la socket
+    (*informations_proc).adrProc = sockProcJ;          //donner l'adresse de la socket
         //envoie
-    sendCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));
+    sendCompletTCP(dSProcCS, informations_proc, sizeof(struct infos_procGraphe));
     
     //AFFICHAGE
     printf("\n[PROCESSUS] Envoi des inforamtions réussi !\n");
@@ -505,15 +511,20 @@ int main(int argc, char *argv[]) {
     printf("\n       Adresse du processus : %s\n       Port : %d", adrProcJ, portProcJ);
     printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d", indice_proc, dSProcJGraphe);
     printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d",nbVoisin, voisins[0]);
-    for (int i=1; i<nbVoisin-1; i++){
-        printf(",%d", voisins[i]);
-    }
-    printf(",%d]\n\n", voisins[nbVoisin-1]);
-
+    if (nbVoisin > 1){                              //si le nb de voisins est plus grand on ajoute le code suivant pour l'affichage
+        for (int i=1; i<nbVoisin-1; i++){
+            printf(",%d", voisins[i]);
+        }
+        printf(",%d]\n\n", voisins[nbVoisin-1]);
+    } 
+    else{                                           //sinon on affiche juste la fin du tabelau
+        printf("]\n\n");
+    } 
 /*
 
-    //ETAPE 10 : RECEPTION DES IFNORAMTIONS DU PROCESSUS AVEC QUI DISCUTER
-    recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));
+    //ETAPE 10 : RECEPTION DES IFNORAMTIONS DES PROCESSUS AVEC QUI DISCUTER
+    recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));  //on reutilise la structure informations_proc pour la recepetion
+    
     printf("\n[PROCESSUS] Reception d'un message");
 
 
