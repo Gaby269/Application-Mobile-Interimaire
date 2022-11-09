@@ -7,7 +7,7 @@
 
 int main(int argc, char * argv[]) {
     if(argc != 2) {
-        printf("utilisation : %s path",argv[0]);
+        printf("\n[UTILISATION] : %s path\n",argv[0]);
     }
 
     char* nom_fichier = argv[1];
