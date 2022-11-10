@@ -7,7 +7,8 @@
 
 int main(int argc, char * argv[]) {
     if(argc != 2) {
-        printf("\n[UTILISATION] : %s chemin_fichier\n",argv[0]);
+        printf("\n[UTILISATION] ./parseur chemin_fichier\n");
+        exit(1);
     }
 
     char* nom_fichier = argv[1];
@@ -43,6 +44,7 @@ int main(int argc, char * argv[]) {
             cpt++;                  //on donne un conteur pour pouvoir reparcourir apres          
         }
         nbC = cpt;
+        printf(ligne);
         //RECOMMENCE
         rewind(fichier); // On retourne au debut du fichier
         //LECTURE des lignes jusqua avant p
