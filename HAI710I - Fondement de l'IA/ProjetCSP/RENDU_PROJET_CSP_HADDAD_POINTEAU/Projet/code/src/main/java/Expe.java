@@ -45,7 +45,7 @@ public class Expe {
 		int nbRes = 10;								// nombre de reseau fixer pcq pas pu recup
 		int tailleDom = 17;							// on fixe le domaine pour ne pas ouvrir le fichier
 	    FileWriter fichier_resultats; 				// fichier qu'on va ecrire les reusltat
-	    String bench = "bench1";					//je recupere le nom du fichier
+	    String bench = "bench2";					//je recupere le nom du fichier
 	    System.out.println(bench);
 	    
 	    /*
@@ -78,7 +78,7 @@ public class Expe {
 			for(int nb=1 ; nb<=nbRes; nb++) { 			// pour chaque reseau
 				Model model=lireReseau(readFile); 		// création du modèle
 				Solver solver = model.getSolver(); 		// initialisation du solver
-				solver.limitTime("30s"); 				// set du Time Out (TO) à 30s
+				solver.limitTime("10s"); 				// set du Time Out (TO) à 30s
 				
 				System.out.println("Résolution du réseau "+nb); 	// indication visuelle de l'avancée du benchmark
 				long startTime = System.nanoTime();					// calcul de lheure de départ
@@ -104,13 +104,13 @@ public class Expe {
 			int nbTuples = Integer.parseInt((fic.split("\\.")[0]).split("\\_")[1]);				//recuperation du nb de tuples autorisés dans le titre du fichiers
 				//Dureté
 			double durete = (double) (tailleDom*tailleDom - nbTuples) / (tailleDom*tailleDom);		//dureté donnée dant le fichier (d²-t)/d²
-			durete = Math.round(durete * 100.) / 100;
+			durete = (double) Math.round(durete * 100) / 100;
 				//Pourcentage
 			double pourcentage = (nbTO==nbRes)? -1 : (100*nbSoluce/(nbRes-nbTO));					//calcul du pourcentage * si tout le monde a time out alors pas de pourcentage (-1) * sinon on recalcule le nombre de reseau qui ont pas timeout
 			pourcentage = Math.round(pourcentage);
 				//Temps moyen
 			double tempsMoy = (nbTO==nbRes)? -1 : ((double)tempsMoyen/(nbRes-nbTO))/1000000000;		//calcul du temps moyen de trouver une solution ou non en seconde
-			tempsMoy = Math.round(tempsMoy * 1000.) / 1000;
+			tempsMoy = (double) Math.round(tempsMoy * 1000) / 1000;
 				//Ecriture
 			fichier_resultats.write(durete + ";" + pourcentage + "%;" + tempsMoy + "\n");			//ecriture dans le fichier
 
