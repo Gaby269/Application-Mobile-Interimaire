@@ -95,11 +95,11 @@ public class Expe {
 			
 			//ECRITURE DANS LE FICHIER
 				//nombre de tuples
-		int nbTuples = Integer.parseInt((fic.split("\\.")[0]).split("\\_")[1]);											 //recuperation du nb de tuples autorisés dans le titre du fichiers
+			int nbTuples = Integer.parseInt((fic.split("\\.")[0]).split("\\_")[1]);											 //recuperation du nb de tuples autorisés dans le titre du fichiers
 				//Dureté
-			double durete = (double)Math.round(100 * (double)(tailleDom*tailleDom - nbTuples) / (tailleDom*tailleDom)) / 100;			//dureté donnée dant le fichier (d²-t)/d²
+			double durete = (double)Math.round(1000 * (double)(tailleDom*tailleDom - nbTuples) / (tailleDom*tailleDom)) / 1000;			//dureté donnée dant le fichier (d²-t)/d², arondi à trois chiffre après la virgule
 				//Pourcentage
-		double pourcentage = (nbTO==nbRes)? -1 : Math.round(100*nbSoluce/(nbRes-nbTO));													//calcul du pourcentage * si tout le monde a time out alors pas de pourcentage (-1) * sinon on recalcule le nombre de reseau qui ont pas timeout, on arondi à deux chiffres après la virgule
+			double pourcentage = (nbTO==nbRes)? -1 : Math.round(100*nbSoluce/(nbRes-nbTO));													//calcul du pourcentage * si tout le monde a time out alors pas de pourcentage (-1) * sinon on recalcule le nombre de reseau qui ont pas timeout, on arondi à deux chiffres après la virgule
 				//Temps moyen
 			double tempsMoy = (nbTO==nbRes)? -1 : (double)Math.round(1000 * ((double)tempsMoyen/(nbRes-nbTO)) / 1000000000) / 1000;		//calcul du temps moyen de trouver une solution ou non en seconde, on arondi à trois chiffres après la virgule
 				//Ecriture
@@ -110,7 +110,7 @@ public class Expe {
 		} // fin du parsing de tous les fichiers
 		
 		fichier_resultats.close(); // fermeture du FileWriter
-		
+		System.out.println("\nBenchmark terminé !");
 		return;	
 	}
 }
