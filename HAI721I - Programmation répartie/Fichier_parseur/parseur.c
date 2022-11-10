@@ -44,7 +44,7 @@ int main(int argc, char * argv[]) {
         }
         nbC = cpt;
         //RECOMMENCE
-        rewind(fichier); // On retourne au debut du fichier//LECTURE du fichier jusqua p
+        rewind(fichier); // On retourne au debut du fichier
         //LECTURE des lignes jusqua avant p
         while (cpt!=0){         //tant qu'on est aps arriver juste avant la ligne ou il y a p
             if (fgets(ligne, TAILLE_MAX, fichier) != NULL){     //on lit les ligne
@@ -80,8 +80,8 @@ int main(int argc, char * argv[]) {
                 }
             }
             fscanf(fichier, "%c %d %d", &c, &noeuds[i][0], &noeuds[i][1]);  //on lit la derniere ligne
-            printf("\nLe noeud %d est ", noeuds[i][0]);
-            printf("relie a %d\n\n", noeuds[i][1]);
+            //printf("\nLe noeud %d est ", noeuds[i][0]);
+            //printf("relie a %d\n\n", noeuds[i][1]);
 
         }
 /*
