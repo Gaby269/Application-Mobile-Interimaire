@@ -11,7 +11,7 @@ import java.io.FileWriter;
 // time
 // import java.lang.management.ManagementFactory;
 // import java.lang.management.ThreadMXBean;
-// import java.util.Scanner; // Scanner pour les entrées
+import java.util.Scanner; // Scanner pour les entrées
 import java.time.LocalTime; // Current time
 
 public class Expe {
@@ -45,25 +45,28 @@ public class Expe {
 		int nbRes = 10;								// nombre de reseau fixer pcq pas pu recup
 		int tailleDom = 17;							// on fixe le domaine pour ne pas ouvrir le fichier
 	    FileWriter fichier_resultats; 				// fichier qu'on va ecrire les reusltat
-
+	    String bench = "bench1";					//je recupere le nom du fichier
+	    System.out.println(bench);
+	    
+	    /*
 		//Donner le nom du fichier
 		System.out.println("Veuillez entrée le nom du benchmark dans le dossier /reseaux : ");	//je demande a ce qu'on entre une solution
 		Scanner clavier = new Scanner(System.in);												//creation du scanneur
-		String bench = clavier.nextLine();														//je recupere le nom du fichier
+	    */
 		
-
 	    fichier_resultats = new FileWriter("../resultats/result_"+bench+".csv",false); 	// écriture dans le fichier .CSV en ecrasant le fichier d'avant
 		fichier_resultats.write("Durete;% solutions;temps moyen (s)\n"); 				// en-tête du fichier
 		
 		// parsing des réseaux
 		String path = "../reseaux/"+bench+"/";			// ouverture du fichier
 		File reseaux = new File(path); 					// fichiers des reseaux
-		File ficNames[] = reseaux.listFiles(); 			// liste des fichiers
-		int nbDiff = ficNames.length; 					// nb de fichiers
+		System.out.println(reseaux);
+		File listeFichiers[] = reseaux.listFiles(); 	// liste des fichiers
+		int nbDiff = listeFichiers.length; 				// nb de fichiers
 		
 		//BOUCLE DES FICHIERS	nommé csp_nb.txt
 		for (int i=0; i<nbDiff; i++) { 					// pour chaque fichier
-			String fic = ficNames[i].getName();
+			String fic = listeFichiers[i].getName();
 			BufferedReader readFile = new BufferedReader(new FileReader(path+fic));
 			System.out.println("\n" + fic + " :\n");
 			
@@ -98,7 +101,7 @@ public class Expe {
 			
 			//ECRITURE DANS LE FICHIER
 				//nombre de tuples
-			String nbTuples = Integer.parseInt((fic.split("\\.")[0]).split("\\_")[1]);				//recuperation du nb de tuples autorisés dans le titre du fichiers
+			int nbTuples = Integer.parseInt((fic.split("\\.")[0]).split("\\_")[1]);				//recuperation du nb de tuples autorisés dans le titre du fichiers
 				//Dureté
 			double durete = (double) (tailleDom*tailleDom - nbTuples) / (tailleDom*tailleDom);		//dureté donnée dant le fichier (d²-t)/d²
 				//Pourcentage
