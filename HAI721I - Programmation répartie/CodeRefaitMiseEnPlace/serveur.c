@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../Fichier_parseur/parseur.c"
+#include "parseurPourServeur.c"
 
 
 //REQUETE POSSIBLE QU'ON A MIS EN PLACE
@@ -345,12 +345,39 @@ int main(int argc, char *argv[])
 
     // ETAPE 1 : GESTION PARAMETRES
     if (argc != 3){
-        printf("\n[UTILISATION] : %s port_serveur nombre_Noeuds\n\n", argv[0]);
+        printf("\n[UTILISATION] : %s port_serveur nom_fichier\n\n", argv[0]);
         exit(1);
     }
 
-    char* portServeur = argv[1];
-    int nbNoeuds = atoi(argv[2]);
+    char* portServeur = argv[1];        //port du serveur
+    char *nom_fichier = argv[3];        //nom du fichier ou recuperer la structure du graphe
+
+
+    //ETAPE 1.5 : REUPERATION DES INFO DU GRAPHE
+    struct info_nb nB;
+    nB = nbAreteNbNoeud(nom_fichier);
+    int nb_sommets = nB.nb_sommets;
+    int nb_aretes = nB.nb_aretes;
+
+    // AFFICHAGE
+    printf("\nNombre de sommets : %d\n", nb_sommets);
+    printf("Nombre d'aretes : %d\n\n", nb_aretes);
+
+
+    //appel de la fonction pour recuperer les arretes
+    struct aretes *ListeAretes = (struct aretes*) malloc (nb_aretes *sizeof(struct aretes));
+    Arretes(nom_fichier, nb_sommets, nb_aretes, ListeAretes);
+
+    //AFFICHAGE
+    printf("\n\nListe des arretes :\n\n");
+
+    // AFFICHAGE DES ARRETES
+    for(int k=0; k<nb_aretes; k++){
+        printf("%d -> %d\n", ListeAretes[k].noeud1, ListeAretes[k].noeud2);
+    }
+
+    //on a donc dans le tableau ListeAretes la liste des aretes on aurait pu les trier en disant à l'indice i c'est le noeud i est il est relié avec tous les elements de sont tableau
+    
 
 
     // ETAPE 2 : CREATION SOCKET SERVEUR

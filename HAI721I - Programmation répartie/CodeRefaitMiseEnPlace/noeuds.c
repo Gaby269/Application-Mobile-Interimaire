@@ -397,8 +397,8 @@ int accepter(int dS, struct sockaddr_in adr){
 int main(int argc, char *argv[]) {
 
     //ETAPE 1 : GESTION DES INFORMATIONS
-    if (argc != 7){
-        printf("\n[UTILISATION] %s ip_serveur port_serveur port_noeud indice_proc nbVoisin listeVoisin (par ex : [1,3,4] sans espace)\n\n", argv[0]);
+    if (argc != 5){
+        printf("\n[UTILISATION] %s ip_serveur port_serveur port_noeud indice_proc\n\n", argv[0]);
         exit(1);
     }
 
@@ -406,31 +406,11 @@ int main(int argc, char *argv[]) {
     char* port_serveur = argv[2];       //port du serveur
     char* port_noeud = argv[3];         //port du noeud
     int indice_proc = atoi(argv[4]);    //indice du client
-    int nbVoisin = atoi(argv[5]);       //nb de voisin du noeud
-    char* listeVoisin = argv[6];        //liste des voisin du noeud
-
-    int voisins[nbVoisin];                          //declare un tableau des voisins
-    int indiceChar = 1;                             //on declare l'indice de la chaine de caratère
-    for (int i=0; i<nbVoisin; i++){                 //parcourt du tableau des voisins
-        voisins[i] = listeVoisin[indiceChar]-48;    //on donne a voisins[i] le caractère chiffre correspondant a l'indice de noeud dans le graphe
-        indiceChar+=2;
-    }
 
     printf("\n[PROCESSUS] \033[4mInforamtions données en paramètres :\033[0m\n");
     printf("\n       Adresse du serveur : %s\n       Port : %d", adresseIP, atoi(port_serveur));
     printf("\n       Port du noeud : %d", atoi(port_noeud));
     printf("\n       Indice du processus : %d", indice_proc);
-    printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d",nbVoisin, voisins[0]);
-    if (nbVoisin > 1){  
-        for (int i=1; i<nbVoisin-1; i++){
-            printf(",%d", voisins[i]);
-        }
-        printf(",%d]\n\n", voisins[nbVoisin-1]);
-    }
-    else{                                           //sinon on affiche juste la fin du tabelau
-        printf("]\n\n");
-    } 
-
 
 
     //ETAPE 2 : CREATION DE LA SOCKET QUI DISCUTE AVEC SERVEUR
