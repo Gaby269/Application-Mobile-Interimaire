@@ -50,8 +50,6 @@ struct infos_procGraphe {
     int requete;                            //requete qu'on veut
     int indice;                             //indice du noeud courant sur le graphe
     int descripteur;                        //descripteur du noeud
-    int nbVoisin;                           //nb de voisins du noeud
-    int voisins[NOEUDS_MAX];                //tableau de la liste des adresses des voisins
     struct sockaddr_in adrProc;             //adresse du processus dont on parle
 };
 
@@ -476,10 +474,6 @@ int main(int argc, char *argv[]) {
     informations_proc.requete = ADR_PROC;           //requete d'une adresse
     informations_proc.indice = indice_proc;         //donne l'indice du processus
     informations_proc.descripteur = dSProcJGraphe;  //donne le descripteur
-    informations_proc.nbVoisin = nbVoisin;          //donne le nombre de voisins
-    for (int j=0; j<nbVoisin; j++){
-        informations_proc.voisins[j] = voisins[j];  //liste des voisins du processus
-    }
     informations_proc.adrProc = sockProcJ;          //donner l'adresse de la socket
         //envoie
     sendCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));
@@ -489,16 +483,7 @@ int main(int argc, char *argv[]) {
     printf("[PROCESSUS] \033[4mEnvoie des inforamtions suivantes :\033[0m\n");
     printf("\n       Adresse du processus : %s\n       Port : %d", adrProcJ, portProcJ);
     printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d", indice_proc, dSProcJGraphe);
-    printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d",nbVoisin, voisins[0]);
-    if (nbVoisin > 1){                              //si le nb de voisins est plus grand on ajoute le code suivant pour l'affichage
-        for (int i=1; i<nbVoisin-1; i++){
-            printf(",%d", voisins[i]);
-        }
-        printf(",%d]\n\n", voisins[nbVoisin-1]);
-    } 
-    else{                                           //sinon on affiche juste la fin du tabelau
-        printf("]\n\n");
-    } 
+
 /*
 
     //ETAPE 10 : RECEPTION DES IFNORAMTIONS DES PROCESSUS AVEC QUI DISCUTER

@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include "parseurPourServeur.c"
+#include "parseurServ.c"
 
 
 //REQUETE POSSIBLE QU'ON A MIS EN PLACE
@@ -52,8 +52,6 @@ struct infos_procGraphe {
     int requete;                            //requete qu'on veut
     int indice;                             //indice du noeud courant sur le graphe
     int descripteur;                        //descripteur du noeud
-    int nbVoisin;                           //nb de voisins du noeud
-    int *voisins;                //tableau de la liste des adresses des voisins
     struct sockaddr_in adrProc;             //adresse du processus dont on parle
 };
 
@@ -377,7 +375,7 @@ int main(int argc, char *argv[])
     }
 
     //on a donc dans le tableau ListeAretes la liste des aretes on aurait pu les trier en disant à l'indice i c'est le noeud i est il est relié avec tous les elements de sont tableau
-    
+
 
 
     // ETAPE 2 : CREATION SOCKET SERVEUR
@@ -453,10 +451,6 @@ int main(int argc, char *argv[])
         int indice_proc = info_proc.indice;                                     //donne l'indice
         procGraphe[indice_proc].indice = indice_proc;                          //on attribut l'indice du noeud
         procGraphe[indice_proc].descripteur = info_proc.descripteur;           //on attribut le descripteur
-        procGraphe[indice_proc].nbVoisin = info_proc.nbVoisin;                 //on attribut le nb de info_proc.voisins
-        for (int i=0; i<procGraphe[indice_proc].nbVoisin; i++){
-            procGraphe[indice_proc].voisins[i] = info_proc.voisins[i];        //donne les voisins
-        }
         procGraphe[indice_proc].adrProc = sockNoeud;                           //on attribut l' adresse
 
         //AFFICHAGE
@@ -470,22 +464,10 @@ int main(int argc, char *argv[])
         printf("\n[SERVEUR] \033[4mLe processus a comme informations après réception :\033[0m\n");
         printf("\n       Adresse du processus : %s\n       Port : %d", adrProcAff, portProcAff);
         printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d", indice_proc, procGraphe[indice_proc].descripteur);
-        printf("\n       Nombre de voisins : %d\n       Liste des voisins : [%d", procGraphe[indice_proc].nbVoisin, procGraphe[indice_proc].voisins[0]);
-        if (procGraphe[indice_proc].nbVoisin > 1){                              //si le nb de voisins est plus grand on ajoute le code suivant pour l'affichage
-            for (int i=1; i< procGraphe[indice_proc].nbVoisin-1; i++){
-                printf(",%d", procGraphe[indice_proc].voisins[i]);
-            }
-            printf(",%d]\n\n", procGraphe[indice_proc].voisins[ procGraphe[indice_proc].nbVoisin-1]);
-        } 
-        else{                                           //sinon on affiche juste la fin du tabelau
-            printf("]\n\n");
-        } 
             
         //MODIFICATION DES INFORMATIONS
         procGraphe[indice_proc].indice = indice_proc;                          //on attribut l'indice du noeud
         procGraphe[indice_proc].descripteur = info_proc.descripteur;           //on attribut le descripteur
-        procGraphe[indice_proc].nbVoisin = info_proc.nbVoisin;                 //on attribut le nb de info_proc.voisins
-        //procGraphe[indice_proc].voisins = info_proc.voisins;                   // donner la liste des voisins
         procGraphe[indice_proc].adrProc = sockNoeud;                           //on attribut l' adresse
 
 */
