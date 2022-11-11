@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../Fichier_parseur/parseur.c"
 
 
 //REQUETE POSSIBLE QU'ON A MIS EN PLACE
