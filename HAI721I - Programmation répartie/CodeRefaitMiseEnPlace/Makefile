@@ -6,7 +6,7 @@ BIN=bin/noeuds  bin/serveur
 
 SRCS0=noeuds.c
 SRCS1=serveur.c
-SRCS2=parseurServ.c
+SRCS2=parseur.c
 
 default: $(BIN)
 

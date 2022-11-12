@@ -1,20 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "structures.c"
 
 #define TAILLE_MAX 1000
-
-//CREATION D'une STRUCTURE DES ARRETS
-struct aretes{
-  int noeud1;
-  int noeud2;
-};
-
-//CREATION STRUCTURE POUR LES NOMBRE IMPORTANTS
-struct info_nb{
-  int nb_sommets;
-  int nb_aretes;
-};
 
 
 //FONCTION QUI RECUPER LA S>TrUCUTRE DES NOMBRE
@@ -73,7 +62,7 @@ struct info_nb nbAreteNbNoeud(char * nom_fichier){
 }
 
 
-void Arretes (char * nom_fichier, int nb_sommets, int nb_aretes, struct aretes * aretes){
+void Arretes (char * nom_fichier, int nb_sommets, int nb_aretes, struct aretes * aretes) {
 
   FILE * fichier;
   
@@ -88,16 +77,10 @@ void Arretes (char * nom_fichier, int nb_sommets, int nb_aretes, struct aretes *
   char ligne[TAILLE_MAX];
   
   
-  int i;
-  
+  int i=0;
   while (fgets(ligne, TAILLE_MAX, fichier) != NULL) {
-    // Si la ligne commence par "c" c'est un commentaire on l'ignore
-    if (ligne[0] == 'c') {
-      continue;
-    }
-    // Si la ligne commence par "p" on continue car on la traité avant
-    if (ligne[0] == 'p') {
-      i=0;
+    // Si la ligne commence par "c" c'est un commentaire on l'ignore, si "p" on continue car on la traité avant
+    if (ligne[0] == 'c' || ligne[0] == 'p') {
       continue;
     }
 
@@ -111,11 +94,9 @@ void Arretes (char * nom_fichier, int nb_sommets, int nb_aretes, struct aretes *
           
         }
         if (j == 2) {                    //si je suis au deuxieme mot
-          aretes[i].noeud2 = atoi(tmp);            //je recupere le noeud2
+          aretes[i].noeud2 = atoi(tmp);  //je recupere le noeud2
         }
-        //printf("tmp: %s\n", tmp);        //affichage du mot
         tmp = strtok(NULL, " ");          //rend null le mot courant
-        //printf("\n- tmp = %s ", tmp);
         j++;                            //on incremente pour apsser au mot suivant
       }
       i++;                              //indice pour le tableau d'arete
