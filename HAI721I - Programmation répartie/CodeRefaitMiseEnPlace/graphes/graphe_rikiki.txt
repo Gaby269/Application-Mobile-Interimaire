@@ -7,6 +7,5 @@ c               encore plus petit pour
 c               pouvoir lancer les noeuds
 c
 c
-p edge 3 2
+p edge 2 1
 e 1 2
-e 2 3

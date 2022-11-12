@@ -19,6 +19,7 @@
 #define ELECTION 4
 #define TAILLE_RESEAU 5
 #define DESTRUCTION_GRAPHE 6
+#define NB_VOISIN 7
 
 
 //SYSTEME ERREUR OU FERMETURE
@@ -46,7 +47,7 @@ struct procGraphe {
 
 
 /// @brief Structure des inforamtions avec la requete les inforamtions que l'on a besoin selon la requete et l'adresse du processus 
-struct infos_procGraphe {
+struct infos_Graphe {
     int requete;                            //requete qu'on veut
     int indice;                             //indice du noeud courant sur le graphe
     int descripteur;                        //descripteur du noeud
@@ -59,72 +60,69 @@ struct infos_procGraphe {
 //////////////////////
 /// @brief Fonction qui recoit un message par buffer
 /// @param sock descripteur de lenvoie
-/// @param informations_proc message recu
-/// @param sizeinformations_proc taille du message a recu
+/// @param info_proc message recu
+/// @param sizeinfo_proc taille du message a recu
 /// @return resultat de la reception qui est la taille du message recu
-int sendTCP (int sock, void* informations_proc, int sizeinformations_proc){
+int sendTCP(int sock, void* info_proc, int taille) {
 
-   //VARIABLE : 
-   int rest_lu = sizeinformations_proc;                  //on commence a sizeinformations_proc
-   int res;
-   int lu;
-   
-   while(rest_lu > 0){         //tant quil me reste des octets a recevoir
+    int res;        //on a le resultat de l'appel
+    int env = 0;    //le total de ce quon envoie
 
-      res = send(sock, informations_proc + (sizeinformations_proc - rest_lu), rest_lu, 0); //on tente d'envoyer mon message
+    while(env < taille) {   //tant que la taille de lenvoie est plus petit que la taille donnée
 
-      //GESTION ERREUR
-      if (res <= 0){ 
-         return res; 
-      }  
+        res = send(sock, info_proc+env, taille-env, 0);   //on appel  pour recevoir le message
 
-      rest_lu = rest_lu - res;     //on rajoute res pour savoir combien on en a lu
-      lu+=res;
-   }
-   return lu;
+        env += res;     //et on augmente la taille
+
+        //GESTION ERREUR
+        if (res <= 0) {
+            return res;
+        }
+    }
+    return env; //et on renvoie la taille
 }
+
 
 
 
 /////////////////////////////
 // FONCTION SENDCompletTCP //
 /////////////////////////////
-
 /// @brief Fonction qui envoie la taille puis le message
 /// @param sock descripteur pour envoie
-/// @param informations_proc message a envoyer
-/// @param sizeinformations_proc taille du message
-void sendCompletTCP(int sock, void* informations_proc, int sizeinformations_proc){
+/// @param info_proc message a envoyer
+/// @param sizeinfo_proc taille du message
+void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
-   //PREMIER APPEL POUR LA TAILLE                                                //creation d'une variable qui recupere la taille du message
-   int res_premier_appel = sendTCP(sock, &sizeinformations_proc, sizeof(int));     //on envoie la taille du message
-   
-      //GESTION DES ERREURS
-      if (res_premier_appel == ERREUR) {
-         perror("\n[ERREUR] : Erreur lors de l'envoie de la taille du message : ");
-         close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme
-      }
-      if (res_premier_appel == FERMETURE) {
-         perror("\n[ERREUR] : Abandon de la socket principale : ");
-         close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme
-      }
+    //PREMIER APPEL POUR LA TAILLE                                                //creation d'une variable qui recupere la taille du message
+    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));     //on envoie la taille du message
+    
+        //GESTION DES ERREURS
+        if (res_premier_appel == ERREUR) {
+            perror("\n[ERREUR] : Erreur lors de l'envoie de la taille du message : ");
+            close(sock);
+            exit(1);          // on choisis ici d'arrêter le programme car le reste
+        }
+        if (res_premier_appel == FERMETURE) {
+            perror("\n[ERREUR] : Abandon de la socket principale : ");
+            close(sock);
+            exit(1);          // on choisis ici d'arrêter le programme
+        }
 
    //DEUXIEME APPEL POUR LE MESSAGE
-   int res_deuxieme_appel = sendTCP(sock, informations_proc, sizeinformations_proc);     //on envoie la taille du message
+   int res_deuxieme_appel = sendTCP(sock, info_proc, sizeinfo_proc);     //on envoie la taille du message
    
-      //GESTION DES ERREURS
-      if (res_deuxieme_appel == ERREUR) {
-         perror("\n[ERREUR] : Erreur lors de l'envoie du message : ");
-         close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme cr le reste depend de cet envoie
-      }
-      if (res_deuxieme_appel == FERMETURE) {
-         perror("\n[ERREUR] : Abandon de la socket principale : ");
-         close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme car le reste depend de cet envoie
-      }
+        //GESTION DES ERREURS
+        if (res_deuxieme_appel == ERREUR) {
+            perror("\n[ERREUR] : Erreur lors de l'envoie du message : ");
+            close(sock);
+            exit(1);          // on choisis ici d'arrêter le programme cr le reste depend de cet envoie
+        }
+        if (res_deuxieme_appel == FERMETURE) {
+            perror("\n[ERREUR] : Abandon de la socket principale : ");
+            close(sock);
+            exit(1);          // on choisis ici d'arrêter le programme car le reste depend de cet envoie
+        }
 
 }
 
@@ -140,30 +138,30 @@ void sendCompletTCP(int sock, void* informations_proc, int sizeinformations_proc
 //////////////////////
 /// @brief Fonction qui recoit un message par buffer
 /// @param sock descripteur de lenvoie
-/// @param informations_proc message recu
-/// @param sizeinformations_proc taille du message a recu
+/// @param info_proc message recu
+/// @param sizeinfo_proc taille du message a recu
 /// @return resultat de la reception qui est la taille du message recu
-int recvTCP (int sock, void* informations_proc, int sizeinformations_proc){
+int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
    
-   //VARIABLE : 
-   int rest_recv = sizeinformations_proc;                  //on commence a 0
-   int res;
-   int recu;
-   
-   while(rest_recv > 0){         //tant quil me reste des octets a recevoir
+    //VARIABLES 
+    int res;
+    int recu = 0;
 
-      res = send(sock, informations_proc + (sizeinformations_proc - rest_recv), rest_recv, 0); //on tente d'envoyer mon message
+    //BOUCLE
+    while(recu < sizeinfo_proc) {
 
-      //GESTION ERREUR
-      if (res <= 0){ 
-         return res; 
-      }  
+        res = recv(sock, info_proc+recu, sizeinfo_proc-recu, 0);
+        recu += res;
 
-      rest_recv = rest_recv - res;     //on rajoute res pour savoir combien on en a lu
-      recu +=res;
-   }
-   return recu;
+        //GESTION ERREUR
+        if (res <=0){
+            return res;
+        }
+    }
+    return recu;
 }
+
+
 
 
 /////////////////////////////
@@ -171,47 +169,47 @@ int recvTCP (int sock, void* informations_proc, int sizeinformations_proc){
 /////////////////////////////
 /// @brief Fonction qui recoit la taille puis le message
 /// @param sock descripteur de lenvoie
-/// @param informations_proc message recu
-/// @param sizeinformations_proc taille du message a recu
+/// @param info_proc message recu
+/// @param sizeinfo_proc taille du message a recu
 /// @return resultat de la reception qui est la taille du message recu
-void recvCompletTCP(int sock, void* informations_proc, int sizeinformations_proc){
+void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
    //PREMIER APPEL POUR LA TAILLE
-   int taille_informations_proc = 1;                                                     //creation d'une variable qui recupere la taille du message
-   int res_premier_appel = recvTCP(sock, &taille_informations_proc, sizeof(int));        //on recoit la taille du message
+   int taille_info_proc;                                                     //creation d'une variable qui recupere la taille du message
+   int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeof(int));        //on recoit la taille du message
    
-        //GESTION DES ERREURS
-        if (res_premier_appel == ERREUR) {
-            perror("\n[ERREUR] : Erreur lors de la reception de la taille du message : ");
-            close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme
-        }
-        if (res_premier_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale : ");
-            close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme
-        }
+      //GESTION DES ERREURS
+      if (res_premier_appel == ERREUR) {
+         perror("\n[ERREUR] : Erreur lors de la reception de la taille du message : ");
+         close(sock);
+         exit(1);          // on choisis ici d'arrêter le programme 
+      }
+      if (res_premier_appel == FERMETURE) {
+         perror("\n[ERREUR] : Abandon de la socket principale : ");
+         close(sock);
+         exit(1);          // on choisis ici d'arrêter le programme 
+      }
 
-    //VERIFICATION DES TAILLES
-    if (taille_informations_proc > sizeinformations_proc){
-        perror("[ERREUR] La taille du message est trop grande par rapport a celle attendu");
-        exit(1);
-    }
+   //VERIFICATION DES TAILLES
+   if (taille_info_proc > sizeinfo_proc){
+      perror("[ERREUR] La taille du message est trop grande par rapport a celle attendu");
+      exit(1);
+   }
 
-    //DEUXIEME APPEL POUR LE MESSAGE
-    int res_deuxieme_appel = recvTCP(sock, informations_proc, sizeinformations_proc);     //on recoit la taille du message
-    
-        //GESTION DES ERREURS
-        if (res_deuxieme_appel == ERREUR) {
-            perror("\n[ERREUR] : Erreur lors de la reception du message : ");
-            close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme
-        }
-        if (res_deuxieme_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale : ");
-            close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme
-        }
+   //DEUXIEME APPEL POUR LE MESSAGE
+   int res_deuxieme_appel = recvTCP(sock, info_proc, sizeinfo_proc);     //on recoit la taille du message
+   
+      //GESTION DES ERREURS
+      if (res_deuxieme_appel == ERREUR) {
+         perror("\n[ERREUR] : Erreur lors de la reception du message : ");
+         close(sock);
+         exit(1);          // on choisis ici d'arrêter le programme 
+      }
+      if (res_deuxieme_appel == FERMETURE) {
+         perror("\n[ERREUR] : Abandon de la socket principale : ");
+         close(sock);
+         exit(1);          // on choisis ici d'arrêter le programme 
+      }
 
 }
 
@@ -470,24 +468,24 @@ int main(int argc, char *argv[]) {
 
     //ETAPE 8 : ENVOIE DES INFORMATIONS AU SERVEUR
         //inforamtions du noeud
-    struct infos_procGraphe informations_proc;      //declare la structure qu'on va envoyer au serveur
+    struct infos_Graphe informations_proc;      //declare la structure qu'on va envoyer au serveur
     informations_proc.requete = ADR_PROC;           //requete d'une adresse
     informations_proc.indice = indice_proc;         //donne l'indice du processus
     informations_proc.descripteur = dSProcJGraphe;  //donne le descripteur
     informations_proc.adrProc = sockProcJ;          //donner l'adresse de la socket
         //envoie
-    sendCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));
+    sendCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_Graphe));
     
     //AFFICHAGE
     printf("\n[PROCESSUS] Envoi des inforamtions réussi !\n");
     printf("[PROCESSUS] \033[4mEnvoie des inforamtions suivantes :\033[0m\n");
     printf("\n       Adresse du processus : %s\n       Port : %d", adrProcJ, portProcJ);
-    printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d", indice_proc, dSProcJGraphe);
+    printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d\n\n", indice_proc, dSProcJGraphe);
 
 /*
 
     //ETAPE 10 : RECEPTION DES IFNORAMTIONS DES PROCESSUS AVEC QUI DISCUTER
-    recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));  //on reutilise la structure informations_proc pour la recepetion
+    recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_Graphe));  //on reutilise la structure informations_proc pour la recepetion
     printf("\n[PROCESSUS] Reception d'un message");
 
 
@@ -517,7 +515,7 @@ int main(int argc, char *argv[]) {
     int taille_reseau = -1;                                         //on declare la taille du reseau
     int plus_grand = FALSE;                                         //on declare un boolean qui dit si le processus est le chef ou non
 
-    struct infos_procGraphe stockage[TAILLE_MAX_STOCK];                 //declaration du tableau des informations avec les reuetes
+    struct infos_Graphe stockage[TAILLE_MAX_STOCK];                 //declaration du tableau des informations avec les reuetes
     int indiceStockage = 0;                                         //et on declare l'indice du stockage
 
 
@@ -554,7 +552,7 @@ int main(int argc, char *argv[]) {
             //ENVOIE DE TOUS LES MESSAGES
             for (int i=0; i<indiceStockage; i++) {
                 printf("\n[PROCESSUS] Envoi d'un message");
-                sendCompletTCP(dSProcCS, &stockage[i], sizeof(struct infos_procGraphe));
+                sendCompletTCP(dSProcCS, &stockage[i], sizeof(struct infos_Graphe));
             }
 
             //UNE FOIS QU'ON A TOUT ENVOYER ON RECOMMENCE EN METTANT l'INDICE A 0
@@ -582,10 +580,10 @@ int main(int argc, char *argv[]) {
             if (df == dSProcCS) {
 
                 //DONNEES
-                struct infos_procGraphe informations_proc;
+                struct infos_Graphe informations_proc;
 
                 // ETAPE 17 : RECPETION DU MESSAGE DE LA PART DU SERVEUR QUI CONTIENT DONC l'ADRESSE DU PROCESSUS SUIVANT
-                recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_procGraphe));
+                recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_Graphe));
                 //ON PEUT MAINTENANT ARRETER LA CONNECTION AVEC LE SERVEUR
                 printf("\n[PROCESSUS] Deconnexion du serveur");
 
@@ -623,7 +621,7 @@ int main(int argc, char *argv[]) {
                     // ETAPE 22 : LANCER L'ELECTION POUR SAVOIR QUI COMMENCE
                     
                     //DONNEEES  
-                    struct infos_procGraphe informations_proc;                            //declaration d'une structure contenant un message correspondant à une requete
+                    struct infos_Graphe informations_proc;                            //declaration d'une structure contenant un message correspondant à une requete
                     informations_proc.requete = ELECTION;                                 //la requete est une election
                     informations_proc.info1 = numeroSousGraphe;                           //l'information 1 est le numero du processus de l'Graphe
                     informations_proc.info2 = 1;                                          //l'information 2 est un entier 1
@@ -679,7 +677,7 @@ int main(int argc, char *argv[]) {
                     //ETAPE 18 : RECEPTION DES MESSAGES DU PROCESSUS PRECEDENT
 
                     //DONNEES
-                    struct infos_procGraphe informations_proc;      //messages qui comportera une requete et des inforamtions
+                    struct infos_Graphe informations_proc;      //messages qui comportera une requete et des inforamtions
                     int nbReception;                                //nombre de recpetion 
                     int numeroProvenance;                           //numero du processus donnée dans informations
                     int calculDeTaille;                             //calcul de la taille 
@@ -691,7 +689,7 @@ int main(int argc, char *argv[]) {
                     for (int i=0; i<nbReception; i++) {
 
                         //RECEVOIR LE MESSAGE 
-                        recvCompletTCP(dSProcJGraphe, &informations_proc, sizeof(struct infos_procGraphe));
+                        recvCompletTCP(dSProcJGraphe, &informations_proc, sizeof(struct infos_Graphe));
                         
                         //SELON LA REQUETE
                         switch (informations_proc.requete) {

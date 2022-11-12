@@ -16,14 +16,15 @@
 //REQUETE POSSIBLE QU'ON A MIS EN PLACE
 #define ADR_PROC 1              //adresse du processus courant
 #define ATTRIB_NUM 2            //atribution du numero pour chaque processus
-#define ADR_VOISINS 3            //adresse du voisin
+#define ADR_VOISINS 3           //adresse du voisin
 #define ELECTION 4              //election
 #define TAILLE_RESEAU 5         //a taille du reseau
 #define DESTRUCTION_ANNEAU 6    //destruction du graphe
+#define NB_VOISIN 7             //on donne le nb de voisins
 
 
 //SYSTEME ERREUR OU FERMETURE
-#define  TRUE 1
+#define TRUE 1
 #define ERREUR -1               //erreur
 #define FERMETURE 0             //Fermeture
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud maximum qu'il peut y avoir dans un graphe
@@ -44,11 +45,15 @@ struct procGraphe {
     struct sockaddr_in adrProc;
 };
 
-
+/// @brief Structure qui permet de dire pour chaque voisin combien il a de voisin en totalité et cb de voisin il va devoir envoyer une demande de connection
+struct nbVois{
+    int nbVoisinTotal;
+    int nbVoisinDemande;
+};
 
 
 /// @brief Structure des inforamtions avec la requete les inforamtions que l'on a besoin selon la requete et l'adresse du processus 
-struct infos_procGraphe {
+struct infos_Graphe {
     int requete;                            //requete qu'on veut
     int indice;                             //indice du noeud courant sur le graphe
     int descripteur;                        //descripteur du noeud
@@ -65,26 +70,23 @@ struct infos_procGraphe {
 /// @param info_proc message recu
 /// @param sizeinfo_proc taille du message a recu
 /// @return resultat de la reception qui est la taille du message recu
-int sendTCP (int sock, void* info_proc, int sizeinfo_proc){
+int sendTCP(int sock, void* info_proc, int taille) {
 
-   //VARIABLE : 
-   int rest_lu = sizeinfo_proc;                  //on commence a sizeinfo_proc
-   int res;
-   int lu;
-   
-   while(rest_lu > 0){         //tant quil me reste des octets a recevoir
+    int res;        //on a le resultat de l'appel
+    int env = 0;    //le total de ce quon envoie
 
-      res = send(sock, info_proc + (sizeinfo_proc - rest_lu), rest_lu, 0); //on tente d'envoyer mon message
+    while(env < taille) {   //tant que la taille de lenvoie est plus petit que la taille donnée
 
-      //GESTION ERREUR
-      if (res <= 0){ 
-         return res; 
-      }  
+        res = send(sock, info_proc+env, taille-env, 0);   //on appel  pour recevoir le message
 
-      rest_lu = rest_lu - res;     //on rajoute res pour savoir combien on en a lu
-      lu+=res;
-   }
-   return lu;
+        env += res;     //et on augmente la taille
+
+        //GESTION ERREUR
+        if (res <= 0) {
+            return res;
+        }
+    }
+    return env; //et on renvoie la taille
 }
 
 
@@ -100,7 +102,7 @@ int sendTCP (int sock, void* info_proc, int sizeinfo_proc){
 void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
     //PREMIER APPEL POUR LA TAILLE                                                //creation d'une variable qui recupere la taille du message
-    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeinfo_proc);     //on envoie la taille du message
+    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));     //on envoie la taille du message
     
         //GESTION DES ERREURS
         if (res_premier_appel == ERREUR) {
@@ -148,24 +150,22 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 /// @return resultat de la reception qui est la taille du message recu
 int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
    
-   //VARIABLE : 
-   int rest_recv = sizeinfo_proc;                  //on commence a 0
-   int res;
-   int recu;
-   
-   while(rest_recv > 0){         //tant quil me reste des octets a recevoir
+    //VARIABLES 
+    int res;
+    int recu = 0;
 
-      res = send(sock, info_proc + (sizeinfo_proc - rest_recv), rest_recv, 0); //on tente d'envoyer mon message
+    //BOUCLE
+    while(recu < sizeinfo_proc) {
 
-      //GESTION ERREUR
-      if (res <= 0){ 
-         return res; 
-      }  
+        res = recv(sock, info_proc+recu, sizeinfo_proc-recu, 0);
+        recu += res;
 
-      rest_recv = rest_recv - res;     //on rajoute res pour savoir combien on en a lu
-      recu +=res;
-   }
-   return recu;
+        //GESTION ERREUR
+        if (res <=0){
+            return res;
+        }
+    }
+    return recu;
 }
 
 
@@ -182,8 +182,8 @@ int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
 void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
    //PREMIER APPEL POUR LA TAILLE
-   int taille_info_proc = 1;                                                     //creation d'une variable qui recupere la taille du message
-   int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeinfo_proc);        //on recoit la taille du message
+   int taille_info_proc;                                                     //creation d'une variable qui recupere la taille du message
+   int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeof(int));        //on recoit la taille du message
    
       //GESTION DES ERREURS
       if (res_premier_appel == ERREUR) {
@@ -351,7 +351,7 @@ int main(int argc, char *argv[])
     char *nom_fichier = argv[2];        //nom du fichier ou recuperer la structure du graphe
 
 
-    //ETAPE 1.5 : REUPERATION DES INFO DU GRAPHE
+    //ETAPE 1.25 : REUPERATION DES INFO DU GRAPHE
     struct info_nb nB;                  //on declare une structure 
     nB = nbAreteNbNoeud(nom_fichier);  //on recupere les nombre important
     int nb_sommets = nB.nb_sommets;    //on recupere le nombre de sommets
@@ -375,6 +375,33 @@ int main(int argc, char *argv[])
     }
 
     //on a donc dans le tableau ListeAretes la liste des aretes on aurait pu les trier en disant à l'indice i c'est le noeud i est il est relié avec tous les elements de sont tableau
+
+
+    // ETAPE 1.5 : LECTURE DU TABLEAU 
+        //tableau des nb de voisin
+    struct nbVois nbVoisin[nb_sommets];               //tableau du nombre de voisin de chaque sommets
+        //initialisation
+    for (int i=0; i<nb_sommets; i++){ 
+        nbVoisin[i].nbVoisinDemande = 0;
+        nbVoisin[i].nbVoisinTotal = 0;
+    }
+        //parcours et ajout des voisins
+    int n=1;    //nombre de noeud pour parourir le tableau du nbVoisin
+    for (int a=0; a<nb_aretes; a++){
+        if ((ListeAretes[a].noeud1) == n || (ListeAretes[a].noeud2) == n){         //si l'indice du noeud est present dans l'un des deux noeuds de l'arete
+            nbVoisin[(ListeAretes[a].noeud1)-1].nbVoisinTotal++;              //on augmente pour le noeud 1                             //on augmente le nombre de voisin total
+            nbVoisin[(ListeAretes[a].noeud2)-1].nbVoisinTotal++;              //on aumgnete pour le neoud2
+            if (ListeAretes[a].noeud1 == n){                              //si l'indice du noeud est dans l'arete a gauche
+                nbVoisin[ListeAretes[a].noeud1-1].nbVoisinDemande++;        //on augmente le nombre de voisin a qui ont va demandé
+            }
+        }
+        n++;        //on parcourt le tableau des voisins
+    }
+
+    printf("\n\033[4mTableau des nb de voisins :\033[0m\n");
+    for (int i=0; i<nb_sommets; i++){
+        printf("Le noeuds %d a %d voisins au total et %d voisin a demander\n", i+1, nbVoisin[i].nbVoisinTotal, nbVoisin[i].nbVoisinDemande);
+    }
 
 
 
@@ -405,13 +432,13 @@ int main(int argc, char *argv[])
     printf("\n[SERVEUR] La mise en ecoute de la socket du serveur réussi !\n");
 
 
-    // ETAPE 4 : MISE EN PLACE DU MULTIPLEXAGE
+    // ETAPE 4 : MISE EN PLACE DES DONNES
         //donnees util
     int dSNoeud;                                                                //declaration du descripteur
     //int nbMaxdS = dSServeur;                                                  //maximum des descripteurs
     int nbNoeudCourant = 0;                                                     //on declare le nombre de Noeud courant
     //int nbMaxNoeud = NOEUDS_MAX;                                              //on declare un maximum de noeuds possibles
-    struct infos_procGraphe *procGraphe = (struct infos_procGraphe *)0;         //on declare un tableau de structure pour les informations des Noeuds connecté au sevreur
+    struct infos_Graphe *procGraphe = (struct infos_Graphe*) malloc(nb_sommets * sizeof(struct infos_Graphe*));         //on declare un tableau de structure pour les informations des Noeuds connecté au sevreur
     struct sockaddr_in sockNoeud;                                               //on declare la socket du Noeud
     socklen_t lgAdr;                                                            //taille de l'adresse
     
@@ -427,13 +454,8 @@ int main(int argc, char *argv[])
         nbNoeudCourant++;                                   //incremente le nombre de noeud connecté actuellement
 
         //AFFICHAGE
-            //adresse
-        char adrNoeudAff[INET_ADDRSTRLEN];
-        inet_ntop(AF_INET, &sockNoeud.sin_addr, adrNoeudAff, INET_ADDRSTRLEN);
-            //port
-        int portNoeudAff = htons(sockNoeud.sin_port);
             //affichage
-        printf("\n[SERVEUR] Connexion d'un Noeud de descripteur %d : %s::%d\n", dSNoeud, adrNoeudAff, portNoeudAff);
+        printf("\n[SERVEUR] Connexion d'un Noeud de descripteur %d\n", dSNoeud);
         if (nbNoeudCourant <= 1){
             printf("[SERVEUR] %d Noeud est connecté au serveur\n", nbNoeudCourant);       //affichage du nombre de Noeud connecté
         }
@@ -442,16 +464,16 @@ int main(int argc, char *argv[])
 
         //ETAPE 5 : RECEPTION DES INFORMATIONS DU Noeud
             //donnees        
-        struct infos_procGraphe info_proc;                                          // structure qui va recuperer les informations qu'un Noeud a envoyer
+        struct infos_Graphe info_proc;                      // structure qui va recuperer les informations qu'un Noeud a envoyer
             //reception
-        recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_procGraphe));       // reception des informations dans info_proc
+        recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_Graphe));       // reception des informations dans info_proc
             //modification des donnees
-            printf("\nje suis la\n");
-        sockNoeud = info_proc.adrProc;                                           // donner a sockNoeud l'adresse recu dans info_proc
+        sockNoeud = info_proc.adrProc;                                          // donner a sockNoeud l'adresse recu dans info_proc
         int indice_proc = info_proc.indice;                                     //donne l'indice
-        procGraphe[indice_proc].indice = indice_proc;                          //on attribut l'indice du noeud
-        procGraphe[indice_proc].descripteur = info_proc.descripteur;           //on attribut le descripteur
-        procGraphe[indice_proc].adrProc = sockNoeud;                           //on attribut l' adresse
+        //MODIFICATION DES INFORMATIONS
+        procGraphe[indice_proc].indice = indice_proc;                           //on attribut l'indice du noeud
+        procGraphe[indice_proc].descripteur = dSNoeud;            //on attribut le descripteur
+        procGraphe[indice_proc].adrProc = sockNoeud;                            //on attribut l' adresse
 
         //AFFICHAGE
             //adresse
@@ -463,45 +485,39 @@ int main(int argc, char *argv[])
         
         printf("\n[SERVEUR] \033[4mLe processus a comme informations après réception :\033[0m\n");
         printf("\n       Adresse du processus : %s\n       Port : %d", adrProcAff, portProcAff);
-        printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d", indice_proc, procGraphe[indice_proc].descripteur);
-            
-        //MODIFICATION DES INFORMATIONS
-        procGraphe[indice_proc].indice = indice_proc;                          //on attribut l'indice du noeud
-        procGraphe[indice_proc].descripteur = info_proc.descripteur;           //on attribut le descripteur
-        procGraphe[indice_proc].adrProc = sockNoeud;                           //on attribut l' adresse
-
-
+        printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d\n\n", indice_proc, procGraphe[indice_proc].descripteur);
+         
 
         //ETAPE 6 : AFFICHAGE DE LA LISTE DES NOEUDS CONNECTE
             //affichage
-        printf("\n[SERVEUR] \033[4mListe des sous-anneaux:\033[0m\n");
+        printf("\n[SERVEUR] \033[4mListe des sous-anneaux connecté(s):\033[0m\n");
             //adresse
         char adrNoeudCoAff[INET_ADDRSTRLEN];                                       //on va stocker l'adresse du sous anneau dedans
             //parcourt des noeuds connectés au serveur                        
-        for (int i=0; i<nbNoeudCourant; i++) { 
+        for (int i=1; i<=nbNoeudCourant; i++) {     //on commence a un car les indice commence a 1
                 //recuperation adresse
             inet_ntop(AF_INET, &procGraphe[i].adrProc.sin_addr, adrNoeudCoAff, INET_ADDRSTRLEN);     //adresse du Noeud    
                 //port
             int portNoeudCoAff = htons(procGraphe[i].adrProc.sin_port);                                 //port du Noeud
-            printf("\n      Noeud n°%i de descripteur %i : %s::%i\n", i, procGraphe[i].descripteur, adrNoeudCoAff, portNoeudCoAff);
+            printf("\n      Noeud d'indice %d de descripteur %i : %s::%i\n", i, procGraphe[i].descripteur, adrNoeudCoAff, portNoeudCoAff);
         }
         printf("\n***********************************\n");
         
 
-/*
+
         //UNE FOIS QUE TOUS LES NOEUDS SONT LA
-        if (nbNoeudCourant == nbNoeuds){        //si le nombre courant de noeud connecté est égal au nombre de noeud du graphe 
+        if (nbNoeudCourant == nb_sommets){        //si le nombre courant de noeud connecté est égal au nombre de noeud du graphe 
             
             printf("\n[SERVEUR] Tous les Noeuds sont connectés !\n\n***********************************\n");
-
+/*
             //ETAPE 7: ENVOIE DES INFORMATIONS AU PROCESSUS VOISINS
                 //donnees
-            struct infos_procGraphe info_proc;                          //on declare la structure qui dit ce qu'on veut
+            struct infos_Graphe info_proc;                          //on declare la structure qui dit ce qu'on veut
             info_proc.requete = ADR_VOISINS;                            //on donne la requete ADR_VOISIN
                 //boucle
             for (int i=0; i<nbNoeudCourant; i++) {                      //pour chaque noeuds
                 
-                struct infos_procGraphe info_voisin[procGraphe[i].nbVoisin];   //structure contenant les voisins a envoyer
+                struct infos_Graphe info_voisin[procGraphe[i].nbVoisin];   //structure contenant les voisins a envoyer
 
                 for (int v=0; v<procGraphe[i].nbVoisin; v++){              //parcourt des voisins v est donc 
 
@@ -518,7 +534,7 @@ int main(int argc, char *argv[])
                     info_voisin[indice_proc] = info_proc;                              //donne alors la structure
                 }
                     //envoie des inforamtions
-                sendCompletTCP(info_proc.descripteur, info_voisin, sizeof(struct infos_procGraphe));     //on envoie les inforamtions ici adresse des voisins
+                sendCompletTCP(info_proc.descripteur, info_voisin, sizeof(struct infos_Graphe));     //on envoie les inforamtions ici adresse des voisins
                 
                 
                 //ETAPE 8 : AFFICHAGE DE LA LISTE DES NOEUDS VOISINS
@@ -544,7 +560,7 @@ int main(int argc, char *argv[])
                 }
                 printf("\n***********************************\n");
             }//fin du for des noeuds
-
+*/
 
             //ETAPE 8 : FERMETURE DE LA SOCKET SERVEUR CAR PLUS BESOIN
                 //fermeture
@@ -554,7 +570,7 @@ int main(int argc, char *argv[])
                 //on sort du programme
             exit(0);
         
-        }*/
+        }
 
     }
 }//fin du main
@@ -594,10 +610,10 @@ int main(int argc, char *argv[])
 
 
                 //ETAPE 7 : RECPETION DES INFORMATIONS DU Noeud
-                struct infos_procGraphe info_proc;                                                     //structure qui va recuperer les informations qu'un Noeud a envoyer
+                struct infos_Graphe info_proc;                                                     //structure qui va recuperer les informations qu'un Noeud a envoyer
     
                 //RECPETION DES INFORMATIONS
-                recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_procGraphe));                  //reception des informations
+                recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_Graphe));                  //reception des informations
                 sockNoeud = info_proc.adrProc;                                                         //recuperation de l'adrresse recu
 
 
@@ -618,13 +634,13 @@ int main(int argc, char *argv[])
                 procGraphe[nbNoeudCourant].adrProc = sockNoeud;          //on attribut une adresse
 
                 //CREATION DES INFORAMTIOSN DUN Noeud
-                struct infos_procGraphe attribution;        //on declare l'attibution d'un numero
+                struct infos_Graphe attribution;        //on declare l'attibution d'un numero
                 attribution.requete = ATTRIB_NUM;           //on donne la requete
                 attribution.info1 = nbNoeudCourant;       //on donne l'information principale qu'on a besoin ici le maximum courant
                 nbNoeudCourant++;                         //on incremente le maximum courant pour continuer l'attribution
 
                 //ENVOIE DE LATTRIBUTION DU NUMERO D'ANNEAU AU Noeud
-                sendCompletTCP(dSNoeud, &attribution, sizeof(struct infos_procGraphe));  //on envoie l'attribution à un processus
+                sendCompletTCP(dSNoeud, &attribution, sizeof(struct infos_Graphe));  //on envoie l'attribution à un processus
 
                 
                 //ETAPE 9 : AFFICHAGE DES PROCESSUS CONNECTE                    
@@ -660,7 +676,7 @@ int main(int argc, char *argv[])
             }
 
             //DONNEES
-            struct infos_procGraphe info_proc;                                      //on declare la structure qui dit ce qu'on veut
+            struct infos_Graphe info_proc;                                      //on declare la structure qui dit ce qu'on veut
             info_proc.requete = ADR_VOISIN;                           //on donne la requete ADR_VOISIN
             
             //BOUCLE QUI PARCOURT LA LISTE DES INFORMATIONS DES PROCESSUS DE LANNEAU -1
@@ -674,7 +690,7 @@ int main(int argc, char *argv[])
                 int portNoeud = htons(info_proc.adrProc.sin_port);
 
                 //ENVOIE DES INFORMATIONS 
-                sendCompletTCP(procGraphe[i].dSProc, &info_proc, sizeof(struct infos_procGraphe));     //on envoie les inforamtions ici adresse du voisin
+                sendCompletTCP(procGraphe[i].dSProc, &info_proc, sizeof(struct infos_Graphe));     //on envoie les inforamtions ici adresse du voisin
                 printf("\n[SERVEUR] Envoie de l'adresse: %s:%i\n", adrNoeud, portNoeud);
             }
             //DERNIER PROCESSUS
@@ -687,7 +703,7 @@ int main(int argc, char *argv[])
 
             //ENVOIE DE LADRESSE DU DERNIER PROCESSUS
             printf("\n[SERVEUR] Envoi de l'adresse: %s:%i\n", adrNoeud, portNoeud);
-            sendCompletTCP(procGraphe[nbNoeudCourant-1].dSProc, &info_proc, sizeof(struct infos_procGraphe));
+            sendCompletTCP(procGraphe[nbNoeudCourant-1].dSProc, &info_proc, sizeof(struct infos_Graphe));
 
 
             //ETAPE 11 : FERMETURE DE LA SOCKET SERVEUR
