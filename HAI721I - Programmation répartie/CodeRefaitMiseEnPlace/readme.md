@@ -6,8 +6,8 @@
 
 **Lancement**
 
-*Lancer le serveur* : ``bin/serveur port_serveur nb_noeud_graphe``  
-*Lancer autant de noeuds que donné dans le serveur*: ``bin/noeud ip_serveur port_serveur port_noeud_graphe indice_noeud nb_voisins liste_voisin (pas d'espace ex : [1,3,5])``
+*Lancer le serveur* : ``bin/serveur port_serveur nom_fichier_graphe``  
+*Lancer autant de noeuds que donné dans le serveur*: ``bin/noeud ip_serveur port_serveur port_noeud_graphe indice_noeud ``
 
 
 **Disclaimer**

@@ -348,23 +348,23 @@ int main(int argc, char *argv[])
     }
 
     char* portServeur = argv[1];        //port du serveur
-    char *nom_fichier = argv[3];        //nom du fichier ou recuperer la structure du graphe
+    char *nom_fichier = argv[2];        //nom du fichier ou recuperer la structure du graphe
 
 
     //ETAPE 1.5 : REUPERATION DES INFO DU GRAPHE
-    struct info_nb nB;
-    nB = nbAreteNbNoeud(nom_fichier);
-    int nb_sommets = nB.nb_sommets;
-    int nb_aretes = nB.nb_aretes;
+    struct info_nb nB;                  //on declare une structure 
+    nB = nbAreteNbNoeud(nom_fichier);  //on recupere les nombre important
+    int nb_sommets = nB.nb_sommets;    //on recupere le nombre de sommets
+    int nb_aretes = nB.nb_aretes;      //et le nombre d'aretes
 
     // AFFICHAGE
     printf("\nNombre de sommets : %d\n", nb_sommets);
-    printf("Nombre d'aretes : %d\n\n", nb_aretes);
+    printf("Nombre d'aretes : %d", nb_aretes);
 
 
     //appel de la fonction pour recuperer les arretes
-    struct aretes *ListeAretes = (struct aretes*) malloc (nb_aretes *sizeof(struct aretes));
-    Arretes(nom_fichier, nb_sommets, nb_aretes, ListeAretes);
+    struct aretes *ListeAretes = (struct aretes*) malloc (nb_aretes *sizeof(struct aretes));  //on alloue de la memoire pour la liste des aretes
+    Arretes(nom_fichier, nb_sommets, nb_aretes, ListeAretes);    //et on recuperer cette liste directement dans ListeAretes
 
     //AFFICHAGE
     printf("\n\nListe des arretes :\n\n");
@@ -460,7 +460,7 @@ int main(int argc, char *argv[])
             //port
         int portProcAff = htons(sockNoeud.sin_port);                                 //port du Noeud
             //Affichage
-        /*
+        
         printf("\n[SERVEUR] \033[4mLe processus a comme informations après réception :\033[0m\n");
         printf("\n       Adresse du processus : %s\n       Port : %d", adrProcAff, portProcAff);
         printf("\n       Indice du noeud : %d\n       Descripteur de la socket du processus : %d", indice_proc, procGraphe[indice_proc].descripteur);
@@ -470,7 +470,7 @@ int main(int argc, char *argv[])
         procGraphe[indice_proc].descripteur = info_proc.descripteur;           //on attribut le descripteur
         procGraphe[indice_proc].adrProc = sockNoeud;                           //on attribut l' adresse
 
-*/
+
 
         //ETAPE 6 : AFFICHAGE DE LA LISTE DES NOEUDS CONNECTE
             //affichage
@@ -488,7 +488,7 @@ int main(int argc, char *argv[])
         printf("\n***********************************\n");
         
 
-
+/*
         //UNE FOIS QUE TOUS LES NOEUDS SONT LA
         if (nbNoeudCourant == nbNoeuds){        //si le nombre courant de noeud connecté est égal au nombre de noeud du graphe 
             
@@ -554,7 +554,7 @@ int main(int argc, char *argv[])
                 //on sort du programme
             exit(0);
         
-        }
+        }*/
 
     }
 }//fin du main

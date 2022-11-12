@@ -2,10 +2,11 @@
 #~ définitions
 ########################################
 
-BIN=bin/noeuds  bin/serveur
+BIN=bin/noeuds  bin/serveur  bin/parseurServ
 
 SRCS0=noeuds.c
 SRCS1=serveur.c
+SRCS2=parseurServ.c
 
 default: $(BIN)
 
@@ -20,6 +21,9 @@ bin/noeuds: $(SRCS0:%.c=obj/%.o)
 	gcc -o $@ $+
 
 bin/serveur: $(SRCS1:%.c=obj/%.o)
+	gcc -o $@ $+
+
+bin/parseurServ: $(SRCS2:%.c=obj/%.o)
 	gcc -o $@ $+
 
 clean:
