@@ -1,4 +1,23 @@
+// Mode Debug pour les affichages
+#define DEBUG 2
 
+  //REQUETE POSSIBLE QU'ON A MIS EN PLACE
+#define ADR_PROC 1              //adresse du processus courant
+#define ATTRIB_NUM 2            //atribution du numero pour chaque processus
+#define ADR_VOISINS 3           //adresse du voisin
+#define ELECTION 4              //election
+#define NB_VOISIN 5             //on donne le nb de voisins
+
+//SYSTEME ERREUR OU FERMETURE
+#define TRUE 1
+#define FALSE 0
+#define ERREUR -1
+#define FERMETURE 0
+
+#define TAILLE_MAX_STOCK 100    //maximum de stockage
+#define NOEUDS_MAX 100          //on fixe le nombre de noeud maximum du graphe
+
+  
 //////////////////////
 // FONCTION SENDTCP //
 //////////////////////
@@ -15,7 +34,6 @@ int sendTCP(int sock, void* info_proc, int taille) {
     while(env < taille) {   //tant que la taille de lenvoie est plus petit que la taille donnée
 
         res = send(sock, info_proc+env, taille-env, 0);   //on appel  pour recevoir le message
-
         env += res;     //et on augmente la taille
 
         //GESTION ERREUR

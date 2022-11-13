@@ -41,3 +41,4 @@ struct info_nb{
   int nb_sommets;
   int nb_aretes;
 };
+
