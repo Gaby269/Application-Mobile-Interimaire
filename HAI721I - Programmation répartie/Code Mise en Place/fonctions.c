@@ -1,5 +1,5 @@
 // Mode Debug pour les affichages
-#define DEBUG 2
+#define DEBUG 3
 
   //REQUETE POSSIBLE QU'ON A MIS EN PLACE
 #define ADR_PROC 1              //adresse du processus courant
@@ -149,7 +149,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
    //VERIFICATION DES TAILLES
    if (taille_info_proc > sizeinfo_proc){
-      perror("[ERREUR] La taille du message est trop grande par rapport a celle attendu");
+      perror("[ERREUR] La taille du message est trop grande par rapport a celle attendu dans recv");
       exit(1);
    }
 

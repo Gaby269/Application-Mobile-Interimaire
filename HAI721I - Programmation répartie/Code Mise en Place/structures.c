@@ -8,12 +8,6 @@
 // STRUCTURES POUR ENVOI INFORMATIONS //
 //////////////////////////////////////// 
 
-/// Structure qui répertorie le descripteur et l'adresse du processus
-struct procGraphe {
-    int indiceProc;                    //indice du site dans le graphe
-    int dSProc;
-    struct sockaddr_in adrProc;
-};
 
 /// Structure qui permet de dire pour chaque voisin combien il a de voisin en totalité et cb de voisin il va devoir envoyer une demande de connection
 struct nbVois{
@@ -25,7 +19,7 @@ struct nbVois{
 /// Structure des inforamtions avec la requete les inforamtions que l'on a besoin selon la requete et l'adresse du processus 
 struct infos_Graphe {
     int requete;                            //requete qu'on veut
-    int indice;                             //indice du noeud courant sur le graphe
+    int numero;                             //numero du noeud courant sur le graphe
     int descripteur;                        //descripteur du noeud
     struct sockaddr_in adrProc;             //adresse du processus dont on parle
 };
