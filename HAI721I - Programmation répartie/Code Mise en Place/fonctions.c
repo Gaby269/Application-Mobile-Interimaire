@@ -56,8 +56,8 @@ int sendTCP(int sock, void* info_proc, int taille) {
 /// sizeinfo_proc taille du message
 void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
-    //PREMIER APPEL POUR LA TAILLE                                                //creation d'une variable qui recupere la taille du message
-    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));     //on envoie la taille du message
+    //PREMIER APPEL POUR LA TAILLE                                                          //creation d'une variable qui recupere la taille du message
+    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));                     //on envoie la taille du message
     
         //GESTION DES ERREURS
         if (res_premier_appel == ERREUR) {
@@ -176,7 +176,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 /////////////////////
 // CREATION SOCKET //
 /////////////////////
-/// Fonction qui crée une socket
+///  Fonction qui crée une socket
 /// @return descripteur de la socket 
 int creationSocket (){
 
@@ -197,9 +197,9 @@ int creationSocket (){
 //////////////////////////
 // NOMMAGE DE LA SOCKET //
 //////////////////////////
-/// Fonction qui nomme une scoket
-/// dS descripteur de la sokcet à nommer
-/// port port de la socket à nommer
+///  Fonction qui nomme une scoket
+///  dS descripteur de la sokcet à nommer
+///  port port de la socket à nommer
 /// @return retourner l'adresse de la socket
 struct sockaddr_in nommageSocket(int dS, char * port){
 
@@ -230,9 +230,9 @@ struct sockaddr_in nommageSocket(int dS, char * port){
 //////////////////////////////
 // DESIGNATION D'UNE SOCKET //
 //////////////////////////////
-/// Fonction qui designe la socket ici du serveur
-/// port numero de port en chaine de caractère
-/// ip adresse ip 
+///  Fonction qui designe la socket ici du serveur
+///  port numero de port en chaine de caractère
+///  ip adresse ip 
 /// @return adresse de la socket designer
 struct sockaddr_in designationSocket(char * adresseIP, char* port){
 
@@ -309,30 +309,4 @@ void ecouter(int dS, int nbProc){
 
 
 
-
-
-
-////////////////////////////
-// ACCEPTER UNE CONNEXION //
-////////////////////////////
-/// Fonction qui accepte une socket
-/// dS descripteur de la socket qui veut etre eccepter
-/// adr adresse qui accepte le noeud
-/// @return entier qui est le descripteur de la socket accepter
-int accepter(int dS, struct sockaddr_in adr){
-
-   socklen_t lgAdr = sizeof(struct sockaddr_in);   // sa taille
-
-   int res_dS = accept(dS, (struct sockaddr *) &adr, &lgAdr); //nouvelle socket noeude
-
-      //GESTION ERREUR
-      if (res_dS == ERREUR) {
-         perror("\n\n[PROCESSUS] : Erreur lors de l'acceptation de connexion : ");
-         close(dS);
-         exit(1); 
-      }
-
-   return res_dS;    //retourne l'adresse du noeud qu'on vient d'accepter
-
-}
 

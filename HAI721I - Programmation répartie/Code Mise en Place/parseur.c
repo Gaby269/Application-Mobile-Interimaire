@@ -6,7 +6,13 @@
 #define TAILLE_MAX 1000
 
 
-//FONCTION QUI RECUPER LA S>TrUCUTRE DES NOMBRE
+//FONCTION QUI RECUPER LA STRUCTURE DES NOMBRES D'ARRETES ET DE SOMMETS
+  
+
+
+
+
+
 struct info_nb nbAreteNbNoeud(char * nom_fichier){
 
   FILE * fichier;

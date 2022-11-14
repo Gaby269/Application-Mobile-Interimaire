@@ -18,7 +18,6 @@ struct nbVois{
 
 /// Structure des inforamtions avec la requete les inforamtions que l'on a besoin selon la requete et l'adresse du processus 
 struct infos_Graphe {
-    int requete;                            //requete qu'on veut
     int numero;                             //numero du noeud courant sur le graphe
     int descripteur;                        //descripteur du noeud
     struct sockaddr_in adrProc;             //adresse du processus dont on parle
