@@ -10,7 +10,7 @@ path = sys.argv[2]
 fichier = open(path, "r")
 contenu = fichier.readline()
 
-while (contenu[0] == 'c'): # on saute les commentaires
+while (contenu[0] == 'c'):        # on saute les commentaires
     contenu = fichier.readline()
   
 p, edge, noeuds, arretes = contenu.split()
@@ -23,6 +23,9 @@ print(arretes, "arretes")
 # information sur le graphe
 noeuds = int(noeuds)
 arretes = int(arretes)
+
+#information pour changer la couleur pour chaque noeuds
+couleur = 0
 
 # Information de connexions
 ip_serveur = "0.0.0.0"

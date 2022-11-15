@@ -17,6 +17,35 @@
 #define TAILLE_MAX_STOCK 100    //maximum de stockage
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud maximum du graphe
 
+
+
+//////////////////////
+// FONCTION SENDTCP //
+//////////////////////
+/// Fonction pour le premier affichage de chaque noeud pour dire qu'il commence
+/// message1 début du message
+/// numero numero du processus pour changer de couleur
+/// message2 la fin du message
+void printColor(int numero) {
+    int couleurProd = ((numero%6)+1) + '0';      //il n'y a que 6 couleurs visibles alors on fait un modulo 6 et on ne veut pas afficher du noir alors on met + 1 et on transfomre en ASCII
+    printf("\x1B[3%cm[NOEUD %d] \033[0m", couleurProd, numero);
+}
+
+
+//////////////////////
+// FONCTION SENDTCP //
+//////////////////////
+/// Fonction pour le premier affichage de chaque noeud pour dire qu'il commence
+/// message1 début du message
+/// numero numero du processus pour changer de couleur
+/// message2 la fin du message
+void printColorNoeud(char * message1, int numero, char * message2) {
+    int couleurProd = (numero%6)+1 + '0';
+    printf("\x1B[3%cm%s%d%s\033[0m", couleurProd, message1, numero, message2);
+}
+
+
+
   
 //////////////////////
 // FONCTION SENDTCP //
@@ -25,7 +54,7 @@
 /// sock descripteur de lenvoie
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
-/// @return resultat de la reception qui est la taille du message recu
+/// return : resultat de la reception qui est la taille du message recu
 int sendTCP(int sock, void* info_proc, int taille) {
 
     int res;        //on a le resultat de l'appel
@@ -97,7 +126,7 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 /// sock descripteur de lenvoie
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
-/// @return resultat de la reception qui est la taille du message recu
+/// return : resultat de la reception qui est la taille du message recu
 int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
    
     //VARIABLES 
@@ -177,7 +206,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 // CREATION SOCKET //
 /////////////////////
 ///  Fonction qui crée une socket
-/// @return descripteur de la socket 
+/// return : descripteur de la socket 
 int creationSocket (){
 
     int dS = socket(PF_INET, SOCK_STREAM, 0);  //on crée la socket enTCP
@@ -200,7 +229,7 @@ int creationSocket (){
 ///  Fonction qui nomme une scoket
 ///  dS descripteur de la sokcet à nommer
 ///  port port de la socket à nommer
-/// @return retourner l'adresse de la socket
+/// return : retourner l'adresse de la socket
 struct sockaddr_in nommageSocket(int dS, char * port){
 
     struct sockaddr_in adrSocket ;
@@ -233,7 +262,7 @@ struct sockaddr_in nommageSocket(int dS, char * port){
 ///  Fonction qui designe la socket ici du serveur
 ///  port numero de port en chaine de caractère
 ///  ip adresse ip 
-/// @return adresse de la socket designer
+/// return : adresse de la socket designer
 struct sockaddr_in designationSocket(char * adresseIP, char* port){
 
     //DESCRIPTION DE LA SOCKET DISTANTE   
