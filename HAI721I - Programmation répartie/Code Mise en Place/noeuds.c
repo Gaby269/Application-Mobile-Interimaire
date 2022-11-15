@@ -33,18 +33,19 @@ int main(int argc, char *argv[]) {
 
 
     //AFFICHAGE DES DONNEES EN PARAMETRES
-    printColorNoeud("\n************************************************\n------------------- NOEUD ", indice_proc, " -------------------\n************************************************\n");
-    printColor(indice_proc);printf("\033[4mInforamtions données en paramètres :\033[0m\n");
-    printf("\n       Adresse du serveur : %s\n       Port : %d", adresseIP, atoi(port_serveur));
-    printf("\n       Port du noeud : %d", atoi(port_noeud));
-    printf("\n       Indice du processus : %d\n\n\n", indice_proc);
-
+    printColorNoeud("\n************************************************\n------------------- NOEUD ", indice_proc, " -------------------\n************************************************\n\n");
+    if (DEBUG > 3){
+        printColor(indice_proc);printf("\033[4mInforamtions données en paramètres :\033[0m\n");
+        printf("\n       Adresse du serveur : %s\n       Port : %d", adresseIP, atoi(port_serveur));
+        printf("\n       Port du noeud : %d", atoi(port_noeud));
+        printf("\n       Indice du processus : %d", indice_proc);
+    }
 
 
     //ETAPE 1 : CREATION DE LA SOCKET QUI DISCUTE AVEC SERVEUR
     int dSProcCS = creationSocket();
         //affichage
-    printColor(indice_proc);printf("Création de la socket réussie\n");
+    printColor(indice_proc);printf("Création de la socket pour serveur réussie !\n");
     printColor(indice_proc);printf("Le descripteur du noeud est %d \n\n", dSProcCS);
 
   
@@ -56,7 +57,7 @@ int main(int argc, char *argv[]) {
     inet_ntop(AF_INET, &sockServ.sin_addr, adrServ, INET_ADDRSTRLEN);
         //port
     int portServ = htons((short) sockServ.sin_port);
-    printColor(indice_proc);printf("Designation de la socket du serveur réussi\n");
+    printColor(indice_proc);printf("Designation de la socket du serveur réussi ! \n");
     printColor(indice_proc);printf("Le serveur a donc pour IP %s:%d\n\n", adrServ, portServ);
 
 
@@ -74,7 +75,7 @@ int main(int argc, char *argv[]) {
     int dSProcArete = creationSocket();
     //AFFICHAGE
     //printf("\n[NOEUD] \033[4mSocket du noeud :\033[0m\n");
-    printColor(indice_proc);printf("Création de la socket réussie\n");
+    printColor(indice_proc);printf("Création de la socket d'écoute réussi !\n");
     printColor(indice_proc);printf("Le descripteur du noeud est %d \n\n", dSProcArete);
 
     //NOMMAGE DE LA SOCKET
@@ -86,14 +87,14 @@ int main(int argc, char *argv[]) {
         //port
     int portArete = htons((short) sockArete.sin_port);
         //affichage
-    printColor(indice_proc);printf("Les informations du noeud par la socket de descripteur %d : %s:%i\n\n", dSProcArete, adrArete, portArete);
+    printColor(indice_proc);printf("Informations du noeud (socket) de descripteur %d : %s:%i\n\n", dSProcArete, adrArete, portArete);
 
 
     //ETAPE 5 : MISE SOUS ECOUTE DE LA SOCKET
     int nbMaxAttente = NOEUDS_MAX;
     ecouter(dSProcArete, nbMaxAttente);
         //AFFICHAGE
-    printColor(indice_proc);printf("La mise en ecoute de la socket !\n\n");
+    printColor(indice_proc);printf("La mise en ecoute de la socket réussi !\n\n");
 
     // On vient de finir de mettre en ecoute une socket qui va avoir le rôle de serveur pour ses voisins qui demande une connection
 
@@ -111,7 +112,7 @@ int main(int argc, char *argv[]) {
         //envoie
     sendCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_Graphe));
         //affichage
-    printColor(indice_proc);printf("Envoi des inforamtions réussi !\n");
+    printColor(indice_proc);printf("Envoi des inforamtions réussi au serveur !\n");
     printColor(indice_proc);printf("\033[4mEnvoie des informations suivantes :\033[0m\n");
     printf("\n       Adresse du processus : %s\n       Port : %d", adrArete, portArete);
     printf("\n       Numéro du noeud : %d\n       Descripteur de la socket du processus : %d\n\n\n", indice_proc, dSProcArete);
@@ -127,11 +128,11 @@ int main(int argc, char *argv[]) {
     int nbVoisinDemande = nbVoisin.nbVoisinDemande;
     int nbVoisinAttente = nbVoisinTotal - nbVoisinDemande;
 		//affichage
-    printColor(indice_proc);printf("Reception du nombre de voisin réussi\n");
+    printColor(indice_proc);printf("Reception du nombre de voisin réussi ! \n");
     printf("	Nombre de voisin total : %d\n", nbVoisinTotal);
-	printf("	Nombre de voisin auquels envoyer une demande de connexion : %d\n", nbVoisinDemande);   //ajout d'une delimitation
+	printf("	Nombre de voisin auquels envoyer une demande de connexion : %d\n\n", nbVoisinDemande);   //ajout d'une delimitation
 
-	
+	printf("\n************************************************\n************************************************\n\n\n");   
 
 	
     //ETAPE 8 : RECEPTIONS DES INFORAMTIONS DES VOISINS A QUI TU DEMANDE UNE CONNEXION
@@ -147,7 +148,7 @@ int main(int argc, char *argv[]) {
         info_voisins[v] = info_voisin_courant;
             //affichage
         if (DEBUG > 2) {
-            printColor(indice_proc);printf(" -> connexion à %d\n", info_voisin_courant.numero);	
+            printColorPlus(indice_proc, "RECEPTION");printf("-> connexion à %d\n", info_voisin_courant.numero);	
         }
     }
 
@@ -159,7 +160,7 @@ int main(int argc, char *argv[]) {
         //affichage
     if (DEBUG > 2) {
         //printf("\n");
-        printColor(indice_proc);
+        printColorPlus(indice_proc, "FERMETURE");
         printf("Je me déconnecte du serveur !\n");
     }
     
@@ -185,11 +186,10 @@ int main(int argc, char *argv[]) {
         //CREATION DE LA SOCKET QUI DISCUTE AVEC PROCESSU VOISIN
         dSVoisinDemande = creationSocket();
             //affichage
-        //printf("\n\n");
-        printColor(indice_proc);printf("Création de la socket réussie\n");
-        printColor(indice_proc);printf("Le descripteur du noeud est %d\n", dSVoisinDemande);
+        printColorPlus(indice_proc, "CREATION");printf("de la socket qui demande réussi !\n");
+        printColorPlus(indice_proc, "DESCRIPTEUR");printf("du noeud créé est %d\n", dSVoisinDemande);
     
-        
+
         //DESIGNATION DE LA SOCKET SERVEUR
         struct sockaddr_in sockVoisinDemande = info_voisins[numVoisin].adrProc;                 //recuperation du voisin qui veut demander la connection dans le tableau des voisins car il n'y a que les noeuds qui doivent demander une connection
         //AFFICHAGE
@@ -200,8 +200,8 @@ int main(int argc, char *argv[]) {
                 //port
             int portDem = htons((short) sockVoisinDemande.sin_port);
                 //affichage
-            printColor(indice_proc);printf("Designation de la socket du voisin réussi\n");
-            printColor(indice_proc);printf("Le voisin a donc pour IP %s:%d\n", adrDem, portDem);
+            printColorPlus(indice_proc, "DESIGNATION");printf("de la socket du voisin réussi\n");
+            printColorPlus(indice_proc, "ADRESSE");printf("du voisin est %s:%d\n", adrDem, portDem);
         }
     
 
@@ -209,13 +209,13 @@ int main(int argc, char *argv[]) {
         connexion(dSVoisinDemande, &sockVoisinDemande);
             //affichage
         //printf("\n");
-        printColor(indice_proc);printf("Connexion au voisin %d réussie !\n", info_voisins[numVoisin].numero);
+        printColorPlus(indice_proc, "DEMANDE");printf("de connexion au voisin %d réussie !\n", info_voisins[numVoisin].numero);
 
 
         //ETAPE 11 : ENVOIE D'UN MESSAGE JE SUIS MOI
         sendCompletTCP(dSVoisinDemande, &indice_proc, sizeof(int));
             //affichage
-        printColor(indice_proc);printf("Envoi de mon indice à %d\n", info_voisins[numVoisin].numero);
+        printColorPlus(indice_proc, "ENVOIE");printf("de mon indice à %d\n", info_voisins[numVoisin].numero);
 
 	}//fin des demandes
 
@@ -242,9 +242,9 @@ int main(int argc, char *argv[]) {
         //AFFICHAGE
             //affichage
         //printf("\n");
-        printColor(indice_proc);printf("Connexion d'un Noeud de descripteur %d\n", dSVoisinEntrant);
+        printColorPlus(indice_proc, "ACCEPTATION");printf("d'un Noeud de descripteur %d\n", dSVoisinEntrant);
         if (DEBUG > 3) { 
-			if (numVoisin < 2) {printf("%d Noeud est connecté au noeud en ecoute\n", numVoisin);}     //affichage du nombre de Noeud connecté pour un noeud
+			if (numVoisin < 2) {printColor(indice_proc);printf("%d Noeud est connecté au noeud en ecoute\n", numVoisin);}     //affichage du nombre de Noeud connecté pour un noeud
 	        else {printColor(indice_proc);printf("%d Noeuds sont connectés au noeud en ecoute\n", numVoisin);}                //affichage du nombre de Noeud connecté pour plrs noeuds
 		}
 
@@ -255,7 +255,7 @@ int main(int argc, char *argv[]) {
         recvCompletTCP(dSVoisinEntrant, &numero_Voisin, sizeof(int));       // reception de l'entier dans numero_Voisin
         
         //AFFICHAGE
-        printColor(indice_proc);printf("Le noeud %d est mon voisin\n", numero_Voisin);
+        printColorPlus(indice_proc, "NOEUD");printf("%d est mon voisin\n", numero_Voisin);
 
         //ENVOIE ACCUSE DE RECEPTION
         /* int dS_courant = procVoisin[indice_proc].descripteur;                  //indice courant
@@ -270,7 +270,7 @@ int main(int argc, char *argv[]) {
 
 
 	
-    sleep(10);
+    sleep(5);
 
 
     //FERMETURE DE LA SOCKET CLIENTE CAR PLUS BESOIN
@@ -278,7 +278,7 @@ int main(int argc, char *argv[]) {
     close(dSVoisinDemande);
     close(dSVoisinEntrant);
         //affichage
-    if (DEBUG > 2) { printColor(indice_proc);printf("Je peux m'en aller !\n"); }
+    printColorPlus(indice_proc, "FERMETURE");printf("Je peux m'en aller !\n");
       
       
 

@@ -129,7 +129,7 @@ int main(int argc, char *argv[]) {
 
 
     //ETAPE 4 : MISE SOUS ECOUTE
-    int nbMaxEcoute = NOEUDS_MAX;                                //on fixe le nombre de processus maximum pour attente 
+    int nbMaxEcoute = NOEUDS_MAX;                         //on fixe le nombre de processus maximum pour attente 
     ecouter(dSServeur, nbMaxEcoute);                      //on met en ecoute la socket serveur
         //affichage
     printf("\n[SERVEUR] La mise en ecoute de la socket du serveur réussi !\n");

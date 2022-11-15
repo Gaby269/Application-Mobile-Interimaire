@@ -1,21 +1,13 @@
 // Mode Debug pour les affichages
 #define DEBUG 3
 
-  //REQUETE POSSIBLE QU'ON A MIS EN PLACE
-#define ADR_PROC 1              //adresse du processus courant
-#define ATTRIB_NUM 2            //atribution du numero pour chaque processus
-#define ADR_VOISINS 3           //adresse du voisin
-#define ELECTION 4              //election
-#define NB_VOISIN 5             //on donne le nb de voisins
-
 //SYSTEME ERREUR OU FERMETURE
 #define TRUE 1
 #define FALSE 0
 #define ERREUR -1
 #define FERMETURE 0
 
-#define TAILLE_MAX_STOCK 100    //maximum de stockage
-#define NOEUDS_MAX 100          //on fixe le nombre de noeud maximum du graphe
+#define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
 
 
 
@@ -29,6 +21,11 @@
 void printColor(int numero) {
     int couleurProd = ((numero%6)+1) + '0';      //il n'y a que 6 couleurs visibles alors on fait un modulo 6 et on ne veut pas afficher du noir alors on met + 1 et on transfomre en ASCII
     printf("\x1B[3%cm[NOEUD %d] \033[0m", couleurProd, numero);
+}
+
+void printColorPlus(int numero, char*type){
+    int couleurProd = ((numero%6)+1) + '0';
+    printf("\x1B[3%cm[NOEUD %d] %s \033[0m", couleurProd, numero, type);
 }
 
 
@@ -326,7 +323,7 @@ void connexion(int dS, struct sockaddr_in* sock){
 void ecouter(int dS, int nbProc){
    
     int nbmaxAttente = nbProc;                               //on doit avoir un nb max qui est le nombre de processus dans l'Graphe
-    int res_listen = listen(dS, nbmaxAttente);               //met en ecoute au max pour NOEUDS_MAX noeuds
+    int res_listen = listen(dS, nbmaxAttente);               //met en ecoute au max pour nbmaxAttentenoeuds
 
         //GESTION ERREUR
         if (res_listen == ERREUR) {
