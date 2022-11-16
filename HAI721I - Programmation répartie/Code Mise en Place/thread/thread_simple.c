@@ -37,7 +37,7 @@ void * connexionThread (void * params){
   printf("[ CONNEXION ] Thread %li, Processus : %i,  %i secondes d'attente \n", moi, getpid(), args->temps);               //affichage quand debut thread
   printf("[ DONNEES 1 ] Données = %d\n", *(args->donnee1));
   calcul(args->temps);
-  printf("[ CONNEXION ] La fin du thread : %li\n", moi);                                                //affichage quand fin thread
+  printf("[ CONNEXION ] La fin du thread : %li donnée 1 = %d\n", moi, *(args->donnee1));                                                //affichage quand fin thread
   //exit(1);
   pthread_exit(NULL);                                                                     //on sort du thread  
   //free(args);                                                                           //on libere la memoire si on utilise pas donnee
@@ -59,7 +59,7 @@ void * acceptationThread (void * params){
   printf("[ACCEPTATION] Thread %li, Processus : %i,  %i secondes d'attente \n", moi, getpid(), args->temps);               //affichage quand debut thread
   printf("[ DONNEES 2 ] Données = %d\n", *(args->donnee2));
   calcul(args->temps);
-  printf("[ACCEPTATION] La fin du thread : %li\n", moi);                                                //affichage quand fin thread
+  printf("[ACCEPTATION] La fin du thread : %li donnée 2 = %d\n", moi, *(args->donnee2));                                  //affichage quand fin thread
   //exit(1);
   pthread_exit(NULL);                                                                     //on sort du thread  
   //free(args);                                                                           //on libere la memoire si on utilise pas donnee
@@ -94,7 +94,7 @@ int main(int argc, char * argv[]){
 
   //valeur partager par tous les threads
   int val_partagee1 = 1;
-  int val_partagee2 = 10;
+  int val_partagee2 = 11;
  
   ///////////////////////////
   // CREATION DES THREADS ///

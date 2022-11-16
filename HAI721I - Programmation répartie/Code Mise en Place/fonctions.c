@@ -1,3 +1,15 @@
+#include <netinet/in.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pthread.h>        //thread
+#include "parseur.c"
+
 // Mode Debug pour les affichages
 #define DEBUG 3
 
@@ -333,6 +345,221 @@ void ecouter(int dS, int nbProc){
         }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////
+////////////////// FONCTION SUR LES THREADS /////////////////////
+/////////////////////////////////////////////////////////////////
+
+
+            /******************************/
+            /*********** THREAD ***********/
+            /******************************/
+
+/////////////////////
+// CREATION THREAD //
+/////////////////////
+/// Fonction qui crée un thread pour eviter de mettre 'erreur dans le main
+/// thread pointeur vers l'emplacement du thread qu'on veut créer
+/// param pointeur vers l'emplacement des parametres pour le thread
+/// fonction fonction qui va etre le thread
+void creationThread(pthread_t* thread, struct paramsThread* param, void* fonction){
+    
+    int res_create = pthread_create(thread, NULL, fonction, param);
+
+        //GESTION ERREUR
+        if (res_create != 0){
+            perror("[ERREUR] lors de la creation thread\n ");
+            exit(1);
+        }
+
+}
+
+
+/////////////////////
+// JOIN DES THREAD //
+/////////////////////
+/// Fonction qui fait attendre tout les threads pour pouvoir terminer le programme
+/// threads tableau de tous les threads crées
+/// nbThreads nombre de threads que l'on a créé
+void joinThread(pthread_t* threads, int nbThreads){
+
+    //pour tous les threas
+    for (int i = 0; i < nbThreads; i++){
+
+        //printf("[TRAITEMENT %d] Je suis dans join\n\n", i);
+        int res_join = pthread_join(threads[i], NULL);
+
+        //GESTION ERREURS
+        if (res_join != 0){
+            perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
+            exit(1);                                       //on sort du programme
+        }
+    }
+}
+
+
+
+
+
+            /******************************/
+            /*********** VERROU ***********/
+            /******************************/
+
+            
+//////////////////////////////
+// INITIALISATION DU VERROU //
+//////////////////////////////
+/// Fonction qui  initialise le verrour
+/// verrou verrou qui doit etre initialisé
+void initalisationVerrou(pthread_mutex_t* verrou){
+    
+    int res_mutexInit = pthread_mutex_init(verrou, NULL);
+
+    //GESTION ERREUR
+    if (res_mutexInit != 0){
+      perror("[ERREUR] lors de l'initialisation du verrou");
+      exit(1);
+    }
+
+}
+
+
+/////////////////////
+// PRISE DU VERROU //
+/////////////////////
+/// Fonction qui va prendre le verrou donc utiliser les resource commune
+/// verrou verrou qui doit être pris au prealable initialisé
+void priseVerrou(pthread_mutex_t* verrou){
+
+    int res_lock = pthread_mutex_lock(verrou) ; //prise du verrou
+
+        //GESTION ERREUR
+        if (res_lock != 0){
+            perror("[ERREUR] lors de la prise du verrou\n "); //si erreur lors de la prise du verrou on ferme le thread courant
+            pthread_exit(NULL);
+        }
+}
+
+
+//////////////////////////
+// LIBERATION DU VERROU //
+//////////////////////////
+/// Fonction qui va liberer le verrou lorsqu'on en a plus besoin
+/// verrou verrou qui va etre liberé
+void liberationVerrou(pthread_mutex_t* verrou){
+
+    int res_unlock = pthread_mutex_unlock(verrou) ;  //liberation du verrou car plus besoin
+
+        //GESTION ERREUR
+        if (res_unlock != 0){
+            perror("[ERREUR] Libération du verrou\n ");
+            exit(1);  //si il y a un probleme au niveau de la liberation du verrou il faut arreter le programme car aucun autre thread ne pourra l'utiliser
+        }
+}
+
+
+///////////////////////////
+// DESTRUCTION DU VERROU //
+///////////////////////////
+/// Fonction qui detruit le verrou
+/// verrou verrou qu'on doit detruire
+void destruireVerrou(pthread_mutex_t* verrou){
+
+  int res_destroyVerrou = pthread_mutex_destroy(verrou);
+    
+    //GESTION ERREUR
+    if (res_destroyVerrou != 0){
+      perror("[ERREUR] lors de la destruction du verrou\n ");
+      exit(1);
+    }
+}
+
+
+
+
+
+
+
+////////////////////////////////
+// INITIALISATION DU VAR COND //
+////////////////////////////////
+/// Fonction qui detruit la variable conditionnelle
+/// condi variable conditionnelle a detruire
+void initialisationVarCond(pthread_cond_t* condi){
+
+  int res_condInit = pthread_cond_init(condi, NULL);
+
+    //GESTION ERREUR
+    if (res_condInit != 0){
+      perror("[ERREUR] lors de l'initialisation de var condi\n ");
+      exit(1);
+    }
+
+}
+
+
+//////////////////////////////////////////////////////
+// ATTENTE DES AUTRES THREAD PAR VERROU ET VAR COND //
+//////////////////////////////////////////////////////
+/// Fonction qui attend les autres threads car on a une variable conditionnelle qui nous fait attendre
+/// condi variable conditionnelle qui doit etre liberé
+void attentVarCond(pthread_mutex_t* verrou, pthread_cond_t* condi){
+
+    int res_wait = pthread_cond_wait(condi ,verrou);    //attente du thread courant à l'aide de la variable conditionelle et u verrou paratagé
+      
+        //GESTION ERREUR
+        if (res_wait != 0){
+            perror("[ERREUR] lors de l'attente des autres threads\n ");
+            exit(1);  //si il y a une erreur au niveau de l'attente des autres threads on arrete le programme car ca faussera toutes les données 
+        }
+}
+
+
+
+//////////////////////////////////////////////
+// LIBERATION DE LA VARIABLE CONDITIONNELLE //
+//////////////////////////////////////////////
+/// Fonction qui libere la variable conditionelle
+/// condi variable conditionnelle qui doit etre liberé
+void liberationVarCond(pthread_cond_t* condi){
+
+    int res_broadcast = pthread_cond_broadcast(condi);  //reveille de tous les threads en attentes par la liberation de la variable conditionelle
+
+      //GESTION ERREUR
+      if (res_broadcast != 0){
+        perror("[ERREUR] lors de la liberation de la varaible conditionelle apres attente du dernier thread\n ");
+        exit(1);  //ici on arrete le programme car niveau cela va poser des problème pour les threads suivants
+      }
+}
+
+
+
+/////////////////////////////
+// DESTRUCTION DE VAR COND //
+/////////////////////////////
+/// Fonction qui detruit la variable conditionnelle
+/// condi variable conditionnelle a detruire
+void detruireVarCond(pthread_cond_t* condi){
+  //VAR COND
+  int res_destroyCondi = pthread_cond_destroy(condi);
+
+    //GESTION ERREUR
+    if (res_destroyCondi != 0){
+      perror("[ERREUR] lors de la destruction de var condi\n ");
+      exit(1);
+    }
+
+}
 
 
 

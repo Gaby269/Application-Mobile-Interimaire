@@ -1,18 +1,6 @@
-#include <netinet/in.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include "parseur.c"
 #include "fonctions.c"
 
-
-  
+   
 /////////////////////////
 //  PROGRAME SERVEUR   //
 /////////////////////////
@@ -44,7 +32,7 @@ int main(int argc, char *argv[]) {
     //APPEL DE LA FONCTION pour recuperer les arretes
     struct aretes *liste_aretes = (struct aretes*) malloc (nb_aretes *sizeof(struct aretes));  //on alloue de la memoire pour la liste des aretes
     Arretes(nom_fichier, nb_sommets, nb_aretes, liste_aretes);    //et on recuperer cette liste directement dans liste_aretes
-
+ 
     //AFFICHAGE
     if (DEBUG > 1) { 
         printf("\n\n\033[4mListe des arretes :\033[0m\n");

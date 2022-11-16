@@ -35,3 +35,13 @@ struct info_nb{
   int nb_aretes;
 };
 
+
+
+//THREAD
+struct paramsThread {
+
+  // structure pour regrouper les param�tres d'un thread
+  int idThread;                       // un identifiant de thread, de 1 � N (N le nombre total de theads secondaires)
+  struct predicatRdv * varPartagee;   //les varaible paratgé  tous les threads
+
+};
