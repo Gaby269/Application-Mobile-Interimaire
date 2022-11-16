@@ -16,7 +16,8 @@ struct paramsFonctionThread {
 
   int idThread;       //nombre equivalent à l'identifiant pour que ce soit pratique
   int temps;          //tps de durée du thread différents pour chaquun
-  int * donnee;       //on veut passer l'adresse memoire associé a la donnee pour pouvoir etre changer par tout le monde
+  int * donnee1;       //on veut passer l'adresse memoire associé a la donnee pour pouvoir etre changer par tout le monde
+  int * donnee2;
 
 };
 
@@ -30,12 +31,13 @@ void * connexionThread (void * params){
   
   struct paramsFonctionThread * args = (struct paramsFonctionThread *) params;            //si on a plusieurs arguments
 
-  *(args->donnee) += 1;                                                                   //je modifie la valeur qui est pointé par donnée
+  *(args->donnee1) += 1;                                                                   //je modifie la valeur qui est pointé par donnée
   
   pthread_t moi = pthread_self();                                                         //on veut identifiant du thread
-  printf("[CONNEXION] Le début du thread : %li, a pour processus : %i, et doit attendre %i secondes pour qu'ils finissent tous en même tps \n", moi, getpid(), args->temps);               //affichage quand debut thread
+  printf("[ CONNEXION ] Thread %li, Processus : %i,  %i secondes d'attente \n", moi, getpid(), args->temps);               //affichage quand debut thread
+  printf("[ DONNEES 1 ] Données = %d\n", *(args->donnee1));
   calcul(args->temps);
-  printf("[CONNEXION] La fin du thread : %li\n", moi);                                                //affichage quand fin thread
+  printf("[ CONNEXION ] La fin du thread : %li\n", moi);                                                //affichage quand fin thread
   //exit(1);
   pthread_exit(NULL);                                                                     //on sort du thread  
   //free(args);                                                                           //on libere la memoire si on utilise pas donnee
@@ -51,10 +53,11 @@ void * acceptationThread (void * params){
   
   struct paramsFonctionThread * args = (struct paramsFonctionThread *) params;            //si on a plusieurs arguments
 
-  *(args->donnee) += 1;                                                                   //je modifie la valeur qui est pointé par donnée
+  *(args->donnee2) += 1;                                                                   //je modifie la valeur qui est pointé par donnée
   
   pthread_t moi = pthread_self();                                                         //on veut identifiant du thread
-  printf("[ACCEPTATION] Le début du thread : %li, a pour processus : %i, et doit attendre %i secondes pour qu'ils finissent tous en même tps \n", moi, getpid(), args->temps);               //affichage quand debut thread
+  printf("[ACCEPTATION] Thread %li, Processus : %i,  %i secondes d'attente \n", moi, getpid(), args->temps);               //affichage quand debut thread
+  printf("[ DONNEES 2 ] Données = %d\n", *(args->donnee2));
   calcul(args->temps);
   printf("[ACCEPTATION] La fin du thread : %li\n", moi);                                                //affichage quand fin thread
   //exit(1);
@@ -80,7 +83,7 @@ int main(int argc, char * argv[]){
   ////////////////////////////
 
   if (argc < 2 ){
-    printf("utilisation: %s  nombre_threads  \n", argv[0]);
+    printf("[UTILISATION] %s  nombre_threads  \n", argv[0]);
     return 1;
   }     
 
@@ -90,7 +93,8 @@ int main(int argc, char * argv[]){
   //FIN GESTION PARAM
 
   //valeur partager par tous les threads
-  int val_partagee = 1;
+  int val_partagee1 = 1;
+  int val_partagee2 = 10;
  
   ///////////////////////////
   // CREATION DES THREADS ///
@@ -103,7 +107,8 @@ int main(int argc, char * argv[]){
     //struct paramsFonctionThread parametres[sizeof(struct paramsFonctionThread)*nbThread]; 
     parametres->idThread = i;                                                     //ON LUI DONNE UN ID
     parametres->temps = i;                                                        //on attribut le tps
-    parametres->donnee = &val_partagee;                                           //je donne ladresse memoire de la variable paratage pour que tout le monde puisse y accéder
+    parametres->donnee1 = &val_partagee1;                                           //je donne ladresse memoire de la variable paratage pour que tout le monde puisse y accéder
+    parametres->donnee2 = &val_partagee2;                                           //je donne ladresse memoire de la variable paratage pour que tout le monde puisse y accéder
 
     //CREATION
     if (pthread_create(&threads[i], NULL, acceptationThread, parametres) != 0){      //creation du thread meme si dans if
