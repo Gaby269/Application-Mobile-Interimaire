@@ -40,17 +40,17 @@ struct info_nb{
 //THREAD structure pour regrouper les param�tres d'un thread
 struct paramsInter1 {
   int idThread;                       // un identifiant de thread, de 1 � N (N le nombre total de theads secondaires)
-  struct infos_Graphe* infos_Graphe;  //infomrations sur le processus
+  struct infos_Graphe* procCourant;   //processus courant a qui ont donne les param avant de savoir son numero
   struct partage * varPartage;   //les varaible paratgé  tous les threads
 };
 
 
 // regrouoes les donn�e partag�es entres les threads representant les noeuds
 struct partage {
-  int *cpt;                   //cpt des différents  threads qui sont mis en place en meme tps
   struct info_nb* info_nb;          //tableau du nb de voisins
-  struct infos_Graphe* procGraphe;  //construction d'un tableau pour stocker tous les clients
-  struct nbVois* nbVoisin;          //construction du tableau des voisins
+  struct infos_Graphe* tabProc;     //construction d'un tableau pour stocker tous les clients
+  struct nbVois* nbVois;          //construction du tableau des voisins
+  int ** listeVoisinCo;             //construction du double tableau des voisins
   pthread_mutex_t verrou;     // varriable qui représente le verrou pour avoir la main
   pthread_cond_t condi;       // variable qui represente la variable conditionelle pour lattente des evenements
   

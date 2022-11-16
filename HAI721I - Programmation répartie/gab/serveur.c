@@ -6,21 +6,14 @@ void * interaction1 (void * p){     //un thread représente un client
     //GESTION PARAMETRE DE LA STRUTURE
         //arguments
     struct paramsInter1 * args = (struct paramsInter1 *) p;
-    struct sockaddr_in sockNoeud = (*(args->infos_Graphe)).adrProc;     //adresse du noeud
-    int dSNoeud = (*(args->infos_Graphe)).descripteur;                                 //descripteur du noedu
+    struct sockaddr_in sockNoeud = args->procCourant->adrProc;     //adresse du noeud
+    int dSNoeud =  args->procCourant->descripteur;                 //descripteur du noedu
         //partage
     struct partage * partage = args->varPartage;                   //Recuperation des variables paratgé
-    pthread_t threadCourant = pthread_self();                           //identifiant du threas
-        
-    //AFFICHAGE DU CLIENT PAR LE THREAD QUIL UTILISE ET SES INFORMATIONS
-    printf("[THREAD] : %lu, processus %d\n", threadCourant, getpid());
-        //adresse
-    char adrAff[INET_ADDRSTRLEN];             //on va stocker l'adresse du sous anneau dedans
-    inet_ntop(AF_INET, &(sockNoeud.sin_addr), adrAff, INET_ADDRSTRLEN);     //adresse du Noeud    
-        //port
-    int portAff = htons(sockNoeud.sin_port);                                 //port du Noeud
-        //affichage
-    printf("[SERVEUR] Le client connecté est %s:%i.\n", adrAff, portAff);
+    //pthread_t threadCourant = pthread_self();                      //identifiant du threas
+
+    //AFFICHAGE
+    printf("\n[SERVEUR] Le client de dS = %d est connecté\n", dSNoeud);
 
 
     //ETAPE 6 : RECEPTION DES INFORMATIONS DU NOEUD
@@ -28,25 +21,29 @@ void * interaction1 (void * p){     //un thread représente un client
     struct infos_Graphe info_proc;                      //structure qui va recuperer les informations qu'un Noeud a envoyer
         //reception
     recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_Graphe));       //reception des informations dans info_proc
-        //modification des donnees
-    (*(args->infos_Graphe)).numero = info_proc.numero;                   //recup numero
-    (*(args->infos_Graphe)).adrProc = info_proc.adrProc;               //donner a sockNoeud l'adresse recu dans info_proc
         //declaration variable plus simple
-    int numero = (*(args->infos_Graphe)).numero;
-    sockNoeud = (*(args->infos_Graphe)).adrProc;
-    int indice_proc = info_proc.numero-1;                 //donne l'indice du tableau qu'on paratge
-
+    int numero = info_proc.numero;
+    int indice_proc = numero-1;                 //donne l'indice du tableau qu'on paratge
+    sockNoeud = info_proc.adrProc;
+        //modification des donnees
+    args->procCourant->numero = numero;                   //recup numero
+    args->procCourant->adrProc = sockNoeud;               //donner a sockNoeud l'adresse recu dans info_proc
+    printf("num = %d", args->procCourant->numero);
 
     //PRISE DU VERROU
-    priseVerrou(&partage->verrou);     //prise du verrou
+    priseVerrou(&(partage->verrou));     //prise du verrou
     printf("[SERVEUR] Prise du verrou pour le noeud %d\n", numero);
 
-    //DECREENTATION DU CONTEUR
-    *(partage->cpt) -= 1;
-        //MODIFICATION DES INFORMATIONS
-    partage->procGraphe[indice_proc].numero = numero;                         //on attribut l'indice du noeud
-    partage->procGraphe[indice_proc].descripteur = dSNoeud;                          //on attribut le descripteur
-    partage->procGraphe[indice_proc].adrProc = sockNoeud;                            //on attribut l' adresse
+    //MODIFICATION DES INFORMATIONS
+    partage->tabProc[indice_proc].numero = numero;                         //on attribut l'indice du noeud
+    partage->tabProc[indice_proc].descripteur = dSNoeud;                          //on attribut le descripteur
+    partage->tabProc[indice_proc].adrProc = sockNoeud;                            //on attribut l' adresse
+        //RECUPERATION DES INFOS 
+    struct nbVois nbVoisinCourant = partage->nbVois[indice_proc];                         //Recuperation du nb de voisins pour affichage
+
+    //LIBERATION VERROU : on a plus besoin du verrou donc on peut le liberer
+    liberationVerrou(&(partage->verrou));
+    printf("[SERVEUR] Liberation du verrou pour le noeud %d\n", numero);
 
     //AFFICHAGE
         //adresse
@@ -57,20 +54,21 @@ void * interaction1 (void * p){     //un thread représente un client
         //affichage
     printf("\n[SERVEUR] \033[4mLe processus a comme informations après réception :\033[0m\n");
     printf("\n       Adresse du processus : %s\n       Port : %d", adrProcAff, portProcAff);
-    printf("\n       Numéro du noeud dans le graphe : %d\n       Descripteur de la socket du processus : %d\n\n", indice_proc+1, partage->procGraphe[indice_proc].descripteur);
+    printf("\n       Numéro du noeud dans le graphe : %d\n       Descripteur de la socket du processus : %d\n\n", indice_proc+1, dSNoeud);
         
 
     //ETAPE 7 : ENVOI DU NOMBRE DE VOISIN A CHAQUE NOEUDS
         //descripteur de socket courant
-    int dS_courant = partage->procGraphe[indice_proc].descripteur;                  //indice courant
+    int dS_courant = dSNoeud;                  //indice courant
         //envoi
-    sendCompletTCP(dS_courant, &(partage->nbVoisin[indice_proc]), sizeof(struct nbVois));
+    sendCompletTCP(dS_courant, &nbVoisinCourant, sizeof(struct nbVois));
         //affichage
     printf("\n[SERVEUR] \033[4mInformations envoyées :\033[0m\n\n");
-    printf("      Nombre de voisin total = %d\n", partage->nbVoisin[indice_proc].nbVoisinTotal);
-    printf("      Nombre de voisin de demande = %d\n", partage->nbVoisin[indice_proc].nbVoisinDemande);
+    printf("      Nombre de voisin total = %d\n", nbVoisinCourant.nbVoisinTotal);
+    printf("      Nombre de voisin de demande = %d\n", nbVoisinCourant.nbVoisinDemande);
 
-
+    *(args->varPartage) = *partage;     //nous voulons que les valeurs soit changer donc on redonne les bonnes valeurs
+    
     pthread_exit(NULL); // fortement recommand�.
 
 }
@@ -110,6 +108,16 @@ int main(int argc, char *argv[]) {
     }
 
 
+    //VARIABLES PARTAGE
+        //allocation partage
+    struct partage * part = (struct partage*) malloc(sizeof(struct partage));       //partage
+    struct info_nb * nbTout = (struct info_nb*) malloc(sizeof(struct info_nb));     //nb de sommets et arretes 
+        //données recuperable
+    nbTout->nb_aretes = nb_aretes;      //on donne le nombre d'arretes
+    nbTout->nb_sommets = nb_sommets;    //on donne le nombre de sommets
+    part->info_nb = nbTout;             //donne nbTout au variables partagé
+        
+
     //APPEL DE LA FONCTION pour recuperer les arretes
     struct aretes *liste_aretes = (struct aretes*) malloc (nb_aretes *sizeof(struct aretes));  //on alloue de la memoire pour la liste des aretes
     Arretes(nom_fichier, nb_sommets, nb_aretes, liste_aretes);    //et on recuperer cette liste directement dans liste_aretes
@@ -148,6 +156,10 @@ int main(int argc, char *argv[]) {
         nbVoisin[noeud1-1].nbVoisinDemande++;      //on augmente le nombre de voisin a qui ont va demander
         nbVoisin[noeud2-1].nbVoisinTotal++;        //on aumgnete pour le neoud 2
     }
+    //VARIABLES PARTAGE
+    part->nbVois = (struct nbVois*) malloc(nb_sommets*sizeof(struct nbVois));     //allocation memoire
+    part->nbVois = nbVoisin;                    //donner les nb de voisins au paratge
+    
 
     //TABLEAU DES LISTES DE VOISINS
         //allocation de memoire
@@ -175,6 +187,9 @@ int main(int argc, char *argv[]) {
         printf("    Noeud %d : %d voisins donct %d qui demande\n", i+1, nbVoisin[i].nbVoisinTotal, nbVoisin[i].nbVoisinDemande);
     }
     printf("\n************************************************\n************************************************\n");   
+
+    //VARIABLE PARATGE
+    part->listeVoisinCo = liste_voisins_connexion;   //donner les infos des graphes au partage
 
 
     //ETAPE 3 : CREATION SOCKET SERVEUR
@@ -240,24 +255,19 @@ int main(int argc, char *argv[]) {
         //ALLOCATION MEMOIRE 
             //allocation paramsInter1
         struct paramsInter1 * args = (struct paramsInter1*)malloc(sizeof(struct paramsInter1)); //aloue de la memoire pour les arguments
-        struct infos_Graphe * infos = (struct infos_Graphe*)malloc(sizeof(struct infos_Graphe)); //aloue de la memoire dans l'argument
-        args->infos_Graphe = infos;             //donner l'allocation a l'insterieur de la premiere
-            //allocation partage
-        struct partage * part = (struct partage*)malloc(sizeof(struct partage));
-        struct info_nb * nbTout = (struct info_nb*)malloc(sizeof(struct info_nb));
-        part->info_nb = nbTout;     //donner les inforamtions sur le grpahes
-        struct infos_Graphe * infosPar = (struct infos_Graphe*)malloc(nb_sommets*sizeof(struct infos_Graphe)); //aloue de la memoire pour les arguments
-        part->procGraphe = infosPar;   //donner les infos des graphes au partage
-        struct nbVois * nbVois = (struct nbVois*)malloc(sizeof(nb_sommets*sizeof(struct nbVois))); //aloue de la memoire dans l'argument
-        part->nbVoisin = nbVois;                    //donner les nb de voisins au paratge
-        args->varPartage = part;                    //donner le tout a arguments
-        
-        (*(args->infos_Graphe)).descripteur = dSNoeud;                    //descripteur du noeud
-        (*(args->infos_Graphe)).adrProc = sockNoeud;                      //adresse du noeud
+            //aloc pour tab des processus
+        struct infos_Graphe* tabProc = (struct infos_Graphe*) malloc(nb_sommets*sizeof(struct infos_Graphe));
+        part->tabProc = tabProc;        //allocation de memoire dans paratge
+            //info dans aigs
+        struct infos_Graphe * infosNoeud = (struct infos_Graphe*) malloc(nb_sommets*sizeof(struct infos_Graphe)); //aloue de la memoire pour les arguments
+        infosNoeud->descripteur = dSNoeud;
+        infosNoeud->adrProc = sockNoeud;
+        args->procCourant = infosNoeud;              //donner les infos des graphes au partage
+        args->varPartage = part;                     //on donne donc les infos sur les var partage
 
         //CREATION DU THREAD POUR LE CLIENT
         creationThread(&threads[numSommet-1], args, interaction1);    //creation du thread
-        printf("\n[SERVEUR] Création d'un thread pour le noeud de descripteur%d\n", dSNoeud);
+        printf("\n[SERVEUR] Création d'un thread pour le noeud  %d\n", numSommet);
 
     } //fin de la premieère connexion avec tous les noeuds
 
@@ -275,11 +285,11 @@ int main(int argc, char *argv[]) {
         //parcourt des noeuds connectés au serveur                        
     for (int i=0; i<nb_sommets; i++) {     //on commence a un car les indice commence a 1
             //recuperation adresse
-        inet_ntop(AF_INET, &procGraphe[i].adrProc.sin_addr, adrNoeudCoAff, INET_ADDRSTRLEN);     //adresse du Noeud    
+        inet_ntop(AF_INET, &(part->tabProc[i].adrProc.sin_addr), adrNoeudCoAff, INET_ADDRSTRLEN);     //adresse du Noeud    
             //port
-        int portNoeudCoAff = htons(procGraphe[i].adrProc.sin_port);                                 //port du Noeud
+        int portNoeudCoAff = htons(part->tabProc[i].adrProc.sin_port);                                 //port du Noeud
             //affichage
-        printf("\n      Noeud d'indice %d de descripteur %i : %s:%i", i+1, procGraphe[i].descripteur, adrNoeudCoAff, portNoeudCoAff);
+        printf("\n      Noeud d'indice %d de descripteur %i : %s:%i", i+1, part->tabProc[i].descripteur, adrNoeudCoAff, portNoeudCoAff);
     }
 
     printf("\n\n************************************************\n************************************************\n");   
