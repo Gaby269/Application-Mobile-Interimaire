@@ -36,8 +36,11 @@ print("IP serveur :",ip_serveur+":"+str(port_serveur))
 #
 
 # Lancement des noeuds
-for i in range(1, 1+noeuds):
+for i in range(1, noeuds):
     cmd = ["./bin/noeuds", ip_serveur, str(port_serveur), str(port_serveur+i), str(i), "&"]
     os.system(" ".join(cmd))
+
+cmd = ["./bin/noeuds", ip_serveur, str(port_serveur), str(port_serveur+noeuds), str(noeuds)]
+os.system(" ".join(cmd))
 
 # bon grosso merdo voilà
