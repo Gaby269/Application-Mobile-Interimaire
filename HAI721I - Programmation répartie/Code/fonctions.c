@@ -372,7 +372,7 @@ void ecouter(int dS, int nbProc){
 /// thread pointeur vers l'emplacement du thread qu'on veut créer
 /// param pointeur vers l'emplacement des parametres pour le thread
 /// fonction fonction qui va etre le thread
-void creationThread(pthread_t* thread, struct paramsThread* param, void* fonction){
+void creationThread(pthread_t* thread, void* param, void* fonction){
     
     int res_create = pthread_create(thread, NULL, fonction, param);
 
