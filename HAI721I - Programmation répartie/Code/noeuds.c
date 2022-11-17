@@ -259,7 +259,7 @@ int main(int argc, char *argv[]) {
         //ETAPE 10 : DEMANDE DE CONNEXION DE LA SOCKET A L'ADRESSE
         
         connexion(dSVoisinDemande, &sockVoisinDemande);
-/*
+
 			    //ARGS
         *(argsCo->numero_proc) = numero_noeud;
         *(argsCo->numero_vois) = info_voisins[numVoisin-1].numero;
@@ -269,8 +269,8 @@ int main(int argc, char *argv[]) {
     
         //AFFICHAGE
                 //addresse
-        char adrDem2[INET_ADDRSTRLEN];
-        inet_ntop(AF_INET, &sockVoisinDemande.sin_addr, adrDem2, INET_ADDRSTRLEN);
+        char adrDem[INET_ADDRSTRLEN];
+        inet_ntop(AF_INET, &sockVoisinDemande.sin_addr, adrDem, INET_ADDRSTRLEN);
                 //port
         int portDem = htons((short) sockVoisinDemande.sin_port); 
                 //affichage
@@ -278,7 +278,7 @@ int main(int argc, char *argv[]) {
         printColorPlus(numero_noeud, "CREATION THREAD");printf("pour le noeud d'indice %d\n", numVoisin-1);
         //CREATION DU THREAD POUR LE CLIENT QUI SE CONNECTE
         creationThread(&threadsCo[numVoisin-1], argsCo, ConnexionAuNoeud);    //creation du thread
-*/
+
 	}//fin des demandes
 
 
