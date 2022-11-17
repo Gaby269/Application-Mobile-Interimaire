@@ -473,7 +473,7 @@ void liberationVerrou(pthread_mutex_t* verrou){
 ///////////////////////////
 /// Fonction qui detruit le verrou
 /// verrou verrou qu'on doit detruire
-void destruireVerrou(pthread_mutex_t* verrou){
+void detruireVerrou(pthread_mutex_t* verrou){
 
   int res_destroyVerrou = pthread_mutex_destroy(verrou);
     

@@ -5,7 +5,7 @@
 //////////////////////////////////////
 // FONCTION ASSOCI2 A CHAQUE THREAD //
 //////////////////////////////////////
-
+/*
 void * demandeConnexionNoeudi (void * param){ 
 
     //GESTION DES STRUCTURE
@@ -94,7 +94,7 @@ void * acceptationConnexionNoeudi (void * param){
 
 }
 
-
+*/
 
 
 /////////////////////////
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
         printColor(indice_proc);printf("\033[4mInforamtions données en paramètres :\033[0m\n");
         printf("\n       Adresse du serveur : %s\n       Port : %d", adresseIP, atoi(port_serveur));
         printf("\n       Port du noeud : %d", atoi(port_noeud));
-        printf("\n       Indice du processus : %d", indice_proc);
+        printf("\n       Indice du processus : %d\n\n", indice_proc);
     }
 
 

@@ -47,6 +47,7 @@ struct paramsInter1 {
 
 // regrouoes les donn�e partag�es entres les threads representant les noeuds
 struct partage {
+  int* nbCourant;                 //nombre processus courant
   struct info_nb* info_nb;          //tableau du nb de voisins
   struct infos_Graphe* tabProc;     //construction d'un tableau pour stocker tous les clients
   struct nbVois* nbVois;          //construction du tableau des voisins
