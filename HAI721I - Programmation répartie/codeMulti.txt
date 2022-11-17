@@ -1,0 +1,304 @@
+
+
+
+
+
+
+
+
+
+
+	
+  //ETAPE 12 : CONNEXION AUX AUTRES VOISINS
+/*
+    //ETAPE 11 : CHANGEMENT DE DONNEES
+    int numeroSousGraphe = informations_proc.info1;  //le numero du sous Graphe prend la valeur de l'information 1 du message recu
+    printf("\n[NOEUD %d] J'ai reçu mon numéro de sous Graphe", indice_proc);
+
+
+    //ETAPE 12 : CREATION DE L'ADRESSE DU NOEUD SUIVANT
+    fd_set set, settmp;
+    FD_ZERO(&set);                              //on reinitialise 
+    FD_SET(dSProcCS, &set);                     //ajout de la socket serveur
+    FD_SET(dSProcArete, &set);                //ajout de la socket preedente
+    struct sockaddr_in sockProcK;               //structure de son adresse
+    //socklen_t lgAdr;                          //taille de l'adresse
+
+
+    //ETAPE 13 : CALCUL DU MAXIMUM DES DESCRIPTEUR
+    int maxdS = dSProcCS;                                 //declaration max des descripteur
+    if (dSProcArete > dSProcCS) maxdS = dSProcArete;    //calcul du maximum par rapport au processus precedent
+    
+
+    //ETAEP 14 : MODIFICATION DES DONNEES
+    int dSProcKGraphe = ERREUR;                                     //descripteur du processus suivant pour l'instant c'est une erreur
+
+    int connecteAuPrecedent = FALSE;                                //declare un boolean qui dit si la connexion est ok ou non
+    int taille_reseau = -1;                                         //on declare la taille du reseau
+    int plus_grand = FALSE;                                         //on declare un boolean qui dit si le processus est le chef ou non
+
+    struct infos_Graphe stockage[TAILLE_MAX_STOCK];                 //declaration du tableau des informations avec les reuetes
+    int indiceStockage = 0;                                         //et on declare l'indice du stockage
+
+
+    while (TRUE) {
+
+        //SI LA SOCKET DU NOEUD PROCHAIN EXISTE ET QUE L'INDICE OU STOCKER LES MESSAGES EST PLUS GRAND QUE 0
+        if (indiceStockage > 0 && dSProcKGraphe != ERREUR) {    
+
+            //ETAPE 15 : ENVOIE DES MESSAGES SOCKER DANS LE TABLEAU DES INFORMATIONS
+
+                //GESTION ERREUR SI INDICE EST A 0
+                if (indiceStockage == 0) {
+
+
+                    //FEREMTURE DU DESCRIPTEUR PROCHAIN
+                    close(dSProcKGraphe);
+
+                    //FERMETURE DU DESCRIPTEUR PRECEDENT
+                    close(dSProcArete);
+
+                    FD_CLR(dSProcKGraphe, &set);  //supression du processus suivant
+                    FD_CLR(dSProcArete, &set);  //suppression du processus precedent
+
+                    //AFFICHAGE
+                    printf("\n[NOEUD] Destruction des processus\n");
+                    close(dSProcCS);
+                    exit(1);                    //on sort du programme
+                }
+
+            //ENVOIE DU NOMBRE DE MESSAGE A ENVOYER
+            printf("\n[NOEUD] Envoi du numéro des messages stockés");
+            sendCompletTCP(dSProcCS, &indiceStockage, sizeof(int));
+
+            //ENVOIE DE TOUS LES MESSAGES
+            for (int i=0; i<indiceStockage; i++) {
+                printf("\n[NOEUD] Envoi d'un message");
+                sendCompletTCP(dSProcCS, &stockage[i], sizeof(struct infos_Graphe));
+            }
+
+            //UNE FOIS QU'ON A TOUT ENVOYER ON RECOMMENCE EN METTANT l'INDICE A 0
+            indiceStockage = 0;
+            printf("\n[NOEUD] Tableau de message envoyé");
+        }
+
+        
+        //ETAPE 16 : slectionner le maximum des données dans settmp
+        settmp = set;
+        if (select(maxdS+1, &settmp, NULL, NULL, NULL) == ERREUR) {
+            printf("\n[NOEUD] Problème lors du select");
+            continue;
+        }
+        
+
+        //BOUCLE POUR PARCOURIR TOUTES LES SOCKETS POSSIBLES
+        for (int df=2; df <= maxdS; df++) {
+            
+            if (!FD_ISSET(df, &settmp)) {
+                continue;
+            }
+
+            //SI C'EST LA SOCKET QUI DISCUTE AVEC LE SERVEUR
+            if (df == dSProcCS) {
+
+                //DONNEES
+                struct infos_Graphe informations_proc;
+
+                // ETAPE 17 : RECPETION DU MESSAGE DE LA PART DU SERVEUR QUI CONTIENT DONC l'ADRESSE DU NOEUD SUIVANT
+                recvCompletTCP(dSProcCS, &informations_proc, sizeof(struct infos_Graphe));
+                //ON PEUT MAINTENANT ARRETER LA CONNECTION AVEC LE SERVEUR
+                printf("\n[NOEUD] Deconnexion du serveur");
+
+                // ETAPE 18 : FERMETURE DE LA SOCKET
+                if (close(dSProcCS) == -1) {
+                    printf("\n[NOEUD] Problème lors de la fermeture du descripteur");
+                }
+                FD_CLR(dSProcCS, &set);        //supression de la socet serveur
+
+                //SI LA REQUETE EST BIEN ADRESSE DU VOISINS
+                if (informations_proc.requete == ADR_VOISIN) {
+
+                    // ETAPE 19 : STOCKAGE DE L'ADRESSE
+                    sockProcK = informations_proc.adrProc;             //l'adresse de la socket suivante prend la valeur de l'adresse du message
+                    
+                    //RECUPERATION ADRESSE ET PORT
+                    char adresse[INET_ADDRSTRLEN];
+                    inet_ntop(AF_INET, &sockProcK.sin_addr, adresse, INET_ADDRSTRLEN);
+                    int port = htons(sockProcK.sin_port);
+                    
+                    //AFFICHAGE
+                    printf("\n[NOEUD] Tentative de se connecter à l'Graphe suivant: %s:%i\n", adresse, port);
+
+
+                    //ETAPE 20 : CREATION DE LA SOCKET DU NOEUD SUIVANT
+                    dSProcKGraphe = creationSocket();
+
+                    //ETAPE 21 : CONNECTION AVEC LADRESSE DU PROCESSU PROCHAIN
+                    connexion(dSProcKGraphe, &sockProcK);       //connexion du descripteur du processus k avec une adresse recu
+
+                    //AFFICHAGE
+                    printf("\n[NOEUD] Connexion au prochain sous-Graphe réussie");
+
+
+                    // ETAPE 22 : LANCER L'ELECTION POUR SAVOIR QUI COMMENCE
+                    
+                    //DONNEEES  
+                    struct infos_Graphe informations_proc;                            //declaration d'une structure contenant un message correspondant à une requete
+                    informations_proc.requete = ELECTION;                                 //la requete est une election
+                    informations_proc.info1 = numeroSousGraphe;                           //l'information 1 est le numero du processus de l'Graphe
+                    informations_proc.info2 = 1;                                          //l'information 2 est un entier 1
+
+                    //STOCKAGE DANS LE TABLEAU stockage
+
+                        //GESTION ERREUR DE DEPASSEMENT
+                        if (indiceStockage == TAILLE_MAX_STOCK) {        //taille trop grande tableau pas assez grande
+                            printf("\n[NOEUD] Problème, dépassement du stockage maximum de messages");
+                            close(dSProcCS);
+                            exit(1);
+                        }
+
+                    stockage[indiceStockage] = informations_proc;            //stocke le message à l'indice donnée en parametre dans la liste des messages
+                    indiceStockage++;                                        //on incremente l'indice pour le mesages suviant
+                                    
+                    break;
+                }
+                //sinon auncune requete
+                else {
+                    printf("\n[NOEUD] Tout autre requete n'est pas possible pour cette étape");
+                    break;
+                }
+            }
+
+
+            //SI SOCKET EST LE NOEUD PRECEDENT
+            if (df == dSProcArete) {
+
+                //SI LA CONNEION NEST PAS ENCORE EFFECTUE
+                if (!connecteAuPrecedent) {
+
+                    // ETAPE 17 : ACCEPTATION DE LA SOCKET QUI DEMANDE LA CONNECTION
+                    dSProcArete = accepter(dSProcArete, sockArete);
+
+                    //RECUPERATION DES ADRESSE
+                    char adresse[INET_ADDRSTRLEN];
+                    inet_ntop(AF_INET, &sockArete.sin_addr, adresse, INET_ADDRSTRLEN);
+
+                    //AFFICHAGE
+                    printf("\n[NOEUD] Connecté à l'Graphe précédent: %s", adresse);
+                    FD_SET(dSProcArete, &set);
+
+                    //RECLACULATION DU MAX
+                    if (maxdS < dSProcArete) maxdS = dSProcArete;
+                    connecteAuPrecedent = TRUE;         //la connexion est effectué
+                    continue;
+
+                }
+                //SI CONNEXION EST FAITE
+                else{       //if (connecteAuPrecedent)
+
+                    //ETAPE 18 : RECEPTION DES MESSAGES DU NOEUD PRECEDENT
+
+                    //DONNEES
+                    struct infos_Graphe informations_proc;      //messages qui comportera une requete et des inforamtions
+                    int nbReception;                                //nombre de recpetion 
+                    int numeroProvenance;                           //numero du processus donnée dans informations
+                    int calculDeTaille;                             //calcul de la taille 
+
+                    //RECEPTION DU NOMBRE DE RECEPTION A RECEVOIR
+                    recvCompletTCP(dSProcArete, &nbReception, sizeof(int));
+
+                    //BOUCLE POUR RECEVOIR AUTANT DE MESSAGE QUE PREVU
+                    for (int i=0; i<nbReception; i++) {
+
+                        //RECEVOIR LE MESSAGE 
+                        recvCompletTCP(dSProcArete, &informations_proc, sizeof(struct infos_Graphe));
+                        
+                        //SELON LA REQUETE
+                        switch (informations_proc.requete) {
+                            case ELECTION:                              //si c'est une election
+                                numeroProvenance = informations_proc.info1;           //le numero de provenance prend la valeur du numero de processus
+                                calculDeTaille = informations_proc.info2;             //le calcul prend la valeur 1 pour l'instant
+                                printf("\n[NOEUD] J'ai reçu un message d'élection du P°%i, le calcul de taille en cours est %i",numeroProvenance, calculDeTaille);
+
+                                //SI MON NUMERO EST PLUS GRAND QUE LE NUMERO DE PROVENANCE JE NE DOIS RIEN ENVOYER
+                                if (numeroProvenance < numeroSousGraphe) {
+                                    printf("\n[NOEUD] Je suis un meilleur candidat, je ne renvoie pas");
+                                } 
+                                //SINON SI LES DEUX NUMEROS SONT EGAUX ALORS CEST MON NUMERO
+                                else if (numeroProvenance == numeroSousGraphe) {
+                                    printf("\n[NOEUD] J'ai reçu mon propre message, je suis donc l'élu, je renvoie la taille du réseau à tous");
+                                    //MODIFICATION DONNEES
+                                    plus_grand = TRUE;             //je deviens le chef car je viens de recevoir mon propre nuemro donc ca a été le plus grand pour tous
+                                    taille_reseau = calculDeTaille;   //la taille du reseau est alors le calcul de la taille
+                                    informations_proc.info1 = calculDeTaille;         //la nouvel 1 information c'est également le calcul de la taille
+                                    informations_proc.requete = TAILLE_RESEAU;        //et on change la requete qui est la taille du reseau
+                                    //STOCKAGE DANS LE TABLEAU stockage
+                    
+                                        //GESTION ERREUR DE DEPASSEMENT
+                                        if (indiceStockage == TAILLE_MAX_STOCK) {        //taille trop grande tableau pas assez grande
+                                            printf("\n[NOEUD] Problème, dépassement du stockage maximum de messages");
+                                            close(dSProcCS);
+                                            close(dSProcArete);
+                                            exit(1);
+                                        }
+
+                                    stockage[indiceStockage] = informations_proc;            //stocke le message à l'indice donnée en parametre dans la liste des messages
+                                    indiceStockage++;                                        //on incremente l'indice pour le mesages suviant
+
+                                } 
+                                //SINON MON NUMERO EST PLUS PETIT DONC ON ENVOIE LE NUMERO PLUS grAND
+                                else {
+                                    printf("\n[NOEUD] C'est un meilleur candidat que moi, je renvoie");
+                                    informations_proc.info2++;                          //on incremente l'information 2 qui correspond la taille du reseau
+                                                                               
+                                    //STOCKAGE DANS LE TABLEAU stockage
+                    
+                                        //GESTION ERREUR DE DEPASSEMENT
+                                        if (indiceStockage == TAILLE_MAX_STOCK) {           //taille trop grande tableau pas assez grande
+                                            printf("\n[NOEUD] Problème, dépassement du stockage maximum de messages");
+                                            close(dSProcCS);
+                                            close(dSProcArete);
+                                            exit(1);
+                                        }
+
+                                    stockage[indiceStockage] = informations_proc;            //stocke le message à l'indice donnée en parametre dans la liste des messages
+                                    indiceStockage++;                                        //on incremente l'indice pour le mesages suviant
+
+                                }
+                                break;                                  //on a pas d'autre conditions
+                            case TAILLE_RESEAU:                         //si c'est une taille du reseau
+                                //SI JE SUIS LE CHEF
+                                if (plus_grand) {                  //si je suis le chef alors la taille du reseau est connu de tous
+                                    printf("\n[NOEUD] Le message de taille du reseau a bien fait le tour de l'Graphe");
+                                }
+                                //SINON JE SUIS PAS LE CHEF 
+                                else {
+                                    taille_reseau = informations_proc.info1;                              //la taille du reseau prend la valeur de la premiere informations
+                                    printf("\n[NOEUD] La taille du reseau est: %i",taille_reseau);         //affichage
+                                    //STOCKAGE DANS LE TABLEAU stockage
+                    
+                                        //GESTION ERREUR DE DEPASSEMENT
+                                        if (indiceStockage == TAILLE_MAX_STOCK) {        //taille trop grande tableau pas assez grande
+                                            printf("\n[NOEUD] Problème, dépassement du stockage maximum de messages");
+                                            close(dSProcCS);
+                                            close(dSProcArete);
+                                            exit(1);
+                                        }
+
+                                    stockage[indiceStockage] = informations_proc;            //stocke le message à l'indice donnée en parametre dans la liste des messages
+                                    indiceStockage++;                                        //on incremente l'indice pour le mesages suviant
+
+                                }
+                                break;
+                            default:                //sinon ca ne correspond pas a de resquete
+                                printf("\n[NOEUD] Problème: requête non reconnue");
+                                break;
+                        }
+                    }
+                    //FIN ETAPE 18
+
+                } 
+            }
+        }
+    }
+    */
