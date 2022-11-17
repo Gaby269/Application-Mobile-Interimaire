@@ -28,6 +28,7 @@ void * interaction1 (void * p){     //un thread représente un client
         //modification des donnees
     args->procCourant->numero = numero;                   //recup numero
     args->procCourant->adrProc = sockNoeud;               //donner a sockNoeud l'adresse recu dans info_proc
+    printf("num = %d", args->procCourant->numero);
 
     //PRISE DU VERROU
     priseVerrou(&(partage->verrou));     //prise du verrou
@@ -66,7 +67,7 @@ void * interaction1 (void * p){     //un thread représente un client
     printf("      Nombre de voisin total = %d\n", nbVoisinCourant.nbVoisinTotal);
     printf("      Nombre de voisin de demande = %d\n", nbVoisinCourant.nbVoisinDemande);
 
-    args->varPartage = partage;     //nous voulons que les valeurs soit changer donc on redonne les bonnes valeurs
+    *(args->varPartage) = *partage;     //nous voulons que les valeurs soit changer donc on redonne les bonnes valeurs
     
     pthread_exit(NULL); // fortement recommand�.
 
@@ -183,7 +184,7 @@ int main(int argc, char *argv[]) {
         //affichage
     printf("\n[SERVEUR] \033[4mTableau des nb de voisins :\033[0m\n\n");
     for (int i=0; i<nb_sommets; i++){
-        printf("    Noeud %d : %d voisins donct %d qui demande\n", i+1, part->nbVois[i].nbVoisinTotal, part->nbVois[i].nbVoisinDemande);
+        printf("    Noeud %d : %d voisins donct %d qui demande\n", i+1, nbVoisin[i].nbVoisinTotal, nbVoisin[i].nbVoisinDemande);
     }
     printf("\n************************************************\n************************************************\n");   
 
@@ -231,15 +232,6 @@ int main(int argc, char *argv[]) {
         threads[i] = 0;
     }
 
-    //ALLOCATION MEMOIRE 
-        //allocation paramsInter1
-    struct paramsInter1 * args = (struct paramsInter1*)malloc(sizeof(struct paramsInter1)); //aloue de la memoire pour les arguments
-        //aloc pour tab des processus
-    struct infos_Graphe* tabProc = (struct infos_Graphe*) malloc(nb_sommets*sizeof(struct infos_Graphe));
-    struct infos_Graphe * infosNoeud = (struct infos_Graphe*) malloc(nb_sommets*sizeof(struct infos_Graphe)); //aloue de la memoire pour les arguments
-        
-        
-
 
     //BOUCLE POUR RECEVOIR LES NOEUDS    
     for (numSommet=1; numSommet<=nb_sommets; numSommet++) {
@@ -259,9 +251,15 @@ int main(int argc, char *argv[]) {
 	        else {printf("[SERVEUR] %d Noeuds sont connectés au serveur\n", numSommet);}        //affichage du nombre de Noeud connecté
 		}
 
-        //VARIABLES PARATGE
+        
+        //ALLOCATION MEMOIRE 
+            //allocation paramsInter1
+        struct paramsInter1 * args = (struct paramsInter1*)malloc(sizeof(struct paramsInter1)); //aloue de la memoire pour les arguments
+            //aloc pour tab des processus
+        struct infos_Graphe* tabProc = (struct infos_Graphe*) malloc(nb_sommets*sizeof(struct infos_Graphe));
         part->tabProc = tabProc;        //allocation de memoire dans paratge
             //info dans aigs
+        struct infos_Graphe * infosNoeud = (struct infos_Graphe*) malloc(nb_sommets*sizeof(struct infos_Graphe)); //aloue de la memoire pour les arguments
         infosNoeud->descripteur = dSNoeud;
         infosNoeud->adrProc = sockNoeud;
         args->procCourant = infosNoeud;              //donner les infos des graphes au partage
@@ -282,7 +280,6 @@ int main(int argc, char *argv[]) {
     //AFFICHAGE DE LA LISTE DES NOEUDS CONNECTE
         //affichage
     printf("\n[SERVEUR] \033[4mListe des noeuds connectés:\033[0m\n");
-    part = args->varPartage;    //Reattribution des valeurs
         //adresse
     char adrNoeudCoAff[INET_ADDRSTRLEN];                                       //on va stocker l'adresse du sous anneau dedans
         //parcourt des noeuds connectés au serveur                        
