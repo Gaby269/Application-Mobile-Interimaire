@@ -10,7 +10,7 @@
 #include <pthread.h>        //thread
 #include "parseur.c"
 
-// Mode Debug pour les affichages
+// Mode Debug pour les affichages, 0 minimal
 #define DEBUG 4
 
 //SYSTEME ERREUR OU FERMETURE
@@ -214,7 +214,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 /////////////////////
 // CREATION SOCKET //
 /////////////////////
-///  Fonction qui crée une socket
+/// Fonction qui crée une socket
 /// return : descripteur de la socket 
 int creationSocket (){
 
