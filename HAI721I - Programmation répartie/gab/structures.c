@@ -38,7 +38,7 @@ struct info_nb{
 
 
 //THREAD structure pour regrouper les param�tres d'un thread
-struct paramsInter1 {
+struct paramsNoeudi {
   int idThread;                       // un identifiant de thread, de 1 � N (N le nombre total de theads secondaires)
   struct infos_Graphe* procCourant;   //processus courant a qui ont donne les param avant de savoir son numero
   struct partage * varPartage;   //les varaible paratgé  tous les threads

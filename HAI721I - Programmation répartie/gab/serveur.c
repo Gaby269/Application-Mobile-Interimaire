@@ -1,11 +1,11 @@
 #include "fonctions.c"
 
 //FONCTION interaction1 qui va faire recevoir les informations des noeuds et envoie des 
-void * interaction1 (void * p){     //un thread représente un client
+void * acceptationConnexionNoeudi (void * param){     //un thread représente un client
 
     //GESTION PARAMETRE DE LA STRUTURE
         //arguments
-    struct paramsInter1 * args = (struct paramsInter1 *) p;
+    struct paramsNoeudi * args = (struct paramsNoeudi *) param;
     struct sockaddr_in sockNoeud = args->procCourant->adrProc;     //adresse du noeud
     int dSNoeud =  args->procCourant->descripteur;                 //descripteur du noedu
         //partage
@@ -191,7 +191,7 @@ int main(int argc, char *argv[]) {
         printf("\n\n\033[4mListe des arretes :\033[0m\n");
 
         //AFFICHAGE DES ARRETES
-        for(int k=0; k<nb_aretes; k+=3) {
+        for(int k=0; k<nb_aretes-2; k+=3) {
             printf("    %d -> %d    %d -> %d    %d -> %d\n", liste_aretes[k].noeud1, liste_aretes[k].noeud2, liste_aretes[k+1].noeud1, liste_aretes[k+1].noeud2, liste_aretes[k+2].noeud1, liste_aretes[k+2].noeud2);
         }
     }
@@ -298,12 +298,10 @@ int main(int argc, char *argv[]) {
 
     //ALLOCATION MEMOIRE 
         //allocation paramsInter1
-    struct paramsInter1 * args = (struct paramsInter1*)malloc(sizeof(struct paramsInter1)); //aloue de la memoire pour les arguments
+    struct paramsNoeudi * args = (struct paramsNoeudi*)malloc(sizeof(struct paramsNoeudi)); //aloue de la memoire pour les arguments
         //aloc pour tab des processus
     struct infos_Graphe* tabProc = (struct infos_Graphe*) malloc(nb_sommets*sizeof(struct infos_Graphe));
-    struct infos_Graphe * infosNoeud = (struct infos_Graphe*) malloc(nb_sommets*sizeof(struct infos_Graphe)); //aloue de la memoire pour les arguments
-        
-        
+    struct infos_Graphe* infosNoeud = (struct infos_Graphe*) malloc(sizeof(struct infos_Graphe)); //aloue de la memoire pour les arguments
 
 
     //BOUCLE POUR RECEVOIR LES NOEUDS    
@@ -319,10 +317,10 @@ int main(int argc, char *argv[]) {
 			 if (DEBUG > 1) {
         printf("\n[SERVEUR] Connexion d'un Noeud de descripteur %d\n", dSNoeud);
 			}
-        if (DEBUG > 3) { 
-			if (numSommet < 2) {printf("[SERVEUR] 1 Noeud est connecté au serveur\n");}         //affichage du nombre de Noeud connecté
-	        else {printf("[SERVEUR] %d Noeuds sont connectés au serveur\n", numSommet);}        //affichage du nombre de Noeud connecté
-		}
+    	if (DEBUG > 3) { 
+				if (numSommet < 2) {printf("[SERVEUR] 1 Noeud est connecté au serveur\n");}         //affichage du nombre de Noeud connecté
+	      else {printf("[SERVEUR] %d Noeuds sont connectés au serveur\n", numSommet);}        //affichage du nombre de Noeud connecté
+			}
 
         //VARIABLES PARATGE
         part->tabProc = tabProc;        //allocation de memoire dans paratge
@@ -334,13 +332,13 @@ int main(int argc, char *argv[]) {
         args->varPartage = part;                     //on donne donc les infos sur les var partage
 
         //CREATION DU THREAD POUR LE CLIENT
-        creationThread(&threads[numSommet-1], args, interaction1);    //creation du thread
+        creationThread(&threads[numSommet-1], args, acceptationConnexionNoeudi);    //creation du thread
         printf("\n[SERVEUR] Création d'un thread pour le noeud  %d\n", numSommet);
 
-    } //fin de la premieère connexion avec tous les noeuds
+    } //fin de la première connexion avec tous les noeuds
 
     //MISE EN ATTENTE DU SERVEUR POUR QU'IL EST TOUTES LES INFORAMTIONS DES NOEUDS AVANT D'ENVOYER LEURS VOISINS
-    char e ;
+    char e;
     printf("\n[SERVEUR] : Entrez un caractère après avoir reçu toutes les informations des noeuds : ");  //on demmande au client d'entrer un message
     scanf("%c", &e);
     //FIN MISE EN ATTENTE

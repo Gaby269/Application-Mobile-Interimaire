@@ -37,11 +37,33 @@ struct info_nb{
 
 
 
-//THREAD
-struct paramsThread {
-
-  // structure pour regrouper les param�tres d'un thread
-  int idThread;                       // un identifiant de thread, de 1 � N (N le nombre total de theads secondaires)
-  struct predicatRdv * varPartagee;   //les varaible paratgé  tous les threads
-
+//THREAD structure pour regrouper les paramètres d'un thread
+struct paramsInter1 {
+  int idThread;                       // un identifiant de thread, de 1 à N (N le nombre total de theads secondaires)
+  struct infos_Graphe* procCourant;   //processus courant a qui ont donne les param avant de savoir son numero
+  struct partage * varPartage;   //les varaible paratgé  tous les threads
 };
+
+
+// regrouoes les donnée partagées entres les threads representant les noeuds
+struct partageServeur {
+  int* nbCourant;                 //nombre processus courant
+  struct info_nb* info_nb;          //tableau du nb de voisins
+  struct infos_Graphe* tabProc;     //construction d'un tableau pour stocker tous les clients
+  struct nbVois* nbVois;          //construction du tableau des voisins
+  int ** listeVoisinCo;             //construction du double tableau des voisins
+  pthread_mutex_t verrou;     // varriable qui représente le verrou pour avoir la main
+  pthread_cond_t condi;       // variable qui represente la variable conditionelle pour lattente des evenements
+  
+};
+
+
+//THREAD structure pour regrouper les paramétres d'un thread
+struct paramsNoeud {
+  int idThread;                       // un identifiant de thread, de 1 à N (N le nombre total de theads secondaires)
+	int * numero_proc;									//numero dans le graphe du processus courant
+	int * numero_vois;									//numero du voisin a recuperer
+	int * indice_vois;									//indice du processus voisin parmis les voisins du noeud courant
+	int * dSVoisin;											//descripteur du voisin
+};
+
