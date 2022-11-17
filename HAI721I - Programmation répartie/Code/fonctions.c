@@ -308,7 +308,7 @@ void connexion(int dS, struct sockaddr_in* sock){
 
    //connexion
    int res_connect = connect(dS,                            // descripteur de socket
-                            (struct sockaddr*)sock,         // pointeur vers l'adresse
+                            (struct sockaddr*)&sock,         // pointeur vers l'adresse
                             size_addr);                     // longueur de l'adresse
 
         //GESTION ERREUR
