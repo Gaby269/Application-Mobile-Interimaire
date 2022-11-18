@@ -34,7 +34,7 @@ void * AcceptationDuNoeud (void * p){     //un thread représente un voisin qui 
     //AFFICHAGE
     prrintColor(numero_noeud);printf("\n");printf("Informations envoyées \n", numero_noeud);
     */
-pthread_exit(NULL);
+    pthread_exit(NULL);
 }
 
 
@@ -43,7 +43,6 @@ void * ConnexionAuNoeud (void * p){    //un thread représente un voisin que l'o
 
     //GESTION PARAMETRE DE LA STRUTURE
         //arguments
-        printf("je suis la");
     struct paramsNoeud * args = (struct paramsNoeud *) p;
             //infoVoisin
     int dSVois =  args->dSVoisin;                //descripteur du noeud
@@ -59,11 +58,12 @@ void * ConnexionAuNoeud (void * p){    //un thread représente un voisin que l'o
     sendCompletTCP(dSVois, &numeroMoi, sizeof(int));
             //affichage
     printColorPlus(numeroMoi, "ENVOIE");printf("de mon indice à %d\n", numero_vois);
-pthread_exit(NULL);
+    
+    pthread_exit(NULL);
 }
 
 
-void* SuiteNoeud(void*p){
+void* SuiteNoeud(void * p){
     //GESTION PARAMETRE DE LA STRUTURE
         //arguments
     struct paramsNoeud * args = (struct paramsNoeud *) p;
