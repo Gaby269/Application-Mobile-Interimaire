@@ -67,4 +67,3 @@ struct paramsNoeud {
 	int indice_vois;									//indice du processus voisin parmis les voisins du noeud courant
 	int dSVoisin;											//descripteur du voisin
 };
-

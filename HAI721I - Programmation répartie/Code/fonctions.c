@@ -391,7 +391,7 @@ void creationThread(pthread_t* thread, void* param, void* fonction){
 /// Fonction qui fait attendre tout les threads pour pouvoir terminer le programme
 /// threads tableau de tous les threads crées
 /// nbThreads nombre de threads que l'on a créé
-void joinThread(pthread_t* threads, int nbThreads){
+void joinThreads(pthread_t* threads, int nbThreads){
 
     //pour tous les threas
     for (int i = 0; i < nbThreads; i++){
@@ -406,6 +406,28 @@ void joinThread(pthread_t* threads, int nbThreads){
         }
     }
 }
+
+
+/////////////////////
+// JOIN DES THREAD //
+/////////////////////
+/// Fonction qui fait attendre tout les threads pour pouvoir terminer le programme
+/// threads tableau de tous les threads crées
+/// nbThreads nombre de threads que l'on a créé
+void joinThread(pthread_t* thread){
+
+    //printf("[TRAITEMENT %d] Je suis dans join\n\n", i);
+    int res_join = pthread_join(thread, NULL);
+
+    //GESTION ERREURS
+    if (res_join != 0){
+        perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
+        exit(1);                                       //on sort du programme
+    }
+}
+
+
+
 
 
 

@@ -1,4 +1,5 @@
 #include "fonctions.c"
+#include <math.h>
  
 void * AcceptationDuNoeud (void * p){     //un thread représente un voisin qui va nous contacter
 
@@ -279,7 +280,6 @@ int main(int argc, char *argv[]) {
         printColorPlus(numero_noeud, "CREATION THREAD CO");printf("pour le noeud d'indice %d\n", numVoisin-1);
         //CREATION DU THREAD POUR LE CLIENT QUI SE CONNECTE
         creationThread(&threadsCo[numVoisin-1], &argsCo, ConnexionAuNoeud);    //creation du thread
-
 	}//fin des demandes
 
 
@@ -329,11 +329,39 @@ int main(int argc, char *argv[]) {
     } //fin des accept
      
 	
-    //on attend tout le monde
-    joinThread(threadsCo, nbVoisinDemande);
-    joinThread(threadsAcc, nbVoisinAttente);
+    //pour tous les threas de demande
+    int cptDem=nbVoisinDemande;
+    int cptAcc=nbVoisinAttente;
+    for (int i = 0; i < fmax((double)nbVoisinDemande, (double)nbVoisinAttente); i++){
+
+        if (cptAcc!=0){
+            printColorPlus(numero_noeud, "JOIN");printf("Je suis dans le join apres acceptation\n");
+            int res_join1 = pthread_join(threadsAcc[i], NULL);
+
+            //GESTION ERREURS
+            if (res_join1 != 0){
+                perror("[ERREUR] lors du join de acc !\n ");          //si parcontre il y a une erreur
+                exit(1);                                       //on sort du programme
+            }
+
+            cptAcc--;
+        }
+
+        if (cptDem!=0){
+            printColorPlus(numero_noeud, "JOIN");printf("Je suis dans le join apres demande\n");
+            int res_join2 = pthread_join(threadsCo[i], NULL);
+
+            //GESTION ERREURS
+            if (res_join2 != 0){
+                perror("[ERREUR] lors du join de dem !\n ");          //si parcontre il y a une erreur
+                exit(1);                                       //on sort du programme
+            }
+            cptDem--;
+        }
+    }
+
+        
 	
-    sleep(5);
 
     //FERMETURE DE LA SOCKET CLIENTE CAR PLUS BESOIN
         //fermeture
