@@ -5,24 +5,25 @@ import os, sys
 if (len(sys.argv) < 2):
   print(f"[UTILISATION] :\npython3 {sys.argv[0]} port_serveur fichier_graphe");
   exit(1);
+
+os.system("python3 cleaner.py")
   
 path = sys.argv[2]
+
 fichier = open(path, "r")
 contenu = fichier.readline()
 
 while (contenu[0] == 'c'):        # on saute les commentaires
     contenu = fichier.readline()
   
-p, edge, noeuds, arretes = contenu.split()
-
+p, edge, noeuds, aretes = contenu.split() # on récupère la première ligne avec les informations du graphe
 fichier.close()
 
-print(noeuds, "noeuds")
-print(arretes, "arretes")
+print(f"{noeuds} noeuds, {aretes} arêtes")
 
 # information sur le graphe
 noeuds = int(noeuds)
-arretes = int(arretes)
+aretes = int(aretes)
 
 #information pour changer la couleur pour chaque noeuds
 couleur = 0
