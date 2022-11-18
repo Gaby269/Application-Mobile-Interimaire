@@ -237,7 +237,7 @@ int main(int argc, char *argv[]) {
     }
 	int dSVoisinDemande;
 	    //arguments pour threads
-    //struct paramsNoeud* argsCo = (struct paramsNoeud*) malloc(sizeof(struct paramsNoeud)); //aloue de la memoire pour les arguments
+    struct paramsNoeud* argsCo = (struct paramsNoeud*) malloc(sizeof(struct paramsNoeud)); //aloue de la memoire pour les arguments
 
 
 		//BOUCLE POUR DEMANDER AU CLIENT
