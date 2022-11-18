@@ -330,34 +330,41 @@ int main(int argc, char *argv[]) {
      
 	
     //pour tous les threas de demande
-    int cptDem=nbVoisinDemande;
-    int cptAcc=nbVoisinAttente;
-    for (int i = 0; i < fmax((double)nbVoisinDemande, (double)nbVoisinAttente); i++){
+    int max = fmax((double)nbVoisinDemande, (double)nbVoisinAttente);
+    int min = fmin((double)nbVoisinDemande, (double)nbVoisinAttente);
+    int cptDem=0;
+    int cptAcc=0;
+    int i;
+    for (int i = 0; i < min; i++){
 
-        if (cptAcc!=0){
-            printColorPlus(numero_noeud, "JOIN");printf("Je suis dans le join apres acceptation\n");
-            int res_join1 = pthread_join(threadsAcc[i], NULL);
+        printColorPlus(numero_noeud, "JOIN");printf("Je suis dans le join apres acceptation\n");
+        int res_join1 = pthread_join(threadsAcc[i], NULL);
 
-            //GESTION ERREURS
-            if (res_join1 != 0){
-                perror("[ERREUR] lors du join de acc !\n ");          //si parcontre il y a une erreur
-                exit(1);                                       //on sort du programme
+        printColorPlus(numero_noeud, "JOIN");printf("Je suis dans le join apres demande\n");
+        int res_join2 = pthread_join(threadsCo[i], NULL);
+
+        cptAcc++;
+        cptDem++;
+
+        if (min == 0){
+            for (int j=i; j<max; j++){
+                if (max==nbVoisinDemande){
+                    res_join2 = pthread_join(threadsCo[j], NULL);
+                    //GESTION ERREURS
+                    if (res_join2 != 0){
+                        perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
+                        exit(1);                                       //on sort du programme
+                    }
+                }
             }
-
-            cptAcc--;
         }
 
-        if (cptDem!=0){
-            printColorPlus(numero_noeud, "JOIN");printf("Je suis dans le join apres demande\n");
-            int res_join2 = pthread_join(threadsCo[i], NULL);
-
             //GESTION ERREURS
-            if (res_join2 != 0){
-                perror("[ERREUR] lors du join de dem !\n ");          //si parcontre il y a une erreur
-                exit(1);                                       //on sort du programme
-            }
-            cptDem--;
+        if (res_join2 != 0 || res_join1 != 0){
+            perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
+            exit(1);                                       //on sort du programme
         }
+        
     }
 
         
