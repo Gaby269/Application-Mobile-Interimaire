@@ -62,9 +62,9 @@ struct partageServeur {
 //THREAD structure pour regrouper les paramétres d'un thread
 struct paramsNoeud {
   int idThread;                       // un identifiant de thread, de 1 à N (N le nombre total de theads secondaires)
-	int numero_proc;									//numero dans le graphe du processus courant
-	int numero_vois;									//numero du voisin a recuperer
-	int indice_vois;									//indice du processus voisin parmis les voisins du noeud courant
-	int dSVoisin;											//descripteur du voisin
+	int * numero_proc;									//numero dans le graphe du processus courant
+	int * numero_vois;									//numero du voisin a recuperer
+	int * indice_vois;									//indice du processus voisin parmis les voisins du noeud courant
+	int * dSVoisin;											//descripteur du voisin
 };
 
