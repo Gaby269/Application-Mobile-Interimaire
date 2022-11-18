@@ -23,7 +23,7 @@ void * AcceptationDuNoeud (void * p){     //un thread représente un voisin qui 
     recvCompletTCP(dSVois, &numero_Voisin, sizeof(int));       // reception de l'entier dans numero_Voisin
     
     //AFFICHAGE
-    printColorPlus(numeroMoi, "NOEUD");printf("%d est mon voisin\n", numero_Voisin);
+    printColorPlus(numeroMoi, "RECEPTION");printf("du noeud %d qui est mon voisin\n", numero_Voisin);
 
     args->numero_vois = numero_Voisin;
 
@@ -236,6 +236,12 @@ int main(int argc, char *argv[]) {
   	for (int i=0; i<nbVoisinDemande; i++){
         threadsCo[i] = 0;
     }
+    nbVoisinTotal = nbVoisinDemande + nbVoisinAttente;
+    pthread_t threads[nbVoisinTotal];
+    //init 
+    for (int k=0; k<nbVoisinTotal; k++){
+        threads[k] = 0;
+    }
 	int dSVoisinDemande = 0;
 	    //arguments pour threads
     struct paramsNoeud argsCo; //aloue de la memoire pour les arguments
@@ -279,7 +285,7 @@ int main(int argc, char *argv[]) {
         printColorPlus(numero_noeud, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
         printColorPlus(numero_noeud, "CREATION THREAD CO");printf("pour le noeud d'indice %d\n", numVoisin-1);
         //CREATION DU THREAD POUR LE CLIENT QUI SE CONNECTE
-        creationThread(&threadsCo[numVoisin-1], &argsCo, ConnexionAuNoeud);    //creation du thread
+        creationThread(&threads[numVoisin-1], &argsCo, ConnexionAuNoeud);    //creation du thread
 	}//fin des demandes
 
 
@@ -324,50 +330,13 @@ int main(int argc, char *argv[]) {
         printColorPlus(numero_noeud, "ADRESSE");printf("du voisin que tu accept est %s:%d\n", adrAcc, portAcc);
         printColorPlus(numero_noeud, "CREATION THREAD ACC");printf("pour le noeud d'indice %d\n", numVoisin-1);
             //CREATION DU THREAD POUR LE CLIENT
-        creationThread(&threadsAcc[numVoisin-1], &argsAcc, AcceptationDuNoeud);    //creation du thread
+        creationThread(&threads[numVoisin-1+nbVoisinDemande], &argsAcc, AcceptationDuNoeud);    //creation du thread
 
     } //fin des accept
-     
-	
-    //pour tous les threas de demande
-    int max = fmax((double)nbVoisinDemande, (double)nbVoisinAttente);
-    int min = fmin((double)nbVoisinDemande, (double)nbVoisinAttente);
-    int cptDem=0;
-    int cptAcc=0;
-    int i;
-    for (int i = 0; i < min; i++){
 
-        printColorPlus(numero_noeud, "JOIN");printf("Je suis dans le join apres acceptation\n");
-        int res_join1 = pthread_join(threadsAcc[i], NULL);
 
-        printColorPlus(numero_noeud, "JOIN");printf("Je suis dans le join apres demande\n");
-        int res_join2 = pthread_join(threadsCo[i], NULL);
-
-        cptAcc++;
-        cptDem++;
-
-        if (min == 0){
-            for (int j=i; j<max; j++){
-                if (max==nbVoisinDemande){
-                    res_join2 = pthread_join(threadsCo[j], NULL);
-                    //GESTION ERREURS
-                    if (res_join2 != 0){
-                        perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
-                        exit(1);                                       //on sort du programme
-                    }
-                }
-            }
-        }
-
-            //GESTION ERREURS
-        if (res_join2 != 0 || res_join1 != 0){
-            perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
-            exit(1);                                       //on sort du programme
-        }
-        
-    }
-
-        
+    //création du tableau des threads en entier
+    joinThreads(threads, nbVoisinTotal, numero_noeud);
 	
 
     //FERMETURE DE LA SOCKET CLIENTE CAR PLUS BESOIN
