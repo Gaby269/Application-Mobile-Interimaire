@@ -63,10 +63,11 @@ struct partageServeur {
 struct paramsNoeud {
   int idThread;                     // un identifiant de thread, de 1 à N (N le nombre total de theads secondaires)
 	int numero_proc;									//numero dans le graphe du processus courant
-	int numero_vois;									//numero du voisin a recuperer
 	int indice_vois;									//indice du processus voisin parmis les voisins du noeud courant
-	int dSVoisin;											//descripteur du voisin
-  int Acc;                          //boolean pour savoir si je suis une acceptation ou non
+	int Acc;                          //boolean pour savoir si je suis une acceptation ou non
+  int nbAccept;                     //compteur du nombre d'acceptation par noeud
+  int nbConnex;                     //compteur du nombre de connection par noeud    
+  struct infos_Graphe *VoisinCourant;
   struct partage * varPartage;      //les varaible paratgé  tous les threads
 };
 
@@ -76,5 +77,5 @@ struct paramsNoeud {
 struct partage{
   int *cptTotal;                   //cpt des différents  threads qui sont mis en place en meme tps
   pthread_mutex_t verrou;     // varriable qui représente le verrou pour avoir la main
-  pthread_cond_t condi;       // variable qui represente la variable conditionelle pour lattente des evenements
+  //pthread_cond_t condi;       // variable qui represente la variable conditionelle pour lattente des evenements
 };

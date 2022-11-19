@@ -21,6 +21,7 @@ int main(int argc, char *argv[]) {
     nB = nbAreteNbNoeud(nom_fichier);  //on recupere les nombre important
     int nb_sommets = nB.nb_sommets;    //on recupere le nombre de sommets
     int nb_aretes = nB.nb_aretes;      //et le nombre d'aretes
+    int nombre_connexion = 0;
 
     //AFFICHAGE
     if (DEBUG > 0) { 
@@ -92,9 +93,10 @@ int main(int argc, char *argv[]) {
     printf("\n[SERVEUR] \033[4mTableau des nb de voisins :\033[0m\n\n");
     for (int i=0; i<nb_sommets; i++){
         printf("    Noeud %d : %d voisins donct %d qui demande\n", i+1, nbVoisin[i].nbVoisinTotal, nbVoisin[i].nbVoisinDemande);
+        nombre_connexion+=nbVoisin[i].nbVoisinDemande;
     }
     printf("\n************************************************\n************************************************\n");   
-
+    
 
     //ETAPE 3 : CREATION SOCKET SERVEUR
     int dSServeur = creationSocket();                  //creation 
@@ -242,7 +244,7 @@ int main(int argc, char *argv[]) {
 
     }//fin des sommets
 
-
+    printf("\n[SERVEUR] Il doit y avoir %d demande de connection\n", nombre_connexion);
 
 
     //ETAPE 9 : FERMETURE DE LA SOCKET SERVEUR CAR PLUS BESOIN

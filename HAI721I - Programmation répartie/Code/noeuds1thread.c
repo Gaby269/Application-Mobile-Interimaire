@@ -1,73 +1,6 @@
 #include "fonctions.c"
 #include <math.h>
-/*
-void * AcceptationDuNoeud (void * p){     //un thread représente un voisin qui va nous contacter
 
-    //GESTION PARAMETRE DE LA STRUTURE
-        //arguments
-    struct paramsNoeud * args = (struct paramsNoeud *) p;
-    int etreAcc = args->Acc;
-    int numeroMoi = args->numero_proc;			    //recup du numero de moi
-        //info voisin
-    int indice_vois = args->indice_vois;			//indice du voisins sortant
-    struct infos_Graphe *Voisin = args->VoisinCourant;
-    int dSVois =  Voisin->descripteur;                   //descripteur du noeud
-    int numero_vois = Voisin->numero;                //numero voisin
-        //thread
-    //pthread_t threadCourant = pthread_self();                    //identifiant du threas
-
-
-    //AFFICHAGE
-    printColorPlus(numeroMoi, "ACCEPTATION");printf("du %d-ème voisin\n", indice_vois);
-
-    //RECEPTION DES INFORMATIONS DDES VOISINS ENTRANT
-    int numero_Voisin;                                         // entier qui va etre le numero du noeud qui se connecte
-            //reception
-    recvCompletTCP(dSVois, &numero_Voisin, sizeof(int));       // reception de l'entier dans numero_Voisin
-    
-    //AFFICHAGE
-    printColorPlus(numeroMoi, "RECEPTION");printf("du noeud %d qui est mon voisin\n", numero_Voisin);
-
-    args->numero_vois = numero_Voisin;
-
-    //ENVOIE ACCUSE DE RECEPTION
-     int dS_courant = procVoisin[numero_noeud-1].descripteur;                  //indice courant
-        //envoi
-    sendCompletTCP(dS_courant, &nbVoisin[numero_noeud-1], sizeof(struct nbVois));
-    //AFFICHAGE
-    prrintColor(numero_noeud);printf("\n");printf("Informations envoyées \n", numero_noeud);
-    
-
-    pthread_exit(NULL); // fortement recommandé.
-
-}
-
-
-
-void * ConnexionAuNoeud (void * p){    //un thread représente un voisin que l'on va contacter
-
-    //GESTION PARAMETRE DE LA STRUTURE
-        //arguments
-    struct paramsNoeud * args = (struct paramsNoeud *) p;
-            //infoVoisin
-    int dSVois =  args->dSVoisin;                //descripteur du noeud
-    int indice_vois = args->indice_vois;				 //indice du voisins sortant
-    int numero_vois = args->numero_vois;				//numero voisin
-        //infomoi
-    int numeroMoi = args->numero_proc;					//recup du numero de moi
-
-    //AFFICHAGE
-    printColorPlus(numeroMoi, "DEMANDE");printf("de connexion au %d-ème voisin réussie !\n", indice_vois);
-
-    //ETAPE 11 : ENVOIE D'UN MESSAGE JE SUIS MOI
-    sendCompletTCP(dSVois, &numeroMoi, sizeof(int));
-            //affichage
-    printColorPlus(numeroMoi, "ENVOIE");printf("de mon indice à %d\n", numero_vois);
-
-    pthread_exit(NULL); // fortement recommand�.
-
-}
-*/
 
 void* SuiteNoeud(void * p){
     //GESTION PARAMETRE DE LA STRUTURE
@@ -102,17 +35,17 @@ void* SuiteNoeud(void * p){
             //affichage
         printColorPlus(numeroMoi, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
         printColorPlus(numeroMoi, "DEMANDE");printf("de connexion au %d-ème voisin réussie !\n", indice_vois);
-/*
+
         //ETAPE 11 : ENVOIE D'UN MESSAGE JE SUIS MOI
         sendCompletTCP(dSVois, &numeroMoi, sizeof(int));
                 //affichage
         printColorPlus(numeroMoi, "ENVOIE");printf("de mon indice à %d\n", numero_vois);
-*/
+
     }
     else{
 
         printColorPlus(numeroMoi, "ACCEPTATION");printf("du %d-ème voisin\n", indice_vois);
-/*
+
         //RECEPTION DES INFORMATIONS DDES VOISINS ENTRANT
         int numero_Voisin;                                         // entier qui va etre le numero du noeud qui se connecte
                 //reception
@@ -121,7 +54,7 @@ void* SuiteNoeud(void * p){
         //AFFICHAGE
         printColorPlus(numeroMoi, "RECEPTION");printf("du noeud %d qui est mon voisin\n", numero_Voisin);
 
-        args->VoisinCourant->numero = numero_Voisin;*/
+        args->VoisinCourant->numero = numero_Voisin;
 /*
         //ENVOIE ACCUSE DE RECEPTION
         int dS_courant = procVoisin[numero_noeud-1].descripteur;                  //indice courant
@@ -386,19 +319,16 @@ int main(int argc, char *argv[]) {
     
 
     //création du tableau des threads en entier
-    //joinThreads(threads, nbVoisinTotal, numero_noeud);
+    joinThreads(threads, nbVoisinTotal, numero_noeud);
 
-    printColorPlus(numero_noeud, "NOMBRE CONNEXION");printf("J'ai demandé a %d noeud une connexion\n", cptCo);
-    printColorPlus(numero_noeud, "NOMBRE ACCEPTATION");printf("J'ai accepté %d noeud\n", cptAcc);
-    //affichage
-    printColorPlus(numero_noeud, "FERMETURE");printf("Je peux m'en aller !\n");
-    
+
     //FERMETURE DE LA SOCKET CLIENTE CAR PLUS BESOIN
         //fermeture
     close(dSVoisinDemande);
     close(dSVoisinEntrant);
     
-    
+        //affichage
+    printColorPlus(numero_noeud, "FERMETURE");printf("Je peux m'en aller !\n");
 
 
 

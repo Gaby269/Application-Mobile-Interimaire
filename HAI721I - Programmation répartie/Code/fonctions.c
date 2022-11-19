@@ -399,11 +399,11 @@ void joinThreads(pthread_t* threads, int nbThreads, int noeud){
         //printf("[TRAITEMENT %d] Je suis dans join\n\n", i);
         int res_join = pthread_join(threads[i], NULL);
 
-        //GESTION ERREURS
-        if (res_join != 0){
-            perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
-            exit(1);                                       //on sort du programme
-        }
+            //GESTION ERREURS
+            if (res_join != 0){
+                perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
+                exit(1);                                       //on sort du programme
+            }
 
         printColorPlus(noeud, "JOIN");printf("j'arrive dans le join \n");
     }
