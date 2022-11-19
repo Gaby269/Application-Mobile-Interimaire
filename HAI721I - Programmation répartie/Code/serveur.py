@@ -1,8 +1,11 @@
 import os, sys
 
 if (len(sys.argv) < 2):
-  print(f"[UTILISATION] :\npython3 {sys.argv[0]} port_serveur fichier_graphe");
-  exit(1);
+  print(f"[UTILISATION] :\npython3 {sys.argv[0]} port_serveur fichier_graphe")
+  exit(1)
+
+# Netoyage des processus
+os.system("python3 cleaner.py")
 
 # Compilation
 os.system("mkdir bin")
