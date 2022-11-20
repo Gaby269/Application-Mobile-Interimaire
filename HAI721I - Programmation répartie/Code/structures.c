@@ -75,7 +75,9 @@ struct paramsNoeud {
 
 
 struct partage{
-  int *cptTotal;                   //cpt des différents  threads qui sont mis en place en meme tps
-  pthread_mutex_t verrou;     // varriable qui représente le verrou pour avoir la main
-  //pthread_cond_t condi;       // variable qui represente la variable conditionelle pour lattente des evenements
+  int *cptTotal;                    //cpt des différents  threads qui sont mis en place en meme tps
+  //int taille 
+  //struct connex * connexion;     //tableau des connexions pour savoir si elles sont déjà faite
+  pthread_mutex_t verrou;           // varriable qui représente le verrou pour avoir la main
+  pthread_cond_t condi;           // variable qui represente la variable conditionelle pour lattente des evenements
 };

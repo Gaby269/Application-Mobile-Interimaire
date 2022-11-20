@@ -402,7 +402,7 @@ void joinThreads(pthread_t* threads, int nbThreads, int noeud){
             //GESTION ERREURS
             if (res_join != 0){
                 perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
-                exit(1);                                       //on sort du programme
+                //erreur dans le join                                      //on sort du programme
             }
 
         printColorPlus(noeud, "JOIN");printf("j'arrive dans le join \n");
