@@ -9,6 +9,7 @@
 #include <string.h>
 #include <pthread.h>        //thread
 #include "parseur.c"
+#include <errno.h>
 
 // Mode Debug pour les affichages
 #define DEBUG 3
@@ -17,7 +18,7 @@
 #define TRUE 1
 #define FALSE 0
 #define ERREUR -1
-#define FERMETURE 0
+#define FERMETURE -1
 
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
 
@@ -102,12 +103,12 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             perror("\n[ERREUR] : Erreur lors de l'envoie de la taille du message : ");
             close(sock);
             exit(1);          // on choisis ici d'arrêter le programme car le reste
-        }
+        }/*
         if (res_premier_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale : ");
+            perror("\n[ERREUR] : Abandon de la socket principale lors de l'envoie : ");
             close(sock);
             exit(1);          // on choisis ici d'arrêter le programme
-        }
+        }*/
 
    //DEUXIEME APPEL POUR LE MESSAGE
    int res_deuxieme_appel = sendTCP(sock, info_proc, sizeinfo_proc);     //on envoie la taille du message
@@ -117,12 +118,12 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             perror("\n[ERREUR] : Erreur lors de l'envoie du message : ");
             close(sock);
             exit(1);          // on choisis ici d'arrêter le programme cr le reste depend de cet envoie
-        }
+        }/*
         if (res_deuxieme_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale : ");
+            perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie : ");
             close(sock);
             exit(1);          // on choisis ici d'arrêter le programme car le reste depend de cet envoie
-        }
+        }*/
 
 }
 
@@ -180,7 +181,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
          exit(1);          // on choisis ici d'arrêter le programme 
       }
       if (res_premier_appel == FERMETURE) {
-         perror("\n[ERREUR] : Abandon de la socket principale : ");
+         perror("\n[ERREUR] : Abandon de la socket principale lors du recv : ");
          close(sock);
          exit(1);          // on choisis ici d'arrêter le programme 
       }
@@ -201,7 +202,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
          exit(1);          // on choisis ici d'arrêter le programme 
       }
       if (res_deuxieme_appel == FERMETURE) {
-         perror("\n[ERREUR] : Abandon de la socket principale : ");
+         perror("\n[ERREUR] : Abandon de la socket principale lors du recv : ");
          close(sock);
          exit(1);          // on choisis ici d'arrêter le programme 
       }

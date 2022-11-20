@@ -3,7 +3,7 @@
 
 void* SuiteNoeud(void * p){
     //GESTION PARAMETRE DE LA STRUTURE
-        //arguments
+        //arguments 
     struct paramsNoeud * args = (struct paramsNoeud *) p;
     struct partage * varPartage = args->varPartage;         //jerecuper les variable partagé
     
@@ -33,7 +33,7 @@ void* SuiteNoeud(void * p){
 
         //ETAPE 11 : ENVOIE D'UN MESSAGE JE SUIS MOI
         sendCompletTCP(dSVois, &numeroMoi, sizeof(int));
-                //affichage
+            //affichage
         printColorPlus(numeroMoi, "ENVOIE");printf("de mon indice à %d\n", numero_vois);
 
     }
@@ -43,7 +43,7 @@ void* SuiteNoeud(void * p){
 
         //RECEPTION DES INFORMATIONS DDES VOISINS ENTRANT
         int numero_Voisin;                                         // entier qui va etre le numero du noeud qui se connecte
-                //reception
+            //reception
         recvCompletTCP(dSVois, &numero_Voisin, sizeof(int));       // reception de l'entier dans numero_Voisin
         
         //AFFICHAGE
@@ -332,6 +332,14 @@ int main(int argc, char *argv[]) {
             //ETAPE 12 : ACCEPTATION DU NOEUD
                 //acceptation
             dSVoisinEntrant = accept(dSProcArete, (struct sockaddr*)&sockVoisinAccept, &lgAdr);          //on accepte le Noeud qui demande
+
+                //GESTION ERREUR
+                if (dSVoisinEntrant == ERREUR){
+                    perror("\n\n[ERREUR] lors de l'accept d'un voisin : ");
+                    close(dSProcCS);
+                    exit(1); // on choisis ici d'arrêter le programme
+                }
+
             printColorPlus(numero_noeud, "ACCEPT");printf("d'unn voisin réussi !\n");
 
             //on fixe les infos du voisin courant
@@ -372,6 +380,7 @@ int main(int argc, char *argv[]) {
         //fermeture
     close(dSVoisinDemande);
     close(dSVoisinEntrant);
+    close(dSProcCS);
     
 
 
