@@ -8,28 +8,25 @@ if (len(sys.argv) < 2):
 
 #os.system("python3 cleaner.py")
   
+# lecture des données du graphe
 path = sys.argv[2]
-
 fichier = open(path, "r")
 contenu = fichier.readline()
-
 while (contenu[0] == 'c'):        # on saute les commentaires
     contenu = fichier.readline()
-  
+
 p, edge, noeuds, aretes = contenu.split() # on récupère la première ligne avec les informations du graphe
 fichier.close()
 
 print(f"{noeuds} noeuds, {aretes} arêtes")
 
+
 # information sur le graphe
 noeuds = int(noeuds)
 aretes = int(aretes)
 
-#information pour changer la couleur pour chaque noeuds
-couleur = 0
-
-# Information de connexions
-ip_serveur = "0.0.0.0"
+# Information de connexion
+ip_serveur = "0.0.0.0" #sys.argv[1]
 port_serveur = int(sys.argv[1])
 print("IP serveur :",ip_serveur+":"+str(port_serveur))
 

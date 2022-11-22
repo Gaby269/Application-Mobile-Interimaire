@@ -5,11 +5,18 @@ if (len(sys.argv) < 2):
   exit(1)
 
 # Netoyage des processus
-os.system("python3 cleaner.py")
-
+try:
+  os.system("python3 cleaner.py")
+  print("Netoyage des processus effectué")
+except:
+  print("Processus non nétoyés (processus blocant)")
+  
 # Compilation
-os.system("mkdir bin")
-os.system("mkdir obj")
+try: 
+  os.system("mkdir bin")
+  os.system("mkdir obj")
+except:
+  print("Dossiers prêts")
 os.system("make")
 
 # Information de connexions

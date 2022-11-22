@@ -12,5 +12,3 @@ for r in res.split('\n'):
             if len(n) > 0 and n[0] in '0123456789': #si c'est un nombre
                 os.system("kill " + n)
                 break
-
-print("Netoyage des processus effectué")
