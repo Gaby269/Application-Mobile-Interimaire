@@ -1,28 +1,38 @@
+#LANCEUR DU SERVEUR PLUS NETOYER LE TERMINAL ET LES PORTS
+
 import os, sys
 
+#GESTION DES PARAMETRES
 if (len(sys.argv) < 2):
-  print(f"[UTILISATION] :\npython3 {sys.argv[0]} port_serveur fichier_graphe")
+  print(f"[UTILISATION] :\npython3 {sys.argv[0]} port_serveur nom_fichier")
   exit(1)
 
-# Netoyage des processus
-try:
-  os.system("python3 cleaner.py")
-  print("Netoyage des processus effectué")
-except:
+	
+# NETOYAGE DES PROCESSUS
+try:	#essaie
+  os.system("python3 cleaner.py")								#utilisation de cleaner pour fermer les ports
+  print("Netoyage des processus effectué")			#afficahge
+except:	#si arrive pas
   print("Processus non nétoyés (processus blocant)")
-  
-# Compilation
-try: 
-  os.system("mkdir bin")
-  os.system("mkdir obj")
+
+
+	
+# COMPILATION
+try: #essaie
+  os.system("mkdir bin")		#créer le dossier bin
+  os.system("mkdir obj")		#créer le dossier obj
 except:
   print("Dossiers prêts")
+#make pour clear et compiler les fichiers
+os.system("clear")
 os.system("make")
 
-# Information de connexions
-port_serveur = int(sys.argv[1])
-fichier_graphe = sys.argv[2]
+
+
+# INFORMATIONS DE CONNEXION
+port_serveur = int(sys.argv[1])		#recuperation du port
+fichier_graphe = sys.argv[2]			#du fichier pour le graphe
 
 # Lancement du serveur
-cmd = ["./bin/serveur", str(port_serveur), fichier_graphe]
+cmd = ["./bin/serveur", str(port_serveur), fichier_graphe]		#lancer la commande dans un terminal pour lancer le serveur
 os.system(" ".join(cmd))

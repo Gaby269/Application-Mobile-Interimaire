@@ -1,39 +1,43 @@
-#programme qui nous sert a lancer le programme noeuds autant de fois que l'on a besoin
+#LANCEUR DU NOMBRE DE NOEUDS QU'ON VEUT
 
 import os, sys
 
+#GESTION DES PARAMETRES
 if (len(sys.argv) < 2):
-  print(f"[UTILISATION] :\npython3 {sys.argv[0]} port_serveur fichier_graphe")
+  print(f"[UTILISATION] :\npython3 {sys.argv[0]} port_serveur nom_fichier")
   exit(1)
 
 #os.system("python3 cleaner.py")
-  
-# lecture des données du graphe
-path = sys.argv[2]
-fichier = open(path, "r")
-contenu = fichier.readline()
+
+	
+# LECTURE DES DONNEES DU GRAPHE
+path = sys.argv[2]								# recuperation du nom du fichier
+fichier = open(path, "r")					# ouverture en lecture
+contenu = fichier.readline()			# lire le contenu
 while (contenu[0] == 'c'):        # on saute les commentaires
-    contenu = fichier.readline()
+    contenu = fichier.readline()	#on lit une nouvelle ligne
 
-p, edge, noeuds, aretes = contenu.split() # on récupère la première ligne avec les informations du graphe
-fichier.close()
+p, edge, noeuds, aretes = contenu.split() 	# on récupère la première ligne avec les informations du graphe
+fichier.close()															#on ferme le fichier
 
-print(f"{noeuds} noeuds, {aretes} arêtes")
+print(f"{noeuds} noeuds, {aretes} arêtes")	#on affiche le nombre de noeuds et le nombre d'aretes
 
 
-# information sur le graphe
-noeuds = int(noeuds)
-aretes = int(aretes)
+# INFORMATION SUR LE GRAPHE
+noeuds = int(noeuds)				#cast des nbNoeuds
+aretes = int(aretes)				#cast des nbAretes
 
-# Information de connexion
-ip_serveur = "0.0.0.0" #sys.argv[1]
-port_serveur = int(sys.argv[1])
-print("IP serveur :",ip_serveur+":"+str(port_serveur))
 
-# Lancement des noeuds
-for i in range(1, noeuds):
-    cmd = ["./bin/noeuds", ip_serveur, str(port_serveur), str(port_serveur+i), str(i), "&"]
+# INFORMATIONS DES CONNEXIONS
+ip_serveur = "0.0.0.0" #sys.argv[1]														#recuperation de l'adresse du serveur
+port_serveur = int(sys.argv[1])																#du port du serveur
+print("ADRESSE serveur :",ip_serveur+":"+str(port_serveur))		#affichage de l'ip et du port
+
+
+# LANCEMENT DES NOEUDS
+for i in range(1, noeuds):		#pour le nombre de client qui a
+    cmd = ["./bin/noeuds", ip_serveur, str(port_serveur), str(port_serveur+i), str(i), "&"]		#lancer la commande pour les n-1 noeuds
     os.system(" ".join(cmd))
 
-cmd = ["./bin/noeuds", ip_serveur, str(port_serveur), str(port_serveur+noeuds), str(noeuds)]
+cmd = ["./bin/noeuds", ip_serveur, str(port_serveur), str(port_serveur+noeuds), str(noeuds)]	#et le dernier pour ne aps gener l'affichage avec le &
 os.system(" ".join(cmd))

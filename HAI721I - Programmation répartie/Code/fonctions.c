@@ -18,37 +18,46 @@
 #define TRUE 1
 #define FALSE 0
 #define ERREUR -1
-#define FERMETURE -1
+#define FERMETURE 0
 
+//NOEUD POUR LES MISES EN ECOUTE
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
 
+	
 
+////////////////////////////////////////////////////////////////
+////////////////// FONCTION DES AFFICHAGES /////////////////////
+////////////////////////////////////////////////////////////////
 
-//////////////////////
-// FONCTION SENDTCP //
-//////////////////////
-/// Fonction pour le premier affichage de chaque noeud pour dire qu'il commence
-/// message1 début du message
-/// numero numero du processus pour changer de couleur
-/// message2 la fin du message
+/////////////////////////
+// FONCTION PRINTCOLOR //
+/////////////////////////
+/// Fonction qui affiche le prefixe du commentaire a savoir [NOEUD %<numeroDuNoeud>] afficher en couleur en calculant un numero pour la couleur
+/// numero numero du noeud dans le graphe
 void printColor(int numero) {
     int couleurProd = ((numero%6)+1) + '0';      //il n'y a que 6 couleurs visibles alors on fait un modulo 6 et on ne veut pas afficher du noir alors on met + 1 et on transfomre en ASCII
     printf("\x1B[3%cm[NOEUD %d] \033[0m", couleurProd, numero);
 }
 
+/////////////////////////////
+// FONCTION PRINTCOLORPLUS //
+/////////////////////////////
+/// Fonction qui affiche le prefixe du commentaire a savoir [NOEUD %<numeroDuNoeud>] afficher en couleur
+/// numero numero du noeud dans le graphe
+/// type type du commentaire afficher en majuscule et en couleur dans la console
 void printColorPlus(int numero, char*type){
     int couleurProd = ((numero%6)+1) + '0';
     printf("\x1B[3%cm[NOEUD %d] %s \033[0m", couleurProd, numero, type);
 }
 
 
-//////////////////////
-// FONCTION SENDTCP //
-//////////////////////
-/// Fonction pour le premier affichage de chaque noeud pour dire qu'il commence
-/// message1 début du message
+//////////////////////////////
+// FONCTION PRINTCOLORNOEUD //
+//////////////////////////////
+/// Fonction qui affiche la toute premiere ligne pour un noeud (pour dire que il commence)
+/// message1 début du message ici une ligne detoile pour faire jolie
 /// numero numero du processus pour changer de couleur
-/// message2 la fin du message
+/// message2 la fin du message qui est aussi une ligne d'etoile pour faire jolie
 void printColorNoeud(char * message1, int numero, char * message2) {
     int couleurProd = (numero%6)+1 + '0';
     printf("\x1B[3%cm%s%d%s\033[0m", couleurProd, message1, numero, message2);
@@ -56,7 +65,13 @@ void printColorNoeud(char * message1, int numero, char * message2) {
 
 
 
-  
+
+
+/////////////////////////////////////////////////////
+////////////////// FONCTION TCP /////////////////////
+/////////////////////////////////////////////////////
+
+
 //////////////////////
 // FONCTION SENDTCP //
 //////////////////////
@@ -84,8 +99,6 @@ int sendTCP(int sock, void* info_proc, int taille) {
 }
 
 
-
-
 /////////////////////////////
 // FONCTION SENDCompletTCP //
 /////////////////////////////
@@ -102,13 +115,13 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
         if (res_premier_appel == ERREUR) {
             perror("\n[ERREUR] : Erreur lors de l'envoie de la taille du message : ");
             close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme car le reste
-        }/*
+            exit(1);          // on choisit ici d'arrêter le programme car le reste
+        }
         if (res_premier_appel == FERMETURE) {
             perror("\n[ERREUR] : Abandon de la socket principale lors de l'envoie : ");
             close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme
-        }*/
+            exit(1);          // on choisit ici d'arrêter le programme
+        }
 
    //DEUXIEME APPEL POUR LE MESSAGE
    int res_deuxieme_appel = sendTCP(sock, info_proc, sizeinfo_proc);     //on envoie la taille du message
@@ -117,13 +130,13 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
         if (res_deuxieme_appel == ERREUR) {
             perror("\n[ERREUR] : Erreur lors de l'envoie du message : ");
             close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme cr le reste depend de cet envoie
-        }/*
+            exit(1);          // on choisit ici d'arrêter le programme cr le reste depend de cet envoie
+        }
         if (res_deuxieme_appel == FERMETURE) {
             perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie : ");
             close(sock);
-            exit(1);          // on choisis ici d'arrêter le programme car le reste depend de cet envoie
-        }*/
+            exit(1);          // on choisit ici d'arrêter le programme car le reste depend de cet envoie
+        }
 
 }
 
@@ -140,21 +153,21 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
    
     //VARIABLES 
-    int res;
-    int recu = 0;
+    int res;				//taille de chaque recv
+    int recu = 0;		//taille final de chaque recvs
 
     //BOUCLE
     while(recu < sizeinfo_proc) {
 
-        res = recv(sock, info_proc+recu, sizeinfo_proc-recu, 0);
-        recu += res;
+        res = recv(sock, info_proc+recu, sizeinfo_proc-recu, 0);		//apel a recv pour recevoir les paquets
+        recu += res;		//ajoutdes paquets
 
         //GESTION ERREUR
         if (res <=0){
             return res;
         }
     }
-    return recu;
+    return recu;	//envoie la taille
 }
 
 
@@ -167,7 +180,6 @@ int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
 /// sock descripteur de lenvoie
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
-/// resultat de la reception qui est la taille du message recu
 void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
    //PREMIER APPEL POUR LA TAILLE
@@ -178,12 +190,12 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
       if (res_premier_appel == ERREUR) {
          perror("\n[ERREUR] : Erreur lors de la reception de la taille du message : ");
          close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme 
+         exit(1);          // on choisit ici d'arrêter le programme 
       }
       if (res_premier_appel == FERMETURE) {
          perror("\n[ERREUR] : Abandon de la socket principale lors du recv : ");
          close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme 
+         exit(1);          // on choisit ici d'arrêter le programme 
       }
 
    //VERIFICATION DES TAILLES
@@ -199,12 +211,12 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
       if (res_deuxieme_appel == ERREUR) {
          perror("\n[ERREUR] : Erreur lors de la reception du message : ");
          close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme 
+         exit(1);          // on choisit ici d'arrêter le programme 
       }
       if (res_deuxieme_appel == FERMETURE) {
          perror("\n[ERREUR] : Abandon de la socket principale lors du recv : ");
          close(sock);
-         exit(1);          // on choisis ici d'arrêter le programme 
+         exit(1);          // on choisit ici d'arrêter le programme 
       }
 
 }
@@ -215,7 +227,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 /////////////////////
 // CREATION SOCKET //
 /////////////////////
-///  Fonction qui crée une socket
+/// Fonction qui crée une socket
 /// return : descripteur de la socket 
 int creationSocket (){
 
@@ -244,10 +256,10 @@ struct sockaddr_in nommageSocket(int dS, char * port){
 
     struct sockaddr_in adrSocket ;
     adrSocket.sin_family = AF_INET ;                            //IPv4 : famille AF_INET
-    adrSocket.sin_addr.s_addr = INADDR_ANY;                     //Attache la socket àtoutes les interfaces réseaux locales : toutes les adresses de la station
+    adrSocket.sin_addr.s_addr = INADDR_ANY;                     //Attache la socket à toutes les interfaces réseaux locales : toutes les adresses de la station
     adrSocket.sin_port = htons((short) atoi(port)) ;            // on doit convertir la chaine de caractère en nombre
 
-    int res_bind_noeud = bind(dS,                                  // descripteur de socket
+    int res_bind_noeud = bind(dS,                                  	// descripteur de socket
                                 (struct sockaddr*)&adrSocket,       // pointeur vers l'adresse
                                 sizeof(adrSocket)) ;                // longueur de l'adresse
 
@@ -256,7 +268,7 @@ struct sockaddr_in nommageSocket(int dS, char * port){
         if (res_bind_noeud == ERREUR) {
             perror("\n\n[ERREUR] lors du nommage de la socket : ");
             close(dS);
-            exit(1); // on choisis ici d'arrêter le programme
+            exit(1); // on choisit ici d'arrêter le programme
         }
 
     return adrSocket;
@@ -320,10 +332,6 @@ void connexion(int dS, struct sockaddr_in* sock){
         }
 
 }
-
-
-
-
 
 
 
@@ -402,6 +410,7 @@ void joinThreads(pthread_t* threads, int nbThreads, int noeud){
 
             //GESTION ERREURS
             if (res_join != 0){
+                printf("resjoin = %d", res_join);
                 perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
                 //erreur dans le join                                      //on sort du programme
             }
@@ -412,10 +421,7 @@ void joinThreads(pthread_t* threads, int nbThreads, int noeud){
 
 
 
-
-
-
-
+//Les fonctions suivantes, on ne les utilisent pas encore ce sera pour la deuxieme partie du projet
 
 
             /******************************/
@@ -434,6 +440,7 @@ void initalisationVerrou(pthread_mutex_t* verrou){
 
     //GESTION ERREUR
     if (res_mutexInit != 0){
+			//printf("[ERREUR NUMERO] res_mutexInit = %d\n", res_mutexInit);
       perror("[ERREUR] lors de l'initialisation du verrou");
       exit(1);
     }
@@ -452,6 +459,7 @@ void priseVerrou(pthread_mutex_t* verrou){
 
         //GESTION ERREUR
         if (res_lock != 0){
+            //printf("[ERREUR NUMERO] res_lock = %d\n", res_lock);
             perror("[ERREUR] lors de la prise du verrou\n "); //si erreur lors de la prise du verrou on ferme le thread courant
             pthread_exit(NULL);
         }
@@ -486,6 +494,7 @@ void destruireVerrou(pthread_mutex_t* verrou){
     
     //GESTION ERREUR
     if (res_destroyVerrou != 0){
+      //printf("[ERREUR NUMERO] res_destroyVerrou = %d\n",res_destroyVerrou);
       perror("[ERREUR] lors de la destruction du verrou\n ");
       exit(1);
     }
@@ -494,7 +503,9 @@ void destruireVerrou(pthread_mutex_t* verrou){
 
 
 
-
+            /********************************/
+            /*********** VAR COND ***********/
+            /********************************/
 
 
 ////////////////////////////////
