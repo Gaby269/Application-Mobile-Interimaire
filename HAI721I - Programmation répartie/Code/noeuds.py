@@ -12,13 +12,13 @@ if (len(sys.argv) < 2):
 	
 # LECTURE DES DONNEES DU GRAPHE
 path = sys.argv[2]								# recuperation du nom du fichier
-fichier = open(path, "r")					# ouverture en lecture
-contenu = fichier.readline()			# lire le contenu
-while (contenu[0] == 'c'):        # on saute les commentaires
-    contenu = fichier.readline()	#on lit une nouvelle ligne
+fichier = open(path, "r")						# ouverture en lecture
+contenu = fichier.readline()					# lire le contenu
+while (contenu[0] == 'c'):        				# on saute les commentaires
+    contenu = fichier.readline()				#on lit une nouvelle ligne
 
 p, edge, noeuds, aretes = contenu.split() 	# on récupère la première ligne avec les informations du graphe
-fichier.close()															#on ferme le fichier
+fichier.close()								#on ferme le fichier
 
 print(f"{noeuds} noeuds, {aretes} arêtes")	#on affiche le nombre de noeuds et le nombre d'aretes
 
@@ -29,8 +29,8 @@ aretes = int(aretes)				#cast des nbAretes
 
 
 # INFORMATIONS DES CONNEXIONS
-ip_serveur = "0.0.0.0" #sys.argv[1]														#recuperation de l'adresse du serveur
-port_serveur = int(sys.argv[1])																#du port du serveur
+ip_serveur = "0.0.0.0" #sys.argv[1]								#recuperation de l'adresse du serveur
+port_serveur = int(sys.argv[1])									  #du port du serveur
 print("ADRESSE serveur :",ip_serveur+":"+str(port_serveur))		#affichage de l'ip et du port
 
 

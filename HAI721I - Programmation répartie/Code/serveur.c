@@ -1,5 +1,4 @@
-
-  #include "fonctions.c" 
+#include "fonctions.c" 
     
 /////////////////////////
 //  PROGRAME SERVEUR   //
@@ -15,42 +14,39 @@ int main(int argc, char *argv[]) {
 
     char* portServeur = argv[1];        //port du serveur
     char* nom_fichier = argv[2];        //nom du fichier ou recuperer la structure du graphe
-	  int nombre_connexion = 0;						//pour calculer le nombre de connexion au serveur
+	int nombre_connexion = 0;			//pour calculer le nombre de connexion au serveur
 
 	
 //A - CONSTRUCTION DU SERVEUR
 
     //ETAPE 1 : RECUPERATION DES INFO DU GRAPHE
 
-			//a) recuperation des nombres d'aretes et de sommets
-    struct info_nb nB;                  //on declare une structure des informations sur les nombre de sommets et d'aretes
-    nB = nbAreteNbNoeud(nom_fichier);  	//on recupere les nombre important dans nB
+		//a) recuperation des nombres d'aretes et de sommets
+    struct info_nb nB;                  //on declare une structure des informations sur les nombres de sommets et d'aretes
+    nB = nbAreteNbNoeud(nom_fichier);  	//on recupere les nombres important dans nB
     int nb_sommets = nB.nb_sommets;    	//on recupere le nombre de sommets
     int nb_aretes = nB.nb_aretes;      	//et le nombre d'aretes
     	//affichage de ces nombres
-    if (DEBUG > 0) { 
-        printf("\n[SERVEUR] Nombre de sommets : %d\n", nb_sommets);
-        printf("[SERVEUR] Nombre d'aretes : %d", nb_aretes);
-    }
+	printf("\n[SERVEUR] Nombre de sommets : %d\n", nb_sommets);
+	printf("[SERVEUR] Nombre d'aretes : %d", nb_aretes);
 
     	//b) recuperer des aretes entre les noeuds
-    struct aretes *liste_aretes = (struct aretes*) malloc (nb_aretes *sizeof(struct aretes));  //on alloue de la memoire pour la liste des aretes
-    Aretes(nom_fichier, liste_aretes);    //et on recuperer cette liste directement dans liste_aretes
-		//listes_aretes : tableau des listes des aretes a la case i on a le numero du noeud 1 et le numero du noeud 2 contenudans une structure arete
-    		//affichage de la liste des arretes
-    if (DEBUG > 1) { 
-        printf("\n\n\033[4mListe des aretes :\033[0m\n");
-        //boucle pour le tableau
-        for(int k=0; k<nb_aretes; k+=3) {
-            printf("    %d -> %d    %d -> %d    %d -> %d\n", liste_aretes[k].noeud1, liste_aretes[k].noeud2, liste_aretes[k+1].noeud1, liste_aretes[k+1].noeud2, liste_aretes[k+2].noeud1, liste_aretes[k+2].noeud2);
-        }
-    }
+    struct aretes *liste_aretes = (struct aretes*) malloc (nb_aretes *sizeof(struct aretes));  	//on alloue de la memoire pour la liste des aretes
+    Aretes(nom_fichier, liste_aretes);    														//et on recupere cette liste directement dans liste_aretes
+	//listes_aretes : tableau des listes des aretes a la case i on a le numero du noeud 1 et le numero du noeud 2 contenudans une structure arete
+    	//affichage de la liste des arretes
+	printf("\n\n\033[4mListe des aretes :\033[0m\n");
+	//boucle pour le tableau
+	for(int k=0; k+2<nb_aretes; k+=3) {
+		printf("    %d -> %d    %d -> %d    %d -> %d\n", liste_aretes[k].noeud1, liste_aretes[k].noeud2, liste_aretes[k+1].noeud1, liste_aretes[k+1].noeud2, liste_aretes[k+2].noeud1, liste_aretes[k+2].noeud2);
+	}
+    
     printf("\n************************************************\n************************************************\n");
 	
 
     //ETAPE 2 : RECUPERATION DES INFORMATIONS SUR LE VOISINAGE 
 
-			//a) données
+		//a) données
     struct nbVois nbVoisin[nb_sommets];               //tableau du nombre de voisin de chaque sommets
         //initialisation du tableau
     for (int i=0; i<nb_sommets; i++){ 
@@ -81,9 +77,9 @@ int main(int argc, char *argv[]) {
         for (int c=0; c<nb_aretes; c++) {                            	//on parcourt toutes les arêtes
             int noeud1 = liste_aretes[c].noeud1;                     	//on récupère le noeud x de l'arête x->y
             if (noeud1 == b) {                                       	//si le noeud1 doit demanderdonc si c'est egal
-                int noeud2 = liste_aretes[c].noeud2;             			//on récupère noeud2
-                liste_voisins_connexion[b-1][nb_demandes] = noeud2;   //on ajoute dans la liste des voisins à demander du noeud1 le noeud2 a b-1 car b est le numero et non l'indice
-                nb_demandes++;																				//incrementation du nombre de demande qui est l'indice des voisin
+                int noeud2 = liste_aretes[c].noeud2;             		//on récupère noeud2
+                liste_voisins_connexion[b-1][nb_demandes] = noeud2;   	//on ajoute dans la liste des voisins à demander du noeud1 le noeud2 a b-1 car b est le numero et non l'indice
+                nb_demandes++;											//incrementation du nombre de demande qui est l'indice des voisin
             }	
         }
     }
@@ -98,8 +94,8 @@ int main(int argc, char *argv[]) {
 
     //ETAPE 3 : GESTION DE LA SOCKET SERVEUR
 
-			//a) creation de la socket
-    int dSServeur = creationSocket();                  //creation 
+		//a) creation de la socket
+    int dSServeur = creationSocket();                  //creation de la socket
     	//affichage
     printf("\n[SERVEUR] Création de la socket réussie\n");
     printf("[SERVEUR] Le descripteur est %d \n", dSServeur);
@@ -112,8 +108,8 @@ int main(int argc, char *argv[]) {
         //port
     int portServeurAff = htons(adrServeur.sin_port);
         //affichage
-    printf("\n[SERVEUR] Le port est %d\n", portServeurAff);                //affichage du port
-    printf("[SERVEUR] L'adresse est %s\n", adrServeurAff);                //affichage de l'adresse
+    printf("\n[SERVEUR] Le port est %d\n", portServeurAff);                	//affichage du port
+    printf("[SERVEUR] L'adresse est %s\n", adrServeurAff);                	//affichage de l'adresse
 
 
     //ETAPE 4 : MISE SOUS ECOUTE
@@ -138,18 +134,15 @@ int main(int argc, char *argv[]) {
     for (numSommet=1; numSommet<=nb_sommets; numSommet++) {
         
         printf("\n************************************************\n************************************************\n");
-			
+		
         //ETAPE 5 : ACCEPTATION DU NOEUD
             //acceptation
         dSNoeud = accept(dSServeur, (struct sockaddr*)&sockNoeud, &lgAdr);          //on accepte le Noeud qui demande
             //affichage
-			 	if (DEBUG > 1) {
-        	printf("\n[SERVEUR] Connexion d'un Noeud de descripteur %d\n", dSNoeud);
-				}
-        if (DEBUG > 3) { 
-					if (numSommet < 2) {printf("[SERVEUR] 1 Noeud est connecté au serveur\n");}         //affichage du nombre de Noeud connecté
-	        else {printf("[SERVEUR] %d Noeuds sont connectés au serveur\n", numSommet);}        //affichage du nombre de Noeud connecté
-				}
+		printf("\n[SERVEUR] Connexion d'un Noeud de descripteur %d\n", dSNoeud);
+
+		if (numSommet < 2) {printf("[SERVEUR] 1 Noeud est connecté au serveur\n");}         //affichage du nombre de Noeud connecté
+		else {printf("[SERVEUR] %d Noeuds sont connectés au serveur\n", numSommet);}        //affichage du nombre de Noeud connecté
 
 			
         //ETAPE 6 : RECEPTION DES INFORMATIONS DU NOEUD
@@ -163,10 +156,10 @@ int main(int argc, char *argv[]) {
         procGraphe[indice_proc].numero = indice_proc+1;                         //on attribut l'indice du noeud +1 car on donne le numero et non l'indice
         procGraphe[indice_proc].descripteur = dSNoeud;                          //on attribut le descripteur
         procGraphe[indice_proc].adrProc = sockNoeud;                            //on attribut l' adresse
-        		//AFFICHAGE
+        //AFFICHAGE
             //adresse
         char adrProcAff[INET_ADDRSTRLEN];             //on va stocker l'adresse du sous anneau dedans
-        inet_ntop(AF_INET, &sockNoeud.sin_addr, adrProcAff, INET_ADDRSTRLEN);     //adresse du Noeud    
+        inet_ntop(AF_INET, &sockNoeud.sin_addr, adrProcAff, INET_ADDRSTRLEN);     	//adresse du Noeud    
             //port
         int portProcAff = htons(sockNoeud.sin_port);                                 //port du Noeud
             //affichage
@@ -198,11 +191,11 @@ int main(int argc, char *argv[]) {
         //adresse
     char adrNoeudCoAff[INET_ADDRSTRLEN];                                       //on va stocker l'adresse du sous anneau dedans
         //parcourt des noeuds connectés au serveur                        
-    for (int i=0; i<nb_sommets; i++) {     //on commence a un car les indice commence a 1
+    for (int i=0; i<nb_sommets; i++) {              //on commence a un car les indice commence a 1
             //recuperation adresse
         inet_ntop(AF_INET, &procGraphe[i].adrProc.sin_addr, adrNoeudCoAff, INET_ADDRSTRLEN);     //adresse du Noeud    
             //port
-        int portNoeudCoAff = htons(procGraphe[i].adrProc.sin_port);                                 //port du Noeud
+        int portNoeudCoAff = htons(procGraphe[i].adrProc.sin_port);                              //port du Noeud
             //affichage
         printf("\n      Noeud d'indice %d de descripteur %i : %s:%i", i+1, procGraphe[i].descripteur, adrNoeudCoAff, portNoeudCoAff);
     }
@@ -220,18 +213,18 @@ int main(int argc, char *argv[]) {
     //ETAPE 8 : ENVOIE DES INFORMATIONS DE CONNEXION AUX NOEUDS VOISINS
 
 			//a) boucle du parcourt des sommets
-    for (int i=0; i<nb_sommets; i++) {     //pour chaque noeuds
+    for (int i=0; i<nb_sommets; i++) {    							//pour chaque noeuds
             //donnees
         int nbVoisinDemande = nbVoisin[i].nbVoisinDemande;			//nb voisin a qui tu dois demander une connection 
         
         //BOUCLE de autant de voisin que le sommet va demander à se connecter
         for (int v=0; v<nbVoisinDemande; v++) {
                 //données
-            int voisinCourant = liste_voisins_connexion[i][v];													//on recupere l'insdice du voisin courant
-            struct infos_Graphe info_voisin_courant;																		//structure du voisin courant (-1 car voisinCourant est le numero du voisin dans le graphe et non l'indice dans le tableau donc il commence a 1)
-            info_voisin_courant.numero = procGraphe[voisinCourant-1].numero;						//on y attribut un numero
-            info_voisin_courant.descripteur = procGraphe[voisinCourant-1].descripteur;	//un descripteur
-            info_voisin_courant.adrProc = procGraphe[voisinCourant-1].adrProc;					//et une adresse
+            int voisinCourant = liste_voisins_connexion[i][v];								//on recupere l'insdice du voisin courant
+            struct infos_Graphe info_voisin_courant;										//structure du voisin courant (-1 car voisinCourant est le numero du voisin dans le graphe et non l'indice dans le tableau donc il commence a 1)
+            info_voisin_courant.numero = procGraphe[voisinCourant-1].numero;				//on y attribut un numero
+            info_voisin_courant.descripteur = procGraphe[voisinCourant-1].descripteur;		//un descripteur
+            info_voisin_courant.adrProc = procGraphe[voisinCourant-1].adrProc;				//et une adresse
                 //envoie au voisin a qui je demande
             sendCompletTCP(procGraphe[i].descripteur, &info_voisin_courant, sizeof(struct infos_Graphe));   //on envoie les inforamtions ici adresse des voisins
                 //affichage ajout des voisins au sommet

@@ -10,8 +10,8 @@ if (len(sys.argv) < 2):
 	
 # NETOYAGE DES PROCESSUS
 try:	#essaie
-  os.system("python3 cleaner.py")								#utilisation de cleaner pour fermer les ports
-  print("Netoyage des processus effectué")			#afficahge
+  os.system("python3 cleaner.py")								      #utilisation de cleaner pour fermer les ports
+  print("Netoyage des processus effectué")						#afficahge
 except:	#si arrive pas
   print("Processus non nétoyés (processus blocant)")
 
@@ -31,7 +31,7 @@ os.system("make")
 
 # INFORMATIONS DE CONNEXION
 port_serveur = int(sys.argv[1])		#recuperation du port
-fichier_graphe = sys.argv[2]			#du fichier pour le graphe
+fichier_graphe = sys.argv[2]		  #du fichier pour le graphe
 
 # Lancement du serveur
 cmd = ["./bin/serveur", str(port_serveur), fichier_graphe]		#lancer la commande dans un terminal pour lancer le serveur
