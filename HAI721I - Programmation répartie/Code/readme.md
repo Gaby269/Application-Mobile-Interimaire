@@ -4,7 +4,7 @@
 
 *Lancer le serveur* : ``python3 serveur.py port_serveur fichier_graphe``
 
-*Utiliser le programme noeuds.py pour lancer autant de noeuds qu'il y en a dans le graphe *: ``python3 noeuds.py ip_serveur port_serveur fichier_graphe``
+*Utiliser le programme noeuds.py pour lancer autant de noeuds qu'il y en a dans le graphe* : ``python3 noeuds.py ip_serveur port_serveur fichier_graphe``
 
 
 **Exemple**
