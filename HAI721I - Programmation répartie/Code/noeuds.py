@@ -1,15 +1,11 @@
-#LANCEUR DU NOMBRE DE NOEUDS QU'ON VEUT
-
 import os, sys
 
 #GESTION DES PARAMETRES
 if (len(sys.argv) != 4):
-  print(f"[UTILISATION] :\npython3 {sys.argv[0]} ip_serveur port_serveur nom_fichier")
+  print(f"[UTILISATION] :\npython3 {sys.argv[0]} nom_fichier ip_serveur port_serveur")
   exit(1)
 
-#os.system("python3 cleaner.py")
 
-	
 # LECTURE DES DONNEES DU GRAPHE
 path = sys.argv[3]								# recuperation du nom du fichier
 fichier = open(path, "r")						# ouverture en lecture
