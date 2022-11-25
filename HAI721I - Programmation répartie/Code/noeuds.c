@@ -39,19 +39,19 @@ void* SuiteNoeud(void * p){
         printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
         printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "DEMANDE");printf("de connexion au %d-ème voisin réussie !\n", indice_vois);
         
-/*
+
         //ETAPE 11 : ENVOIE D'UN MESSAGE JE SUIS MOI POUR PLUS TARD
         sendCompletTCP(dSVois, &numeroMoi, sizeof(int));
             //affichage
         printColorPlus(numeroMoi, "ENVOIE");printf("de mon indice à %d\n", numero_vois);
-*/
+
     }
 	//Sinon j'ai accepté un noeud
     else{
 
         printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "ACCEPTATION");printf("du %d-ème voisin\n", indice_vois);
 
-/*
+
         //RECEPTION DES INFORMATIONS DDES VOISINS ENTRANT POUR PLUS TARD
         int numero_Voisin;                                         // entier qui va etre le numero du noeud qui se connecte
             //reception
@@ -61,7 +61,7 @@ void* SuiteNoeud(void * p){
         printColorPlus(numeroMoi, "RECEPTION");printf("du noeud %d qui est mon voisin\n", numero_Voisin);
 
         args->VoisinCourant->numero = numero_Voisin;
-*/
+
     }
 
     pthread_exit(NULL);         //sortie du thread
@@ -258,7 +258,7 @@ int main(int argc, char *argv[]) {
         //si je n'ai pas encore attent le nombre de connexion je continue
         if (cptCo < nbVoisinDemande){
 					
-			//////////////////////////
+			////////////////////////// 
 			// DEMANDE DE CONNEXION //
 			//////////////////////////
 
@@ -339,7 +339,7 @@ int main(int argc, char *argv[]) {
             cptAcc++;			//incrementation du compteur de l'acceptation
         } 
 
-    }//fin des demandes
+    }//fin des demandes 
     
 
     //Join des threads actuellement on en a pas besoin parce qu'on fait que des affichages qui sont assez vite a faire avant que la socket ne se ferme
@@ -351,7 +351,7 @@ int main(int argc, char *argv[]) {
     printColorPlus(numero_noeud, "NOMBRE ACCEPTATION");printf("J'ai accepté %d noeud\n", cptAcc);
     
     //liberation des pointeurs
-    free(info_voisins);
+    free(info_voisins); 
 
     //FERMETURE DE LA SOCKET CLIENTE QUI ECOUTE ET DES SOCKET QUI ACCEPT ET QUI SE CONNECTE CAR PLUS BESOIN
     printColorPlus(numero_noeud, "FERMETURE");printf("Je peux m'en aller !\n");

@@ -127,9 +127,9 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             exit(1);          // on choisit ici d'arrêter le programme car le reste
         }
         if (res_premier_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale lors de l'envoie : ");
-            close(sock);
-            exit(1);          // on choisit ici d'arrêter le programme
+            printf("\n[ABANDON] : Abandon de la socket principale lors de l'envoie");
+            //close(sock);
+            //exit(1);          // on choisit ici d'arrêter le programme
         }
 
     //DEUXIEME APPEL POUR LE MESSAGE
@@ -142,9 +142,9 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             exit(1);          // on choisit ici d'arrêter le programme cr le reste depend de cet envoie
         }
         if (res_deuxieme_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie : ");
-            close(sock);
-            exit(1);          // on choisit ici d'arrêter le programme car le reste depend de cet envoie
+            perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
+            //close(sock);
+            //exit(1);          // on choisit ici d'arrêter le programme car le reste depend de cet envoie
         }
 
 }
@@ -159,7 +159,7 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
 /// return : resultat de la reception qui est la taille du message recu
-int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
+/*int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
    
     //VARIABLES 
     int res;				//taille de chaque recv
@@ -177,6 +177,22 @@ int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
         }
     }
     return recu;	//envoie la taille
+}*/
+
+int recvTCP(int sock, void* msg, int sizeMsg) {
+    int res;
+    int received = 0;
+    while(received < sizeMsg) {
+        res = recv(sock, msg+received, sizeMsg-received, 0);
+        received += res;
+        if (res == -1) {
+            printf("Problème lors de la réception du message\n");
+            return -1;
+        } else if (res == 0) {
+            return 0;
+        }
+    }
+    return received;
 }
 
 
@@ -194,17 +210,20 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
     //PREMIER APPEL POUR LA TAILLE
     int taille_info_proc;                                                     	//creation d'une variable qui recupere la taille du message
     int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeof(int));       //on recoit la taille du message
+    printf("res = %i\n", res_premier_appel);
+    printf("taille = %i\n", taille_info_proc);
+    
    
         //GESTION DES ERREURS
         if (res_premier_appel == ERREUR) {
             perror("\n[ERREUR] : Erreur lors de la reception de la taille du message : ");
             close(sock);
             exit(1);          // on choisit ici d'arrêter le programme 
-        }
+        }//FERMETURE  = 0
         if (res_premier_appel == FERMETURE) { //peut pas confondre avec le fait de ne recevoir rien car on attend si on recoit rien
-            perror("\n[ERREUR] : Abandon de la socket principale lors du recv : ");
-            close(sock);
-            exit(1);          // on choisit ici d'arrêter le programme 
+            printf("\n[ABANDON] : Abandon de la socket principale lors de recv\n");
+            //close(sock);
+            //exit(1);          // on choisit ici d'arrêter le programme 
         }
 
    //VERIFICATION DES TAILLES
@@ -223,9 +242,9 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             exit(1);          // on choisit ici d'arrêter le programme 
         }
         if (res_deuxieme_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale lors du recv : ");
-            close(sock);
-            exit(1);          // on choisit ici d'arrêter le programme 
+            printf("\n[ABANDON] : Abandon de la socket principale lors de recv\n");
+            //close(sock);
+            //exit(1);          // on choisit ici d'arrêter le programme 
         }
 
 }
