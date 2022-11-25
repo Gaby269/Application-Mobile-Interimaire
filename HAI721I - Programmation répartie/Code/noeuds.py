@@ -3,15 +3,15 @@
 import os, sys
 
 #GESTION DES PARAMETRES
-if (len(sys.argv) < 2):
-  print(f"[UTILISATION] :\npython3 {sys.argv[0]} port_serveur nom_fichier")
+if (len(sys.argv) != 4):
+  print(f"[UTILISATION] :\npython3 {sys.argv[0]} ip_serveur port_serveur nom_fichier")
   exit(1)
 
 #os.system("python3 cleaner.py")
 
 	
 # LECTURE DES DONNEES DU GRAPHE
-path = sys.argv[2]								# recuperation du nom du fichier
+path = sys.argv[3]								# recuperation du nom du fichier
 fichier = open(path, "r")						# ouverture en lecture
 contenu = fichier.readline()					# lire le contenu
 while (contenu[0] == 'c'):        				# on saute les commentaires
@@ -29,8 +29,8 @@ aretes = int(aretes)				#cast des nbAretes
 
 
 # INFORMATIONS DES CONNEXIONS
-ip_serveur = "0.0.0.0" #sys.argv[1]								#recuperation de l'adresse du serveur
-port_serveur = int(sys.argv[1])									  #du port du serveur
+ip_serveur = sys.argv[1]										#recuperation de l'adresse du serveur
+port_serveur = int(sys.argv[2])									#du port du serveur
 print("ADRESSE serveur :",ip_serveur+":"+str(port_serveur))		#affichage de l'ip et du port
 
 
