@@ -3,7 +3,7 @@
 import os, sys
 
 #GESTION DES PARAMETRES
-if (len(sys.argv) < 2):
+if (len(sys.argv) != 3):
   print(f"[UTILISATION] :\npython3 {sys.argv[0]} nom_fichier port_serveur")
   exit(1)
 
@@ -30,8 +30,9 @@ os.system("make")
 
 
 # INFORMATIONS DE CONNEXION
-port_serveur = int(sys.argv[1])		#recuperation du port
-fichier_graphe = sys.argv[2]		  #du fichier pour le graphe
+fichier_graphe = sys.argv[1]		  #du fichier pour le graphe
+port_serveur = int(sys.argv[2])		#recuperation du port
+
 
 # Lancement du serveur
 cmd = ["./bin/serveur", str(port_serveur), fichier_graphe]		#lancer la commande dans un terminal pour lancer le serveur
