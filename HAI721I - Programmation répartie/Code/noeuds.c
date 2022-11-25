@@ -20,10 +20,10 @@ void* SuiteNoeud(void * p){
         //info voisin
     int indice_vois = args->indice_vois;                        //indice du voisin sortant
     struct infos_Graphe *Voisin = args->VoisinCourant;          //info du voisin
-    //int dSVois = Voisin->descripteur;                         //descripteur du noeud
-    //int numero_vois = Voisin->numero;                         //numero voisin
+    int dSVois = Voisin->descripteur;                         //descripteur du noeud
+    int numero_vois = Voisin->numero;                         //numero voisin
         //thread
-    //pthread_t threadCourant = pthread_self();                 //identifiant du thread
+    pthread_t threadCourant = pthread_self();                 //identifiant du thread
 
 	
 	//Si je suis pas accepteur alors je fais une connexion
@@ -36,8 +36,8 @@ void* SuiteNoeud(void * p){
             //port
         int portDem = htons((short) Voisin->adrProc.sin_port); 
             //affichage
-        printColorPlus(numeroMoi, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
-        printColorPlus(numeroMoi, "DEMANDE");printf("de connexion au %d-ème voisin réussie !\n", indice_vois);
+        printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
+        printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "DEMANDE");printf("de connexion au %d-ème voisin réussie !\n", indice_vois);
         
 /*
         //ETAPE 11 : ENVOIE D'UN MESSAGE JE SUIS MOI POUR PLUS TARD
@@ -49,7 +49,7 @@ void* SuiteNoeud(void * p){
 	//Sinon j'ai accepté un noeud
     else{
 
-        printColorPlus(numeroMoi, "ACCEPTATION");printf("du %d-ème voisin\n", indice_vois);
+        printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "ACCEPTATION");printf("du %d-ème voisin\n", indice_vois);
 
 /*
         //RECEPTION DES INFORMATIONS DDES VOISINS ENTRANT POUR PLUS TARD
@@ -239,7 +239,7 @@ int main(int argc, char *argv[]) {
     struct paramsNoeud argsAcc[nbVoisinAttente];
 
     	//b) descripteurs des sockets
-		int dSVoisinDemande = 0;
+	int dSVoisinDemande = 0;
     int dSVoisinEntrant = 0;
         //adresse
     struct sockaddr_in sockVoisinAccept;          //on declare la socket du Noeud
@@ -343,14 +343,13 @@ int main(int argc, char *argv[]) {
     
 
     //Join des threads actuellement on en a pas besoin parce qu'on fait que des affichages qui sont assez vite a faire avant que la socket ne se ferme
-    //joinThreads(threads, nbVoisinTotal, numero_noeud);
+    joinThreads(threads, nbVoisinTotal, numero_noeud);
 
 
     //AFFICHAGE du nombre de connexion effectuées et d'acceptation effectuées
     printColorPlus(numero_noeud, "NOMBRE CONNEXION");printf("J'ai demandé a %d noeud une connexion\n", cptCo);
     printColorPlus(numero_noeud, "NOMBRE ACCEPTATION");printf("J'ai accepté %d noeud\n", cptAcc);
     
-
     //liberation des pointeurs
     free(info_voisins);
 

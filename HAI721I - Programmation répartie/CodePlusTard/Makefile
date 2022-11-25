@@ -20,10 +20,10 @@ obj/%.o: %.c
 	gcc -Wall -Iinclude -c $< -o $@
 
 bin/noeuds: $(SRCS0:%.c=obj/%.o)
-	gcc -o $@ $+ -lpthread
+	gcc -o $@ $+ -lpthread -lm
 
 bin/serveur: $(SRCS1:%.c=obj/%.o)
-	gcc -o $@ $+ -lpthread
+	gcc -o $@ $+ -lpthread -lm
 
 clean:
 	rm -f $(BIN) obj/*.o *~

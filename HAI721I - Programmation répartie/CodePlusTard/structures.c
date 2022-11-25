@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
+
 ////////////////////////////////////////
 // STRUCTURES POUR ENVOI INFORMATIONS //
 //////////////////////////////////////// 
@@ -37,16 +38,16 @@ struct info_nb{
 
 
 
-//THREAD structure pour regrouper les param�tres d'un thread
-struct paramsNoeudi {
-  int idThread;                       // un identifiant de thread, de 1 � N (N le nombre total de theads secondaires)
+//THREAD structure pour regrouper les paramètres d'un thread
+struct paramsInter1 {
+  int idThread;                       // un identifiant de thread, de 1 à N (N le nombre total de theads secondaires)
   struct infos_Graphe* procCourant;   //processus courant a qui ont donne les param avant de savoir son numero
   struct partage * varPartage;   //les varaible paratgé  tous les threads
 };
 
 
-// regrouoes les donn�e partag�es entres les threads representant les noeuds
-struct partage {
+// regrouoes les donnée partagées entres les threads representant les noeuds
+struct partageServeur {
   int* nbCourant;                 //nombre processus courant
   struct info_nb* info_nb;          //tableau du nb de voisins
   struct infos_Graphe* tabProc;     //construction d'un tableau pour stocker tous les clients
@@ -56,3 +57,26 @@ struct partage {
   pthread_cond_t condi;       // variable qui represente la variable conditionelle pour lattente des evenements
   
 };
+
+
+//THREAD structure pour regrouper les paramétres d'un thread
+struct paramsNoeud {
+  int idThread;                         //un identifiant de thread, de 1 à N (N le nombre total de theads secondaires)
+	int numero_proc;									    //numero dans le graphe du processus courant
+	int indice_vois;									    //indice du processus voisin parmis les voisins du noeud courant
+	int Acc;                              //boolean pour savoir si je suis une acceptation ou non
+  //int nbAccept;                         //compteur du nombre d'acceptation par noeud
+  //int nbConnex;                         //compteur du nombre de connection par noeud    
+  struct infos_Graphe *VoisinCourant;   //structure des informations du voisins
+  //struct partage * varPartage;        //si on a des variables partagées
+};
+
+
+
+/*
+struct partage{
+  int *cptTotal;                    //cpt des différents  threads qui sont mis en place en meme tps
+  pthread_mutex_t verrou;           // varriable qui représente le verrou pour avoir la main
+  pthread_cond_t condi;           // variable qui represente la variable conditionelle pour lattente des evenements
+};
+*/

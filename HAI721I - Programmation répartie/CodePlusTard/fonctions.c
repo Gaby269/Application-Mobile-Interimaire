@@ -9,15 +9,16 @@
 #include <string.h>
 #include <pthread.h>        //thread
 #include "parseur.c"
+#include <errno.h>
 
-// Mode Debug pour les affichages, 0 minimal
-#define DEBUG 4
+// Mode Debug pour les affichages
+#define DEBUG 3
 
 //SYSTEME ERREUR OU FERMETURE
 #define TRUE 1
 #define FALSE 0
 #define ERREUR -1
-#define FERMETURE 0
+#define FERMETURE -1
 
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
 
@@ -102,12 +103,12 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             perror("\n[ERREUR] : Erreur lors de l'envoie de la taille du message : ");
             close(sock);
             exit(1);          // on choisis ici d'arrêter le programme car le reste
-        }
+        }/*
         if (res_premier_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale : ");
+            perror("\n[ERREUR] : Abandon de la socket principale lors de l'envoie : ");
             close(sock);
             exit(1);          // on choisis ici d'arrêter le programme
-        }
+        }*/
 
    //DEUXIEME APPEL POUR LE MESSAGE
    int res_deuxieme_appel = sendTCP(sock, info_proc, sizeinfo_proc);     //on envoie la taille du message
@@ -117,12 +118,12 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             perror("\n[ERREUR] : Erreur lors de l'envoie du message : ");
             close(sock);
             exit(1);          // on choisis ici d'arrêter le programme cr le reste depend de cet envoie
-        }
+        }/*
         if (res_deuxieme_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale : ");
+            perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie : ");
             close(sock);
             exit(1);          // on choisis ici d'arrêter le programme car le reste depend de cet envoie
-        }
+        }*/
 
 }
 
@@ -180,7 +181,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
          exit(1);          // on choisis ici d'arrêter le programme 
       }
       if (res_premier_appel == FERMETURE) {
-         perror("\n[ERREUR] : Abandon de la socket principale : ");
+         perror("\n[ERREUR] : Abandon de la socket principale lors du recv : ");
          close(sock);
          exit(1);          // on choisis ici d'arrêter le programme 
       }
@@ -201,7 +202,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
          exit(1);          // on choisis ici d'arrêter le programme 
       }
       if (res_deuxieme_appel == FERMETURE) {
-         perror("\n[ERREUR] : Abandon de la socket principale : ");
+         perror("\n[ERREUR] : Abandon de la socket principale lors du recv : ");
          close(sock);
          exit(1);          // on choisis ici d'arrêter le programme 
       }
@@ -214,11 +215,11 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 /////////////////////
 // CREATION SOCKET //
 /////////////////////
-/// Fonction qui crée une socket
+///  Fonction qui crée une socket
 /// return : descripteur de la socket 
 int creationSocket (){
 
-    int dS = socket(PF_INET, SOCK_STREAM, 0);  //on crée la socket enTCP
+    int dS = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);  //on crée la socket enTCP
 
         //GESTION DES ERREUR
         if (dS == ERREUR){
@@ -391,7 +392,7 @@ void creationThread(pthread_t* thread, void* param, void* fonction){
 /// Fonction qui fait attendre tout les threads pour pouvoir terminer le programme
 /// threads tableau de tous les threads crées
 /// nbThreads nombre de threads que l'on a créé
-void joinThread(pthread_t* threads, int nbThreads){
+void joinThreads(pthread_t* threads, int nbThreads, int noeud){
 
     //pour tous les threas
     for (int i = 0; i < nbThreads; i++){
@@ -399,13 +400,20 @@ void joinThread(pthread_t* threads, int nbThreads){
         //printf("[TRAITEMENT %d] Je suis dans join\n\n", i);
         int res_join = pthread_join(threads[i], NULL);
 
-        //GESTION ERREURS
-        if (res_join != 0){
-            perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
-            exit(1);                                       //on sort du programme
-        }
+            //GESTION ERREURS
+            if (res_join != 0){
+                printf("resjoin = %d", res_join);
+                perror("[ERREUR] lors du join !\n ");          //si parcontre il y a une erreur
+                //erreur dans le join                                      //on sort du programme
+            }
+
+        printColorPlus(noeud, "JOIN");printf("j'arrive dans le join \n");
     }
 }
+
+
+
+
 
 
 
@@ -445,6 +453,7 @@ void priseVerrou(pthread_mutex_t* verrou){
 
         //GESTION ERREUR
         if (res_lock != 0){
+            printf("resverrou = %d",res_lock);
             perror("[ERREUR] lors de la prise du verrou\n "); //si erreur lors de la prise du verrou on ferme le thread courant
             pthread_exit(NULL);
         }
@@ -473,12 +482,13 @@ void liberationVerrou(pthread_mutex_t* verrou){
 ///////////////////////////
 /// Fonction qui detruit le verrou
 /// verrou verrou qu'on doit detruire
-void detruireVerrou(pthread_mutex_t* verrou){
+void destruireVerrou(pthread_mutex_t* verrou){
 
   int res_destroyVerrou = pthread_mutex_destroy(verrou);
     
     //GESTION ERREUR
     if (res_destroyVerrou != 0){
+         printf("resverrou = %d",res_destroyVerrou);
       perror("[ERREUR] lors de la destruction du verrou\n ");
       exit(1);
     }
@@ -560,3 +570,6 @@ void detruireVarCond(pthread_cond_t* condi){
     }
 
 }
+
+
+

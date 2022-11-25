@@ -7,7 +7,7 @@ if (len(sys.argv) != 4):
 
 
 # LECTURE DES DONNEES DU GRAPHE
-path = sys.argv[3]								# recuperation du nom du fichier
+path = sys.argv[1]								# recuperation du nom du fichier
 fichier = open(path, "r")						# ouverture en lecture
 contenu = fichier.readline()					# lire le contenu
 while (contenu[0] == 'c'):        				# on saute les commentaires
@@ -25,8 +25,8 @@ aretes = int(aretes)				#cast des nbAretes
 
 
 # INFORMATIONS DES CONNEXIONS
-ip_serveur = sys.argv[1]										#recuperation de l'adresse du serveur
-port_serveur = int(sys.argv[2])									#du port du serveur
+ip_serveur = sys.argv[2]										#recuperation de l'adresse du serveur
+port_serveur = int(sys.argv[3])									#du port du serveur
 print("ADRESSE serveur :",ip_serveur+":"+str(port_serveur))		#affichage de l'ip et du port
 
 
