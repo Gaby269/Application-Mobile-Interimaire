@@ -210,8 +210,8 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
     //PREMIER APPEL POUR LA TAILLE
     int taille_info_proc;                                                     	//creation d'une variable qui recupere la taille du message
     int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeof(int));       //on recoit la taille du message
-    printf("res = %i\n", res_premier_appel);
-    printf("taille = %i\n", taille_info_proc);
+    //printf("res = %i\n", res_premier_appel);
+    //printf("taille = %i\n", taille_info_proc);
     
    
         //GESTION DES ERREURS

@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 	printColor(numero_noeud);printf("\033[4mInforamtions données en paramètres :\033[0m\n");
 	printf("\n       Adresse du serveur : %s\n       Port : %d", adresseIP, atoi(port_serveur));
 	printf("\n       Port du noeud : %d", atoi(port_noeud));
-	printf("\n       Indice du processus : %d", numero_noeud);
+	printf("\n       Indice du processus : %d\n\n", numero_noeud);
 	
 
 //A - CONSTRUCTION D’UN SOMMET
@@ -250,9 +250,9 @@ int main(int argc, char *argv[]) {
     int cptCo = 0;      //compteur pour connexion pour parcourir des parametres argsCo
 
 	
-     //BOUCLE pour parcourir le tableau des threads qui sera de la taille du nombre de voisin total qu'un noeud a
+    //BOUCLE pour parcourir le tableau des threads qui sera de la taille du nombre de voisin total qu'un noeud a
     for (int indiceVoisin=0; indiceVoisin<nbVoisinTotal; indiceVoisin++) {
-
+ 
         //partage.cptTotal = &nbVoisinTotal;			//compteur inutilisé mais peut etre plus tard
 
         //si je n'ai pas encore attent le nombre de connexion je continue
@@ -290,12 +290,14 @@ int main(int argc, char *argv[]) {
             argsCo[cptCo].VoisinCourant = &VoisinCourant;				//les info du voisin courant
             argsCo[cptCo].Acc = FALSE;                          		//donne l'info que je suis pas une acceptation
             //argsCo[cptCo].varPartage = &partage;                		//donneles partage qu'on a pas besoin actuellement
+            cptCo++;		//on incremente le compteur des connection pour passer au suivant
+            printColorPlus(numero_noeud, "COMPTEUR");printf("cptCo = %d", cptCo);  
 
 					
             //ETAPE 11 CREATION DU THREAD POUR COMMUNIQUER AVEC LE VOISIN
             printColorPlus(numero_noeud, "CREATION THREAD CO");printf("pour le noeud d'indice %d\n", cptCo);
             creationThread(&threads[indiceVoisin], argsCo, SuiteNoeud);    //creation du thread
-            cptCo++;		//on incremente le compteur des connection pour passer au suivant
+            
 
         }
 
@@ -331,12 +333,13 @@ int main(int argc, char *argv[]) {
             argsAcc[cptAcc].VoisinCourant = &VoisinCourant;		//on donne les informations du voisin courant ici que le descripteur
             argsAcc[cptAcc].Acc = TRUE;							//on dit qu'on est une acceptation
             //argsAcc[cptAcc].varPartage = &partage;          	//donneles partage qu'on a pas besoin
-					
+			cptAcc++;			//incrementation du compteur de l'acceptation
+            printColorPlus(numero_noeud, "COMPTEUR");printf("cptAcc = %d", cptAcc);  
 
 			//ETAPE 13 CREATION DU THREAD POUR COMMUNIQUER AVEC LE VOISIN
 			printColorPlus(numero_noeud, "CREATION THREAD ACC");printf("pour le noeud d'indice %d\n", cptAcc);
             creationThread(&threads[indiceVoisin], argsAcc, SuiteNoeud);    //creation du thread
-            cptAcc++;			//incrementation du compteur de l'acceptation
+            
         } 
 
     }//fin des demandes 
@@ -350,6 +353,9 @@ int main(int argc, char *argv[]) {
     printColorPlus(numero_noeud, "NOMBRE CONNEXION");printf("J'ai demandé a %d noeud une connexion\n", cptCo);
     printColorPlus(numero_noeud, "NOMBRE ACCEPTATION");printf("J'ai accepté %d noeud\n", cptAcc);
     
+    while(1);
+
+
     //liberation des pointeurs
     free(info_voisins); 
 
