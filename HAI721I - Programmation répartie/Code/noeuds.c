@@ -39,19 +39,19 @@ void* SuiteNoeud(void * p){
         printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
         printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "DEMANDE");printf("de connexion au %d-ème voisin réussie !\n", indice_vois);
         
-
+/*
         //ETAPE 11 : ENVOIE D'UN MESSAGE JE SUIS MOI POUR PLUS TARD
         sendCompletTCP(dSVois, &numeroMoi, sizeof(int));
             //affichage
         printColorPlus(numeroMoi, "ENVOIE");printf("de mon indice à %d\n", numero_vois);
-
+*/
     }
 	//Sinon j'ai accepté un noeud
     else{
 
         printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "ACCEPTATION");printf("du %d-ème voisin\n", indice_vois);
 
-
+/*
         //RECEPTION DES INFORMATIONS DDES VOISINS ENTRANT POUR PLUS TARD
         int numero_Voisin;                                         // entier qui va etre le numero du noeud qui se connecte
             //reception
@@ -61,7 +61,7 @@ void* SuiteNoeud(void * p){
         printColorPlus(numeroMoi, "RECEPTION");printf("du noeud %d qui est mon voisin\n", numero_Voisin);
 
         args->VoisinCourant->numero = numero_Voisin;
-
+*/
     }
 
     pthread_exit(NULL);         //sortie du thread
@@ -291,7 +291,7 @@ int main(int argc, char *argv[]) {
             argsCo[cptCo].Acc = FALSE;                          		//donne l'info que je suis pas une acceptation
             //argsCo[cptCo].varPartage = &partage;                		//donneles partage qu'on a pas besoin actuellement
             cptCo++;		//on incremente le compteur des connection pour passer au suivant
-            printColorPlus(numero_noeud, "COMPTEUR");printf("cptCo = %d", cptCo);  
+            //printColorPlus(numero_noeud, "COMPTEUR");printf("cptCo = %d", cptCo);  
 
 					
             //ETAPE 11 CREATION DU THREAD POUR COMMUNIQUER AVEC LE VOISIN
@@ -334,7 +334,7 @@ int main(int argc, char *argv[]) {
             argsAcc[cptAcc].Acc = TRUE;							//on dit qu'on est une acceptation
             //argsAcc[cptAcc].varPartage = &partage;          	//donneles partage qu'on a pas besoin
 			cptAcc++;			//incrementation du compteur de l'acceptation
-            printColorPlus(numero_noeud, "COMPTEUR");printf("cptAcc = %d", cptAcc);  
+            //printColorPlus(numero_noeud, "COMPTEUR");printf("cptAcc = %d", cptAcc);  
 
 			//ETAPE 13 CREATION DU THREAD POUR COMMUNIQUER AVEC LE VOISIN
 			printColorPlus(numero_noeud, "CREATION THREAD ACC");printf("pour le noeud d'indice %d\n", cptAcc);
@@ -353,7 +353,7 @@ int main(int argc, char *argv[]) {
     printColorPlus(numero_noeud, "NOMBRE CONNEXION");printf("J'ai demandé a %d noeud une connexion\n", cptCo);
     printColorPlus(numero_noeud, "NOMBRE ACCEPTATION");printf("J'ai accepté %d noeud\n", cptAcc);
     
-    while(1);
+    //while(1);
 
 
     //liberation des pointeurs
