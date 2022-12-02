@@ -58,8 +58,6 @@ void printColorThread(int numero, pthread_t thread){
     printf("\x1B[3%cm[THREAD %lu]\033[0m", couleurProd, thread);
 }
 
-
-
 //////////////////////////////
 // FONCTION PRINTCOLORNOEUD //
 //////////////////////////////
@@ -127,7 +125,7 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             exit(1);          // on choisit ici d'arrêter le programme car le reste
         }
         if (res_premier_appel == FERMETURE) {
-            printf("\n[ABANDON] : Abandon de la socket principale lors de l'envoie");
+            printf("\n[ABANDON] : Abandon de la socket principale lors de l'envoie de la taille du message");
             //close(sock);
             //exit(1);          // on choisit ici d'arrêter le programme
         }
@@ -146,6 +144,10 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
             //close(sock);
             //exit(1);          // on choisit ici d'arrêter le programme car le reste depend de cet envoie
         }
+
+    //return sendTCP(sock, info_proc, sizeinfo_proc);
+    //GESTION ERREUR POUR CHAQUE :
+        // 
 
 }
 

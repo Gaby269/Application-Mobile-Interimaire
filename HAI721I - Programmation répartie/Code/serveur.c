@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
 //B - RECEPTION DES INFORMATIONS DES SOMMETS
 	
     //a) Mise en place des données
-      //donnees utils
+        //donnees utils
     int dSNoeud;                                                                //declaration du descripteur
     struct infos_Graphe *procGraphe = (struct infos_Graphe*) malloc(nb_sommets * sizeof(struct infos_Graphe));         //on declare un tableau de structure pour les informations des Noeuds connecté au sevreur
     struct sockaddr_in sockNoeud;                                               //on declare la socket du Noeud
