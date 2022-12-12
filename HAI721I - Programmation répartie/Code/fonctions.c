@@ -111,7 +111,7 @@ int sendTCP(int sock, void* info_proc, int taille) {
 /////////////////////////////
 /// Fonction qui envoie la taille puis le message
 /// sock descripteur pour envoi
-/// info_proc message à﻿ envoyer
+/// info_proc message à envoyer
 /// sizeinfo_proc taille du message
 void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
@@ -161,42 +161,24 @@ void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
 /// return : resultat de la reception qui est la taille du message recu
-/*int recvTCP (int sock, void* info_proc, int sizeinfo_proc){
-   
-    //VARIABLES 
-    int res;				//taille de chaque recv
-    int recu = 0;			//taille final de chaque recvs
-
-    //BOUCLE
-    while(recu < sizeinfo_proc) {
-
-        res = recv(sock, info_proc+recu, sizeinfo_proc-recu, 0);		//apel a recv pour recevoir les paquets
-        recu += res;		//ajoutdes paquets
-
-        //GESTION ERREUR
-        if (res <=0){
-            return res;
-        }
-    }
-    return recu;	//envoie la taille
-}*/
-
 int recvTCP(int sock, void* msg, int sizeMsg) {
     int res;
     int received = 0;
     while(received < sizeMsg) {
         res = recv(sock, msg+received, sizeMsg-received, 0);
         received += res;
+
         if (res == -1) {
             printf("Problème lors de la réception du message\n");
             return -1;
-        } else if (res == 0) {
+        }
+        else if (res == 0) {
             return 0;
         }
     }
+
     return received;
 }
-
 
 
 
