@@ -132,8 +132,8 @@ int main(int argc, char *argv[]) {
   FD_SET(ds, &set); //ajout de la socket client au tableau de scrutation
   FD_SET(dsServ, &set); //ajout de la socket client au tableau de scrutation
   int maxDesc = (sock_list > dsServ ) ? sock_list : dsServ;
-  //printf("[Client] : attente de connexion du serveur.\n");
   while(1){
+
     settmp = set;
     if (select(maxDesc+1, &settmp, NULL, NULL, NULL) == -1) {
       printf("%s[CLIENT] Problème lors du select%s\n", AC_RED, AC_WHITE);
@@ -227,6 +227,7 @@ int main(int argc, char *argv[]) {
         if(maxDesc < dsC) maxDesc = dsC;
       }
     }
+
   }
 
   printf("[Travail] terminé le client s'arrête\n");

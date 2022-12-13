@@ -1,9 +1,6 @@
-c FILE: graphe_petit
+c FILE: graphe_diamant
 c
-c SOURCE: Gatien
-c
-c DESCRIPTION: Ben c'est un graphe qui est encore plus petit
-c
+c DESCRIPTION: Un graphe qui ressemble à un diamant
 c 
 p edge 6 12
 e 1 2

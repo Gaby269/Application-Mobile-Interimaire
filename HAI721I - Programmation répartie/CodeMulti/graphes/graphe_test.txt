@@ -1,8 +1,8 @@
-c FILE: graphe_petit
+c FILE: graphe_test
 c
 c SOURCE: Gatien
 c
-c DESCRIPTION: Ben c'est un graphe qui est encore plus petit
+c DESCRIPTION: C'est un graphe qui est petit
 c
 c 
 p edge 5 6
