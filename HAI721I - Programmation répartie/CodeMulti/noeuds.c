@@ -57,23 +57,23 @@ int main(int argc, char *argv[]) {
     //ETAPE 4 : GESTION DE LA SOCKET QUI JOUE LE RÔLE DE SERVEUR POUR LES AUTRES NOEUDS
 
 		//a) creation de la socket
-    int dSProcArete = creationSocket();
+    int dSVoisinAttente = creationSocket();
     
     printColor(numero_noeud);printf("Création de la socket d'écoute réussi !\n");
-    printColor(numero_noeud);printf("Le descripteur du noeud est %d \n\n", dSProcArete);
+    printColor(numero_noeud);printf("Le descripteur du noeud est %d \n\n", dSVoisinAttente);
 
     	//b) nommage de la socket
-    struct sockaddr_in sockArete = nommageSocket(dSProcArete, port_noeud);
+    struct sockaddr_in sockArete = nommageSocket(dSVoisinAttente, port_noeud);
     char adrArete[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &sockArete.sin_addr, adrArete, INET_ADDRSTRLEN);
     int portArete = htons((short) sockArete.sin_port);
     
-    printColor(numero_noeud);printf("Informations du noeud (socket) de descripteur %d : %s:%i\n\n", dSProcArete, adrArete, portArete);
+    printColor(numero_noeud);printf("Informations du noeud (socket) de descripteur %d : %s:%i\n\n", dSVoisinAttente, adrArete, portArete);
 
 
     //ETAPE 5 : MISE SOUS ECOUTE DE LA SOCKET
     int nbMaxAttente = NOEUDS_MAX;
-    ecouter(dSProcArete, nbMaxAttente);
+    ecouter(dSVoisinAttente, nbMaxAttente);
         //AFFICHAGE
     printColor(numero_noeud);printf("Mise en ecoute de la socket réussie !\n\n");
 
@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
         //informations du noeud
     struct infos_Graphe informations_proc;      		//declare la structure qu'on va envoyer au serveur
     informations_proc.numero = numero_noeud;        	//donne l'indice du processus
-    informations_proc.descripteur = dSProcArete;  		//donne le descripteur
+    informations_proc.descripteur = dSVoisinAttente;  		//donne le descripteur
     informations_proc.adrProc = sockArete;          	//donner l'adresse de la socket
         //envoie des informations
     sendCompletTCP(dSProcServ, &informations_proc, sizeof(struct infos_Graphe));
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
     printColor(numero_noeud);printf("Envoi des inforamtions réussi au serveur !\n");
     printColor(numero_noeud);printf("\033[4mEnvoie des informations suivantes :\033[0m\n");
     printf("\n       Adresse du processus : %s\n       Port : %d", adrArete, portArete);
-    printf("\n       Numéro du noeud : %d\n       Descripteur de la socket du processus : %d\n\n\n", numero_noeud, dSProcArete);
+    printf("\n       Numéro du noeud : %d\n       Descripteur de la socket du processus : %d\n\n\n", numero_noeud, dSVoisinAttente);
 
 
     //DEFINITION des variables de multiplexage
@@ -102,23 +102,28 @@ int main(int argc, char *argv[]) {
     fd_set tabScrutTmp;
 	FD_ZERO(&tabScrut);					//initialisation à 0 des booléens de scrutation
 	FD_SET(dSProcServ, &tabScrut);		//ajout de la socket qui discute avec le serveur
-	FD_SET(dSProcArete, &tabScrut);		//ajout de la socket de l'arrete 
+	FD_SET(dSVoisinAttente, &tabScrut);		//ajout de la socket de l'arrete 
 	int maxDs = dSProcServ;				//nb de socket a scrutter
 
 	int dSVoisinEntrant = 0;			//descripteur
 	int dSVoisinDemande = 0;			//descripteur
-	
-    while(1) {
 
-        tabScrutTmp = tabScrut;			//recuperation du tableau
-        if (select(maxDs+1, &tabScrutTmp, NULL, NULL, NULL) == -1) {	//demande de scruter le tableau pour maxDs 
+	int nbVoisinsAcceptes = -1;			//nb de voisins accepté
+	int nbVoisinTotal = 0;
+	int nbVoisinDemande, nbVoisinAttente;		   
+	
+    while(nbVoisinsAcceptes < nbVoisinTotal) {		//tant qu'on a pas accepté tous les voisins)) {
+
+        tabScrutTmp = tabScrut;
+		//demande de scruter le tableau pour maxDs sockets
+        if (select(maxDs+1, &tabScrutTmp, NULL, NULL, NULL) == -1) {	
             printColor(numero_noeud);printf("Problème lors du select\n");
         }
 
 
-		for (int df = 2; df < maxDs+1; df++) {	//parcours
+		for (int df = 2; df < maxDs+1; df++) {		//on parcours le tableau de scrutation
 			
-			if (!FD_ISSET(df, &tabScrutTmp)) {	    //si la socket n'est pas tabScrut dans le tableau on passe au suivant
+			if (!FD_ISSET(df, &tabScrutTmp)) {	    //on cherche le descripteur qui a produit un evenement
                 continue;
             }
 
@@ -128,9 +133,9 @@ int main(int argc, char *argv[]) {
                 struct nbVois nbVoisin;
                 recvCompletTCP(dSProcServ, &nbVoisin, sizeof(struct nbVois));  //on reutilise la structure informations_proc pour la reception
 
-                int nbVoisinTotal = nbVoisin.nbVoisinTotal;					   //nombre de voisins total
-                int nbVoisinDemande = nbVoisin.nbVoisinDemande;				   //nombre de voisin a qui je dois demander une connexion
-                int nbVoisinAttente = nbVoisinTotal - nbVoisinDemande;		   //nombre de voisin que je dois attendre
+                nbVoisinTotal = nbVoisin.nbVoisinTotal;					   //nombre de voisins total
+                nbVoisinDemande = nbVoisin.nbVoisinDemande;				   //nombre de voisin a qui je dois demander une connexion
+                nbVoisinAttente = nbVoisinTotal - nbVoisinDemande;		   //nombre de voisin que je dois attendre
             			
                 printColor(numero_noeud);printf("Reception du nombre de voisin réussi ! \n");
                 printf("	Nombre de voisin total : %d\n", nbVoisinTotal);
@@ -216,7 +221,7 @@ int main(int argc, char *argv[]) {
     			socklen_t lgAdr;                              //taille de l'adresse
 						
 	                //a) acceptation
-	            dSVoisinEntrant = accept(dSProcArete, (struct sockaddr*)&sockVoisinAccept, &lgAdr);     //on accepte le Noeud qui demande
+	            dSVoisinEntrant = accept(dSVoisinAttente, (struct sockaddr*)&sockVoisinAccept, &lgAdr);     //on accepte le Noeud qui demande
 				
 					//GESTION ERREUR
 					if (dSVoisinEntrant == ERREUR) {
@@ -231,7 +236,8 @@ int main(int argc, char *argv[]) {
 				//ETAPE 13 AJOUT DE LA NOUVELLE SOCKET DANS tabScrut
 				printColorPlus(numero_noeud, "AJOUT");printf("de la nouvelle socket a tabScrut\n");
 				FD_SET(dSVoisinEntrant, &tabScrut);		//on ajoute la socket acceptée dans les socket à scruter
-				maxDs = MAX(maxDs, dSVoisinEntrant);	//on recalcule le max
+				maxDs = MAX(maxDs, dSVoisinEntrant);	//on réajuste le max
+				nbVoisinsAcceptes++;					//on incrémente le nombre de voisins acceptés
 
 
         		/*
