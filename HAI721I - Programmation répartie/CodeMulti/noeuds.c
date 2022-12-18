@@ -3,6 +3,40 @@
 
 
 
+void* Coloration(void* p){
+	//recuperation des arguments du thread
+    struct paramsColoration* args = (struct paramsColoration*) p;
+
+	int numero_noeud = args->numero;					  //indice pour le thread
+	int ordre = args->ordre;							  //ordre du processus courant
+	int couleurVoisins = args->couleurVoisins;			  //tableau des couleurs
+    struct infos_Graphe *Voisin = args->VoisinsCourant;   //structure des informations des voisins
+    pthread_t threadCourant = pthread_self();             //identifiant du thread
+
+	//couleur du noeud
+	int couleur = 0;
+
+
+
+    printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "COLORATION");printf("en la couleur %d\n", couleur);
+
+    pthread_exit(NULL);         //sortie du thread
+
+     
+}
+
+
+void* ThreadReceptionMessage(void* p) {
+
+}
+
+
+
+
+
+
+
+
 /////////////////////////
 //   PROGRAME NOEUDS   //
 /////////////////////////
@@ -108,13 +142,15 @@ int main(int argc, char *argv[]) {
 	int dSVoisinEntrant = 0;			//descripteur
 	int dSVoisinDemande = 0;			//descripteur
 
-	int nbVoisinsConnectes = 0;			//nb de voisins accepté
-	int nbVoisinTotal = 1;
+	int nbVoisinTotal = 1;				//car on est connecté à au moins un sommet (graphe connexe)
 	int nbTotalNoeuds = 0;
 	int nbVoisinDemande, nbVoisinAttente;		   
+	int nbVoisinsConnectes = 0;			//nb de voisins accepté
+
+	int ordre;							//ordre de priorité du sommet
 	
     while(nbVoisinsConnectes < nbVoisinTotal) {		//tant qu'on a pas accepté tous les voisins)) {
-		
+        printf("Nb de voisins connectés : %d/%d\n",nbVoisinsConnectes, nbVoisinTotal);
         tabScrutTmp = tabScrut;
 		//demande de scruter le tableau pour maxDs sockets
         if (select(maxDs+1, &tabScrutTmp, NULL, NULL, NULL) == -1) {	
@@ -148,8 +184,7 @@ int main(int argc, char *argv[]) {
             	    printf("	Nombre de voisin qu'on doit accepter : %d\n", nbVoisinAttente);
                 }
 
-				//RECEPTION de l'ordre
-                int ordre;
+				//RECEPTION de l'ordre de priorité du sommet
                 recvCompletTCP(dSProcServ, &ordre, sizeof(int));
                 printf("	Priorité du sommet : %d\n\n", ordre);
                 
@@ -258,11 +293,62 @@ int main(int argc, char *argv[]) {
 		} //fin du for 
         
     } //fin du while
-    
+
+	//quel est le dernier noeud à s'être colorié
+    int dernierFini = 0;
+
+
+	int* couleurVoisins = malloc(nbVoisinTotal * sizeof(int));
+	for (int i = 0; i<nbVoisinTotal; i++) {
+		couleurVoisins[i] = -1;
+	}
+
+	struct paramsColoration infos_Coloration;
+	infos_Coloration.numero = numero_noeud;						//indice pour le thread
+	infos_Coloration.ordre = ordre;								//ordre du processus courant
+	infos_Coloration.couleurVoisins = couleurVoisins;			//tableau des couleurs
+  	infos_Coloration.VoisinsCourant;   							//structure des informations du voisins
+
+	pthread_t threadColoration = 0;
+
+	//je suis le premier
+    if (ordre == 1) {        
+		int res_create = pthread_create(&threadColoration, NULL, Coloration, infos_Coloration); //je me colorie
+        	//GESTION ERREUR
+        if (res_create == ERREUR){
+            perror("[ERREUR] lors de la creation du thread de coloration : ");
+            exit(1);
+        }
+    }
+
+
+
+	/*
+
+    else {
+        J'attends un message <COULEUR, ordre_i, couleur> :
+        if dernierFini < ordre_i {							//si tu savais pas que ton dernier fini tu verifie si egal 
+            Je broadcast à mes voisins <COULEUR, ordre_i, couleur>
+            dernierFini = max(dernierFini, ordre_i)
+            if ordre_i+1 == ordre {
+                ThreadColoration(...)
+            }    
+        }    
+        else {
+            je fais rien
+        }
+        couleurMax = max(couleurMax, couleur)
+        si dernierFini == nbNoeud {
+            on connait la coloration max du graphe, s'arrête
+        }
+    }
+        
+    */
 
     //FERMETURE DE LA SOCKET CLIENTE QUI ECOUTE ET DES SOCKET QUI ACCEPTENT ET QUI SE CONNECTENT
     printColorPlus(numero_noeud, "FERMETURE");printf("Je peux m'en aller !\n");
-    sleep(5);
+    sleep(10);
+    
     close(dSVoisinDemande);
     close(dSVoisinEntrant);
 

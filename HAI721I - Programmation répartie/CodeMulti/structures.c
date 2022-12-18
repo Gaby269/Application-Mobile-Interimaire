@@ -54,22 +54,19 @@ struct paramsNoeud {
   	int idThread;                         	//un identifiant de thread, de 1 à N (N le nombre total de theads secondaires)
 	int numero_proc;						//numero dans le graphe du processus courant
 	int indice_vois;						//indice du processus voisin parmis les voisins du noeud courant
-	int Acc;                              	//boolean pour savoir si je suis une acceptation ou non
-  	//int nbAccept;                         //compteur du nombre d'acceptation par noeud
-  	//int nbConnex;                         //compteur du nombre de connection par noeud    
+	int Acc;                              	//boolean pour savoir si je suis une acceptation ou non 
   	struct infos_Graphe *VoisinCourant;   	//structure des informations du voisins
-  	//struct partage * varPartage;        	//si on a des variables partagées
+};
+
+//THREAD structure pour regrouper les paramétres du thread pour la coloration
+struct paramsColoration {
+	int numero;								//numero dans le noeud du processus courant
+	int ordre;								//ordre du processus courant
+	int* couleurVoisins;					//tableau des couleurs
+  	struct infos_Graphe *VoisinsCourant;   	//structure des informations du voisins
 };
 
 
-//Structure pour les variable partagées
-/*
-struct partage{
-	int * cptTotal;							//conteur pour un eventuel rendez vous
-	pthread_mutex_t verrou;					// verrou pour partager des variables
-	pthread_cond_t condi;					//variable conditionnel pour eventuel rdv
-}
-*/
 
 //Structure pour l'envoie et la reception d'un message
 struct messages{
