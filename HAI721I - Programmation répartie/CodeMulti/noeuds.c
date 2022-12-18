@@ -108,12 +108,13 @@ int main(int argc, char *argv[]) {
 	int dSVoisinEntrant = 0;			//descripteur
 	int dSVoisinDemande = 0;			//descripteur
 
-	int nbVoisinsAcceptes = -1;			//nb de voisins accepté
-	int nbVoisinTotal = 0;
+	int nbVoisinsConnectes = 0;			//nb de voisins accepté
+	int nbVoisinTotal = 1;
+	int nbTotalNoeuds = 0;
 	int nbVoisinDemande, nbVoisinAttente;		   
 	
-    while(nbVoisinsAcceptes < nbVoisinTotal) {		//tant qu'on a pas accepté tous les voisins)) {
-
+    while(nbVoisinsConnectes < nbVoisinTotal) {		//tant qu'on a pas accepté tous les voisins)) {
+		
         tabScrutTmp = tabScrut;
 		//demande de scruter le tableau pour maxDs sockets
         if (select(maxDs+1, &tabScrutTmp, NULL, NULL, NULL) == -1) {	
@@ -133,6 +134,7 @@ int main(int argc, char *argv[]) {
                 struct nbVois nbVoisin;
                 recvCompletTCP(dSProcServ, &nbVoisin, sizeof(struct nbVois));  //on reutilise la structure informations_proc pour la reception
 
+				nbTotalNoeuds = nbVoisin.nbNoeuds;						   //nombre de noeuds total dans le graphe
                 nbVoisinTotal = nbVoisin.nbVoisinTotal;					   //nombre de voisins total
                 nbVoisinDemande = nbVoisin.nbVoisinDemande;				   //nombre de voisin a qui je dois demander une connexion
                 nbVoisinAttente = nbVoisinTotal - nbVoisinDemande;		   //nombre de voisin que je dois attendre
@@ -149,7 +151,6 @@ int main(int argc, char *argv[]) {
 				//RECEPTION de l'ordre
                 int ordre;
                 recvCompletTCP(dSProcServ, &ordre, sizeof(int));
-
                 printf("	Priorité du sommet : %d\n\n", ordre);
                 
             	printf("\n************************************************"); 
@@ -197,6 +198,7 @@ int main(int argc, char *argv[]) {
 	                    
 	    		        printColorPlus(numero_noeud, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
 	    		        printColorPlus(numero_noeud, "DEMANDE");printf("de connexion au %d-ème voisin réussie !\n", v+1);
+				        nbVoisinsConnectes++;					//on incrémente le nombre de voisins acceptés    
 	                    
 	                }
 				}
@@ -237,11 +239,11 @@ int main(int argc, char *argv[]) {
 				printColorPlus(numero_noeud, "AJOUT");printf("de la nouvelle socket a tabScrut\n");
 				FD_SET(dSVoisinEntrant, &tabScrut);		//on ajoute la socket acceptée dans les socket à scruter
 				maxDs = MAX(maxDs, dSVoisinEntrant);	//on réajuste le max
-				nbVoisinsAcceptes++;					//on incrémente le nombre de voisins acceptés
+				nbVoisinsConnectes++;					//on incrémente le nombre de voisins acceptés
 
 
         		/*
-		        //RECEPTION DES INFORMATIONS DDES VOISINS ENTRANT POUR PLUS TARD
+		        //RECEPTION DES INFORMATIONS DES VOISINS ENTRANT POUR PLUS TARD
 		        int numero_Voisin;                                         // entier qui va etre le numero du noeud qui se connecte
 		            //reception
 		        recvCompletTCP(dSVois, &numero_Voisin, sizeof(int));       // reception de l'entier dans numero_Voisin
@@ -260,7 +262,7 @@ int main(int argc, char *argv[]) {
 
     //FERMETURE DE LA SOCKET CLIENTE QUI ECOUTE ET DES SOCKET QUI ACCEPTENT ET QUI SE CONNECTENT
     printColorPlus(numero_noeud, "FERMETURE");printf("Je peux m'en aller !\n");
-    
+    sleep(5);
     close(dSVoisinDemande);
     close(dSVoisinEntrant);
 

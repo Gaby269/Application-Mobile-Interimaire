@@ -17,6 +17,7 @@
 struct nbVois{
     int nbVoisinTotal;
     int nbVoisinDemande;		//nb de voisin a qui tu doit demander une connexion
+    int nbNoeuds;
 };
 
 
@@ -69,4 +70,11 @@ struct partage{
 	pthread_cond_t condi;					//variable conditionnel pour eventuel rdv
 }
 */
+
+//Structure pour l'envoie et la reception d'un message
+struct messages{
+	int requete;						//type du message : {"COULEUR"}
+	int numI;							//numero du processus I
+	int message;						//informations du message
+};
 

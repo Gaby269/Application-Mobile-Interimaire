@@ -17,6 +17,9 @@
 #define ERREUR -1
 #define FERMETURE 0
 
+//TYPE DE MESSAGE
+#define COULEUR 0
+
 //NOEUD POUR LES MISES EN ECOUTE
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
 

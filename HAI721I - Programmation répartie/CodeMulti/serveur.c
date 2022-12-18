@@ -52,6 +52,7 @@ int main(int argc, char *argv[]) {
     for (int i=0; i<nb_sommets; i++){ 
         nbVoisin[i].nbVoisinDemande = 0;
         nbVoisin[i].nbVoisinTotal = 0;
+		nbVoisin[i].nbNoeuds = nb_sommets;
     }
 
     	//b) remplissage du tableau
@@ -62,7 +63,7 @@ int main(int argc, char *argv[]) {
             //augmentation
         nbVoisin[noeud1-1].nbVoisinTotal++;        //on augmente pour le noeud 1 son nombre total de voisin
         nbVoisin[noeud1-1].nbVoisinDemande++;      //on augmente le nombre de voisin a qui ont va demander de noeud1
-        nbVoisin[noeud2-1].nbVoisinTotal++;        //on aumgnete pour le neoud 2 le nombre total de voisin
+        nbVoisin[noeud2-1].nbVoisinTotal++;        //on aumgnete pour le noeud 2 le nombre total de voisin
     }
 
     	//c) remplissage de la liste des voisins de chaque noeud
@@ -177,10 +178,10 @@ int main(int argc, char *argv[]) {
         sendCompletTCP(dS_courant, &nbVoisin[indice_proc], sizeof(struct nbVois));
             //affichage
         printf("\n[SERVEUR] \033[4mInformations envoyées :\033[0m\n\n");
+		printf("	  Nombre de noeuds total dns le graphe = %d\n", nbVoisin[indice_proc].nbNoeuds);
         printf("      Nombre de voisin total = %d\n", nbVoisin[indice_proc].nbVoisinTotal);
         printf("      Nombre de voisin de demande = %d\n", nbVoisin[indice_proc].nbVoisinDemande);
-
-					
+		
         //ETAPE : ENVOIE DE TON ORDRE POUR LA SUITE
             //envoi
         sendCompletTCP(dS_courant, &numSommet, sizeof(int));

@@ -1,0 +1,103 @@
+Multiplexage :
+fd_set : [type] ensemble de descripteur de fichier
+FD_SETSIZE : [constante?] taille de l'ensemble
+
+Fonctions :
+FD_ZERO(fd_set *set) : initialise tout à false
+FD_SET(int desc, fd_set *set) : ajoute desc à scruter
+FD_ISSET(int desc, fd_set *set) : teste si desc est dans la liste de ceux à scruter
+FD_CLR(int desc, fd_set *set) : supprime desc de la liste à scruter
+
+select(nb_scrutage+1, fd_set *set, NULL, NULL, NULL) : met en attente d'évenements sur au moins un à scruter
+
+
+17/12/2022
+Modification du nom dSProcArete en dSVoisinAttente pour matcher avec les deux autres noms de socket
+
+
+
+
+
+num noeud + couleur
+num a choisis
+
+ok
+Requete : COULEUR/INFO
+
+
+Noeud i : 
+    - j'ai fini de choisir ma couleur :
+        - Je braodcast message <COULEUR, couleur, i> à mes voisins
+
+
+Noeud j :
+Je recoit un message <COULEUR, num_i, couleur> :
+    - if dernierFini < num_i:							//si tu savais pas que ton dernier fini tu verifie si egal 
+        - Je broadcast à mes voisins <COULEUR, num_i, couleur>
+        - dernierFini = max(dernierFini, num_i)
+        - si je suis num_i+1:
+            - Je travaille, j'envoie ma couleur, etc...
+		    - Je broadcast à mes voisins <COULEUR, num_j, couleur>
+    - couleurMax = max(couleurMax, couleur)
+    - si dernierFini == nbNoeud:
+        on connait la coloration max du graphe, s'arrête
+
+
+
+*** tableau de couleur pour tous les noeuds
+et on recup la couleur des voisins
+
+Thread qui recoit les messages
+
+
+Thread qui travaille
+	- je prend la couleur C
+    - Je récupère la couleur de tous mes voisins dans mon tableau
+    - Je choisis la couleur C la plus basse non utilisé
+    - j'envoie un message à mes voisins pour dire que j'ai pris cette couleur C
+    - j'attends la fin de la coloration
+
+
+
+ok
+struct envoie{
+	int requete;
+	int numI;
+	int couleur;
+}
+
+
+1 --- 2 ---- 3
+|     |     
+|     |     
+5 --- 4
+|            
+6 ---------- 7
+
+
+soit on donne la valeur max
+soit on fait une election pour savoir la valeur max
+
+
+
+ELECTION : 
+
+- j'envoie a tout le monde ma valeur de <CANDIDAT, num_i>
+- Je recoit num_j :
+    - si num_j > num_i:
+		max = num_j
+		je renvoie l'ancien max
+
+    - si num_j < num_i :
+		max = num_i
+		je renvoie le max a mes voisins
+
+    - sinon : (donc num_j == num_i)
+		je suis le boss je vais pouvoir demarer
+        envoyer <PRESIDENT, num_i>
+
+<RECU, i>
+nbAuCourantDuPresident
+si le message 
+
+
