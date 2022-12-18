@@ -7,22 +7,42 @@ void* Coloration(void* p){
 	//recuperation des arguments du thread
     struct paramsColoration* args = (struct paramsColoration*) p;
 
-	int numero_noeud = args->numero;					  //indice pour le thread
+	int numeroMoi = args->numero;					      //indice pour le thread
 	int ordre = args->ordre;							  //ordre du processus courant
+	int nbVoisins = args->nbVoisins;					  //ordre du processus courant
 	int couleurVoisins = args->couleurVoisins;			  //tableau des couleurs
     struct infos_Graphe *Voisin = args->VoisinsCourant;   //structure des informations des voisins
     pthread_t threadCourant = pthread_self();             //identifiant du thread
 
 	//couleur du noeud
-	int couleur = 0;
+	int couleur = 1;
 
+	int i = 0;
+	while (i < nbVoisins) {
+		if (couleurVoisins[i] == couleur) {
+			couleur++;
+			i = 0;
+		}
+		i++;
+	}
 
+    printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "COLORATION");printf("avec la couleur %d\n", couleur);
 
-    printColorThread(numeroMoi, threadCourant);printColorPlus(numeroMoi, "COLORATION");printf("en la couleur %d\n", couleur);
+	//ENVOI A TOUS MES VOISINS MA COULEUR
 
-    pthread_exit(NULL);         //sortie du thread
+	//préparation à l'envoi du message
+	struct messages message;
+	message.requete = "COULEUR";
+	message.numI = numeroMoi;
+	message.message = couleur;
 
-     
+	for (i = 0; i < nbVoisins; i++) {
+    	    //envoie des informations
+	    //sendCompletTCP(dSProcServ, &informations_proc, sizeof(struct infos_Graphe));
+		//void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc)
+	}
+
+    pthread_exit(NULL);
 }
 
 
@@ -294,25 +314,30 @@ int main(int argc, char *argv[]) {
         
     } //fin du while
 
-	//quel est le dernier noeud à s'être colorié
-    int dernierFini = 0;
+
+
+
+
+	int couleur = 0;
+    int dernierFini = 0;        //quel est le dernier noeud à s'être colorié
 
 
 	int* couleurVoisins = malloc(nbVoisinTotal * sizeof(int));
 	for (int i = 0; i<nbVoisinTotal; i++) {
-		couleurVoisins[i] = -1;
+		couleurVoisins[i] = 0;
 	}
 
 	struct paramsColoration infos_Coloration;
 	infos_Coloration.numero = numero_noeud;						//indice pour le thread
 	infos_Coloration.ordre = ordre;								//ordre du processus courant
-	infos_Coloration.couleurVoisins = couleurVoisins;			//tableau des couleurs
-  	infos_Coloration.VoisinsCourant;   							//structure des informations du voisins
-
-	pthread_t threadColoration = 0;
+	infos_Coloration.nbVoisins = nbVoisinTotal;					//nombre de voisins
 
 	//je suis le premier
     if (ordre == 1) {        
+		infos_Coloration.couleurVoisins = couleurVoisins;			//tableau des couleurs
+		infos_Coloration.VoisinsCourant;   							//structure des informations du voisins
+		pthread_t threadColoration = 0;
+
 		int res_create = pthread_create(&threadColoration, NULL, Coloration, infos_Coloration); //je me colorie
         	//GESTION ERREUR
         if (res_create == ERREUR){
@@ -320,6 +345,44 @@ int main(int argc, char *argv[]) {
             exit(1);
         }
     }
+
+	while(1) {
+		//je recoit un message <COULEUR, ordre_i, couleur>
+		int ordre_i = 0;
+		int couleur = 0;
+		recvCompletTCP(dSVoisinAttente, &ordre_i, sizeof(int));
+		recvCompletTCP(dSVoisinAttente, &couleur, sizeof(int));
+
+		//si tu savais pas que ton dernier fini tu verifie si egal 
+		if (dernierFini < ordre_i) {
+			//Je broadcast à mes voisins <COULEUR, ordre_i, couleur>
+			for (int i = 0; i < nbVoisinTotal; i++) {
+				sendCompletTCP(dSVoisin[i], &ordre_i, sizeof(int));
+				sendCompletTCP(dSVoisin[i], &couleur, sizeof(int));
+			}
+			dernierFini = MAX(dernierFini, ordre_i);
+			if (ordre_i+1 == ordre) {
+				infos_Coloration.couleurVoisins = couleurVoisins;			//tableau des couleurs
+				infos_Coloration.VoisinsCourant;   							//structure des informations du voisins
+				pthread_t threadColoration = 0;
+
+				int res_create = pthread_create(&threadColoration, NULL, Coloration, infos_Coloration); //je me colorie
+					//GESTION ERREUR
+				if (res_create == ERREUR){
+					perror("[ERREUR] lors de la creation du thread de coloration : ");
+					exit(1);
+				}
+			}
+		}
+		else {
+			//je fais rien
+		}
+		couleurMax = MAX(couleurMax, couleur);
+		if (dernierFini == nbNoeud) {
+			//on connait la coloration max du graphe, s'arrête
+			break;
+		}
+	} //fin du while
 
 
 

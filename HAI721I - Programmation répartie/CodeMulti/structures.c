@@ -62,6 +62,7 @@ struct paramsNoeud {
 struct paramsColoration {
 	int numero;								//numero dans le noeud du processus courant
 	int ordre;								//ordre du processus courant
+	int nbVoisins;							//nombre de voisins du processus courant
 	int* couleurVoisins;					//tableau des couleurs
   	struct infos_Graphe *VoisinsCourant;   	//structure des informations du voisins
 };
