@@ -1,11 +1,13 @@
-c FILE: graphe_rikiki
+c FILE: graphe_triangle
 c
 c SOURCE: Gabrielle
 c
-c DESCRIPTION: Avoir un graphe 
+c DESCRIPTION: Avoir un graphe triangle
 c               encore plus petit pour 
 c               pouvoir lancer les noeuds
 c
 c
-p edge 2 1
+p edge 3 3
 e 1 2
+e 2 3
+e 3 1
