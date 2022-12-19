@@ -1,0 +1,16 @@
+c FILE: graphe_triangle
+c
+c SOURCE: Gabrielle
+c
+c DESCRIPTION: Avoir un graphe triangle
+c               encore plus petit pour 
+c               pouvoir lancer les noeuds
+c
+c
+p edge 6 6
+e 1 2
+e 2 3
+e 3 4
+e 4 5
+e 5 6
+e 6 1
