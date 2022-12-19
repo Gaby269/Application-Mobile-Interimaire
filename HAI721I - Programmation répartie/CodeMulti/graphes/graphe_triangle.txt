@@ -5,7 +5,7 @@ c
 c DESCRIPTION: Avoir un graphe triangle
 c               encore plus petit pour 
 c               pouvoir lancer les noeuds
-c
+c               et tester les interbloquages
 c
 p edge 3 3
 e 1 2

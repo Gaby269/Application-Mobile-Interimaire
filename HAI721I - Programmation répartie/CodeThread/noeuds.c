@@ -273,7 +273,7 @@ int main(int argc, char *argv[]) {
             struct sockaddr_in sockVoisin = info_voisins[cptCo].adrProc;								//recuperation des informations du voisin qui est ton voisin en fonction de son indice 
             printColorPlus(numero_noeud, "DESIGNATION");printf("de la socket du voisin réussie\n");
               
-				//c) demande de connection
+				//c) demande de connexion
             connexion(dSVoisinDemande, &sockVoisin);													//connexion du descripteur qu'on vient de créer et la socket du voisin courant
             printColorPlus(numero_noeud, "CONNEXION");printf("d'un voisin réussi !\n");
 
@@ -316,10 +316,9 @@ int main(int argc, char *argv[]) {
 				if (dSVoisinEntrant == ERREUR) {
 						perror("\n\n[ERREUR] lors de l'accept d'un voisin : ");
 						close(dSProcCS);
-						exit(1); // on arrête le programme
+						exit(1);
 				}
 						
-				//affichage
             printColorPlus(numero_noeud, "ACCEPT");printf("d'unn voisin réussi !\n");
 
             	//b) informations qu'on doit donner en parametres du threas
@@ -331,9 +330,8 @@ int main(int argc, char *argv[]) {
             argsAcc[cptAcc].indice_vois = cptAcc;				//on donne l'indice d'acceptation ou on en est
             argsAcc[cptAcc].VoisinCourant = &VoisinCourant;		//on donne les informations du voisin courant ici que le descripteur
             argsAcc[cptAcc].Acc = TRUE;							//on dit qu'on est une acceptation
-            //argsAcc[cptAcc].varPartage = &partage;          	//donneles partage qu'on a pas besoin
+            
 			cptAcc++;			//incrementation du compteur de l'acceptation
-            //printColorPlus(numero_noeud, "COMPTEUR");printf("cptAcc = %d", cptAcc);  
 
 			//ETAPE 13 CREATION DU THREAD POUR COMMUNIQUER AVEC LE VOISIN
 			printColorPlus(numero_noeud, "CREATION THREAD ACC");printf("pour le noeud d'indice %d\n", cptAcc);
