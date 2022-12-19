@@ -200,7 +200,7 @@ int main(int argc, char *argv[]) {
         //adresse
     char adrNoeudCoAff[INET_ADDRSTRLEN];                                       //on va stocker l'adresse du sous anneau dedans
         //parcourt des noeuds connectés au serveur                        
-    for (int i=0; i<nb_sommets; i++) {              //on commence a un car les indice commence a 1
+    for (int i=0; i<nb_sommets; i++) {              //on commence à 1 un car les indice commence a 1
             //recuperation adresse
         inet_ntop(AF_INET, &procGraphe[i].adrProc.sin_addr, adrNoeudCoAff, INET_ADDRSTRLEN);     //adresse du Noeud    
             //port
