@@ -18,7 +18,8 @@
 #define FERMETURE 0
 
 //TYPE DE MESSAGE
-#define COULEUR 0
+#define COULEUR 0     //un voisin vient de se colorer
+#define BROADCAST 1   //message général pour dire que le noeud à fini de se colorer
 
 //NOEUD POUR LES MISES EN ECOUTE
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
