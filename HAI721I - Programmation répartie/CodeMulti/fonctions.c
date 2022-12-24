@@ -116,13 +116,13 @@ int sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc, int numero){
     
         //GESTION DES ERREURS
     if (res_premier_appel == ERREUR) {
-        printf("Noeud %d", numero);
-        perror("\n[ERREUR] : Erreur lors de l'envoie de la taille du message ");
+        printf("\nNoeud %d", numero);
+        perror("[ERREUR] : Erreur lors de l'envoie de la taille du message ::");
         exit(1);
     }
     else if (res_premier_appel == FERMETURE) {
-        printf("Noeud %d", numero);
-        printf("\n[ABANDON] : Abandon de la socket principale lors de l'envoie de la taille du message");
+        printf("\nNoeud %d", numero);
+        printf("[ABANDON] : Abandon de la socket principale lors de l'envoie de la taille du message\n");
         exit(1);
     }
 
@@ -167,7 +167,7 @@ int recvTCP(int sock, void* msg, int sizeMsg) {
 /// sock descripteur de l'envoie
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
-void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
+int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc, int numero){
 
     //PREMIER APPEL POUR LA TAILLE
     int taille_info_proc;                                                     	//creation d'une variable qui recupere la taille du message
@@ -175,12 +175,14 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
    
     //GESTION DES ERREURS
     if (res_premier_appel == ERREUR) {
-        perror("\n[ERREUR] : Erreur lors de la reception de la taille du message : ");
+        printf("\nNoeud %d", numero);
+        perror("[ERREUR] : Erreur lors de la reception de la taille du message : ");
         close(sock);
         exit(1);
     }
     else if (res_premier_appel == FERMETURE) { //peut pas confondre avec le fait de ne recevoir rien car on attend si on recoit rien
-        printf("\n[ABANDON] : Abandon de la socket principale lors de recv\n");
+        printf("\nNoeud %d", numero);
+        printf("[ABANDON DE LA TAILLE] : Abandon de la socket principale lors de recv (recv %d)\n", res_premier_appel);
         close(sock);
         exit(1);
     }
@@ -192,19 +194,7 @@ void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
     }
 
     //DEUXIEME APPEL POUR LE MESSAGE
-    int res_deuxieme_appel = recvTCP(sock, info_proc, sizeinfo_proc);     //on recoit la taille du message
-   
-        //GESTION DES ERREURS
-    if (res_deuxieme_appel == ERREUR) {
-        perror("\n[ERREUR] : Erreur lors de la reception du message : ");
-        close(sock);
-        exit(1);          
-    }
-    else if (res_deuxieme_appel == FERMETURE) {
-        printf("\n[ABANDON] : Abandon de la socket principale lors de recv\n");
-        close(sock);
-        exit(1);
-    }
+    return recvTCP(sock, info_proc, sizeinfo_proc);     //on recoit la taille du message
 
 }
 

@@ -101,3 +101,17 @@ nbAuCourantDuPresident
 si le message 
 
 
+
+23/12 
+CE QUI RESTE A FAIRE :
+- Tester le tout pour voir si ca marche
+- Trouver une election ou mettre un ordre sympa
+- Faire le rapport
+
+- rename VoisinCourant structure
+
+
+FAIT :
+ajout d'une ligne pour attribuer le tableau des voisin oublié pour different de 1
+ajout de plein daffichage
+changement lors de l fermeture de socket avec le serveur
