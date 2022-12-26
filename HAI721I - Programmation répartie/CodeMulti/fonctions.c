@@ -130,6 +130,33 @@ int sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
 
 
+
+// TEMPORAIRE POUR DEBUG
+int sendCompletTCP2(int sock, void* info_proc, int sizeinfo_proc, int numero){
+
+    //PREMIER APPEL POUR LA TAILLE                                                          //creation d'une variable qui recupere la taille du message
+    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));                     //on envoie la taille du message
+    //printf("taille : %d::%d\n", sizeinfo_proc, numero);
+    
+        //GESTION DES ERREUR
+    if (res_premier_appel == ERREUR) {
+        printColorPlus(numero, "ERREUR");
+        perror("[ERREUR] : Erreur lors de l'envoie de la taille du message ::");
+        exit(1);
+    }
+    else if (res_premier_appel == FERMETURE) {
+        printColorPlus(numero, "ERREUR");
+        printf("[ABANDON] : Abandon de la socket principale lors de l'envoie de la taille du message\n");
+        exit(1);
+    }
+
+    //DEUXIEME APPEL POUR LE MESSAGE
+    return sendTCP(sock, info_proc, sizeinfo_proc);     //on envoie la taille du message
+
+}
+
+
+
 //////////////////////
 // FONCTION RECVTCP //
 //////////////////////

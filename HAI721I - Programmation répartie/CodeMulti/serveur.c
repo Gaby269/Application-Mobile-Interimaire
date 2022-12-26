@@ -34,12 +34,6 @@ int main(int argc, char *argv[]) {
     struct aretes *liste_aretes = (struct aretes*) malloc (nb_aretes *sizeof(struct aretes));  	//on alloue de la memoire pour la liste des aretes
     Aretes(nom_fichier, liste_aretes);    														//et on recupere cette liste directement dans liste_aretes
 	//listes_aretes : tableau des listes des aretes a la case i on a le numero du noeud 1 et le numero du noeud 2 contenudans une structure arete
-    	//affichage de la liste des arretes
-	printf("\n\n\033[4mListe des aretes :\033[0m\n");
-	//boucle pour le tableau
-	for(int k=0; k+2<nb_aretes; k+=3) {
-		printf("    %d -> %d    %d -> %d    %d -> %d\n", liste_aretes[k].noeud1, liste_aretes[k].noeud2, liste_aretes[k+1].noeud1, liste_aretes[k+1].noeud2, liste_aretes[k+2].noeud1, liste_aretes[k+2].noeud2);
-	}
     
     printf("\n************************************************\n************************************************\n");
 	
@@ -87,7 +81,7 @@ int main(int argc, char *argv[]) {
         //affichage du tableau des nombre des voisins de chaque noeud
     printf("\n[SERVEUR] \033[4mTableau des nb de voisins :\033[0m\n\n");
     for (int i=0; i<nb_sommets; i++){
-        printf("    Noeud %d : %d voisins donct %d qui demande\n", i+1, nbVoisin[i].nbVoisinTotal, nbVoisin[i].nbVoisinDemande);
+        printf("    Noeud %d : %d voisins dont %d auxquels il doit se connecter\n", i+1, nbVoisin[i].nbVoisinTotal, nbVoisin[i].nbVoisinDemande);
         nombre_connexion+=nbVoisin[i].nbVoisinDemande;
     }
     printf("\n************************************************\n************************************************\n");   
@@ -124,7 +118,6 @@ int main(int argc, char *argv[]) {
 //B - RECEPTION DES INFORMATIONS DES SOMMETS
 	
     //a) Mise en place des données
-        //donnees utils
     int dSNoeud;                                                                //declaration du descripteur
     struct infos_Graphe *procGraphe = (struct infos_Graphe*) malloc(nb_sommets * sizeof(struct infos_Graphe));         //on declare un tableau de structure pour les informations des Noeuds connecté au sevreur
     struct sockaddr_in sockNoeud;                                               //on declare la socket du Noeud
@@ -247,17 +240,30 @@ int main(int argc, char *argv[]) {
 
     printf("\n[SERVEUR] Il doit y avoir %d demande de connexion\n", nombre_connexion);
 
-    sleep(3);
+    int probleme = FALSE;
+    int signal;
+    for (int i=0; i<nb_sommets; i++) {
+        recvCompletTCP(procGraphe[i].descripteur, &signal, sizeof(int));
+        if (signal == 0) {
+            probleme = TRUE;
+            printf("\n[SERVEUR] : ERREUR sur le noeud %d !",i);
+        }
+    }
+
+    
     printf("\n[SERVEUR] : Appuyez sur ENTER pour continuer et commencer la coloration du graphe...");  //Après la connexion entre tous les noeuds
     scanf("%c", &pause);
 
-    
-    for (int i=0; i<nb_sommets; i++) {    							//pour chaque noeuds
-            //envoi du signal
-        int signal = 1;
-        sendCompletTCP(procGraphe[i].descripteur, &signal, sizeof(int));   
-            //affichage ajout des voisins au sommet
-        printf("[SERVEUR] Envoi du signal au sommet %d\n", i+1);
+    if (probleme) {
+        printf("\n[SERVEUR] : Un des neoud a eu un problème, on arrête tout !");
+    }
+
+    else {
+        for (int i=0; i<nb_sommets; i++) {
+            signal = 1;
+            sendCompletTCP(procGraphe[i].descripteur, &signal, sizeof(int));   
+            printf("[SERVEUR] Envoi du signal au sommet %d\n", i+1);
+        }
     }
 
 
