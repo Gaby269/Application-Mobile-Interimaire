@@ -55,7 +55,7 @@ void* Coloration(void* p){
 				pthread_exit(NULL);
 				exit(1); 
 			}
-		printColorPlus(numeroMoi, "ENVOIE");printf("de ma couleur %d au noeud %d (resultat : %d)\n", couleur, dSVoisin, s);
+		//printColorPlus(numeroMoi, "ENVOIE");printf("de ma couleur %d au noeud %d (resultat : %d)\n", couleur, dSVoisin, s);
         
 	}
 	//printColorPlus(numeroMoi, "ENVOIE");printf("de ma couleur %d a tout le monde\n", couleur);
@@ -501,12 +501,8 @@ int main(int argc, char *argv[]) {
 
 				//modification de la couleur d'un voisin dans le tableau
                 if ((jeSuisColore == FALSE) && (type_i == COULEUR)) {      //COULEUR signifie que le message vient d'un voisin
-                    printColorPlus(numero_noeud, "<MESSAGE>");
-                    printf("de type %s, du noeud d'ordre %d et de couleur %d\n",
-                        (type_i==0)?"COULEUR":"BROADCAST", 
-                        ordre_i, 
-                        couleur_i
-                    );
+                    //printColorPlus(numero_noeud, "<MESSAGE>");
+                    //printf("de type %s, du noeud d'ordre %d et de couleur %d\n", (type_i==0)?"COULEUR":"BROADCAST", ordre_i, couleur_i);
                     
                     for (int i=0; i<nbVoisinTotal; i++) {
                         if (couleurVoisins[i].ordre == ordre_i) {           //on cherche l'ordre du sommet qui vient de nous envoyer un message
