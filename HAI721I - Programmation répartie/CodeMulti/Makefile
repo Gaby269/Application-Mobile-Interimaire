@@ -4,11 +4,11 @@
 
 BIN=bin/noeuds  bin/serveur
 
+SRCS3=structures.c
+SRCS2=parseur.c
+SRCS4=fonctions.c
 SRCS0=noeuds.c
 SRCS1=serveur.c
-SRCS2=parseur.c
-SRCS3=structures.c
-SRCS4=fonctions.c
 
 default: $(BIN)
 

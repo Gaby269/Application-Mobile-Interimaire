@@ -154,9 +154,10 @@ int main(int argc, char *argv[]) {
             //modification des donnees dans le tableau des processus
         sockNoeud = info_proc.adrProc;                                          //donner a sockNoeud l'adresse recu dans info_proc
         int indice_proc = info_proc.numero-1;                                   //donne l'indice
-        procGraphe[indice_proc].numero = indice_proc+1;                         //on attribut l'indice du noeud +1 car on donne le numero et non l'indice
-        procGraphe[indice_proc].descripteur = dSNoeud;                          //on attribut le descripteur
-        procGraphe[indice_proc].adrProc = sockNoeud;                            //on attribut l' adresse
+        procGraphe[indice_proc].numero = indice_proc+1;                         //on attribue l'indice du noeud +1 car on donne le numero et non
+        procGraphe[indice_proc].ordre = numSommet;                              //on attribue l'ordre
+        procGraphe[indice_proc].descripteur = dSNoeud;                          //on attribue le descripteur
+        procGraphe[indice_proc].adrProc = sockNoeud;                            //on attribue l' adresse
         //AFFICHAGE
             //adresse
         char adrProcAff[INET_ADDRSTRLEN];             //on va stocker l'adresse du sous anneau dedans
@@ -232,7 +233,8 @@ int main(int argc, char *argv[]) {
             int voisinCourant = liste_voisins_connexion[i][v];								//on recupere l'insdice du voisin courant
             struct infos_Graphe info_voisin_courant;										//structure du voisin courant (-1 car voisinCourant est le numero du voisin dans le graphe et non l'indice dans le tableau donc il commence a 1)
             info_voisin_courant.numero = procGraphe[voisinCourant-1].numero;				//on y attribut un numero
-            info_voisin_courant.descripteur = procGraphe[voisinCourant-1].descripteur;		//un descripteur
+            info_voisin_courant.ordre = procGraphe[voisinCourant-1].ordre;				    //on y attribut un ordre
+			info_voisin_courant.descripteur = procGraphe[voisinCourant-1].descripteur;		//un descripteur
             info_voisin_courant.adrProc = procGraphe[voisinCourant-1].adrProc;				//et une adresse
                 //envoie au voisin a qui je demande
             sendCompletTCP(procGraphe[i].descripteur, &info_voisin_courant, sizeof(struct infos_Graphe));   //on envoie les inforamtions ici adresse des voisins
@@ -243,7 +245,7 @@ int main(int argc, char *argv[]) {
 
     }//fin des sommets
 
-    printf("\n[SERVEUR] Il doit y avoir %d demande de connection\n", nombre_connexion);
+    printf("\n[SERVEUR] Il doit y avoir %d demande de connexion\n", nombre_connexion);
 
     sleep(3);
     printf("\n[SERVEUR] : Appuyez sur ENTER pour continuer et commencer la coloration du graphe...");  //Après la connexion entre tous les noeuds

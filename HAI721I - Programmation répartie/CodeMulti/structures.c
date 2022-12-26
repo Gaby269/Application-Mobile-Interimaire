@@ -24,7 +24,8 @@ struct nbVois{
 /// Structure des inforamtions avec la requete les inforamtions que l'on a besoin selon la requete et l'adresse du processus 
 struct infos_Graphe {
     int numero;                             //numero du noeud courant sur le graphe
-    int descripteur;                        //descripteur du noeud
+	int ordre;    							//ordre du noeud courant
+	int descripteur;                        //descripteur du noeud
     struct sockaddr_in adrProc;             //adresse du processus dont on parle
 };
 
@@ -72,7 +73,13 @@ struct paramsColoration {
 //Structure pour l'envoie et la reception d'un message
 struct messages{
 	int requete;						//type du message : {"COULEUR"}
-	int numI;							//numero du processus I
+	int ordreI;							//numero du processus I
 	int message;						//informations du message
 };
 
+
+//Structure pour regrouper la couleur et l'ordre d'un noeud
+struct couleurVoisin {
+    int couleur;
+    int ordre;
+};
