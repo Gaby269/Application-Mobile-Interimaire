@@ -248,11 +248,12 @@ int main(int argc, char *argv[]) {
     sleep(3);
     printf("\n[SERVEUR] : Appuyez sur ENTER pour continuer et commencer la coloration du graphe...");  //Après la connexion entre tous les noeuds
     scanf("%c", &pause);
+
     
     for (int i=0; i<nb_sommets; i++) {    							//pour chaque noeuds
             //envoi du signal
-        char* signal = "Go";
-        sendCompletTCP(procGraphe[i].descripteur, &signal, sizeof(char*));   
+        int signal = 1;
+        sendCompletTCP(procGraphe[i].descripteur, &signal, sizeof(int));   
             //affichage ajout des voisins au sommet
         printf("[SERVEUR] Envoi du signal au sommet %d\n", i+1);
     }

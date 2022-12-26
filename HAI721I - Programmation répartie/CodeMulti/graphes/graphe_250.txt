@@ -1,6 +1,7 @@
 c FILE: DSJC250.5
 c
 c SOURCE: David Johnson (dsj@research.att.com)
+c COLORATION MIN : 28
 c
 c DESCRIPTION: Random graph used in the paper
 c              "Optimization by Simulated Annealing: An
