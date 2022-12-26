@@ -200,7 +200,7 @@ int main(int argc, char *argv[]) {
         //adresse
     char adrNoeudCoAff[INET_ADDRSTRLEN];                                       //on va stocker l'adresse du sous anneau dedans
         //parcourt des noeuds connectés au serveur                        
-    for (int i=0; i<nb_sommets; i++) {              //on commence à 1 un car les indice commence a 1
+    for (int i=0; i<nb_sommets; i++) {              //on commence a un car les indice commence a 1
             //recuperation adresse
         inet_ntop(AF_INET, &procGraphe[i].adrProc.sin_addr, adrNoeudCoAff, INET_ADDRSTRLEN);     //adresse du Noeud    
             //port
@@ -211,9 +211,9 @@ int main(int argc, char *argv[]) {
     printf("\n\n************************************************\n************************************************\n");   
 	
     //MISE EN ATTENTE DU SERVEUR POUR QU'IL EST TOUTES LES INFORAMTIONS DES NOEUDS AVANT D'ENVOYER LEURS VOISINS
-    char e ;
-    printf("\n[SERVEUR] : Entrez un caractère après avoir reçu toutes les informations des noeuds : ");  //on demmande au client d'entrer un message
-    scanf("%c", &e);
+    char pause;
+    printf("\n[SERVEUR] : Appuyez sur ENTER pour continuer...");  //on fais un "pause()"
+    scanf("%c", &pause);
     //FIN MISE EN ATTENTE
 
     printf("\n************************************************\n************************************************\n\n");   
@@ -244,6 +244,18 @@ int main(int argc, char *argv[]) {
     }//fin des sommets
 
     printf("\n[SERVEUR] Il doit y avoir %d demande de connection\n", nombre_connexion);
+
+    sleep(3);
+    printf("\n[SERVEUR] : Appuyez sur ENTER pour continuer et commencer la coloration du graphe...");  //Après la connexion entre tous les noeuds
+    scanf("%c", &pause);
+    
+    for (int i=0; i<nb_sommets; i++) {    							//pour chaque noeuds
+            //envoi du signal
+        char* signal = "Go";
+        sendCompletTCP(procGraphe[i].descripteur, &signal, sizeof(char*));   
+            //affichage ajout des voisins au sommet
+        printf("[SERVEUR] Envoi du signal au sommet %d\n", i+1);
+    }
 
 
     //ETAPE 9 : FERMETURE DE LA SOCKET SERVEUR CAR PLUS BESOIN

@@ -44,7 +44,7 @@ void* Coloration(void* p){
 		//J'envoie à mes voisins <COULEUR, ordre_i, couleur_i> 
 		int dSVoisin = Voisins[i].descripteur;
 		printf("message : %d::%d::%d::%d\n", Voisins[i].descripteur, message.requete , message.numI, message.message);
-		int s = sendCompletTCP(dSVoisin, &message, sizeof(struct messages), message.numI);
+		int s = sendCompletTCP(dSVoisin, &message, sizeof(struct messages));
 		    //GESTION DES ERREURS
 			if (s == ERREUR) {
 				printf("Je vais avoir une erreur sur lenvoie de ma couleur au noeud %d\n", message.numI);
@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
     informations_noeud.descripteur = dSVoisinAttente;  	//le descripteur
     informations_noeud.adrProc = sockArete;          	//adresse de la socket
     
-    int s = sendCompletTCP(dSProcServ, &informations_noeud, sizeof(struct infos_Graphe), numero_noeud);
+    int s = sendCompletTCP(dSProcServ, &informations_noeud, sizeof(struct infos_Graphe));
 			//GESTION DES ERREURS
 		if (s == ERREUR) {
 			printf("Je vais aovir un probleme sur lenvoie au serveur des infos au noeud %d\n", numero_noeud);
@@ -218,7 +218,7 @@ int main(int argc, char *argv[]) {
 				
 				//RECEPTION du nombre de voisins
                 struct nbVois nbVoisin;
-                int s = recvCompletTCP(dSProcServ, &nbVoisin, sizeof(struct nbVois), numero_noeud);
+                int s = recvCompletTCP(dSProcServ, &nbVoisin, sizeof(struct nbVois));
 						//GESTION DES ERREURS
 					if (s == ERREUR) {
 						printf("Je vais avoir un probleme sur la reception des info au voisin %d\n", numero_noeud);
@@ -246,7 +246,7 @@ int main(int argc, char *argv[]) {
                 }
 
 				//RECEPTION de l'ordre de priorité du sommet
-                int sa = recvCompletTCP(dSProcServ, &ordre, sizeof(int), numero_noeud);
+                int sa = recvCompletTCP(dSProcServ, &ordre, sizeof(int));
 						//GESTION DES ERREURS
 					if (sa == ERREUR) {
 						printf("Je vais avoir un probleme sur la reception des info au voisin %d\n", numero_noeud);
@@ -274,7 +274,7 @@ int main(int argc, char *argv[]) {
 						//b) parcours du nombre de voisin a qui je demande
 	                for (int vois = 0; vois < nbVoisinDemande; vois++) {
 	                	struct infos_Graphe info_voisin_courant;     	//structure du voisin courant
-	                	int s = recvCompletTCP(dSProcServ, &info_voisin_courant, sizeof(struct infos_Graphe), numero_noeud);
+	                	int s = recvCompletTCP(dSProcServ, &info_voisin_courant, sizeof(struct infos_Graphe));
 								//GESTION DES ERREURS
 							if (s == ERREUR) {
 								printf("Je vais avoir un probleme sur la reception des info au voisin %d\n", numero_noeud);
@@ -320,15 +320,15 @@ int main(int argc, char *argv[]) {
 				        nbVoisinsConnectes++;					//on incrémente le nombre de voisins acceptés  
 
                         //Envoie de nos infos au voisin
-                        int s = sendCompletTCP(dSVoisinDemande, &informations_noeud, sizeof(struct infos_Graphe), numero_noeud);
+                        int s = sendCompletTCP(dSVoisinDemande, &informations_noeud, sizeof(struct infos_Graphe));
 								//GESTION DES ERREURS
 							if (s == ERREUR) {
-								printf("Je vais avoir un probleme sur lenvoie des info au voisin %d\n", numero_noeud);
+								printf("Je vais avoir un probleme sur l'envoie des info au voisin %d\n", numero_noeud);
 								perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
 								exit(1);
 							}
 							else if (s == FERMETURE) {
-								printf("Mon ami va s'en aller sur lenvoie des infos au voisin %d\n", numero_noeud);
+								printf("Mon ami va s'en aller sur l'envoie des infos au voisin %d\n", numero_noeud);
 								perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
 								exit(1); 
 							}
@@ -341,11 +341,9 @@ int main(int argc, char *argv[]) {
 
 					//c) Fermeture de la socket qui discute avec le serveur
 				FD_CLR(dSProcServ, &tabScrut);
-				if (maxDs == dSProcServ){		//si ct le max on decremente sinon on a pas besoin
+				if (maxDs == dSProcServ){		//si c'était le max on decremente sinon on a pas besoin
 					maxDs--;
 				}
-                close(dSProcServ);
-				printColorPlus(numero_noeud, "FERMETURE");printf("Je me déconnecte du serveur !\n");
 				
             }
                 
@@ -372,7 +370,7 @@ int main(int argc, char *argv[]) {
 
                 //Reception des infos entrant du voisin pour plus tard
                 struct infos_Graphe info_voisin_courant;     	    //structure du voisin courant
-                int s = recvCompletTCP(dSVoisinEntrant, &info_voisin_courant, sizeof(struct infos_Graphe), numero_noeud);
+                int s = recvCompletTCP(dSVoisinEntrant, &info_voisin_courant, sizeof(struct infos_Graphe));
 						//GESTION DES ERREURS
 					if (s == ERREUR) {
 						printf("Je vais avoir un probleme sur la reception des info au voisin %d\n", numero_noeud);
@@ -402,7 +400,12 @@ int main(int argc, char *argv[]) {
         
     } //fin du while
 
-sleep(5);		//ajout d'un sleep pour attendre que ils soit reelemnt tous connectés entre eux et on ne peut  pas faire de entrer clavier car il faudrait en faire pour autant de noeuds quon a
+    
+    //sleep(5);		
+    char* signal;
+    s = recvCompletTCP(dSProcServ, &signal, sizeof(char*));
+    printColorPlus(numero_noeud, "FERMETURE");printf("J'ai reçu le %c du serveur !\nJe me déconnecte et je commence la coloration !\n", signal);
+    close(dSProcServ);
 
     ////////////////    
     //  PARTIE 2  //
@@ -461,7 +464,7 @@ sleep(5);		//ajout d'un sleep pour attendre que ils soit reelemnt tous connecté
 			
 			if (FD_ISSET(df, &tabScrutTmp)) {		
 				struct messages msg;
-				int s = recvCompletTCP(df, &msg, sizeof(struct messages), numero_noeud);		//on recoit un message
+				int s = recvCompletTCP(df, &msg, sizeof(struct messages));		//on recoit un message
 						//GESTION DES ERREURS
 					if (s == ERREUR) {
 						printf("Je vais avoir un probleme sur la reception des info au voisin %d\n", numero_noeud);
@@ -504,7 +507,7 @@ sleep(5);		//ajout d'un sleep pour attendre que ils soit reelemnt tous connecté
 						//J'envoie à mes voisins <BROADCAST, ordre_i, couleur_i>
 						for (int i = 0; i < nbVoisinTotal; i++) {
 							int dSVoisin = info_voisins[i].descripteur;
-							int s = sendCompletTCP(dSVoisin, &msg, sizeof(struct messages), numero_noeud);	//envoie le meme message en changeant le type
+							int s = sendCompletTCP(dSVoisin, &msg, sizeof(struct messages));	//envoie le meme message en changeant le type
 									//GESTION DES ERREURS
 								if (s == ERREUR) {
 									printf("Je vais a voir une erreur sur le brodcast %d\n", numero_noeud);

@@ -68,7 +68,6 @@ void printColorNoeud(char * message1, int numero, char * message2) {
 
 
 
-
 /////////////////////////////////////////////////////
 ////////////////// FONCTION TCP /////////////////////
 /////////////////////////////////////////////////////
@@ -108,7 +107,7 @@ int sendTCP(int sock, void* info_proc, int taille) {
 /// sock descripteur pour envoi
 /// info_proc message à envoyer
 /// sizeinfo_proc taille du message
-int sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc, int numero){
+int sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
     //PREMIER APPEL POUR LA TAILLE                                                          //creation d'une variable qui recupere la taille du message
     int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));                     //on envoie la taille du message
@@ -116,12 +115,10 @@ int sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc, int numero){
     
         //GESTION DES ERREURS
     if (res_premier_appel == ERREUR) {
-        printf("\nNoeud %d", numero);
         perror("[ERREUR] : Erreur lors de l'envoie de la taille du message ::");
         exit(1);
     }
     else if (res_premier_appel == FERMETURE) {
-        printf("\nNoeud %d", numero);
         printf("[ABANDON] : Abandon de la socket principale lors de l'envoie de la taille du message\n");
         exit(1);
     }
@@ -167,7 +164,7 @@ int recvTCP(int sock, void* msg, int sizeMsg) {
 /// sock descripteur de l'envoie
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
-int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc, int numero){
+int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
     //PREMIER APPEL POUR LA TAILLE
     int taille_info_proc;                                                     	//creation d'une variable qui recupere la taille du message
@@ -175,13 +172,11 @@ int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc, int numero){
    
     //GESTION DES ERREURS
     if (res_premier_appel == ERREUR) {
-        printf("\nNoeud %d", numero);
         perror("[ERREUR] : Erreur lors de la reception de la taille du message : ");
         close(sock);
         exit(1);
     }
     else if (res_premier_appel == FERMETURE) { //peut pas confondre avec le fait de ne recevoir rien car on attend si on recoit rien
-        printf("\nNoeud %d", numero);
         printf("[ABANDON DE LA TAILLE] : Abandon de la socket principale lors de recv (recv %d)\n", res_premier_appel);
         close(sock);
         exit(1);
@@ -330,14 +325,6 @@ void ecouter(int dS, int nbProc){
         exit(1);
     }
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -551,6 +538,3 @@ void detruireVarCond(pthread_cond_t* condi){
 	    }
 
 }
-
-
-
