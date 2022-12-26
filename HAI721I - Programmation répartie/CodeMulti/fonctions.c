@@ -19,7 +19,7 @@
 
 //TYPE DE MESSAGE
 #define COULEUR 0     //un voisin vient de se colorer
-#define BROADCAST 1   //message général pour dire que le noeud à fini de se colorer
+#define INFO 1   //message général pour dire que le noeud à fini de se colorer
 
 //NOEUD POUR LES MISES EN ECOUTE
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
@@ -115,7 +115,7 @@ int sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
     
         //GESTION DES ERREURS
     if (res_premier_appel == ERREUR) {
-        perror("[ERREUR] : Erreur lors de l'envoie de la taille du message ::");
+        perror("[ERREUR] : Erreur lors de l'envoi de la taille du message ::");
         exit(1);
     }
     else if (res_premier_appel == FERMETURE) {
@@ -138,7 +138,7 @@ int sendCompletTCP2(int sock, void* info_proc, int sizeinfo_proc, int numero){
     int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));                     //on envoie la taille du message
     //printf("taille : %d::%d\n", sizeinfo_proc, numero);
     
-        //GESTION DES ERREUR
+        //GESTION DES ERREURS
     if (res_premier_appel == ERREUR) {
         printColorPlus(numero, "ERREUR");
         perror("[ERREUR] : Erreur lors de l'envoie de la taille du message ::");

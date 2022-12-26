@@ -64,7 +64,7 @@ void* Coloration(void* p){
 
 
 /*
-void* ThreadEnvoiBroadcast(void* p) {
+void* ThreadEnvoiINFO(void* p) {
 }
 */
 
@@ -502,7 +502,7 @@ int main(int argc, char *argv[]) {
 				//modification de la couleur d'un voisin dans le tableau
                 if ((jeSuisColore == FALSE) && (type_i == COULEUR)) {      //COULEUR signifie que le message vient d'un voisin
                     //printColorPlus(numero_noeud, "<MESSAGE>");
-                    //printf("de type %s, du noeud d'ordre %d et de couleur %d\n", (type_i==0)?"COULEUR":"BROADCAST", ordre_i, couleur_i);
+                    //printf("de type %s, du noeud d'ordre %d et de couleur %d\n", (type_i==0)?"COULEUR":"INFO", ordre_i, couleur_i);
                     
                     for (int i=0; i<nbVoisinTotal; i++) {
                         if (couleurVoisins[i].ordre == ordre_i) {           //on cherche l'ordre du sommet qui vient de nous envoyer un message
@@ -517,12 +517,12 @@ int main(int argc, char *argv[]) {
                 if (dernierFini < ordre_i) {
 
                     dernierFini = ordre_i;                     			//on met à jour notre dernier noeud fini
-                    msg.requete = BROADCAST;                   		    //on défini le type du message en le modifiant en BRODCAST
+                    msg.requete = INFO;                   		    //on défini le type du message en le modifiant en BRODCAST
 
-                    //J'envoie à mes voisins <BROADCAST, ordre_i, couleur_i>
+                    //J'envoie à mes voisins <INFO, ordre_i, couleur_i>
                     for (int i = 0; i < nbVoisinTotal; i++) {
                         int dSVoisin = info_voisins[i].descripteur;
-                        //printColorPlus(numero_noeud, "BROADCAST");printf("<%d,col-%d> au voisin %d...\n",ordre_i, couleur_i, info_voisins[i].numero);
+                        //printColorPlus(numero_noeud, "INFO");printf("<%d,col-%d> au voisin %d...\n",ordre_i, couleur_i, info_voisins[i].numero);
                         int s = sendCompletTCP(dSVoisin, &msg, sizeof(struct messages));	//envoie le meme message en changeant le type
                                 //GESTION DES ERREURS
                             if (s == ERREUR) {
@@ -535,7 +535,7 @@ int main(int argc, char *argv[]) {
                                 perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
                                 exit(1); 
                             }
-                        //printColorPlus(numero_noeud, "BROADCAST");printf("au voisin %d réussi\n",info_voisins[i].numero);
+                        //printColorPlus(numero_noeud, "INFO");printf("au voisin %d réussi\n",info_voisins[i].numero);
                     }
                 } //fin du if (message pas reçu)
                     
