@@ -1,28 +1,10 @@
-Multiplexage :
-fd_set : [type] ensemble de descripteur de fichier
-FD_SETSIZE : [constante?] taille de l'ensemble
+utilisation 1 :
+python3 serveur.py graphes/graphe_petersen.txt 5000
+python3 noeuds.py graphes/graphe_petersen.txt 127.0.0.1 5000
 
-Fonctions :
-FD_ZERO(fd_set *set) : initialise tout à false
-FD_SET(int desc, fd_set *set) : ajoute desc à scruter
-FD_ISSET(int desc, fd_set *set) : teste si desc est dans la liste de ceux à scruter
-FD_CLR(int desc, fd_set *set) : supprime desc de la liste à scruter
-
-select(nb_scrutage+1, fd_set *set, NULL, NULL, NULL) : met en attente d'évenements sur au moins un à scruter
-
-
-17/12/2022
-Modification du nom dSProcArete en dSVoisinAttente pour matcher avec les deux autres noms de socket
-
-
-
-
-
-num noeud + couleur
-num a choisis
-
-ok
-Requete : COULEUR/INFO
+utilisation 2 :
+python3 serveur.py graphes/graphe_500.txt 8000
+python3 noeuds.py graphes/graphe_500.txt 127.0.0.1 8000
 
 
 Noeud i : 
@@ -59,13 +41,6 @@ Thread qui travaille
 
 
 
-ok
-struct envoie{
-	int requete;
-	int numI;
-	int couleur;
-}
-
 
 1 --- 2 ---- 3
 |     |     
@@ -73,7 +48,6 @@ struct envoie{
 5 --- 4
 |            
 6 ---------- 7
-
 
 soit on donne la valeur max
 soit on fait une election pour savoir la valeur max
@@ -104,14 +78,18 @@ si le message
 
 23/12 
 CE QUI RESTE A FAIRE :
-- Tester le tout pour voir si ca marche
 - Trouver une election ou mettre un ordre sympa
 - Faire le rapport
+- Corriger les warnings
 
-- rename VoisinCourant structure
 
 
 FAIT :
-ajout d'une ligne pour attribuer le tableau des voisin oublié pour different de 1
-ajout de plein daffichage
-changement lors de l fermeture de socket avec le serveur
+- ajout d'une ligne pour attribuer le tableau des voisin oublié pour different de 1
+- ajout de plein daffichage
+- changement lors de l fermeture de socket avec le serveur (modif du max)
+- pas update le tableau si j'ai fini
+- Ajour d'un input niveau serveur pour timer la coloration
+- Serveur qui attend que tout le monde ai fini pour commencer la coloration
+- rename VoisinCourant structure
+
