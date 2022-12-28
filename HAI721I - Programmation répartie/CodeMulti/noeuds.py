@@ -1,7 +1,7 @@
 import os, sys
 
 #GESTION DES PARAMETRES
-if (len(sys.argv) != 4):
+if (len(sys.argv) != 4) :
   print(f"[UTILISATION] :\npython3 {sys.argv[0]} nom_fichier ip_serveur port_serveur")
   exit(1)
 

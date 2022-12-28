@@ -58,23 +58,23 @@ struct paramsNoeud {
 	int Acc;                              	//boolean pour savoir si je suis une acceptation ou non 
   	struct infos_Graphe *VoisinCourant;   	//structure des informations du voisins
 };
-
+ 
 //THREAD structure pour regrouper les paramétres du thread pour la coloration
 struct paramsColoration {
 	int numero;								//numero dans le noeud du processus courant
 	int ordre;								//ordre du processus courant
 	int nbVoisins;							//nombre de voisins du processus courant
-	int* couleurVoisins;					//tableau des couleurs
-  	struct infos_Graphe *VoisinsCourant;   	//structure des informations du voisins
+	struct couleurVoisin* couleurVoisins;	//tableau des couleurs
+  	struct infos_Graphe* VoisinsCourant;   	//structure des informations du voisins
 };
 
 
 
 //Structure pour l'envoie et la reception d'un message
-struct messages{
+struct messages {
 	int requete;						//type du message : {"COULEUR"}
 	int ordreI;							//numero du processus I
-	int message;						//informations du message
+	int message;						//informations du message ici la couleur du processus I
 };
 
 

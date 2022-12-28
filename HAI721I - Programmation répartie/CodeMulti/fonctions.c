@@ -16,6 +16,7 @@
 #define FALSE 0
 #define ERREUR -1
 #define FERMETURE 0
+#define STOP 10
 
 //TYPE DE MESSAGE
 #define COULEUR 0     //un voisin vient de se colorer
@@ -212,7 +213,41 @@ int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
     //VERIFICATION DES TAILLES
     if (taille_info_proc > sizeinfo_proc){
         perror("[ERREUR] La taille du message est trop grande par rapport a celle attendu dans recv");
+        close(sock);
         exit(1);
+    }
+
+    //DEUXIEME APPEL POUR LE MESSAGE
+    return recvTCP(sock, info_proc, sizeinfo_proc);     //on recoit la taille du message
+
+}
+
+
+//POUR DEBUG
+int recvCompletTCP2(int sock, void* info_proc, int sizeinfo_proc, int numero, char* message){
+
+    //PREMIER APPEL POUR LA TAILLE
+    int taille_info_proc;                                                     	//creation d'une variable qui recupere la taille du message
+    int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeof(int));       //on recoit la taille du message
+   
+    //GESTION DES ERREURS
+    if (res_premier_appel == ERREUR) {
+        printf("[NOEUD %d]", numero);
+        perror("[ERREUR] : Erreur lors de la reception de la taille du message : ");
+        close(sock);
+        exit(1);
+    }
+    else if (res_premier_appel == FERMETURE) { //peut pas confondre avec le fait de ne recevoir rien car on attend si on recoit rien
+        printf("[NOEUD %d]\n", numero);
+        printf("[ABANDON DE LA TAILLE] : Abandon de la socket principale lors de recv (recv %d)\n", res_premier_appel);
+        close(sock);
+        exit(1);
+    }
+
+    //VERIFICATION DES TAILLES
+    if (taille_info_proc > sizeinfo_proc){
+        printf("[NOEUD %d][ATTENTION] La taille du message est trop grande par rapport a celle attendu dans recv :: %s\n", numero, message);
+        return STOP;
     }
 
     //DEUXIEME APPEL POUR LE MESSAGE

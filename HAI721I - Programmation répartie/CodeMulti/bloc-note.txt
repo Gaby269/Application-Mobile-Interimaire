@@ -93,3 +93,25 @@ FAIT :
 - Serveur qui attend que tout le monde ai fini pour commencer la coloration
 - rename VoisinCourant structure
 
+
+
+
+
+28/12 Gaby
+- Ajout affichage : 
+  * VERIFICATION CREATE (l. et l. dans noeud.c) : affichage avant la creation du thread du numero, de lordre et du nb de voisin
+  * VERIFICATION THREAD (l. dans noeud.c) : affichage dans le thread du type de message, de l'ordre, et de la couleur
+  * ATTENTION (l. fonction.c) : avertir l'interlocuteur que la taille est pas bonne et on continue mais on nenvoie pas ce message pour l'instant
+    ~ ajout STOP variable globale egal a 10 pour cette situation et return 10 au lieu du message
+    ~ enleve le exit  et le close
+    ~ modif de la taille dans le recv dapres
+    ~ modif dans le noeuds.c pour la gestion des erreurs et ajout du cas STOP
+    ~ ajout d'une indication de quelle recv on parle
+    ~ ajout dune fonction recvCompletTCP2 pour faire le debug comme pour send
+    ~ affichage du num noeud dou ca vient ajouté dans les parametres
+  * MESSAGE (l. noeuds.c) affichage du message qui n'est pas un message que l'on attent
+    ~ il ne sera pas envoyé
+    ~ nous permet de voir ou ca merde
+    ~ affichage du num noeud dou ca vient
+
+donc actuellemrnt on est a 42 coloriable meme si ya des affichages un peu chelou mais en gros c'est ca

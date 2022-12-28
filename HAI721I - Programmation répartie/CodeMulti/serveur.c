@@ -137,10 +137,10 @@ int main(int argc, char *argv[]) {
 
 		if (numSommet < 2) {printf("[SERVEUR] 1 Noeud est connecté au serveur\n");}         //affichage du nombre de Noeud connecté
 		else {printf("[SERVEUR] %d Noeuds sont connectés au serveur\n", numSommet);}        //affichage du nombre de Noeud connecté
-
+ 
 			
         //ETAPE 6 : RECEPTION DES INFORMATIONS DU NOEUD
-            //donnees
+            //donnees 
         struct infos_Graphe info_proc;                      //structure qui va recuperer les informations qu'un Noeud a envoyer
             //reception des informations
         recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_Graphe));       //reception des informations dans info_proc
@@ -184,7 +184,7 @@ int main(int argc, char *argv[]) {
 
 
     } //fin de la premieère connexion avec tous les noeuds
-	
+	 
     printf("\n************************************************\n************************************************\n");   
     printf("\n[SERVEUR] Tous les Noeuds sont connectés !\n");
     printf("\n************************************************\n************************************************\n");   
@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
             printf("\n[SERVEUR] : ERREUR sur le noeud %d !",i);
         }
     }
-
+ 
     
     printf("\n[SERVEUR] : Appuyez sur ENTER pour continuer et commencer la coloration du graphe...");  //Après la connexion entre tous les noeuds
     scanf("%c", &pause);
