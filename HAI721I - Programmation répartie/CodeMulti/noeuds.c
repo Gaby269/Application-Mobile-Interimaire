@@ -325,7 +325,7 @@ int main(int argc, char *argv[]) {
 	                    	//d) affichage
 			            char adrDem[INET_ADDRSTRLEN];
 	    		        inet_ntop(AF_INET, &sockVoisin.sin_addr, adrDem, INET_ADDRSTRLEN);
-	    		        int portDem = htons((short) sockVoisin.sin_port); 
+	    		        //int portDem = htons((short) sockVoisin.sin_port); 
 	                    
 	    		        //printColorPlus(numero_noeud, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
 	    		        //printColorPlus(numero_noeud, "CONNEXION");printf("au %d-ème voisin réussie !\n", v+1);
@@ -455,7 +455,6 @@ int main(int argc, char *argv[]) {
     ////////////////
     
 	int couleurMax = 1;			//couleur max utilisée jusque là
-	int nbVoisinsColores = 0;	//nombre de voisins colorés
     int dernierFini = 0;        //quel est le dernier noeud à s'être colorié
     int jeSuisColore = FALSE;
  
@@ -486,8 +485,6 @@ int main(int argc, char *argv[]) {
         }
         dernierFini = 1;
     }
-
-	int cpt = 0;
 
     
 	//Boucle pour le colorage, on sort lorsqu'on a colorié tous les noeuds
@@ -527,7 +524,7 @@ int main(int argc, char *argv[]) {
 					}
 					
 				if (msg.requete != 1 && msg.requete != 0){
-                	printColorPlus(numero_noeud, "MESSAGE");printf("J'ai recu ce message :: type : %d, ordre : %d, couleur : %d\n", msg.requete, msg.ordreI, msg.message);
+                	printColorPlus(numero_noeud, "MESSAGE");printf("J'ai recu ce message : <%d, ordre : %d, couleur : %d>\n", msg.requete, msg.ordreI, msg.message);
 				}
 				//else{
 					//données du message
@@ -555,14 +552,17 @@ int main(int argc, char *argv[]) {
 					if (dernierFini < ordre_i) {
 
 						dernierFini = ordre_i;                     			//on met à jour notre dernier noeud fini
-						msg.requete = INFO;                   		    //on défini le type du message en le modifiant en BRODCAST
+						struct messages information;
+						information.requete = INFO;                   		    //on défini le type du message en le modifiant en INFO
+						information.ordreI = ordre_i;                   		    
+						information.message = couleur_i;                   		    
 
 						//J'envoie à mes voisins <INFO, ordre_i, couleur_i>
 						//printColorPlus(numero_noeud, "VERIFICATION");printf("<%d,%d,col-%d>\n",msg.requete, msg.ordreI, msg.message);
 						for (int i = 0; i < nbVoisinTotal; i++) {
 							int dSVoisin = info_voisins[i].descripteur; 
 							//printColorPlus(numero_noeud, "INFO");printf("<%d,col-%d> au voisin %d...\n",ordre_i, couleur_i, info_voisins[i].numero);
-							int s = sendCompletTCP(dSVoisin, &msg, sizeof(struct messages));	//envoie le meme message en changeant le type
+							int s = sendCompletTCP(dSVoisin, &information, sizeof(struct messages));	//envoie le meme message en changeant le type
 									//GESTION DES ERREURS
 								if (s == ERREUR) {
 									printf("[NOEUD %d] Je vais avoir une erreur sur le brodcast de %d\n", numero_noeud, dSVoisin);
