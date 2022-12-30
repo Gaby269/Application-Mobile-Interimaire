@@ -7,17 +7,16 @@ void* Coloration(void* p){
     struct paramsColoration* args = (struct paramsColoration*) p;
 
 	int numeroMoi = args->numero;					                  //indice pour le thread
-	int ordre = args->ordre;							              //ordre du processus courant
-	int nbVoisins = args->nbVoisins;					              //ordre du processus courant
-	struct couleurVoisin* couleurVoisins = args->couleurVoisins;	  //tableau des couleurs des voisins
+	int ordre = args->ordre;							              //ordre du noeud courant
+	int nbVoisins = args->nbVoisins;					              //ordre du noeud courant
+	struct couleurVoisin* tableauCouleursVoisins = args->couleurVoisins;	  //tableau des couleurs des voisins
     struct infos_Graphe *Voisins = args->VoisinsCourant;              //tableau de structure des informations des voisins
 	
-	//printf("Coucou je suis dans le thread %d::%d et j'ai %d voisins \n", numeroMoi, ordre, nbVoisins );
-	int couleur = 1;
+		int couleur = 1;
 
 	int i = 0;
 	while (i < nbVoisins) {						                    //parcourt du tableau des voisins
-		if (couleurVoisins[i].couleur == couleur) {		            //si c'est la meme couleurs on change de couleur
+		if (tableauCouleursVoisins[i].couleur == couleur) {		            //si c'est la meme couleurs on change de couleur
 			couleur++;							                    //incrementation
 			i = 0;								                    //on passe i a 0 car fini pour cette couleur
 		}
@@ -33,15 +32,11 @@ void* Coloration(void* p){
 	message.requete = COULEUR;		//un de mes voisins s'est colorié
 	message.ordreI = ordre;
 	message.message = couleur;
-	//printColorPlus(numeroMoi, "VERIFICATION THREAD");printf("<%d,%d,col-%d> \n",message.requete, message.ordreI, message.message);
-	//printf("message : %d::%d::%d\n", message.requete , message.ordreI, message.message);
-
+		
 	for (int i = 0; i < nbVoisins; i++) {
-		//printf("C'est le moment de partager que je suis la star, %d-ème//%d\n", i, Voisins[i].descripteur);
-		//J'envoie à mes voisins <COULEUR, ordre_i, couleur_i> 
+				//J'envoie à mes voisins <COULEUR, ordre_i, couleur_i> 
 		int dSVoisin = Voisins[i].descripteur;
-		//printf("message : %d::%d::%d::%d\n", Voisins[i].descripteur, message.requete , message.ordreI, message.message);
-		int s = sendCompletTCP(dSVoisin, &message, sizeof(struct messages));
+				int s = sendCompletTCP(dSVoisin, &message, sizeof(struct messages));
 
 		    //GESTION DES ERREURS
 			if (s == ERREUR) {
@@ -59,20 +54,10 @@ void* Coloration(void* p){
 				exit(1); 
 			}
 
-		//printColorPlus(numeroMoi, "ENVOIE");printf("de ma couleur %d au noeud %d (resultat : %d)\n", couleur, dSVoisin, s);
-        
+		        
 	}
-	//printColorPlus(numeroMoi, "ENVOIE");printf("de ma couleur %d a tout le monde\n", couleur);
-    pthread_exit(NULL);
+	    pthread_exit(NULL);
 }
-
-
-/*
-void* ThreadEnvoiINFO(void* p) {
-}
-*/
-
-
 
 
 
@@ -97,7 +82,7 @@ int main(int argc, char *argv[]) {
 	printColor(numero_noeud);printf("\033[4mInforamtions données en paramètres :\033[0m\n");
 	printf("\n       Adresse du serveur : %s\n       Port : %d", adresseIP, atoi(port_serveur));
 	printf("\n       Port du noeud : %d", atoi(port_noeud));
-	printf("\n       Indice du processus : %d\n\n", numero_noeud);
+	printf("\n       Indice du noeud : %d\n\n", numero_noeud);
 	
 
 //A - CONSTRUCTION D’UN SOMMET
@@ -158,7 +143,7 @@ int main(int argc, char *argv[]) {
     //ETAPE 6 : ENVOIE DES INFORMATIONS AU SERVEUR
         //informations du noeud
     struct infos_Graphe informations_noeud;      		//structure qu'on va envoyer au serveur
-    informations_noeud.numero = numero_noeud;        	//indice du processus
+    informations_noeud.numero = numero_noeud;        	//indice du noeud
 	informations_noeud.ordre = 0;						//donner une valeur inutile pour que la structure soit ok
     informations_noeud.descripteur = dSVoisinAttente;  	//le descripteur
     informations_noeud.adrProc = sockArete;          	//adresse de la socket
@@ -179,8 +164,8 @@ int main(int argc, char *argv[]) {
     
     printColor(numero_noeud);printf("Envoi des inforamtions au serveur réussi !\n");
     printColor(numero_noeud);printf("\033[4mEnvoie des informations suivantes :\033[0m\n");
-    printf("\n       Adresse du processus : %s\n       Port : %d", adrArete, portArete);
-    printf("\n       Numéro du noeud : %d\n       Descripteur de la socket du processus : %d\n\n\n", numero_noeud, dSVoisinAttente);
+    printf("\n       Adresse du noeud : %s\n       Port : %d", adrArete, portArete);
+    printf("\n       Numéro du noeud : %d\n       Descripteur de la socket du noeud : %d\n\n\n", numero_noeud, dSVoisinAttente);
 
 
     //DEFINITION des variables de multiplexage
@@ -318,16 +303,12 @@ int main(int argc, char *argv[]) {
 					
 					//ETAPE 10 : DEMANDE DE CONNEXION AUX VOISINS
 		            for (int v = 0; v < nbVoisinDemande; v++) {
-						//a) Création de la socket qui discute avec le processus voisin
+						//a) Création de la socket qui discute avec le noeud voisin
 		                dSVoisinDemande = creationSocket();
-	                    
-	    	            //printColorPlus(numero_noeud, "CREATION");printf("de la socket qui demande réussi !\n");
-	    	            //printColorPlus(numero_noeud, "DESCRIPTEUR");printf("du noeud créé est %d\n", dSVoisinDemande);
-	    	        
+	    	            	    	            	    	        
 	    	              	//b) designation de la socket du voisin
 	    	            struct sockaddr_in sockVoisin = info_voisins[v].adrProc;	//recuperation des informations du voisin en fonction de son indice 
-	    	            //printColorPlus(numero_noeud, "DESIGNATION");printf("de la socket du voisin réussie\n");
-	    	              
+	    	            	    	              
 	    					//c) demande de connexion
 	                        //connexion du descripteur qu'on vient de créer et la socket du voisin courant
 	    	            connexion(dSVoisinDemande, &sockVoisin);	
@@ -339,9 +320,7 @@ int main(int argc, char *argv[]) {
 	    		        inet_ntop(AF_INET, &sockVoisin.sin_addr, adrDem, INET_ADDRSTRLEN);
 	    		        //int portDem = htons((short) sockVoisin.sin_port); 
 	                    
-	    		        //printColorPlus(numero_noeud, "ADRESSE");printf("du voisin a qui je demande est %s:%d\n", adrDem, portDem);
-	    		        //printColorPlus(numero_noeud, "CONNEXION");printf("au %d-ème voisin réussie !\n", v+1);
-				        nbVoisinsConnectes++;					//on incrémente le nombre de voisins acceptés  
+	    		        nbVoisinsConnectes++;					//on incrémente le nombre de voisins acceptés  
 
                         //Envoie de nos infos au voisin
                         s = sendCompletTCP(dSVoisinDemande, &informations_noeud, sizeof(struct infos_Graphe));
@@ -392,10 +371,7 @@ int main(int argc, char *argv[]) {
 						close(dSProcServ);
 						exit(1); //on arrête le programme
 					}
-							
-					//affichage
-	            //printColorPlus(numero_noeud, "ACCEPTATION");printf("d'un voisin réussi !\n");
-
+	            
                 //Reception des infos entrant du voisin pour plus tard
                 struct infos_Graphe info_voisin_courant;     	    //structure du voisin courant
 				int r = recvCompletTCP2(dSVoisinEntrant, &info_voisin_courant, sizeof(struct infos_Graphe), numero_noeud, "info voisin apres acceptation");
@@ -422,8 +398,7 @@ int main(int argc, char *argv[]) {
 				//ETAPE 13 AJOUT DE LA NOUVELLE SOCKET DANS tabScrut
 				FD_SET(dSVoisinEntrant, &tabScrut);		//on ajoute la socket acceptée dans les socket à scruter
 				maxDs = MAX(maxDs, dSVoisinEntrant);	//on réajuste le max
-				//printColorPlus(numero_noeud, "AJOUT");printf("de la nouvelle socket a tabScrut %d\n", dSVoisinEntrant);
-                
+				                
                     //on ajoute les infos du voisin dans le tableau des noeuds qui se connectent a nous
 				info_voisins[nbVoisinDemande+nbVoisinsAcceptes] = info_voisin_courant;			
 				nbVoisinsAcceptes++;
@@ -477,26 +452,26 @@ int main(int argc, char *argv[]) {
     int dernierFini = 0;        //quel est le dernier noeud à s'être colorié
     int jeSuisColore = FALSE;
  
-	struct couleurVoisin* couleurVoisins = (struct couleurVoisin*)malloc(nbVoisinTotal * sizeof(struct couleurVoisin));   	//structure où l'on va stocker les couleurs de nos voisins
+	//structure où l'on va stocker les couleurs de nos voisins
+	struct couleurVoisin* tableauCouleursVoisins = (struct couleurVoisin*)malloc(nbVoisinTotal * sizeof(struct couleurVoisin));   	
 	for (int i = 0; i<nbVoisinTotal; i++) {
-		couleurVoisins[i].couleur = 0;
-		couleurVoisins[i].ordre = info_voisins[i].ordre;
+		tableauCouleursVoisins[i].couleur = 0;
+		tableauCouleursVoisins[i].ordre = info_voisins[i].ordre;
 	}
 
 	struct paramsColoration infos_Coloration;					//paramaetre pour le thread
 	infos_Coloration.numero = numero_noeud;						//indice pour le thread
-	infos_Coloration.ordre = ordre;								//ordre du processus courant
+	infos_Coloration.ordre = ordre;								//ordre du noeud courant
 	infos_Coloration.nbVoisins = nbVoisinTotal;					//nombre de voisins
 	
 	//si je suis le premier, je commence directement
     if (ordre == 1) {    
 		printColorPlus(numero_noeud, "ORDRE 1");printf("Je suis le 1er, je commence ! %d\n", numero_noeud);    
-		infos_Coloration.couleurVoisins = couleurVoisins;	        //tableau des couleurs
+		infos_Coloration.couleurVoisins = tableauCouleursVoisins;	        //tableau des couleurs
 		infos_Coloration.VoisinsCourant = info_voisins;   			//structure des informations du voisins
         
 		pthread_t threadColoration = 0;
-		//printColorPlus(numero_noeud, "VERIFICATION CREATE");printf("<num %d, ordre %d, nb : %d>\n",infos_Coloration.numero, infos_Coloration.ordre, infos_Coloration.nbVoisins);				
-		int res_create = pthread_create(&threadColoration, NULL, Coloration, &infos_Coloration); //je me colorie
+				int res_create = pthread_create(&threadColoration, NULL, Coloration, &infos_Coloration); //je me colorie
 			
 			//GESTION ERREUR
 			if (res_create == ERREUR){
@@ -547,8 +522,7 @@ int main(int argc, char *argv[]) {
 					}
 					
 				if ((msg.requete != 1) && (msg.requete != 0)){
-                	//printColorPlus(numero_noeud, "MESSAGE");printf("J'ai recu ce message : <%d, ordre : %d, couleur : %d> \n", msg.requete, msg.ordreI, msg.message);
-				}
+                					}
 				//else{
 					//données du message
 					int type_i = msg.requete;
@@ -559,13 +533,10 @@ int main(int argc, char *argv[]) {
 
 					//modification de la couleur d'un voisin dans le tableau
 					if ((jeSuisColore == FALSE) && (type_i == COULEUR)) {      //COULEUR signifie que le message vient d'un voisin
-						//printColorPlus(numero_noeud, "<MESSAGE>");
-						//printf("de type %s, du noeud d'ordre %d et de couleur %d\n", (type_i==0)?"COULEUR":"INFO", ordre_i, couleur_i);
-						
+																		
 						for (int i=0; i<nbVoisinTotal; i++) {
-							if (couleurVoisins[i].ordre == ordre_i) {           //on cherche l'ordre du sommet qui vient de nous envoyer un message
-								//printColorPlus(numero_noeud, "MODIF TABLEAU COULEUR");printf("d'ordre %d de couleur %d\n", ordre_i, couleur_i);
-								couleurVoisins[i].couleur = couleur_i;   		//je met à jour mon tableau des couleurs	
+							if (tableauCouleursVoisins[i].ordre == ordre_i) {           //on cherche l'ordre du sommet qui vient de nous envoyer un message
+																tableauCouleursVoisins[i].couleur = couleur_i;   		//je met à jour mon tableau des couleurs	
 								break;											//on break pcq on vient de modifier le bon
 							}
 						}
@@ -575,34 +546,34 @@ int main(int argc, char *argv[]) {
 					if (dernierFini < ordre_i) {
 
 						dernierFini = ordre_i;                     			//on met à jour notre dernier noeud fini
-						//Message reenvoyé a tout mes voisins
-						struct messages information;
-						information.requete = INFO;                   		    //on défini le type du message en le modifiant en INFO
-						information.ordreI = ordre_i;                   		    
-						information.message = couleur_i;          		    
 
-						//J'envoie à mes voisins <INFO, ordre_i, couleur_i>
-						//printColorPlus(numero_noeud, "VERIFICATION");printf("<%d,%d,col-%d>\n",msg.requete, msg.ordreI, msg.message);
-						for (int i = 0; i < nbVoisinTotal; i++) {
-							int dSVoisin = info_voisins[i].descripteur; 
-							//printColorPlus(numero_noeud, "INFO");printf("<%d,col-%d> au voisin %d...\n",ordre_i, couleur_i, info_voisins[i].numero);
-							s = sendCompletTCP(dSVoisin, &information, sizeof(struct messages));	//envoie le meme message en changeant le type
-								
-								//GESTION DES ERREURS
-								if (s == ERREUR) {
-									printf("[NOEUD %d] Je vais avoir une erreur sur le brodcast de %d\n", numero_noeud, dSVoisin);
-									perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
-									close(dSVoisin);
-									exit(1);
-								}
-								else if (s == FERMETURE) {
-									printf("[NOEUD %d] Mon ami va s'en aller sur le brodcast de %d\n", numero_noeud, dSVoisin);
-									perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
-									close(dSVoisin);
-									exit(1);  
-								}
+						if (ordre_i != ordre) {                             //optimisation pour pas renvoyer son propre message
+							//Message reenvoyé a tout mes voisins
+							struct messages information;
+							information.requete = INFO;                   		    //on défini le type du message en le modifiant en INFO
+							information.ordreI = ordre_i;                   		    
+							information.message = couleur_i;          		    
 
-							//printColorPlus(numero_noeud, "INFO");printf("au voisin %d réussi\n",info_voisins[i].numero);
+							//J'envoie à mes voisins <INFO, ordre_i, couleur_i>
+							for (int i = 0; i < nbVoisinTotal; i++) {
+								int dSVoisin = info_voisins[i].descripteur; 
+															s = sendCompletTCP(dSVoisin, &information, sizeof(struct messages));	//envoie le meme message en changeant le type
+									
+									//GESTION DES ERREURS
+									if (s == ERREUR) {
+										printf("[NOEUD %d] Je vais avoir une erreur sur le brodcast de %d\n", numero_noeud, dSVoisin);
+										perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
+										close(dSVoisin);
+										exit(1);
+									}
+									else if (s == FERMETURE) {
+										printf("[NOEUD %d] Mon ami va s'en aller sur le brodcast de %d\n", numero_noeud, dSVoisin);
+										perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
+										close(dSVoisin);
+										exit(1);  
+									}
+
+							}
 						}
 					} //fin du if (message pas reçu)
 						
@@ -612,7 +583,7 @@ int main(int argc, char *argv[]) {
 
 						int voisinManquant = 0;
 						for (int voisin = 0 ; voisin<nbVoisinTotal; voisin++){
-							if ((couleurVoisins[voisin].ordre < ordre) && (couleurVoisins[voisin].couleur == 0)) {
+							if ((tableauCouleursVoisins[voisin].ordre < ordre) && (tableauCouleursVoisins[voisin].couleur == 0)) {
 								//si il nous reste un voisin qui nous à pas envoyé sa couleur
 								voisinManquant = 1;
 								break;
@@ -623,12 +594,11 @@ int main(int argc, char *argv[]) {
 							
 							jeSuisColore = TRUE;				//boolean pour savoir si je suis coloré ou pas
 							
-							infos_Coloration.couleurVoisins = couleurVoisins;			//tableau des couleurs
+							infos_Coloration.couleurVoisins = tableauCouleursVoisins;			//tableau des couleurs
 							infos_Coloration.VoisinsCourant = info_voisins;   			//structure des informations du voisins
 							
 							pthread_t threadColoration = 0;
-							//printColorPlus(numero_noeud, "VERIFICATION CREATE");printf("<num %d, ordre %d, nb : %d>\n",infos_Coloration.numero, infos_Coloration.ordre, infos_Coloration.nbVoisins);
-							int res_create = pthread_create(&threadColoration, NULL, Coloration, &infos_Coloration); //je me colore
+														int res_create = pthread_create(&threadColoration, NULL, Coloration, &infos_Coloration); //je me colore
 
 								//GESTION DES ERREURS
 								if (res_create == ERREUR) {
@@ -638,8 +608,7 @@ int main(int argc, char *argv[]) {
 									exit(1);
 								}
 
-							//printColorPlus(numero_noeud, "COLORATION");printf("c'est à moi de me colorier\n");
-						}
+													}
 					}
 				//} //fin du if de securité
             } //fin du if (évenement)
@@ -649,12 +618,12 @@ int main(int argc, char *argv[]) {
 		printf("ouii on a fini\n");
 	}
 
-    printColorPlus(numero_noeud, "TERMINÉ");printf("Je sais que le graphe est %d-coloriable !\n",couleurMax);
-	sleep(10);
-        //FERMETURE DE LA SOCKET CLIENTE QUI ECOUTE ET DES SOCKET QUI ACCEPTENT ET QUI SE CONNECTENT
-    printColorPlus(numero_noeud, "FERMETURE");printf("Je peux m'en aller !\n");
 
-    
+    printColorPlus(numero_noeud, "TERMINÉ");printf("Je sais que le graphe est %d-coloriable !\n",couleurMax);
+	sleep(5);
+        //FERMETURE DE LA SOCKET CLIENTE QUI ECOUTE ET DES SOCKET QUI ACCEPTENT ET QUI SE CONNECTENT
+    //printColorPlus(numero_noeud, "FERMETURE");printf("Je peux m'en aller !\n");
+
     close(dSVoisinDemande);
     close(dSVoisinEntrant);
 

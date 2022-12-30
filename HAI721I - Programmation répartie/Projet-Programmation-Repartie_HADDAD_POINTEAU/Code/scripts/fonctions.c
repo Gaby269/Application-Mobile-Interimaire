@@ -22,12 +22,12 @@
 
 //TYPE DE MESSAGE
 #define COULEUR 0     //un voisin vient de se colorer
-#define INFO 1   //message général pour dire que le noeud à fini de se colorer
+#define INFO 1        //pour transmettre l'info que le noeud à fini de se colorer
 
 //NOEUD POUR LES MISES EN ECOUTE
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
 
-	
+//FONCTION MAX
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
     
 ////////////////////////////////////////////////////////////////

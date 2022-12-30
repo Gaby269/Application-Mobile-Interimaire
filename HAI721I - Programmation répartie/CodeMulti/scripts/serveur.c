@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
 
 
     //ETAPE 4 : MISE SOUS ECOUTE
-    int nbMaxEcoute = NOEUDS_MAX;                         //on fixe le nombre de processus maximum pour attente 
+    int nbMaxEcoute = NOEUDS_MAX;                         //on fixe le nombre de noeud maximum pour attente 
     ecouter(dSServeur, nbMaxEcoute);                      //on met en ecoute la socket serveur
     printf("\n[SERVEUR] La mise en ecoute de la socket du serveur réussi !\n");
 
@@ -175,7 +175,7 @@ int main(int argc, char *argv[]) {
                 printColorPlus(0, "NON ENVOIE");printf("C'est pas le bon message passons a autre chose on s'arrete pour ce message\n");
                 continue;
             }
-            //modification des donnees dans le tableau des processus
+            //modification des donnees dans le tableau des noeud
         sockNoeud = info_proc.adrProc;                                          //donner a sockNoeud l'adresse recu dans info_proc
         int indice_proc = info_proc.numero-1;                                   //donne l'indice
         procGraphe[indice_proc].numero = indice_proc+1;                         //on attribue l'indice du noeud +1 car on donne le numero et non
@@ -183,13 +183,13 @@ int main(int argc, char *argv[]) {
         procGraphe[indice_proc].adrProc = sockNoeud;                            //on attribue l' adresse
         //AFFICHAGE
 
-        char adrProcAff[INET_ADDRSTRLEN];             //on va stocker l'adresse du sous anneau dedans
+        char adrProcAff[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &sockNoeud.sin_addr, adrProcAff, INET_ADDRSTRLEN);     	//adresse du Noeud    
         int portProcAff = htons(sockNoeud.sin_port);                                 //port du Noeud
 
-        printf("\n[SERVEUR] \033[4mLe processus a comme informations après réception :\033[0m\n");
-        printf("\n       Adresse du processus : %s\n       Port : %d", adrProcAff, portProcAff);
-        printf("\n       Numéro du noeud dans le graphe : %d\n       Descripteur de la socket du processus : %d\n\n", indice_proc+1, procGraphe[indice_proc].descripteur);
+        printf("\n[SERVEUR] \033[4mLe noeud a comme informations après réception :\033[0m\n");
+        printf("\n       Adresse du noeud : %s\n       Port : %d", adrProcAff, portProcAff);
+        printf("\n       Numéro du noeud dans le graphe : %d\n       Descripteur de la socket du noeud : %d\n\n", indice_proc+1, procGraphe[indice_proc].descripteur);
 
 			
 //C - ENVOI DES INFORMATIONS AUX SOMMETS

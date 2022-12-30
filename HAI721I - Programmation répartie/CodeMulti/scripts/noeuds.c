@@ -7,8 +7,8 @@ void* Coloration(void* p){
     struct paramsColoration* args = (struct paramsColoration*) p;
 
 	int numeroMoi = args->numero;					                  //indice pour le thread
-	int ordre = args->ordre;							              //ordre du processus courant
-	int nbVoisins = args->nbVoisins;					              //ordre du processus courant
+	int ordre = args->ordre;							              //ordre du noeud courant
+	int nbVoisins = args->nbVoisins;					              //ordre du noeud courant
 	struct couleurVoisin* tableauCouleursVoisins = args->couleurVoisins;	  //tableau des couleurs des voisins
     struct infos_Graphe *Voisins = args->VoisinsCourant;              //tableau de structure des informations des voisins
 	
@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
 	printColor(numero_noeud);printf("\033[4mInforamtions données en paramètres :\033[0m\n");
 	printf("\n       Adresse du serveur : %s\n       Port : %d", adresseIP, atoi(port_serveur));
 	printf("\n       Port du noeud : %d", atoi(port_noeud));
-	printf("\n       Indice du processus : %d\n\n", numero_noeud);
+	printf("\n       Indice du noeud : %d\n\n", numero_noeud);
 	
 
 //A - CONSTRUCTION D’UN SOMMET
@@ -143,7 +143,7 @@ int main(int argc, char *argv[]) {
     //ETAPE 6 : ENVOIE DES INFORMATIONS AU SERVEUR
         //informations du noeud
     struct infos_Graphe informations_noeud;      		//structure qu'on va envoyer au serveur
-    informations_noeud.numero = numero_noeud;        	//indice du processus
+    informations_noeud.numero = numero_noeud;        	//indice du noeud
 	informations_noeud.ordre = 0;						//donner une valeur inutile pour que la structure soit ok
     informations_noeud.descripteur = dSVoisinAttente;  	//le descripteur
     informations_noeud.adrProc = sockArete;          	//adresse de la socket
@@ -164,8 +164,8 @@ int main(int argc, char *argv[]) {
     
     printColor(numero_noeud);printf("Envoi des inforamtions au serveur réussi !\n");
     printColor(numero_noeud);printf("\033[4mEnvoie des informations suivantes :\033[0m\n");
-    printf("\n       Adresse du processus : %s\n       Port : %d", adrArete, portArete);
-    printf("\n       Numéro du noeud : %d\n       Descripteur de la socket du processus : %d\n\n\n", numero_noeud, dSVoisinAttente);
+    printf("\n       Adresse du noeud : %s\n       Port : %d", adrArete, portArete);
+    printf("\n       Numéro du noeud : %d\n       Descripteur de la socket du noeud : %d\n\n\n", numero_noeud, dSVoisinAttente);
 
 
     //DEFINITION des variables de multiplexage
@@ -303,7 +303,7 @@ int main(int argc, char *argv[]) {
 					
 					//ETAPE 10 : DEMANDE DE CONNEXION AUX VOISINS
 		            for (int v = 0; v < nbVoisinDemande; v++) {
-						//a) Création de la socket qui discute avec le processus voisin
+						//a) Création de la socket qui discute avec le noeud voisin
 		                dSVoisinDemande = creationSocket();
 	    	            	    	            	    	        
 	    	              	//b) designation de la socket du voisin
@@ -461,7 +461,7 @@ int main(int argc, char *argv[]) {
 
 	struct paramsColoration infos_Coloration;					//paramaetre pour le thread
 	infos_Coloration.numero = numero_noeud;						//indice pour le thread
-	infos_Coloration.ordre = ordre;								//ordre du processus courant
+	infos_Coloration.ordre = ordre;								//ordre du noeud courant
 	infos_Coloration.nbVoisins = nbVoisinTotal;					//nombre de voisins
 	
 	//si je suis le premier, je commence directement
@@ -546,32 +546,35 @@ int main(int argc, char *argv[]) {
 					if (dernierFini < ordre_i) {
 
 						dernierFini = ordre_i;                     			//on met à jour notre dernier noeud fini
-						//Message reenvoyé a tout mes voisins
-						struct messages information;
-						information.requete = INFO;                   		    //on défini le type du message en le modifiant en INFO
-						information.ordreI = ordre_i;                   		    
-						information.message = couleur_i;          		    
 
-						//J'envoie à mes voisins <INFO, ordre_i, couleur_i>
-												for (int i = 0; i < nbVoisinTotal; i++) {
-							int dSVoisin = info_voisins[i].descripteur; 
-														s = sendCompletTCP(dSVoisin, &information, sizeof(struct messages));	//envoie le meme message en changeant le type
-								
-								//GESTION DES ERREURS
-								if (s == ERREUR) {
-									printf("[NOEUD %d] Je vais avoir une erreur sur le brodcast de %d\n", numero_noeud, dSVoisin);
-									perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
-									close(dSVoisin);
-									exit(1);
-								}
-								else if (s == FERMETURE) {
-									printf("[NOEUD %d] Mon ami va s'en aller sur le brodcast de %d\n", numero_noeud, dSVoisin);
-									perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
-									close(dSVoisin);
-									exit(1);  
-								}
+						if (ordre_i != ordre) {                             //optimisation pour pas renvoyer son propre message
+							//Message reenvoyé a tout mes voisins
+							struct messages information;
+							information.requete = INFO;                   		    //on défini le type du message en le modifiant en INFO
+							information.ordreI = ordre_i;                   		    
+							information.message = couleur_i;          		    
 
-													}
+							//J'envoie à mes voisins <INFO, ordre_i, couleur_i>
+							for (int i = 0; i < nbVoisinTotal; i++) {
+								int dSVoisin = info_voisins[i].descripteur; 
+															s = sendCompletTCP(dSVoisin, &information, sizeof(struct messages));	//envoie le meme message en changeant le type
+									
+									//GESTION DES ERREURS
+									if (s == ERREUR) {
+										printf("[NOEUD %d] Je vais avoir une erreur sur le brodcast de %d\n", numero_noeud, dSVoisin);
+										perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
+										close(dSVoisin);
+										exit(1);
+									}
+									else if (s == FERMETURE) {
+										printf("[NOEUD %d] Mon ami va s'en aller sur le brodcast de %d\n", numero_noeud, dSVoisin);
+										perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
+										close(dSVoisin);
+										exit(1);  
+									}
+
+							}
+						}
 					} //fin du if (message pas reçu)
 						
 						
