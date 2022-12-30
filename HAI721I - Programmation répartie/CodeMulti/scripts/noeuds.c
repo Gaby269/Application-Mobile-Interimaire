@@ -616,9 +616,8 @@ int main(int argc, char *argv[]) {
 	}
 
 
-
     printColorPlus(numero_noeud, "TERMINÉ");printf("Je sais que le graphe est %d-coloriable !\n",couleurMax);
-	sleep(10);
+	sleep(5);
         //FERMETURE DE LA SOCKET CLIENTE QUI ECOUTE ET DES SOCKET QUI ACCEPTENT ET QUI SE CONNECTENT
     //printColorPlus(numero_noeud, "FERMETURE");printf("Je peux m'en aller !\n");
 
@@ -631,4 +630,3 @@ int main(int argc, char *argv[]) {
 	return 0;
 	
 } //Fin du main
-
