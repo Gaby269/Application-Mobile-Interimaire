@@ -6,6 +6,9 @@
 
 int main(int argc, char *argv[]) {
 
+    int r;
+    int s;
+
     //GESTION PARAMETRES
     if (argc != 3) {
         printf("\n[UTILISATION] : %s port_serveur fichier_graphe\n\n", argv[0]);
@@ -114,7 +117,7 @@ int main(int argc, char *argv[]) {
     printf("\n[SERVEUR] La mise en ecoute de la socket du serveur réussi !\n");
 
 
-	
+
 //B - RECEPTION DES INFORMATIONS DES SOMMETS
 	
     //a) Mise en place des données
@@ -139,11 +142,26 @@ int main(int argc, char *argv[]) {
 		else {printf("[SERVEUR] %d Noeuds sont connectés au serveur\n", numSommet);}        //affichage du nombre de Noeud connecté
  
 			
-        //ETAPE 6 : RECEPTION DES INFORMATIONS DU NOEUD
+        //ETAPE 6 : RECEPTION DES INFORMATIONS DU NOEUD 
             //donnees 
         struct infos_Graphe info_proc;                      //structure qui va recuperer les informations qu'un Noeud a envoyer
             //reception des informations
-        recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_Graphe));       //reception des informations dans info_proc
+        int r = recvCompletTCP(dSNoeud, &info_proc, sizeof(struct infos_Graphe), 0);       //reception des informations dans info_proc
+                //GESTION DES ERREURS
+            if (r == ERREUR) {
+                printf("Je vais avoir un probleme sur la reception des info au voisin %d\n", 0);
+                perror("\n[ERREUR] : Erreur lors de la reception du message ");
+                exit(1);
+            }
+            else if (r == FERMETURE) {
+                printf("Mon ami va s'en aller sur la reception des infos au voisin %d\n", 0);
+                perror("\n[ERREUR] : Abandon de la socket principale dans le la reception");
+                exit(1); 
+            } 
+            else if(r == STOP){
+                printColorPlus(0, "NON ENVOIE");printf("C'est pas le bon message passons a autre chose on s'arrete pour ce message\n");
+                continue;
+            }
             //modification des donnees dans le tableau des processus
         sockNoeud = info_proc.adrProc;                                          //donner a sockNoeud l'adresse recu dans info_proc
         int indice_proc = info_proc.numero-1;                                   //donne l'indice
@@ -164,12 +182,23 @@ int main(int argc, char *argv[]) {
 
 			
 //C - ENVOI DES INFORMATIONS AUX SOMMETS
-			
+
         //ETAPE 7 : ENVOI DU NOMBRE DE VOISIN A CHAQUE NOEUDS
             //descripteur de socket courant
         int dS_courant = procGraphe[indice_proc].descripteur;                  //indice courant
             //envoi
-        sendCompletTCP(dS_courant, &nbVoisin[indice_proc], sizeof(struct nbVois));
+        s = sendCompletTCP(dS_courant, &nbVoisin[indice_proc], sizeof(struct nbVois));
+                //GESTION DES ERREURS
+            if (s == ERREUR) {
+                printf("Je vais aovir un probleme sur lenvoie au serveur des infos au noeud %d\n", 0);
+                perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
+                exit(1);
+            }
+            else if (s == FERMETURE) {
+                printf("Mon ami le serveur va sen aller c'est trop triste au noeud %d\n", 0);
+                perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
+                exit(1); 
+            }
             //affichage
         printf("\n[SERVEUR] \033[4mInformations envoyées :\033[0m\n\n");
 		printf("	  Nombre de noeuds total dns le graphe = %d\n", nbVoisin[indice_proc].nbNoeuds);
@@ -178,7 +207,18 @@ int main(int argc, char *argv[]) {
 		
         //ETAPE : ENVOIE DE TON ORDRE POUR LA SUITE
             //envoi
-        sendCompletTCP(dS_courant, &numSommet, sizeof(int));
+        s = sendCompletTCP(dS_courant, &numSommet, sizeof(int));
+                //GESTION DES ERREURS
+            if (s == ERREUR) {
+                printf("Je vais aovir un probleme sur lenvoie au serveur des infos au noeud %d\n", 0);
+                perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
+                exit(1);
+            }
+            else if (s == FERMETURE) {
+                printf("Mon ami le serveur va sen aller c'est trop triste au noeud %d\n", 0);
+                perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
+                exit(1); 
+            }
             //affichage
         printf("\n[SERVEUR] Je t'envoie ton ordre %d\n", numSommet);
 
@@ -230,8 +270,19 @@ int main(int argc, char *argv[]) {
 			info_voisin_courant.descripteur = procGraphe[voisinCourant-1].descripteur;		//un descripteur
             info_voisin_courant.adrProc = procGraphe[voisinCourant-1].adrProc;				//et une adresse
                 //envoie au voisin a qui je demande
-            sendCompletTCP(procGraphe[i].descripteur, &info_voisin_courant, sizeof(struct infos_Graphe));   //on envoie les inforamtions ici adresse des voisins
-                //affichage ajout des voisins au sommet
+            s = sendCompletTCP(procGraphe[i].descripteur, &info_voisin_courant, sizeof(struct infos_Graphe));   //on envoie les inforamtions ici adresse des voisins
+                    //GESTION DES ERREURS
+                if (s == ERREUR) {
+                    printf("Je vais aovir un probleme sur lenvoie au serveur des infos au noeud %d\n", 0);
+                    perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
+                    exit(1);
+                }
+                else if (s == FERMETURE) {
+                    printf("Mon ami le serveur va sen aller c'est trop triste au noeud %d\n", 0);
+                    perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
+                    exit(1); 
+                }
+            //affichage ajout des voisins au sommet
             printf("[SERVEUR] Ajout du voisins %d au sommet %d\n",info_voisin_courant.numero, i+1);
                 
         }//fin des voisins
@@ -243,7 +294,22 @@ int main(int argc, char *argv[]) {
     int probleme = FALSE;
     int signal;
     for (int i=0; i<nb_sommets; i++) {
-        recvCompletTCP(procGraphe[i].descripteur, &signal, sizeof(int));
+        r = recvCompletTCP(procGraphe[i].descripteur, &signal, sizeof(int), 0);
+                //GESTION DES ERREURS
+            if (r == ERREUR) {
+                printf("Je vais avoir un probleme sur la reception des info au voisin %d\n", 0);
+                perror("\n[ERREUR] : Erreur lors de la reception du message ");
+                exit(1);
+            }
+            else if (r == FERMETURE) {
+                printf("Mon ami va s'en aller sur la reception des infos au voisin %d\n", 0);
+                perror("\n[ERREUR] : Abandon de la socket principale dans le la reception");
+                exit(1); 
+            } 
+            else if(r == STOP){
+                printColorPlus(0, "NON ENVOIE");printf("C'est pas le bon message passons a autre chose on s'arrete pour ce message\n");
+                continue;
+            }
         if (signal == 0) {
             probleme = TRUE;
             printf("\n[SERVEUR] : ERREUR sur le noeud %d !",i);
@@ -261,7 +327,18 @@ int main(int argc, char *argv[]) {
     else {
         for (int i=0; i<nb_sommets; i++) {
             signal = 1;
-            sendCompletTCP(procGraphe[i].descripteur, &signal, sizeof(int));   
+            s = sendCompletTCP(procGraphe[i].descripteur, &signal, sizeof(int));   
+                    //GESTION DES ERREURS
+                if (s == ERREUR) {
+                    printf("Je vais aovir un probleme sur lenvoie au serveur des infos au noeud %d\n", 0);
+                    perror("\n[ERREUR] : Erreur lors de l'envoie du message ");
+                    exit(1);
+                }
+                else if (s == FERMETURE) {
+                    printf("Mon ami le serveur va sen aller c'est trop triste au noeud %d\n", 0);
+                    perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
+                    exit(1); 
+                }
             printf("[SERVEUR] Envoi du signal au sommet %d\n", i+1);
         }
     }

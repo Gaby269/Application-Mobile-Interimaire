@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-
+ 
 ////////////////////////////////////////
 // STRUCTURES POUR ENVOI INFORMATIONS //
 //////////////////////////////////////// 
@@ -12,6 +12,7 @@
             /******************************/
             /*********** COMMUN ***********/
             /******************************/
+
 
 /// Structure qui permet de dire pour chaque voisin combien il a de voisin en totalité et cb de voisin il va devoir envoyer une demande de connection
 struct nbVois{
@@ -75,7 +76,7 @@ struct messages {
 	int requete;						//type du message : {"COULEUR"}
 	int ordreI;							//numero du processus I
 	int message;						//informations du message ici la couleur du processus I
-};
+}; 
 
 
 //Structure pour regrouper la couleur et l'ordre d'un noeud

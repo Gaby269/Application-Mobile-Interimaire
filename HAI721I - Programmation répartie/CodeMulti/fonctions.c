@@ -18,6 +18,8 @@
 #define FERMETURE 0
 #define STOP 10
 
+//DEBUG 
+
 //TYPE DE MESSAGE
 #define COULEUR 0     //un voisin vient de se colorer
 #define INFO 1   //message général pour dire que le noeud à fini de se colorer
@@ -192,7 +194,7 @@ int recvTCP(int sock, void* msg, int sizeMsg) {
 /// sock descripteur de l'envoie
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
-int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
+int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc, int numero){
 
     //PREMIER APPEL POUR LA TAILLE
     int taille_info_proc;                                                     	//creation d'une variable qui recupere la taille du message
@@ -212,9 +214,8 @@ int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
     //VERIFICATION DES TAILLES
     if (taille_info_proc > sizeinfo_proc){
-        perror("[ERREUR] La taille du message est trop grande par rapport a celle attendu dans recv");
-        close(sock);
-        exit(1);
+        printf("[NOEUD %d][ATTENTION] La taille du message est trop grande par rapport a celle attendu dans recv\n", numero);
+        return STOP;
     }
 
     //DEUXIEME APPEL POUR LE MESSAGE
@@ -599,4 +600,4 @@ void detruireVarCond(pthread_cond_t* condi){
 	      exit(1);
 	    }
 
-}
+} 
