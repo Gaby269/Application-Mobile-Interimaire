@@ -601,3 +601,11 @@ void detruireVarCond(pthread_cond_t* condi){
 	    }
 
 } 
+
+
+//FONCTION POUR TRIER LE TABLEAU DES DEGRES
+int comparateurTriDegres(const void* a, const void* b) {
+  struct degres* x = (struct degres*)a;
+  struct degres* y = (struct degres*)b;
+  return y->degre - x->degre;
+}

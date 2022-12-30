@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-
+ 
 ////////////////////////////////////////
 // STRUCTURES POUR ENVOI INFORMATIONS //
 //////////////////////////////////////// 
@@ -13,17 +13,20 @@
             /*********** COMMUN ***********/
             /******************************/
 
+
 /// Structure qui permet de dire pour chaque voisin combien il a de voisin en totalité et cb de voisin il va devoir envoyer une demande de connection
 struct nbVois{
     int nbVoisinTotal;
     int nbVoisinDemande;		//nb de voisin a qui tu doit demander une connexion
+    int nbNoeuds;
 };
 
 
 /// Structure des inforamtions avec la requete les inforamtions que l'on a besoin selon la requete et l'adresse du processus 
 struct infos_Graphe {
     int numero;                             //numero du noeud courant sur le graphe
-    int descripteur;                        //descripteur du noeud
+	int ordre;    							//ordre du noeud courant
+	int descripteur;                        //descripteur du noeud
     struct sockaddr_in adrProc;             //adresse du processus dont on parle
 };
 
@@ -43,6 +46,12 @@ struct info_nb{
   	int nb_aretes;
 };
 
+//STRUCTURE POUR STOCKER LES DEGRES DES SOMMETS
+struct degres {
+  int noeud;
+  int degre;
+};
+
 
             /*****************************/
             /*********** NOEUD ***********/
@@ -53,20 +62,31 @@ struct paramsNoeud {
   	int idThread;                         	//un identifiant de thread, de 1 à N (N le nombre total de theads secondaires)
 	int numero_proc;						//numero dans le graphe du processus courant
 	int indice_vois;						//indice du processus voisin parmis les voisins du noeud courant
-	int Acc;                              	//boolean pour savoir si je suis une acceptation ou non
-  	//int nbAccept;                         //compteur du nombre d'acceptation par noeud
-  	//int nbConnex;                         //compteur du nombre de connection par noeud    
+	int Acc;                              	//boolean pour savoir si je suis une acceptation ou non 
   	struct infos_Graphe *VoisinCourant;   	//structure des informations du voisins
-  	//struct partage * varPartage;        	//si on a des variables partagées
+};
+ 
+//THREAD structure pour regrouper les paramétres du thread pour la coloration
+struct paramsColoration {
+	int numero;								//numero dans le noeud du processus courant
+	int ordre;								//ordre du processus courant
+	int nbVoisins;							//nombre de voisins du processus courant
+	struct couleurVoisin* couleurVoisins;	//tableau des couleurs
+  	struct infos_Graphe* VoisinsCourant;   	//structure des informations du voisins
 };
 
 
-//Structure pour les variable partagées
-/*
-struct partage{
-	int * cptTotal;							//conteur pour un eventuel rendez vous
-	pthread_mutex_t verrou;					// verrou pour partager des variables
-	pthread_cond_t condi;					//variable conditionnel pour eventuel rdv
-}
-*/
 
+//Structure pour l'envoie et la reception d'un message
+struct messages {
+	int requete;						//type du message : {"COULEUR"}
+	int ordreI;							//numero du processus I
+	int message;						//informations du message ici la couleur du processus I
+}; 
+
+
+//Structure pour regrouper la couleur et l'ordre d'un noeud
+struct couleurVoisin {
+    int couleur;
+    int ordre;
+};

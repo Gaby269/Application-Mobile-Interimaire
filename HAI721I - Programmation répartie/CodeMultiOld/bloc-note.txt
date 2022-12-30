@@ -1,0 +1,117 @@
+utilisation 1 :
+python3 serveur.py graphes/graphe_petersen.txt 5000
+python3 noeuds.py graphes/graphe_petersen.txt 127.0.0.1 5000
+
+utilisation 2 :
+python3 serveur.py graphes/graphe_500.txt 8000
+python3 noeuds.py graphes/graphe_500.txt 127.0.0.1 8000
+
+
+Noeud i : 
+    - j'ai fini de choisir ma couleur :
+        - Je braodcast message <COULEUR, couleur, i> à mes voisins
+
+
+Noeud j :
+Je recoit un message <COULEUR, num_i, couleur> :
+    - if dernierFini < num_i:							//si tu savais pas que ton dernier fini tu verifie si egal 
+        - Je broadcast à mes voisins <COULEUR, num_i, couleur>
+        - dernierFini = max(dernierFini, num_i)
+        - si je suis num_i+1:
+            - Je travaille, j'envoie ma couleur, etc...
+		    - Je broadcast à mes voisins <COULEUR, num_j, couleur>
+    - couleurMax = max(couleurMax, couleur)
+    - si dernierFini == nbNoeud:
+        on connait la coloration max du graphe, s'arrête
+
+
+
+*** tableau de couleur pour tous les noeuds
+et on recup la couleur des voisins
+
+Thread qui recoit les messages
+
+
+Thread qui travaille
+	- je prend la couleur C
+    - Je récupère la couleur de tous mes voisins dans mon tableau
+    - Je choisis la couleur C la plus basse non utilisé
+    - j'envoie un message à mes voisins pour dire que j'ai pris cette couleur C
+    - j'attends la fin de la coloration
+
+
+
+
+1 --- 2 ---- 3
+|     |     
+|     |     
+5 --- 4
+|            
+6 ---------- 7
+
+soit on donne la valeur max
+soit on fait une election pour savoir la valeur max
+
+
+
+ELECTION : 
+
+- j'envoie a tout le monde ma valeur de <CANDIDAT, num_i>
+- Je recoit num_j :
+    - si num_j > num_i:
+		max = num_j
+		je renvoie l'ancien max
+
+    - si num_j < num_i :
+		max = num_i
+		je renvoie le max a mes voisins
+
+    - sinon : (donc num_j == num_i)
+		je suis le boss je vais pouvoir demarer
+        envoyer <PRESIDENT, num_i>
+
+<RECU, i>
+nbAuCourantDuPresident
+si le message 
+
+
+
+23/12 
+CE QUI RESTE A FAIRE :
+- Trouver une election ou mettre un ordre sympa
+- Faire le rapport
+- Corriger les warnings
+
+
+
+FAIT :
+- ajout d'une ligne pour attribuer le tableau des voisin oublié pour different de 1
+- ajout de plein daffichage
+- changement lors de l fermeture de socket avec le serveur (modif du max)
+- pas update le tableau si j'ai fini
+- Ajour d'un input niveau serveur pour timer la coloration
+- Serveur qui attend que tout le monde ai fini pour commencer la coloration
+- rename VoisinCourant structure
+
+
+
+
+
+28/12 Gaby
+- Ajout affichage : 
+  * VERIFICATION CREATE (l. et l. dans noeud.c) : affichage avant la creation du thread du numero, de lordre et du nb de voisin
+  * VERIFICATION THREAD (l. dans noeud.c) : affichage dans le thread du type de message, de l'ordre, et de la couleur
+  * ATTENTION (l. fonction.c) : avertir l'interlocuteur que la taille est pas bonne et on continue mais on nenvoie pas ce message pour l'instant
+    ~ ajout STOP variable globale egal a 10 pour cette situation et return 10 au lieu du message
+    ~ enleve le exit  et le close
+    ~ modif de la taille dans le recv dapres
+    ~ modif dans le noeuds.c pour la gestion des erreurs et ajout du cas STOP
+    ~ ajout d'une indication de quelle recv on parle
+    ~ ajout dune fonction recvCompletTCP2 pour faire le debug comme pour send
+    ~ affichage du num noeud dou ca vient ajouté dans les parametres
+  * MESSAGE (l. noeuds.c) affichage du message qui n'est pas un message que l'on attent
+    ~ il ne sera pas envoyé
+    ~ nous permet de voir ou ca merde
+    ~ affichage du num noeud dou ca vient
+
+donc actuellemrnt on est a 42 coloriable meme si ya des affichages un peu chelou mais en gros c'est ca

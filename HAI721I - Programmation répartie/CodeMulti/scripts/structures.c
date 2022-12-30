@@ -46,6 +46,12 @@ struct info_nb{
   	int nb_aretes;
 };
 
+//STRUCTURE POUR STOCKER LES DEGRES DES SOMMETS
+struct degres {
+  int noeud;
+  int degre;
+};
+
 
             /*****************************/
             /*********** NOEUD ***********/

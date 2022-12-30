@@ -16,12 +16,20 @@
 #define FALSE 0
 #define ERREUR -1
 #define FERMETURE 0
+#define STOP 10
+
+//DEBUG 
+
+//TYPE DE MESSAGE
+#define COULEUR 0     //un voisin vient de se colorer
+#define INFO 1        //pour transmettre l'info que le noeud à fini de se colorer
 
 //NOEUD POUR LES MISES EN ECOUTE
 #define NOEUDS_MAX 100          //on fixe le nombre de noeud qui peuvent être accepter en même temps par le serveur
 
-	
-
+//FONCTION MAX
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+    
 ////////////////////////////////////////////////////////////////
 ////////////////// FONCTION DES AFFICHAGES /////////////////////
 ////////////////////////////////////////////////////////////////
@@ -36,23 +44,13 @@ void printColor(int numero) {
     printf("\x1B[3%cm[NOEUD %d] \033[0m", couleurProd, numero);
 }
 
-/////////////////////////////
-// FONCTION PRINTCOLORPLUS //
-/////////////////////////////
-/// Fonction qui affiche le prefixe du commentaire a savoir [NOEUD %<numeroDuNoeud>] afficher en couleurs
-/// numero numéro du noeud dans le graphe
-/// type type du commentaire afficher en majuscules et en couleur dans la console
+
 void printColorPlus(int numero, char*type){
     int couleurProd = ((numero%6)+1) + '0';
     printf("\x1B[3%cm[NOEUD %d] %s \033[0m", couleurProd, numero, type);
 }
 
-/////////////////////////////
-// FONCTION PRINTCOLORPLUS //
-/////////////////////////////
-/// Fonction qui affiche le prefixe du commentaire a savoir [NOEUD %<numeroDuNoeud>] afficher en couleurs
-/// numero numéro du noeud dans le graphe
-/// type type du commentaire afficher en majuscules et en couleur dans la console
+
 void printColorThread(int numero, pthread_t thread){
     int couleurProd = ((numero%6)+1) + '0';
     printf("\x1B[3%cm[THREAD %lu]\033[0m", couleurProd, thread);
@@ -69,7 +67,6 @@ void printColorNoeud(char * message1, int numero, char * message2) {
     int couleurProd = (numero%6)+1 + '0';
     printf("\x1B[3%cm%s%d%s\033[0m", couleurProd, message1, numero, message2);
 }
-
 
 
 
@@ -95,7 +92,7 @@ int sendTCP(int sock, void* info_proc, int taille) {
     while(env < taille) {   //tant que la taille de l'envoie est plus petite que la taille donnée
 
         res = send(sock, info_proc+env, taille-env, 0);   //on appelle  pour recevoir le message
-        env += res;         //et on augmente la taille
+        env += res;
 
         //GESTION ERREUR
         if (res <= 0) {
@@ -113,41 +110,51 @@ int sendTCP(int sock, void* info_proc, int taille) {
 /// sock descripteur pour envoi
 /// info_proc message à envoyer
 /// sizeinfo_proc taille du message
-void sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
+int sendCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
 
     //PREMIER APPEL POUR LA TAILLE                                                          //creation d'une variable qui recupere la taille du message
     int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));                     //on envoie la taille du message
+    //printf("taille : %d::%d\n", sizeinfo_proc, numero);
     
         //GESTION DES ERREURS
-        if (res_premier_appel == ERREUR) {
-            perror("\n[ERREUR] : Erreur lors de l'envoie de la taille du message : ");
-            close(sock);
-            exit(1);          // on choisit ici d'arrêter le programme car le reste
-        }
-        if (res_premier_appel == FERMETURE) {
-            printf("\n[ABANDON] : Abandon de la socket principale lors de l'envoie de la taille du message");
-            //close(sock);
-            //exit(1);          // on choisit ici d'arrêter le programme
-        }
+    if (res_premier_appel == ERREUR) {
+        perror("[ERREUR] : Erreur lors de l'envoi de la taille du message ::");
+        exit(1);
+    }
+    else if (res_premier_appel == FERMETURE) {
+        printf("[ABANDON] : Abandon de la socket principale lors de l'envoie de la taille du message\n");
+        exit(1);
+    }
 
     //DEUXIEME APPEL POUR LE MESSAGE
-    int res_deuxieme_appel = sendTCP(sock, info_proc, sizeinfo_proc);     //on envoie la taille du message
-   
-        //GESTION DES ERREURS
-        if (res_deuxieme_appel == ERREUR) {
-            perror("\n[ERREUR] : Erreur lors de l'envoie du message : ");
-            close(sock);
-            exit(1);          // on choisit ici d'arrêter le programme cr le reste depend de cet envoie
-        }
-        if (res_deuxieme_appel == FERMETURE) {
-            perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
-            //close(sock);
-            //exit(1);          // on choisit ici d'arrêter le programme car le reste depend de cet envoie
-        }
+    return sendTCP(sock, info_proc, sizeinfo_proc);     //on envoie la taille du message
 
-    //return sendTCP(sock, info_proc, sizeinfo_proc);
-    //GESTION ERREUR POUR CHAQUE :
-        // 
+}
+
+
+
+
+// TEMPORAIRE POUR DEBUG
+int sendCompletTCP2(int sock, void* info_proc, int sizeinfo_proc, int numero){
+
+    //PREMIER APPEL POUR LA TAILLE                                                          //creation d'une variable qui recupere la taille du message
+    int res_premier_appel = sendTCP(sock, &sizeinfo_proc, sizeof(int));                     //on envoie la taille du message
+    //printf("taille : %d::%d\n", sizeinfo_proc, numero);
+    
+        //GESTION DES ERREURS
+    if (res_premier_appel == ERREUR) {
+        printColorPlus(numero, "ERREUR");
+        perror("[ERREUR] : Erreur lors de l'envoie de la taille du message ::");
+        exit(1);
+    }
+    else if (res_premier_appel == FERMETURE) {
+        printColorPlus(numero, "ERREUR");
+        printf("[ABANDON] : Abandon de la socket principale lors de l'envoie de la taille du message\n");
+        exit(1);
+    }
+
+    //DEUXIEME APPEL POUR LE MESSAGE
+    return sendTCP(sock, info_proc, sizeinfo_proc);     //on envoie la taille du message
 
 }
 
@@ -167,18 +174,16 @@ int recvTCP(int sock, void* msg, int sizeMsg) {
     while(received < sizeMsg) {
         res = recv(sock, msg+received, sizeMsg-received, 0);
         received += res;
-
         if (res == -1) {
             printf("Problème lors de la réception du message\n");
             return -1;
-        }
-        else if (res == 0) {
+        } else if (res == 0) {
             return 0;
         }
     }
-
     return received;
 }
+
 
 
 
@@ -189,47 +194,65 @@ int recvTCP(int sock, void* msg, int sizeMsg) {
 /// sock descripteur de l'envoie
 /// info_proc message recu
 /// sizeinfo_proc taille du message a recu
-void recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc){
+int recvCompletTCP(int sock, void* info_proc, int sizeinfo_proc, int numero){
 
     //PREMIER APPEL POUR LA TAILLE
     int taille_info_proc;                                                     	//creation d'une variable qui recupere la taille du message
     int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeof(int));       //on recoit la taille du message
-    //printf("res = %i\n", res_premier_appel);
-    //printf("taille = %i\n", taille_info_proc);
-    
    
-        //GESTION DES ERREURS
-        if (res_premier_appel == ERREUR) {
-            perror("\n[ERREUR] : Erreur lors de la reception de la taille du message : ");
-            close(sock);
-            exit(1);          // on choisit ici d'arrêter le programme 
-        }//FERMETURE  = 0
-        if (res_premier_appel == FERMETURE) { //peut pas confondre avec le fait de ne recevoir rien car on attend si on recoit rien
-            printf("\n[ABANDON] : Abandon de la socket principale lors de recv\n");
-            //close(sock);
-            //exit(1);          // on choisit ici d'arrêter le programme 
-        }
+    //GESTION DES ERREURS
+    if (res_premier_appel == ERREUR) {
+        perror("[ERREUR] : Erreur lors de la reception de la taille du message : ");
+        close(sock);
+        exit(1);
+    }
+    else if (res_premier_appel == FERMETURE) { //peut pas confondre avec le fait de ne recevoir rien car on attend si on recoit rien
+        printf("[ABANDON DE LA TAILLE] : Abandon de la socket principale lors de recv (recv %d)\n", res_premier_appel);
+        close(sock);
+        exit(1);
+    }
 
-   //VERIFICATION DES TAILLES
-   if (taille_info_proc > sizeinfo_proc){
-      perror("[ERREUR] La taille du message est trop grande par rapport a celle attendu dans recv");
-      exit(1);
-   }
+    //VERIFICATION DES TAILLES
+    if (taille_info_proc > sizeinfo_proc){
+        printf("[NOEUD %d][ATTENTION] La taille du message est trop grande par rapport a celle attendu dans recv\n", numero);
+        return STOP;
+    }
 
     //DEUXIEME APPEL POUR LE MESSAGE
-    int res_deuxieme_appel = recvTCP(sock, info_proc, sizeinfo_proc);     //on recoit la taille du message
+    return recvTCP(sock, info_proc, sizeinfo_proc);     //on recoit la taille du message
+
+}
+
+
+//POUR DEBUG
+int recvCompletTCP2(int sock, void* info_proc, int sizeinfo_proc, int numero, char* message){
+
+    //PREMIER APPEL POUR LA TAILLE
+    int taille_info_proc;                                                     	//creation d'une variable qui recupere la taille du message
+    int res_premier_appel = recvTCP(sock, &taille_info_proc, sizeof(int));       //on recoit la taille du message
    
-        //GESTION DES ERREURS
-        if (res_deuxieme_appel == ERREUR) {
-            perror("\n[ERREUR] : Erreur lors de la reception du message : ");
-            close(sock);
-            exit(1);          // on choisit ici d'arrêter le programme 
-        }
-        if (res_deuxieme_appel == FERMETURE) {
-            printf("\n[ABANDON] : Abandon de la socket principale lors de recv\n");
-            //close(sock);
-            //exit(1);          // on choisit ici d'arrêter le programme 
-        }
+    //GESTION DES ERREURS
+    if (res_premier_appel == ERREUR) {
+        printf("[NOEUD %d]", numero);
+        perror("[ERREUR] : Erreur lors de la reception de la taille du message : ");
+        close(sock);
+        exit(1);
+    }
+    else if (res_premier_appel == FERMETURE) { //peut pas confondre avec le fait de ne recevoir rien car on attend si on recoit rien
+        printf("[NOEUD %d]\n", numero);
+        printf("[ABANDON DE LA TAILLE] : Abandon de la socket principale lors de recv (recv %d)\n", res_premier_appel);
+        close(sock);
+        exit(1);
+    }
+
+    //VERIFICATION DES TAILLES
+    if (taille_info_proc > sizeinfo_proc){
+        printf("[NOEUD %d][ATTENTION] La taille du message est trop grande par rapport a celle attendu dans recv :: %s\n", numero, message);
+        return STOP;
+    }
+
+    //DEUXIEME APPEL POUR LE MESSAGE
+    return recvTCP(sock, info_proc, sizeinfo_proc);     //on recoit la taille du message
 
 }
 
@@ -245,12 +268,12 @@ int creationSocket (){
 
     int dS = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);  //on crée la socket enTCP
 
-        //GESTION DES ERREUR
-        if (dS == ERREUR){
-            perror("[ERREUR] Problème lors de la création de la socket : ");
-            close(dS);          //on ferme la socket
-            exit(1);            //on sort du programme
-        }
+    //GESTION DES ERREUR
+    if (dS == ERREUR){
+        perror("[ERREUR] Problème lors de la création de la socket : ");
+        close(dS);          //on ferme la socket
+        exit(1);            //on sort du programme
+    }
 
     return dS;        //on retourne le descripteur
 }
@@ -271,17 +294,17 @@ struct sockaddr_in nommageSocket(int dS, char * port){
     adrSocket.sin_addr.s_addr = INADDR_ANY;                     //Attache la socket à toutes les interfaces réseaux locales : toutes les adresses de la station
     adrSocket.sin_port = htons((short) atoi(port)) ;            // on doit convertir la chaine de caractères en nombre
 
-    int res_bind_noeud = bind(dS,                                   // descripteur de socket
-                                (struct sockaddr*)&adrSocket,       // pointeur vers l'adresse
-                                sizeof(adrSocket)) ;                // longueur de l'adresse
+    int res_bind_noeud = bind(dS,                               // descripteur de socket
+                            (struct sockaddr*)&adrSocket,       // pointeur vers l'adresse
+                            sizeof(adrSocket)) ;                // longueur de l'adresse
 
 
         //GESTION ERREUR
-        if (res_bind_noeud == ERREUR) {
-            perror("\n\n[ERREUR] lors du nommage de la socket : ");
-            close(dS);
-            exit(1); // on choisit ici d'arrêter le programme
-        }
+    if (res_bind_noeud == ERREUR) {
+        perror("\n\n[ERREUR] lors du nommage de la socket : ");
+        close(dS);
+        exit(1); // on choisit ici d'arrêter le programme
+    }
 
     return adrSocket;
     
@@ -307,16 +330,15 @@ struct sockaddr_in designationSocket(char * adresseIP, char* port){
     int res_conv = inet_pton(AF_INET, adresseIP, &(sock.sin_addr));          //convertire l'adresse
 
 		//GESTION ERREUR
-    	if (res_conv == ERREUR){
-	        printf("\n[PROCESSUS] Problème lors de la convertion de l'adresse IP\n");
-	        exit(1);
-	    }
+    if (res_conv == ERREUR){
+        printf("\n[PROCESSUS] Problème lors de la convertion de l'adresse IP\n");
+        exit(1);
+    }
 
     //RECUPERATION PORT
     sock.sin_port = htons( (short) atoi(port)) ;                             // port du processus aussi donnée en parametre exemple "3430"
 
     return sock;      //on retourne la socket designer
-
 }
 
 
@@ -330,20 +352,19 @@ struct sockaddr_in designationSocket(char * adresseIP, char* port){
 /// sock adresse de la socket a qui doit etre connecté
 void connexion(int dS, struct sockaddr_in* sock){
       
-   //TAILLE DE LADRESSE SERVEUR :
+   //TAILLE DE L'ADRESSE SERVEUR :
    socklen_t size_addr = sizeof(struct sockaddr_in);             //on veut donc la taille de la socket du serveur
 
-   //connexion
    int res_connect = connect(dS,                            // descripteur de socket
                             (struct sockaddr*)sock,         // pointeur vers l'adresse
                             size_addr);                     // longueur de l'adresse
 
         //GESTION ERREUR
-        if (res_connect == ERREUR) {
-            perror("\n[ERREUR] lors de la demande de connexion : ");
-            close(dS);
-            exit(1);
-        }
+    if (res_connect == ERREUR) {
+        perror("\n[ERREUR] lors de la demande de connexion : ");
+        close(dS);
+        exit(1);
+    }
 
 }
 
@@ -361,20 +382,12 @@ void ecouter(int dS, int nbProc){
     int res_listen = listen(dS, nbmaxAttente);               //met en ecoute au max pour nbmaxAttentenoeuds
 
         //GESTION ERREUR
-        if (res_listen == ERREUR) {
-            perror("\n\n[ERREUR] : Erreur lors de la mise en ecoute de la socket : ");
-            close(dS);
-            exit(1);
-        }
+    if (res_listen == ERREUR) {
+        perror("\n\n[ERREUR] : Erreur lors de la mise en ecoute de la socket : ");
+        close(dS);
+        exit(1);
+    }
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -587,7 +600,12 @@ void detruireVarCond(pthread_cond_t* condi){
 	      exit(1);
 	    }
 
+} 
+
+
+//FONCTION POUR TRIER LE TABLEAU DES DEGRES
+int comparateurTriDegres(const void* a, const void* b) {
+  struct degres* x = (struct degres*)a;
+  struct degres* y = (struct degres*)b;
+  return y->degre - x->degre;
 }
-
-
-

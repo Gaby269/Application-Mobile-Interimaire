@@ -1,5 +1,6 @@
 #include "fonctions.c" 
     
+
 /////////////////////////
 //  PROGRAME SERVEUR   //
 /////////////////////////
@@ -11,12 +12,13 @@ int main(int argc, char *argv[]) {
 
     //GESTION PARAMETRES
     if (argc != 3) {
-        printf("\n[UTILISATION] : %s port_serveur fichier_graphe\n\n", argv[0]);
+        printf("\n[UTILISATION] : %s fichier_graphe port_serveur\n\n", argv[0]);
         exit(1);
     }
 
-    char* portServeur = argv[1];        //port du serveur
-    char* nom_fichier = argv[2];        //nom du fichier ou recuperer la structure du graphe
+
+    char* nom_fichier = argv[1];        //nom du fichier ou recuperer la structure du graphe
+    char* portServeur = argv[2];        //port du serveur
 	int nombre_connexion = 0;			//pour calculer le nombre de connexion au serveur
 
 	
@@ -88,7 +90,27 @@ int main(int argc, char *argv[]) {
         nombre_connexion+=nbVoisin[i].nbVoisinDemande;
     }
     printf("\n************************************************\n************************************************\n");   
+
+    //ETAPE INTERMEDIARE : calcul du degré des noeuds pour déterminer l'ordre
+    struct degres degres[nb_sommets];
+
+    //initialisation du tableau
+    for (int i = 0; i < nb_sommets; i++) {
+        degres[i].noeud = i + 1;
+        degres[i].degre = 0;
+    }
+
+    //calcul du degré
+    for (int i = 0; i < nb_aretes; i++) {
+        degres[liste_aretes[i].noeud1 - 1].degre++;
+        degres[liste_aretes[i].noeud2 - 1].degre++;
+    }
+
+    //tri du tableau
+    qsort(degres, nb_sommets, sizeof(struct degres), comparateurTriDegres);
+
     
+    printf("\n************************************************\n************************************************\n");   
 
     //ETAPE 3 : GESTION DE LA SOCKET SERVEUR
 
@@ -166,7 +188,6 @@ int main(int argc, char *argv[]) {
         sockNoeud = info_proc.adrProc;                                          //donner a sockNoeud l'adresse recu dans info_proc
         int indice_proc = info_proc.numero-1;                                   //donne l'indice
         procGraphe[indice_proc].numero = indice_proc+1;                         //on attribue l'indice du noeud +1 car on donne le numero et non
-        procGraphe[indice_proc].ordre = numSommet;                              //on attribue l'ordre
         procGraphe[indice_proc].descripteur = dSNoeud;                          //on attribue le descripteur
         procGraphe[indice_proc].adrProc = sockNoeud;                            //on attribue l' adresse
         //AFFICHAGE
@@ -206,8 +227,16 @@ int main(int argc, char *argv[]) {
         printf("      Nombre de voisin de demande = %d\n", nbVoisin[indice_proc].nbVoisinDemande);
 		
         //ETAPE : ENVOIE DE TON ORDRE POUR LA SUITE
-            //envoi
-        s = sendCompletTCP(dS_courant, &numSommet, sizeof(int));
+        int ordre;
+        //on cherche l'ordre dans le tableau des degres
+        for (int i=0; i<nb_sommets; i++) {
+            if (degres[i].noeud == numSommet) {
+                ordre = i+1;
+            }
+        }
+        
+        procGraphe[indice_proc].ordre = ordre;                              //on attribue l'ordre
+        s = sendCompletTCP(dS_courant, &ordre, sizeof(int));
                 //GESTION DES ERREURS
             if (s == ERREUR) {
                 printf("Je vais aovir un probleme sur lenvoie au serveur des infos au noeud %d\n", 0);
@@ -219,7 +248,7 @@ int main(int argc, char *argv[]) {
                 perror("\n[ERREUR] : Abandon de la socket principale dans le l'envoie");
                 exit(1); 
             }
-            //affichage
+            
         printf("\n[SERVEUR] Je t'envoie ton ordre %d\n", numSommet);
 
 

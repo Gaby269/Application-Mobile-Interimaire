@@ -115,6 +115,5 @@ void Aretes (char * nom_fichier, struct aretes * aretes) {
 			continue;
     	}
 	}	//fin de lecture
-  
-  
+
 }
