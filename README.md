@@ -1,9 +1,9 @@
 # Projet_M1_IASD
 
 Ce répertoire continet les projet de M1 en master IASD avec les groupes suivants :
-- Fondement de l'IA : Gabrielle - Gatien
-- Entrepot de Données et Big data : Gabrielle - Gatien - Sofian
-- Programmation répartie : Gabrielle - Gatien
+- HAI710I - Fondement de l'IA : Gabrielle - Gatien
+- HAI708I - Entrepot de Données et Big data : Gabrielle - Gatien - Sofian
+- HAI721I - Programmation répartie : Gabrielle - Gatien
 
 Pour chaque TD/TP, il y a les differents dossier correspondant.
 
