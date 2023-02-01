@@ -1,8 +1,0 @@
-17/12/2022
-Modification du nom dSProcArete en dSVoisinAttente pour matcher avec les deux autres noms de socket
-
-18/12/2022
-- Structure "paramsColoration" ajoutée > /structures.c
-- Ajout de la fonction de thread "Coloration", qui à partir du tableau des couleurs des voisins va calculer la plus petite couleur disponible
-Manque à broadcast la couleur utilisée
-- To do : 
