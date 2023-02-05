@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HAI811I - PW1</string>
+    <string name="info">Enter your contact details :</string>
+    <string name="prenom">First name</string>
+    <string name="nom">Last Name</string>
+    <string name="age">Age :</string>
+    <string name="competence">Skills area :</string>
+    <string name="numTel">Phone number :</string>
+    <string name="valider">Validate</string>
+    <string name="coordonne">Your contact details :</string>
+    <string name="avertissement">Please enter all fields !</string>
+    <string name="verif_titre">Confirmation de vos coordonnées</string>
+    <string name="verif_msg">Est ce bien vos coordonnées ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="annulation">You have canceled your entry.</string>
+    <string name="infoAff">Viewing your contact details :</string>
+    <string name="retour">Back</string>
+    <string name="accueil">Welcome</string>
+    <string name="affFinal">Entry finished!\n\nPlease return to the home screen.</string>
+    <string name="appel">Call</string>
+    <string name="affAppel">Do you want to call ?</string>
+</resources>
