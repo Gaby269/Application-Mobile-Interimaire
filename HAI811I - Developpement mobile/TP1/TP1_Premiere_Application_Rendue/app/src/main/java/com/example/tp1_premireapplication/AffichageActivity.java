@@ -59,7 +59,6 @@ public class AffichageActivity extends AppCompatActivity {
 
         // Bouton pour dire okk
         Button buttonOk = findViewById(R.id.ok_button);
-        buttonOk.setBackgroundColor(R.color.jaune_900);
         buttonOk.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -75,7 +74,6 @@ public class AffichageActivity extends AppCompatActivity {
 
 
         Button button_language = findViewById(R.id.bouton_langage);
-        button_language.setBackgroundColor(R.color.black);
         button_language.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String languageToLoad;

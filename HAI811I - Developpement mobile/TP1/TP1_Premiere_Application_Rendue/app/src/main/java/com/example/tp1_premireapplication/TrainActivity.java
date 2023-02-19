@@ -38,7 +38,6 @@ public class TrainActivity extends AppCompatActivity {
 
         // Valider avec un bouton et action lors d'un click
         Button buttonTrain = findViewById(R.id.boutonRecherche);
-        buttonTrain.setBackgroundColor(R.color.rouge_500);
         buttonTrain.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +151,6 @@ public class TrainActivity extends AppCompatActivity {
 
         // Retouner avec un bouton et action lors d'un click
         Button buttonAccueil = findViewById(R.id.boutonAccueil);
-        buttonAccueil.setBackgroundColor(R.color.black);
         buttonAccueil.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,8 +159,9 @@ public class TrainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
         Button button_language = findViewById(R.id.bouton_langage);
-        button_language.setBackgroundColor(R.color.black);
         button_language.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String languageToLoad;

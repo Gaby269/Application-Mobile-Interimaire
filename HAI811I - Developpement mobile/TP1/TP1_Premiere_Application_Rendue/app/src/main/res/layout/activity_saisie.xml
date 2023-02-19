@@ -115,7 +115,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextTelephone"
         android:layout_marginStart="70dp"
-        android:background="@color/black"
         android:text="@string/accueil"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

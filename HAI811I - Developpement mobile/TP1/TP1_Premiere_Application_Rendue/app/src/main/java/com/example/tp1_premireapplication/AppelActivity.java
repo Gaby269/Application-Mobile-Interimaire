@@ -44,7 +44,6 @@ public class AppelActivity extends AppCompatActivity {
 
         // Bouton pour retourner à la page d'acueil
         Button buttonAppel = findViewById(R.id.appel_button);
-        buttonAppel.setBackgroundColor(R.color.jaune_900);
         buttonAppel.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -67,7 +66,6 @@ public class AppelActivity extends AppCompatActivity {
 
         // Bouton pour retourner à la page d'acueil
         Button buttonAccueil = findViewById(R.id.accueil_bouton);
-        buttonAccueil.setBackgroundColor(R.color.black);
         buttonAccueil.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -83,7 +81,6 @@ public class AppelActivity extends AppCompatActivity {
 
 
         Button button_language = findViewById(R.id.bouton_langage);
-        button_language.setBackgroundColor(R.color.black);
         button_language.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String languageToLoad;
