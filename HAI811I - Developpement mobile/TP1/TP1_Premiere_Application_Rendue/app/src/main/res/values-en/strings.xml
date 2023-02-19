@@ -10,8 +10,8 @@
     <string name="valider">Validate</string>
     <string name="coordonne">Your contact details :</string>
     <string name="avertissement">Please enter all fields !</string>
-    <string name="verif_titre">Confirmation de vos coordonnées</string>
-    <string name="verif_msg">Est ce bien vos coordonnées ?</string>
+    <string name="verif_titre">Confirmation of your contact details</string>
+    <string name="verif_msg">Is this your contact details ?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="annulation">You have canceled your entry.</string>
