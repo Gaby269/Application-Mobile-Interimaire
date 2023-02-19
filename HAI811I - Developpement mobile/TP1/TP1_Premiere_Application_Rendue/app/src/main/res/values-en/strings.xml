@@ -22,7 +22,7 @@
     <string name="appel">Call</string>
     <string name="affAppel">Do you want to call ?</string>
     <string name="train">Train</string>
-    <string name="saisie">Saisie</string>
+    <string name="saisie">Entry</string>
     <string name="textTrain">What route do you want to take?</string>
     <string name="ville_depart">Departure</string>
     <string name="ville_arrive">Arrival</string>
@@ -37,5 +37,7 @@
     <string name="agenda">Calendar</string>
     <string name="pas_ev">No event for this date</string>
     <string name="ajout_even">"Addition made"</string>
-    <string name="langage">Frensh</string>
+    <string name="langage">🌐 EN</string>
+    <string name="changed_language">Langage défini en Francais</string>
+    <string name="new_event_title">Hello ! It\'s</string>
 </resources>

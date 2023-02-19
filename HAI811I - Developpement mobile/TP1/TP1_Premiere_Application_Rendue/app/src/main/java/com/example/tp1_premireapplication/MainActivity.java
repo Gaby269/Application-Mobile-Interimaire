@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,15 +58,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button button_language = findViewById(R.id.bouton_langage);
+        Button button_language = findViewById(R.id.button_language);
         button_language.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
                 String languageToLoad;
-                if (Locale.getDefault().getLanguage() == "en") {
-                    languageToLoad= "fr";
-                } else {
+                if (Locale.getDefault().getLanguage() == "fr") {
                     languageToLoad= "en";
+                } else {
+                    languageToLoad= "fr";
                 }
+                Toast.makeText(MainActivity.this, R.string.changed_language, Toast.LENGTH_SHORT).show();
                 Locale locale = new Locale(languageToLoad);
                 Locale.setDefault(locale);
                 Configuration config = new Configuration();

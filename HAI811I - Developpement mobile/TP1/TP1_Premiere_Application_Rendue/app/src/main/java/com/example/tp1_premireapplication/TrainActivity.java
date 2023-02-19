@@ -160,27 +160,7 @@ public class TrainActivity extends AppCompatActivity {
             }
         });
 
-
-        Button button_language = findViewById(R.id.bouton_langage);
-        button_language.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                String languageToLoad;
-                if (Locale.getDefault().getLanguage() == "en") {
-                    languageToLoad= "fr";
-                } else {
-                    languageToLoad= "en";
-                }
-                Locale locale = new Locale(languageToLoad);
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-                recreate();
-            }
-        });
-
     }
-
 
 }
 

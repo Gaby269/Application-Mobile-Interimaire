@@ -37,7 +37,7 @@
     <string name="agenda">Agenda</string>
     <string name="pas_ev">Pas d\'évènement pour cette date</string>
     <string name="ajout_even">"Ajout effectué"</string>
-    <string name="langage">Anglais</string>
-    <string name="titre_event">Titre de l\'événement</string>
-    <string name="date_event">Date (AAAA-MM-JJ)</string>
+    <string name="langage">🌐 FR</string>
+    <string name="changed_language">Language switched to English</string>
+    <string name="new_event_title">Bonjour ! nous sommes le</string>
 </resources>
