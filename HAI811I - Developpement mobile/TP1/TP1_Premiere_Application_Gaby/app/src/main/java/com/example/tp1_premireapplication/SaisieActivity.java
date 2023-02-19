@@ -40,7 +40,6 @@ public class SaisieActivity extends AppCompatActivity {
 
         // Valider avec un bouton et action lors d'un click
         Button buttonValider = findViewById(R.id.bouton_valider);
-        buttonValider.setBackgroundColor(R.color.jaune_900);
         buttonValider.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +51,6 @@ public class SaisieActivity extends AppCompatActivity {
 
         // Valider avec un bouton et action lors d'un click
         Button buttonAccueil = findViewById(R.id.bouton_accueil);
-        buttonAccueil.setBackgroundColor(R.color.black);
         buttonAccueil.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +62,6 @@ public class SaisieActivity extends AppCompatActivity {
 
 
         Button button_language = findViewById(R.id.bouton_langage);
-        button_language.setBackgroundColor(R.color.black);
         button_language.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String languageToLoad;
@@ -94,7 +91,6 @@ public class SaisieActivity extends AppCompatActivity {
 
         // Verification des champs pour être sur qu'ils soient remplit
         if (prenom.getText().toString().length() <= 1 || nom.getText().toString().length() <= 1 || age.getText().toString().length() <= 1 || competence.getText().toString().length() <= 1 || tel.getText().toString().length() < 10){
-            v.setBackgroundColor(ContextCompat.getColor(SaisieActivity.this, R.color.rose_500));
             Toast.makeText(SaisieActivity.this,R.string.avertissement,Toast.LENGTH_SHORT).show();
         }
         else{

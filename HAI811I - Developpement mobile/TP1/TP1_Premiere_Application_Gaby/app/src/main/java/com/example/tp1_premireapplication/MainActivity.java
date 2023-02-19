@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Valider avec un bouton et action lors d'un click
         Button buttonTrain = findViewById(R.id.bouton_train);
-        buttonTrain.setBackgroundColor(R.color.rouge_900);
         buttonTrain.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Valider avec un bouton et action lors d'un click
         Button buttonSaisie = findViewById(R.id.bouton_saisie);
-        buttonSaisie.setBackgroundColor(R.color.jaune_900);
         buttonSaisie.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Valider avec un bouton et action lors d'un click
         Button buttonCalendrier = findViewById(R.id.bouton_agenda);
-        buttonCalendrier.setBackgroundColor(R.color.bleu_900);
         buttonCalendrier.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button button_language = findViewById(R.id.bouton_langage);
-        button_language.setBackgroundColor(R.color.black);
         button_language.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String languageToLoad;
