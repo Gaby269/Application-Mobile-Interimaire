@@ -2,6 +2,7 @@ package com.example.tp1_premireapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +10,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 
 public class AffichageActivity extends AppCompatActivity {
@@ -56,6 +59,7 @@ public class AffichageActivity extends AppCompatActivity {
 
         // Bouton pour dire okk
         Button buttonOk = findViewById(R.id.ok_button);
+        buttonOk.setBackgroundColor(R.color.jaune_900);
         buttonOk.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -68,6 +72,30 @@ public class AffichageActivity extends AppCompatActivity {
             }
 
         });
+
+
+        Button button_language = findViewById(R.id.bouton_langage);
+        button_language.setBackgroundColor(R.color.black);
+        button_language.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String languageToLoad;
+                if (Locale.getDefault().getLanguage() == "en") {
+                    languageToLoad= "fr";
+                } else {
+                    languageToLoad= "en";
+                }
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+            }
+        });
+
+
     }
+
+
 
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import android.telecom.Call;
 
 import java.text.BreakIterator;
+import java.util.Locale;
 
 public class AppelActivity extends AppCompatActivity {
 
@@ -42,6 +44,7 @@ public class AppelActivity extends AppCompatActivity {
 
         // Bouton pour retourner à la page d'acueil
         Button buttonAppel = findViewById(R.id.appel_button);
+        buttonAppel.setBackgroundColor(R.color.jaune_900);
         buttonAppel.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -63,8 +66,9 @@ public class AppelActivity extends AppCompatActivity {
 
 
         // Bouton pour retourner à la page d'acueil
-        Button buttonRetour = findViewById(R.id.retour_bouton);
-        buttonRetour.setOnClickListener(new OnClickListener() {
+        Button buttonAccueil = findViewById(R.id.accueil_bouton);
+        buttonAccueil.setBackgroundColor(R.color.black);
+        buttonAccueil.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -76,6 +80,28 @@ public class AppelActivity extends AppCompatActivity {
             }
 
         });
+
+
+        Button button_language = findViewById(R.id.bouton_langage);
+        button_language.setBackgroundColor(R.color.black);
+        button_language.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String languageToLoad;
+                if (Locale.getDefault().getLanguage() == "en") {
+                    languageToLoad= "fr";
+                } else {
+                    languageToLoad= "en";
+                }
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+            }
+        });
+
+
     }
 
 }

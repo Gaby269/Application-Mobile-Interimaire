@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".TrainActivity">
 
     <Button
         android:id="@+id/bouton_langage"
@@ -19,95 +19,92 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
+
     <TextView
-        android:id="@+id/AffichageMain"
+        android:id="@+id/textTrain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/affichage_main"
+        android:text="@string/textTrain"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.141" />
+        app:layout_constraintVertical_bias="0.135" />
 
-    <ImageView
-        android:id="@+id/im_saisie"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="60dp"
-        android:importantForAccessibility="no"
-        app:layout_constraintEnd_toStartOf="@+id/bouton_saisie"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AffichageMain"
-        app:srcCompat="@drawable/saisie2"/>
-
-    <Button
-        android:id="@+id/bouton_saisie"
+    <EditText
+        android:id="@+id/editTextDepart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
-        android:text="@string/saisie"
-        android:textColor="@color/white"
+        android:autofillHints=""
+        android:ems="15"
+        android:hint="@string/ville_depart"
+        android:inputType="text"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.793"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AffichageMain"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/textTrain"
+        app:layout_constraintVertical_bias="0.046" />
 
-    <ImageView
-        android:id="@+id/im_train"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="80dp"
-        android:importantForAccessibility="no"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.858"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bouton_saisie"
-        app:srcCompat="@drawable/train" />
-
-    <Button
-        android:id="@+id/bouton_train"
+    <EditText
+        android:id="@+id/editTextArrive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/train"
-        android:textColor="@color/white"
+        android:autofillHints=""
+        android:ems="15"
+        android:hint="@string/ville_arrive"
+        android:inputType="text"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/im_saisie"
-        app:layout_constraintVertical_bias="0.255" />
-
-    <ImageView
-        android:id="@+id/im_agenda"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="70dp"
-        android:importantForAccessibility="no"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.221"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bouton_train"
-        app:srcCompat="@drawable/agenda" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDepart"
+        app:layout_constraintVertical_bias="0.030" />
 
     <Button
-        android:id="@+id/bouton_agenda"
+        android:id="@+id/boutonRecherche"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/rose_500"
-        android:text="@string/agenda"
+        android:text="@string/recherche"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/im_train"
-        app:layout_constraintVertical_bias="0.533" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextArrive"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <ListView
+        android:id="@+id/list_trajet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/boutonAccueil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boutonRecherche"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/boutonAccueil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="@color/black"
+        android:text="@string/accueil"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

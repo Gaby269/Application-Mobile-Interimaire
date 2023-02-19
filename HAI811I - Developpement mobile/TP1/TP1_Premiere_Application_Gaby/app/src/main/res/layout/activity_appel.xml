@@ -7,7 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".AppelActivity">
 
-
+    <Button
+        android:id="@+id/bouton_langage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/langage"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
     <TextView
         android:id="@+id/affichageAppel"
         android:layout_width="wrap_content"
@@ -39,7 +50,7 @@
         android:id="@+id/affichageTel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +63,7 @@
         android:id="@+id/appel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/purple_500"
+        android:background="@color/jaune_900"
         android:text="@string/appel"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +76,7 @@
         android:id="@+id/accueil_bouton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/black"
+        android:background="@android:color/black"
         android:text="@string/accueil"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -7,7 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".AffichageActivity">
 
-
+    <Button
+        android:id="@+id/bouton_langage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:text="@string/langage"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.068" />
 
     <TextView
         android:id="@+id/textDébutAffichage"
@@ -182,10 +194,8 @@
         android:id="@+id/ok_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/purple_500"
         android:text="OK"
         android:textColor="@color/white"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/retour_bouton"
         app:layout_constraintTop_toBottomOf="@+id/tel_affichage"
@@ -205,6 +215,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tel_affichage"
         app:layout_constraintVertical_bias="0.501"
         app:layout_constraintHorizontal_bias="0.283" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

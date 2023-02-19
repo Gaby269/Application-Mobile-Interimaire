@@ -21,4 +21,23 @@
     <string name="affFinal">Saisie terminé !\n\nVeuilez revenir à l\'écran d\'accueil.</string>
     <string name="appel">Appeler</string>
     <string name="affAppel">Voulez vous appeler ?</string>
+    <string name="train">Train</string>
+    <string name="saisie">Saisie</string>
+    <string name="textTrain">Quel trajet voulez vous faire ?</string>
+    <string name="ville_depart">Départ</string>
+    <string name="ville_arrive">Arrivé</string>
+    <string name="affichage_main">Que voulez vous faire ?</string>
+    <string name="recherche">Rechercher</string>
+    <string name="pas_trajet">"Pas de trajet pour "</string>
+    <string name="francais">Français</string>
+    <string name="anglais">Anglais</string>
+    <string name="calendrier">Agenda</string>
+    <string name="ajoutEv">Ajouter</string>
+    <string name="evenement">Nouvel évènement</string>
+    <string name="agenda">Agenda</string>
+    <string name="pas_ev">Pas d\'évènement pour cette date</string>
+    <string name="ajout_even">"Ajout effectué"</string>
+    <string name="langage">Anglais</string>
+    <string name="titre_event">Titre de l\'événement</string>
+    <string name="date_event">Date (AAAA-MM-JJ)</string>
 </resources>
