@@ -51,7 +51,7 @@ public class AffichageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Réafficher la saisie des données au départ
-                Intent i = new Intent(AffichageActivity.this, MainActivity.class);
+                Intent i = new Intent(AffichageActivity.this, SaisieActivity.class);
                 startActivity(i);
             }
 

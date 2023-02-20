@@ -50,7 +50,7 @@ public class TrainActivity extends AppCompatActivity {
                 for (int j = 0; j < 80; j++) {
 
                     //Choix des villes pour le trajet
-                    String villeDepart = villes[rand.nextInt(villes.length)];   //8 est le nomre de ville dans la liste
+                    String villeDepart = villes[rand.nextInt(villes.length)];
                     String villeArrive = villes[rand.nextInt(villes.length)];
 
                     //Verification que les deux villes ne sont pas identique on utilise un while pour si jamais c'est tjs le cas on continue

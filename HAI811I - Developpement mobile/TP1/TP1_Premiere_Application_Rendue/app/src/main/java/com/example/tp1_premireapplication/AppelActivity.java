@@ -43,6 +43,28 @@ public class AppelActivity extends AppCompatActivity {
 
 
         // Bouton pour retourner à la page d'acueil
+        Button buttonAppel = findViewById(R.id.appel_button);
+        buttonAppel.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("tel:" + affTel.getText().toString());
+                Intent i_appel = new Intent(Intent.ACTION_CALL,uri);
+                if (ActivityCompat.checkSelfPermission(AppelActivity.this, Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    String [] permissions = {
+                            Manifest.permission.CALL_PHONE
+                    };
+                    requestPermissions(permissions,1000);
+                    return;
+                }
+                startActivity(i_appel);
+            }
+
+        });
+
+
+        // Bouton pour retourner à la page d'acueil
         Button buttonAccueil = findViewById(R.id.accueil_bouton);
         buttonAccueil.setOnClickListener(new OnClickListener() {
 

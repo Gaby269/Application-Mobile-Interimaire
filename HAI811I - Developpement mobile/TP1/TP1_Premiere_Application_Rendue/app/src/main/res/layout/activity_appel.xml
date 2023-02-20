@@ -51,6 +51,7 @@
         android:id="@+id/appel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/green_500"
         android:text="@string/appel"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
