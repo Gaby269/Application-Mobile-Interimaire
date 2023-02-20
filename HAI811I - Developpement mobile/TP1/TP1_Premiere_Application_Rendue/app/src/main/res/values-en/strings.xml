@@ -42,4 +42,5 @@
     <string name="new_event_title">Hello ! It\'s</string>
     <string name="boite_supress">Delete event?</string>
     <string name="supression">Delete</string>
+    <string name="annuler">Cancel</string>
 </resources>

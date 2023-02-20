@@ -44,16 +44,6 @@ public class CalendrierActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendrier);
 
-        // Données de départ
-        String[] nomEven = {"Anniversaire", "Jouer au ballon", "Aller chercher un chat", "Manger avec Toto", "Se promener dans les bois"};
-        String[] dateEven = {""+Integer.toString(2023)+Integer.toString(7)+Integer.toString(5)+"",
-                        ""+Integer.toString(2023)+Integer.toString(1)+Integer.toString(4)+"",
-                        ""+Integer.toString(2023)+Integer.toString(2)+Integer.toString(19)+"",
-                        ""+Integer.toString(2023)+Integer.toString(10)+Integer.toString(13)+"",
-                        ""+Integer.toString(2023)+Integer.toString(1)+Integer.toString(9)+"",
-                        ""+Integer.toString(2023)+Integer.toString(1)+Integer.toString(23)+""};
-
-
         //Recuperation des elements du xml
         calendar = findViewById(R.id.calendar);
         events_list_view = findViewById(R.id.list_events);
@@ -90,87 +80,21 @@ public class CalendrierActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
 
-    //////////// AJOUT DES EVENEMENTS //////////////
+        //////////// AJOUT DES EVENEMENTS //////////////
 
-        //Choix de la date
-        String date0 = dateEven[0];
-        // prise des données davants si il y en a
-        events_list_string = events_hashmap.get(date0);
-        if (events_list_string == null) {
-            events_list_string = new ArrayList<>();
-        }
-        //ajout a la liste
-        events_list_string.add(nomEven[1]);
-        events_list_string.add(nomEven[4]);
-        //ajout au hash
-        events_hashmap.put(date0, events_list_string);
+        // Données de départ
+        String[] nomEvent = {"Anniversaire", "Jouer au ballon", "Aller chercher un chat", "Manger avec Toto", "Se promener dans les bois"};
+        String[] dateEvent = {"202314", "2023119", "2023113", "202319", "2023023"};
 
 
-
-        //Choix de la date
-        String date1 = dateEven[1];
-        // prise des données davants si il y en a
-        events_list_string = events_hashmap.get(date1);
-        if (events_list_string == null) {
-            events_list_string = new ArrayList<>();
-        }
-        events_list_string.add(nomEven[1]);
-        events_hashmap.put(date1, events_list_string);
+        events_hashmap.put(dateEvent[0], new ArrayList() {{ add(nomEvent[1]); add(nomEvent[4]); }});
+        events_hashmap.put(dateEvent[1], new ArrayList() {{ add(nomEvent[0]); }});
+        events_hashmap.put(dateEvent[2], new ArrayList() {{ add(nomEvent[2]); add(nomEvent[4]); add(nomEvent[1]);}});
+        events_hashmap.put(dateEvent[3], new ArrayList() {{ add(nomEvent[3]); }});
+        events_hashmap.put(dateEvent[4], new ArrayList() {{ add(nomEvent[2]); add(nomEvent[3]); }});
 
 
-
-        //Choix de la date
-        String date2 = dateEven[2];
-        // prise des données davants si il y en a
-        events_list_string = events_hashmap.get(date2);
-        if (events_list_string == null) {
-            events_list_string = new ArrayList<>();
-        }
-        events_list_string.add(nomEven[2]);
-        events_list_string.add(nomEven[4]);
-        events_list_string.add(nomEven[1]);
-        events_hashmap.put(date2, events_list_string);
-
-
-
-        //Choix de la date
-        String date3 = dateEven[3];
-        // prise des données davants si il y en a
-        events_list_string = events_hashmap.get(date3);
-        if (events_list_string == null) {
-            events_list_string = new ArrayList<>();
-        }
-        events_list_string.add(nomEven[3]);
-        events_hashmap.put(date3, events_list_string);
-
-
-
-        //Choix de la date
-        String date4 = dateEven[4];
-        // prise des données davants si il y en a
-        events_list_string = events_hashmap.get(date4);
-        if (events_list_string == null) {
-            events_list_string = new ArrayList<>();
-        }
-        events_list_string.add(nomEven[2]);
-        events_list_string.add(nomEven[4]);
-        events_hashmap.put(date4, events_list_string);
-
-
-
-        //Choix de la date
-        String date5 = dateEven[5];
-        // prise des données davants si il y en a
-        events_list_string = events_hashmap.get(date5);
-        if (events_list_string == null) {
-            events_list_string = new ArrayList<>();
-        }
-        events_list_string.add(nomEven[1]);
-        events_hashmap.put(date5, events_list_string);
-
-
-
-        /////////// RETOUR AU CODE //////////
+        /////////// CLICK SUR UNE DATE //////////
 
         calendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             selected_date = Integer.toString(year)+Integer.toString(month)+Integer.toString(dayOfMonth);
@@ -228,41 +152,48 @@ public class CalendrierActivity extends AppCompatActivity {
 
                     }
                 });*/
-                builder.setNegativeButton(R.string.supression, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Supprimer l'événement de la base de données et de la liste
-                        //recupere la liste
-                        events_list_string = events_hashmap.get(date);
-                        //supprimer la valeur a supprimer
-                        events_list_string.remove(evenement);
-                        //supprime toute la liste dans hashmap
-                        events_hashmap.remove(selected_date);
-                        //ajoute a hashmap les vlaeur de list_even
-                        events_hashmap.put(date, events_list_string);
-                        //mettre a jour l'affichage
-                        adapter.remove(evenement);
-                        adapter.notifyDataSetChanged();
-                    }
+
+
+                builder.setPositiveButton(R.string.supression, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Supprimer l'événement de la base de données et de la liste
+                            //recupere la liste
+                            events_list_string = events_hashmap.get(date);
+                            //supprimer la valeur a supprimer
+                            events_list_string.remove(evenement);
+                            //supprime toute la liste dans hashmap
+                            events_hashmap.remove(selected_date);
+                            //ajoute a hashmap les vlaeur de list_even
+                            events_hashmap.put(date, events_list_string);
+                            //mettre a jour l'affichage
+                            adapter.remove(evenement);
+                            adapter.notifyDataSetChanged();
+                        }
                 });
 
+                builder.setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {}
+                    });
+
                 builder.show();
-            }
-        });
+                }
+            });
 
 
 
-        // Bouton pour retourner à la page d'acueil
-        Button buttonAccueil = findViewById(R.id.accueil_bouton);
+            // Bouton pour retourner à la page d'acueil
+            Button buttonAccueil = findViewById(R.id.accueil_bouton);
         buttonAccueil.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                //Réafficher la saisie des données au départ
-                Intent i = new Intent(CalendrierActivity.this, MainActivity.class);
-                startActivity(i);
-            }
+                @Override
+                public void onClick(View v) {
+                    //Réafficher la saisie des données au départ
+                    Intent i = new Intent(CalendrierActivity.this, MainActivity.class);
+                    startActivity(i);
+                }
 
-        });
+            });
+        }
     }
-}
