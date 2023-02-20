@@ -217,7 +217,8 @@ public class CalendrierActivity extends AppCompatActivity {
 
                 // Ouvrir une boîte de dialogue pour modifier ou supprimer l'événement
                 AlertDialog.Builder builder = new AlertDialog.Builder(CalendrierActivity.this);
-                builder.setTitle("Supprimer l'événement ?");
+                builder.setTitle(R.string.boite_supress);
+                builder.setMessage(evenement);
 
                /* // Ajouter des boutons pour modifier ou supprimer l'événement
                 builder.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
@@ -227,7 +228,7 @@ public class CalendrierActivity extends AppCompatActivity {
 
                     }
                 });*/
-                builder.setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.supression, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Supprimer l'événement de la base de données et de la liste

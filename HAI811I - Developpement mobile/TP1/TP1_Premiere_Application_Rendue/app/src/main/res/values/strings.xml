@@ -40,4 +40,6 @@
     <string name="langage">🌐 FR</string>
     <string name="changed_language">Language switched to English</string>
     <string name="new_event_title">Bonjour ! nous sommes le</string>
+    <string name="boite_supress">Supprimer l\'événement ?</string>
+    <string name="supression">Supprimer</string>
 </resources>

@@ -71,7 +71,7 @@ public class SaisieActivity extends AppCompatActivity {
         EditText tel = findViewById(R.id.editTextTelephone);
 
         // Verification des champs pour être sur qu'ils soient remplit
-        if (prenom.getText().toString().length() <= 1 || nom.getText().toString().length() <= 1 || age.getText().toString().length() <= 1 || competence.getText().toString().length() <= 1 || tel.getText().toString().length() < 10){
+        if (prenom.getText().toString().length() <= 1 || nom.getText().toString().length() <= 1 || age.getText().toString().length() <= 2 || competence.getText().toString().length() <= 1 || tel.getText().toString().length() < 10){
             Toast.makeText(SaisieActivity.this,R.string.avertissement,Toast.LENGTH_SHORT).show();
         }
         else{

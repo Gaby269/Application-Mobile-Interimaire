@@ -40,4 +40,6 @@
     <string name="langage">🌐 EN</string>
     <string name="changed_language">Langage défini en Francais</string>
     <string name="new_event_title">Hello ! It\'s</string>
+    <string name="boite_supress">Delete event?</string>
+    <string name="supression">Delete</string>
 </resources>
