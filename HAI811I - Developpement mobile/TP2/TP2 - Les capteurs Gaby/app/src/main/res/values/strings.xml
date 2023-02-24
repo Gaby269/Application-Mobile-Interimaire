@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">HAI811I - TP2 - Les Capteurs</string>
+    <string name="aff_capteur">Listes de tous les capteurs</string>
+    <string name="aff_capteur_disponible">Listes des capteurs indisponibles</string>
+    <string name="suivant">Suivant</string>
+    <string name="aff_acce">Valeurs des accelerometres :</string>
+    <string name="direction_left">Gauche</string>
+    <string name="direction_right">Droite</string>
+    <string name="direction_up">Haut</string>
+    <string name="direction_down">Bas</string>
+    <string name="aff_direction">Direction du déplacement</string>
+    <string name="aff_flash">Allumage du flash</string>
+    <string name="aff_y">Y:</string>
+    <string name="aff_z">Z:</string>
+    <string name="aff_x">X:</string>
+    <string name="aff_prox">Detection de la proximité</string>
+    <string name="ma_location">Ma Location</string>
+    <string name="aff_long">Longitude</string>
+    <string name="aff_lat">Lattitude</string>
+</resources>

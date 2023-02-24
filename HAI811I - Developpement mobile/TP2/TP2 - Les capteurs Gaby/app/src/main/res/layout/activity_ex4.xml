@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Ex4Activity">
+
+    <TextView
+        android:id="@+id/titre_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="@string/aff_direction"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/accelerometer_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/tvX"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="X: "
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tvY"
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:text="Y: "
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tvZ"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:text="Z: "
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image_left"
+        android:layout_width="139dp"
+        android:layout_height="144dp"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintBottom_toTopOf="@+id/bouton_suivant_ex4"
+        app:layout_constraintEnd_toStartOf="@+id/image_right"
+        app:layout_constraintTop_toBottomOf="@+id/text_direction"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/image_right"
+        android:layout_width="139dp"
+        android:layout_height="144dp"
+        android:src="@drawable/ic_arrow_right"
+        app:layout_constraintBottom_toTopOf="@+id/bouton_suivant_ex4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_left"
+        app:layout_constraintTop_toBottomOf="@+id/text_direction"/>
+
+    <ImageView
+        android:id="@+id/image_up"
+        android:layout_width="139dp"
+        android:layout_height="144dp"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/image_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_direction"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <ImageView
+        android:id="@+id/image_down"
+        android:layout_width="139dp"
+        android:layout_height="144dp"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toTopOf="@+id/bouton_suivant_ex4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_up"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/text_direction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accelerometer_linear_layout"
+        app:layout_constraintVertical_bias="0.099" />
+
+    <Button
+        android:id="@+id/bouton_suivant_ex4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:text="@string/suivant"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
