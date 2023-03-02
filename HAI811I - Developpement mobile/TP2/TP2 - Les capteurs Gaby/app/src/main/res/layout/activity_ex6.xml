@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center_horizontal"
-            android:text="Loin"
+            android:text="@string/loin"
             android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@id/bouton_suivant_ex6"
             app:layout_constraintEnd_toEndOf="parent"

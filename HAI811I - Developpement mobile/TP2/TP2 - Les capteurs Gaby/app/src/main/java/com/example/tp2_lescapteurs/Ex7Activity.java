@@ -4,41 +4,61 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Ex7Activity extends AppCompatActivity implements OnMapReadyCallback {
+public class Ex7Activity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
-    private TextView mTitle;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private MapView mMapView;
+    private TextView mLocationLongitude;
+    private TextView mLocationLattitude;
+    private LocationManager mLocationManager;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ex7);
 
+        mLocationLongitude = findViewById(R.id.locationLong);
+        mLocationLattitude = findViewById(R.id.locationLatt);
+        mMapView = findViewById(R.id.mapView);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.getMapAsync(this);
 
-        mTitle = findViewById(R.id.title_carte);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_fragment);
-        assert mapFragment != null;
-        mapFragment.getMapAsync(this);
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, (float) 0, this);
+        }
+
+        // Aller a l'activité suivante
+        Button buttonSuivant7 = findViewById(R.id.bouton_suivant_ex7);
+        buttonSuivant7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Création d'un intent pour récuperer les informations
+                Intent iCal = new Intent(Ex7Activity.this, Ex1Activity.class);
+                startActivity(iCal);
+            }
+        });
     }
 
     @Override
@@ -55,39 +75,45 @@ public class Ex7Activity extends AppCompatActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    LOCATION_PERMISSION_REQUEST_CODE);
-        }
+    }
 
-        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onMyLocationChange(@NonNull Location location) {
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(latLng).title("My Location"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
-                mTitle.setText("My Location - Latitude: " + location.getLatitude() + ", Longitude: " + location.getLongitude());
-            }
-        });
+    @SuppressLint({"ResourceAsColor", "SetTextI18n"})
+    @Override
+    public void onLocationChanged(Location location) {
+        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
+        mLocationManager.removeUpdates(this);
+
+        String locationTextLat = "Latitude: " + location.getLatitude();
+        mLocationLongitude.setText(locationTextLat);
+        String locationTextLong = "Longitude: " + location.getLongitude();
+        mLocationLattitude.setText(locationTextLong);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMapView.onResume();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                        == PackageManager.PERMISSION_GRANTED) {
-                    mMap.setMyLocationEnabled(true);
-                }
-            } else {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
-            }
-        }
+    protected void onPause() {
+        super.onPause();
+        mMapView.onPause();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
+    }
+
+
 }

@@ -15,6 +15,8 @@
     <string name="aff_x">X:</string>
     <string name="aff_prox">Detection de la proximité</string>
     <string name="ma_location">Ma Location</string>
-    <string name="aff_long">Longitude</string>
-    <string name="aff_lat">Lattitude</string>
+    <string name="aff_long">Longitude : </string>
+    <string name="aff_lat">Lattitude : </string>
+    <string name="loin">Loin</string>
+    <string name="proche">Proche</string>
 </resources>

@@ -66,10 +66,10 @@ public class Ex6Activity extends AppCompatActivity implements SensorEventListene
         float distance = event.values[0];
         if (distance < mProximitySensor.getMaximumRange()) {
             mImageView.setImageResource(R.drawable.near_image);
-            mProximityStatusText.setText("Proche");
+            mProximityStatusText.setText(R.string.proche);
         } else {
             mImageView.setImageResource(R.drawable.far_image);
-            mProximityStatusText.setText("Loin");
+            mProximityStatusText.setText(R.string.loin);
         }
     }
 
