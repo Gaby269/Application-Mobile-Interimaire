@@ -8,6 +8,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraMetadata;
+import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.view.View;
@@ -15,13 +17,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Ex5Activity extends AppCompatActivity implements SensorEventListener {
 
-    TextView flashValue;
+    TextView flashValue, texteFlash;
     Sensor accelerometer;
-    private boolean flashOn = false;
+    CameraManager cameraManager;
+    String cameraId;
+    CameraCharacteristics characteristics;
+    boolean isFlashOn = false;
+    long lastDetectionTime = 0;
 
     @Override
     @SuppressLint({"MissingInflatedId", "LocalSuppress"})
@@ -29,8 +36,21 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ex5);
 
-        //Récuperation des id des xml
         flashValue = findViewById(R.id.forceValue);
+        texteFlash = findViewById(R.id.text_flash);
+
+        // Recuperer les données du flash
+        cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+
+        // on éteint le flash au début
+        try {
+            cameraId = cameraManager.getCameraIdList()[0];
+            cameraManager.setTorchMode(cameraId, false);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         //Recuperer les capteurs et notamment celui de l'acceleromettre
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -70,8 +90,12 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
 
         flashValue.setText(String.format("%.2f", gForce));
 
+        long now = System.currentTimeMillis();
+        long tempsEcoule = now - lastDetectionTime;
+
         // en fonction de cette force on change le flash
-        if (gForce > 3) {
+        if ((tempsEcoule > 1000) && (gForce > 3)) {
+            lastDetectionTime = System.currentTimeMillis();
             toggleFlash();
         }
 
@@ -79,28 +103,23 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Ignored for now
     }
 
     @SuppressLint("SetTextI18n")
     private void toggleFlash() {
         try {
-            // Recuperer les données du flash
-            CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-            String cameraId = cameraManager.getCameraIdList()[0];
+            cameraId = cameraManager.getCameraIdList()[0];
 
-            // Si Le flash est allumé
-            if (flashOn) {
+            if (isFlashOn) {
                 cameraManager.setTorchMode(cameraId, false);
-                flashOn = false;
-                flashValue.setText(getString(R.string.off));
+                texteFlash.setText(getString(R.string.off));
             }
-            //Si le flash est étteint
             else {
                 cameraManager.setTorchMode(cameraId, true);
-                flashOn = true;
-                flashValue.setText(getString(R.string.on));
+                texteFlash.setText(getString(R.string.on));
             }
+
+            isFlashOn = !isFlashOn;
         }
         //Si le changement ne marche pas
         catch (Exception e) {
@@ -112,16 +131,11 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
     protected void onPause() {
         super.onPause();
         try {
-            // Recuperer les données du flash
-            CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-            String cameraId = cameraManager.getCameraIdList()[0];
-            // Si Le flash est allumé
-            if (flashOn) {
-                cameraManager.setTorchMode(cameraId, false);
-                flashOn = false;
-                flashValue.setText("Off");
-            }
-        } catch (Exception e) {
+            cameraId = cameraManager.getCameraIdList()[0];
+            cameraManager.setTorchMode(cameraId, false);
+            flashValue.setText(getString(R.string.off));
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 

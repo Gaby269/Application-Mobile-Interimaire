@@ -75,7 +75,6 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
 
         //modifie les indications
         updateDirection(x, y, z);
-
     }
 
     @Override

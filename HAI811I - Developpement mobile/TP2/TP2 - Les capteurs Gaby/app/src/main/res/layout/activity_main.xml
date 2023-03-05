@@ -10,13 +10,22 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:textSize="24dp"
+        android:layout_marginTop="88dp"
         android:text="@string/menu"
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_menu"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
 
@@ -24,12 +33,12 @@
     <LinearLayout
         android:layout_width="400dp"
         android:layout_height="250dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/image_menu">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -42,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Capteurs" />
+                android:text="@string/liste_capteur" />
 
             <LinearLayout
                 android:layout_width="400dp"
@@ -55,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="disponibles" />
+                    android:text="tous" />
 
                 <Button
                     android:id="@+id/button2"

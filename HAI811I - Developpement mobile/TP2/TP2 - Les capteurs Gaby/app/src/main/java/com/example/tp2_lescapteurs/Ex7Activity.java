@@ -2,15 +2,19 @@ package com.example.tp2_lescapteurs;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +33,7 @@ import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Ex7Activity extends AppCompatActivity implements LocationListener {
@@ -128,18 +133,6 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
         map.getOverlays().add(myOverlay);
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-        map.onPause();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        map.onResume();
-    }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -159,18 +152,98 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
         }
     }
 
-    @Override
-    public void onProviderEnabled(String provider) {
-        // Ne rien faire
+    private Location recupererLocalisation() {
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            turnOnGPS();
+        }
+
+        // Check if any providers are available
+        List<String> providers = locationManager.getProviders(true);
+        if (providers.isEmpty()) {
+            Toast.makeText(this, "No location providers available", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        // Get last known location from available providers
+        Location lastKnownLocation = null;
+        for (String provider : providers) {
+            if (ActivityCompat.checkSelfPermission(GeolocalizationActivity.this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(GeolocalizationActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            } else {
+                Location location = locationManager.getLastKnownLocation(provider);
+                if (location != null && (lastKnownLocation == null || location.getTime() > lastKnownLocation.getTime())) {
+                    lastKnownLocation = location;
+                }
+            }
+        }
+
+        // If no last known location, try to get a new one
+        if (lastKnownLocation == null) {
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
+            String bestProvider = locationManager.getBestProvider(criteria, true);
+            if (bestProvider != null) {
+                locationManager.requestLocationUpdates(bestProvider, 0, 0, new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        // Remove location updates to save battery
+                        locationManager.removeUpdates(this);
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) {}
+
+                    @Override
+                    public void onProviderEnabled(String provider) {}
+
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {}
+                });
+                lastKnownLocation = locationManager.getLastKnownLocation(bestProvider);
+            }
+        }
+
+        return lastKnownLocation;
+    }
+
+    private void turnOnGPS() {
+
+        final AlertDialog.Builder builder= new AlertDialog.Builder(this);
+
+        builder.setMessage(getString(R.string.wake_geo)).setCancelable(false).setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        final AlertDialog alertDialog=builder.create();
+        alertDialog.show();
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
-        // Ne rien faire
+    public void onPause(){
+        super.onPause();
+        map.onPause();
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        // Ne rien faire
+    public void onResume(){
+        super.onResume();
+        map.onResume();
     }
+
+    @Override
+    public void onProviderEnabled(String provider) {}
+
+    @Override
+    public void onProviderDisabled(String provider) {}
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
 }
