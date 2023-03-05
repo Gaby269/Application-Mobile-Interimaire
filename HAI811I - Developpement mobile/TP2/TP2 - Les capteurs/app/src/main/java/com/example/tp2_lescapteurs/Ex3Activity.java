@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Ex3Activity extends AppCompatActivity implements SensorEventListener {
 
-    private TextView xValue, yValue, zValue;
+    private TextView xValue, yValue, zValue, accelerationValue;
 
     private View background;
 
@@ -73,18 +73,22 @@ public class Ex3Activity extends AppCompatActivity implements SensorEventListene
         float z = sensorEvent.values[2];
 
         // Modification des données
-        xValue.setText(String.format("X: %.2f", x));
-        yValue.setText(String.format("Y: %.2f", y));
-        zValue.setText(String.format("Z: %.2f", z));
+        xValue.setText(String.format("X : %.2f", x));
+        yValue.setText(String.format("Y : %.2f", y));
+        zValue.setText(String.format("Z : %.2f", z));
+
+        float acceleration = (float) Math.sqrt(x*x + y*y + z*z);
+
+        accelerationValue = findViewById(R.id.acceleration_value);
+        accelerationValue.setText(String.format("Accélération : %.2f", acceleration));
 
         // Calculer les couleurs de fond et lui attribuer des valeurs
-        int colorX = getColorForValue(x, -10f, 10f);
-        int colorY = getColorForValue(y, -10f, 10f);
-        int colorZ = getColorForValue(z, 0f, 20f);
-        int backgroundColor = getBackgroundColor(colorX, colorY, colorZ);
+        int color;
+        if (acceleration < 9.8) {color = Color.GREEN;}
+        else if (acceleration < 12) {color = Color.BLACK;}
+        else {color = Color.RED;}
 
-        // Modifier la couleur du fond
-        background.setBackgroundColor(backgroundColor);
+        background.setBackgroundColor(color);
     }
 
     @Override
