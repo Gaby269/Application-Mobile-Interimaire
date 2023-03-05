@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Ex5Activity extends AppCompatActivity implements SensorEventListener {
 
-    TextView flashValue, xValue, yValue, zValue;
+    TextView flashValue;
     Sensor accelerometer;
     private boolean flashOn = false;
 
@@ -30,11 +30,7 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
         setContentView(R.layout.activity_ex5);
 
         //Récuperation des id des xml
-        xValue = findViewById(R.id.tvX);
-        yValue = findViewById(R.id.tvY);
-        zValue = findViewById(R.id.tvZ);
-        flashValue = findViewById(R.id.text_flash);
-
+        flashValue = findViewById(R.id.forceValue);
 
         //Recuperer les capteurs et notamment celui de l'acceleromettre
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -43,7 +39,7 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
             if (accelerometer != null) {
                 sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
             } else {
-                Toast.makeText(this, "Accelerometer not available", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.unavailable_acc), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -54,7 +50,7 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
             @Override
             public void onClick(View v) {
                 // Création d'un intent pour récuperer les informations
-                Intent iCal = new Intent(Ex5Activity.this, Ex6Activity.class);
+                Intent iCal = new Intent(Ex5Activity.this, MainActivity.class);
                 startActivity(iCal);
             }
         });
@@ -66,21 +62,16 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        // Recuperer les valeurs des capteurs
+        // Calculer la force de mouvement
         float x = sensorEvent.values[0];
         float y = sensorEvent.values[1];
         float z = sensorEvent.values[2];
-
-        // Affichage des valeurs de l'accéléromètre sur les TextViews correspondants
-        xValue.setText("X : " + String.format("%.3f", x));
-        yValue.setText("Y : " + String.format("%.3f", y));
-        zValue.setText("Z : " + String.format("%.3f", z));
-
-        // Calculer la force de mouvement
         double gForce = Math.sqrt(x * x + y * y + z * z) / SensorManager.GRAVITY_EARTH;
 
-        // EN fonction de cette force on change le flash
-        if (gForce > 4.0) {
+        flashValue.setText(String.format("%.2f", gForce));
+
+        // en fonction de cette force on change le flash
+        if (gForce > 3) {
             toggleFlash();
         }
 
@@ -102,13 +93,13 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
             if (flashOn) {
                 cameraManager.setTorchMode(cameraId, false);
                 flashOn = false;
-                flashValue.setText("Off");
+                flashValue.setText(getString(R.string.off));
             }
             //Si le flash est étteint
             else {
                 cameraManager.setTorchMode(cameraId, true);
                 flashOn = true;
-                flashValue.setText("On");
+                flashValue.setText(getString(R.string.on));
             }
         }
         //Si le changement ne marche pas

@@ -56,7 +56,7 @@ public class Ex3Activity extends AppCompatActivity implements SensorEventListene
             @Override
             public void onClick(View v) {
                 // Création d'un intent pour récuperer les informations
-                Intent iCal = new Intent(Ex3Activity.this, Ex4Activity.class);
+                Intent iCal = new Intent(Ex3Activity.this, MainActivity.class);
                 startActivity(iCal);
             }
         });

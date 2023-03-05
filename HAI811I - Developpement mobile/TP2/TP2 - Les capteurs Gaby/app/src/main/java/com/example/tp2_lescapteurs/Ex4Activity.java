@@ -56,7 +56,7 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
             @Override
             public void onClick(View v) {
                 // Création d'un intent pour récuperer les informations
-                Intent iCal = new Intent(Ex4Activity.this, Ex5Activity.class);
+                Intent iCal = new Intent(Ex4Activity.this, MainActivity.class);
                 startActivity(iCal);
             }
         });
@@ -97,19 +97,22 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
             image_up.setVisibility(View.GONE);
             image_left.setVisibility(View.GONE);
             image_down.setVisibility(View.GONE);
-        } else if (angle > 45 && angle < 135) {
+        }
+        else if (angle > 45 && angle < 135) {
             direction = "Haut";
             image_up.setVisibility(View.VISIBLE);
             image_down.setVisibility(View.GONE);
             image_left.setVisibility(View.GONE);
             image_right.setVisibility(View.GONE);
-        } else if (angle >= 135 || angle <= -135) {
+        }
+        else if (angle >= 135 || angle <= -135) {
             direction = "Gauche";
             image_left.setVisibility(View.VISIBLE);
             image_up.setVisibility(View.GONE);
             image_down.setVisibility(View.GONE);
             image_right.setVisibility(View.GONE);
-        } else if (angle < -45 && angle > -135) {
+        }
+        else if (angle < -45 && angle > -135) {
             direction = "Bas";
             image_down.setVisibility(View.VISIBLE);
             image_up.setVisibility(View.GONE);
@@ -121,8 +124,8 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
         directionValue.setText("Direction : " + direction);
 
         // Affichage des valeurs de l'accéléromètre sur les TextViews correspondants
-        xValue.setText("X : " + String.format("%.3f", x));
-        yValue.setText("Y : " + String.format("%.3f", y));
-        zValue.setText("Z : " + String.format("%.3f", z));
+        xValue.setText("X : " + String.format("%.2f", x));
+        yValue.setText("Y : " + String.format("%.2f", y));
+        zValue.setText("Z : " + String.format("%.2f", z));
     }
 }

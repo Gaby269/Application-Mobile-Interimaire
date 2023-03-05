@@ -100,7 +100,7 @@ public class Ex1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Création d'un intent pour récuperer les informations
-                Intent iCal = new Intent(Ex1Activity.this, Ex2Activity.class);
+                Intent iCal = new Intent(Ex1Activity.this, MainActivity.class);
                 startActivity(iCal);
             }
         });

@@ -19,7 +19,6 @@ public class Ex6Activity extends AppCompatActivity implements SensorEventListene
 
     private ImageView mImageView;
     private TextView mProximityStatusText;
-
     private SensorManager mSensorManager;
     private Sensor mProximitySensor;
 
@@ -42,7 +41,7 @@ public class Ex6Activity extends AppCompatActivity implements SensorEventListene
             @Override
             public void onClick(View v) {
                 // Création d'un intent pour récuperer les informations
-                Intent iCal = new Intent(Ex6Activity.this, Ex7Activity.class);
+                Intent iCal = new Intent(Ex6Activity.this, MainActivity.class);
                 startActivity(iCal);
             }
         });
@@ -64,12 +63,14 @@ public class Ex6Activity extends AppCompatActivity implements SensorEventListene
     @Override
     public void onSensorChanged(SensorEvent event) {
         float distance = event.values[0];
+        mProximityStatusText.setText(Float.toString(distance));
         if (distance < mProximitySensor.getMaximumRange()) {
             mImageView.setImageResource(R.drawable.near_image);
-            mProximityStatusText.setText(R.string.proche);
-        } else {
+            //mProximityStatusText.setText(R.string.proche);
+        }
+        else {
             mImageView.setImageResource(R.drawable.far_image);
-            mProximityStatusText.setText(R.string.loin);
+            //mProximityStatusText.setText(R.string.loin);
         }
     }
 

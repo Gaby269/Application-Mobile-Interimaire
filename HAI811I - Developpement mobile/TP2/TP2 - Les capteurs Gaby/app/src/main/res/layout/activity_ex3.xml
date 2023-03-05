@@ -10,28 +10,10 @@
     tools:context=".Ex3Activity">
 
 
-    <TextView
-        android:id="@+id/affichage_capteur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="@string/aff_capteur"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="328dp"
+        android:layout_height="309dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,42 +38,42 @@
             android:id="@+id/x_value"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/background_clair"
             android:textColor="@color/white"
             android:textSize="24sp"
-            android:background="@color/background_clair"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/affichage_acce"
-            app:layout_constraintTop_toBottomOf="@+id/y_value"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/y_value"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/y_value"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/background_clair"
             android:textColor="@color/white"
             android:textSize="24sp"
-            android:background="@color/background_clair"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/z_value"
-            app:layout_constraintTop_toBottomOf="@+id/x_value"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/x_value"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/z_value"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/background_clair"
             android:textColor="@color/white"
             android:textSize="24sp"
-            android:background="@color/background_clair"
-            app:layout_constraintBottom_toTopOf="@+id/bouton_suivant_ex3"
-            app:layout_constraintTop_toBottomOf="@+id/y_value"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bouton_suivant_ex3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/y_value"
             app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>

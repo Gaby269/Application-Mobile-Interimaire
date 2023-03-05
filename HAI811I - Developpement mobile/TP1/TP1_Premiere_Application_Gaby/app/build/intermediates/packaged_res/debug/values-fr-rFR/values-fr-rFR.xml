@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accueil">Accueil</string>
+    <string name="affAppel">Voulez vous appeler ?</string>
+    <string name="affFinal">Saisie terminé !\n\nVeuilez revenir à l\'écran d\'accueil.</string>
+    <string name="affichage_main">Que voulez vous faire ?</string>
+    <string name="age">Age :</string>
+    <string name="agenda">Agenda</string>
+    <string name="ajoutEv">Ajouter</string>
+    <string name="ajout_even">"Ajout effectué"</string>
+    <string name="anglais">Anglais</string>
+    <string name="annulation">Vous avez annulé votre saisie.</string>
+    <string name="app_name">HAI811I - TP1</string>
+    <string name="appel">Appeler</string>
+    <string name="avertissement">Veuillez rentrer tous les champs !</string>
+    <string name="calendrier">Agenda</string>
+    <string name="competence">Domaine de compétence :</string>
+    <string name="coordonne">Vos coordonnées :</string>
+    <string name="date_event">Date (AAAA-MM-JJ)</string>
+    <string name="evenement">Nouvel évènement</string>
+    <string name="francais">Français</string>
+    <string name="info">Entrez vos coordonnées</string>
+    <string name="infoAff">Affichage de vos coordonnées :</string>
+    <string name="langage">Anglais</string>
+    <string name="no">Non</string>
+    <string name="nom">Nom :</string>
+    <string name="numTel">Numéro de téléphone :</string>
+    <string name="pas_ev">Pas d\'évènement pour cette date</string>
+    <string name="pas_trajet">"Pas de trajet pour "</string>
+    <string name="prenom">Prénom :</string>
+    <string name="recherche">Rechercher</string>
+    <string name="retour">Retour</string>
+    <string name="saisie">Saisie</string>
+    <string name="textTrain">Quel trajet voulez vous faire ?</string>
+    <string name="titre_event">Titre de l\'événement</string>
+    <string name="train">Train</string>
+    <string name="valider">Valider</string>
+    <string name="verif_msg">Est ce bien vos coordonnées ?</string>
+    <string name="verif_titre">Confirmation de vos coordonnées</string>
+    <string name="ville_arrive">Arrivé</string>
+    <string name="ville_depart">Départ</string>
+    <string name="yes">Oui</string>
+</resources>

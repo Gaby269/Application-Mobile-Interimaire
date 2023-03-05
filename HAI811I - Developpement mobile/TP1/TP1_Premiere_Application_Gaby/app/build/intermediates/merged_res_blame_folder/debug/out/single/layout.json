@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.example.tp1_premireapplication.app-mergeDebugResources-39:/layout/activity_calendrier.xml",
+        "source": "com.example.tp1_premireapplication.app-main-42:/layout/activity_calendrier.xml"
+    },
+    {
+        "merged": "com.example.tp1_premireapplication.app-mergeDebugResources-39:/layout/activity_main.xml",
+        "source": "com.example.tp1_premireapplication.app-main-42:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.tp1_premireapplication.app-mergeDebugResources-39:/layout/activity_affichage.xml",
+        "source": "com.example.tp1_premireapplication.app-main-42:/layout/activity_affichage.xml"
+    },
+    {
+        "merged": "com.example.tp1_premireapplication.app-mergeDebugResources-39:/layout/activity_train.xml",
+        "source": "com.example.tp1_premireapplication.app-main-42:/layout/activity_train.xml"
+    },
+    {
+        "merged": "com.example.tp1_premireapplication.app-mergeDebugResources-39:/layout/activity_appel.xml",
+        "source": "com.example.tp1_premireapplication.app-main-42:/layout/activity_appel.xml"
+    },
+    {
+        "merged": "com.example.tp1_premireapplication.app-mergeDebugResources-39:/layout/activity_saisie.xml",
+        "source": "com.example.tp1_premireapplication.app-main-42:/layout/activity_saisie.xml"
+    }
+]

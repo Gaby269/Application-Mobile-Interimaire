@@ -2,12 +2,18 @@
     <string name="app_name">HAI811I - TP2 - Les Capteurs</string>
     <string name="aff_capteur">Listes de tous les capteurs</string>
     <string name="aff_capteur_disponible">Listes des capteurs indisponibles</string>
-    <string name="suivant">Suivant</string>
-    <string name="aff_acce">Valeurs des accelerometres :</string>
+    <string name="unavailable_acc">Accélérometre non disponibles.</string>
+    <string name="unavailable_geo">Permission de géolocalisation refusée.</string>
+    <string name="suivant">Menu</string>
+    <string name="aff_acce">Valeurs de l\'accelerometre :</string>
     <string name="direction_left">Gauche</string>
     <string name="direction_right">Droite</string>
     <string name="direction_up">Haut</string>
     <string name="direction_down">Bas</string>
+    <string name="on">Allumé</string>
+    <string name="off">Éteint</string>
+    <string name="proche">Proche</string>
+    <string name="loin">Loin</string>
     <string name="aff_direction">Direction du déplacement</string>
     <string name="aff_flash">Allumage du flash</string>
     <string name="aff_y">Y:</string>
@@ -17,6 +23,9 @@
     <string name="ma_location">Ma Location</string>
     <string name="aff_long">Longitude : </string>
     <string name="aff_lat">Lattitude : </string>
-    <string name="loin">Loin</string>
-    <string name="proche">Proche</string>
+    <string name="recup_coords">Récupération des coordonées...</string>
+    <string name="tvForce">Secouez votre téléphone et dépassez une force de 3 pour allumer/éteindre le flash</string>
+    <string name="force">Force :</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu">Menu des applications</string>
 </resources>
