@@ -24,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -41,6 +40,8 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
     private MapView map;
     private LocationManager locationManager;
     private TextView tvLat, tvLong;
+    Location userLocation = null;
+    GeoPoint ma_loc;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -70,21 +71,65 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
             // Demande des permissions de géolocalisation si elles ne sont pas accordées
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
+
+        // Placement de la carte sur la France par défaut
+        map.getController().setCenter(new GeoPoint(46.2276, 2.2137));
+        map.getController().setZoom(6.0);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            userLocation = recupererLocalisation();
+        }
+        else {turnOnGPS();}
+
+        if (userLocation == null) {
+            Toast.makeText(this, getString(R.string.unavailable_geo), Toast.LENGTH_SHORT).show();
+        }
         else {
-            // Démarrage du service de géolocalisation
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            double latitude = 46.2276;
-            double longitude = 2.2137;
+            double latitude = userLocation.getLatitude();
+            double longitude = userLocation.getLongitude();
 
             // Afficher les coordonnées dans un TextView
-            //tvLat.setText(Double.toString(latitude));
-            //tvLong.setText(Double.toString(longitude));
+            tvLat.setText(Double.toString(latitude));
+            tvLong.setText(Double.toString(longitude));
 
             // Affichage des coordonnées géographiques de l'utilisateur sur la carte
-            GeoPoint ma_loc = new GeoPoint(latitude, longitude);
+            ma_loc = new GeoPoint(latitude, longitude);
             map.getController().setCenter(ma_loc);
-            map.getController().setZoom(6.0);
+            map.getController().setZoom(17.0);
+
+            ArrayList<OverlayItem> pins = new ArrayList<>();
+            OverlayItem les_pins = new OverlayItem("position", "refresh", ma_loc);
+            Drawable m = les_pins.getMarker(0);
+            pins.add(les_pins);
+
+            ItemizedOverlayWithFocus<OverlayItem> myOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), pins, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                @Override
+                public boolean onItemSingleTapUp(int index, OverlayItem item) {
+                    return true;
+                }
+
+                @Override
+                public boolean onItemLongPress(int index, OverlayItem item) {
+                    return false;
+                }
+            });
+
+            myOverlay.setFocusItemsOnTap(true);
+            map.getOverlays().add(myOverlay);
         }
+
+
+
+        // bouton redo
+        Button getNewLocation = findViewById(R.id.redo_location);
+        getNewLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map.getController().setCenter(ma_loc);
+                map.getController().setZoom(17.0);
+            }
+        });
+
 
         Button buttonSuivant7 = findViewById(R.id.bouton_suivant_ex7);
         buttonSuivant7.setOnClickListener(new View.OnClickListener() {
@@ -99,38 +144,6 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        // Récupération des coordonnées géographiques de l'utilisateur
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-
-        // Afficher les coordonnées dans un TextView
-        tvLat.setText(Double.toString(latitude));
-        tvLong.setText(Double.toString(longitude));
-
-        // Affichage des coordonnées géographiques de l'utilisateur sur la carte
-        GeoPoint ma_loc = new GeoPoint(latitude, longitude);
-        map.getController().setCenter(ma_loc);
-        map.getController().setZoom(17.0);
-
-        ArrayList<OverlayItem> pins = new ArrayList<>();
-        OverlayItem les_pins = new OverlayItem("position", "refresh", ma_loc);
-        Drawable m = les_pins.getMarker(0);
-        pins.add(les_pins);
-
-        ItemizedOverlayWithFocus<OverlayItem> myOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), pins, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-            @Override
-            public boolean onItemSingleTapUp(int index, OverlayItem item) {
-                return true;
-            }
-
-            @Override
-            public boolean onItemLongPress(int index, OverlayItem item) {
-                return false;
-            }
-        });
-
-        myOverlay.setFocusItemsOnTap(true);
-        map.getOverlays().add(myOverlay);
     }
 
 
@@ -147,7 +160,7 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             } else {
                 // Affichage d'un message d'erreur si les permissions de géolocalisation ne sont pas accordées
-                Toast.makeText(this, "Permission de géolocalisation refusée", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.unavailable_geo), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -157,29 +170,26 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
             turnOnGPS();
         }
 
-        // Check if any providers are available
         List<String> providers = locationManager.getProviders(true);
         if (providers.isEmpty()) {
-            Toast.makeText(this, "No location providers available", Toast.LENGTH_SHORT).show();
-            return null;
+            Toast.makeText(this, "Capteur de localisation indisponible", Toast.LENGTH_SHORT).show();
         }
 
-        // Get last known location from available providers
-        Location lastKnownLocation = null;
+        Location coordonnees = null;
         for (String provider : providers) {
-            if (ActivityCompat.checkSelfPermission(GeolocalizationActivity.this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(GeolocalizationActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-            } else {
+            if (ActivityCompat.checkSelfPermission(Ex7Activity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Ex7Activity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+            else {
                 Location location = locationManager.getLastKnownLocation(provider);
-                if (location != null && (lastKnownLocation == null || location.getTime() > lastKnownLocation.getTime())) {
-                    lastKnownLocation = location;
+                if (location != null && (coordonnees == null || location.getTime() > coordonnees.getTime())) {
+                    coordonnees = location;
                 }
             }
         }
 
-        // If no last known location, try to get a new one
-        if (lastKnownLocation == null) {
+        // on check que ce soit null pour pas boucler sur une nouvelle location
+        if (coordonnees == null) {
             Criteria criteria = new Criteria();
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
             String bestProvider = locationManager.getBestProvider(criteria, true);
@@ -200,11 +210,10 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
                     @Override
                     public void onStatusChanged(String provider, int status, Bundle extras) {}
                 });
-                lastKnownLocation = locationManager.getLastKnownLocation(bestProvider);
+                coordonnees = locationManager.getLastKnownLocation(bestProvider);
             }
         }
-
-        return lastKnownLocation;
+        return coordonnees;
     }
 
     private void turnOnGPS() {

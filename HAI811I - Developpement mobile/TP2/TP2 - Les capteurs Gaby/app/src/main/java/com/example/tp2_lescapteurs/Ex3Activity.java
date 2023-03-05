@@ -45,12 +45,11 @@ public class Ex3Activity extends AppCompatActivity implements SensorEventListene
             if (accelerometer != null) {
                 sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
             } else {
-                Toast.makeText(this, "Accelerometer not available", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.unavailable_acc), Toast.LENGTH_SHORT).show();
             }
         }
 
 
-        // Aller a l'activité suivante
         Button buttonSuivant3 = findViewById(R.id.bouton_suivant_ex3);
         buttonSuivant3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +73,9 @@ public class Ex3Activity extends AppCompatActivity implements SensorEventListene
         float z = sensorEvent.values[2];
 
         // Modification des données
-        xValue.setText(String.format("X: %.3f", x));
-        yValue.setText(String.format("Y: %.3f", y));
-        zValue.setText(String.format("Z: %.3f", z));
+        xValue.setText(String.format("X: %.2f", x));
+        yValue.setText(String.format("Y: %.2f", y));
+        zValue.setText(String.format("Z: %.2f", z));
 
         // Calculer les couleurs de fond et lui attribuer des valeurs
         int colorX = getColorForValue(x, -10f, 10f);

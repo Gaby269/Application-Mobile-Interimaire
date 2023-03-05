@@ -6,6 +6,7 @@
     <string name="unavailable_acc">Accélérometre non disponibles.</string>
     <string name="unavailable_geo">Permission de géolocalisation refusée.</string>
     <string name="wake_geo">Allumage du GPS</string>
+    <string name="refresh">🔄 Revenir à la position</string>
     <string name="suivant">Menu</string>
     <string name="aff_acce">Valeurs de l\'accelerometre :</string>
     <string name="direction_left">Gauche</string>

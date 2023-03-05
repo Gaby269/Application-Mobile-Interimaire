@@ -93,10 +93,9 @@
 
     <org.osmdroid.views.MapView
         android:id="@+id/map"
-        android:layout_width="381dp"
-        android:layout_height="300dp"
+        android:layout_width="290dp"
+        android:layout_height="290dp"
         android:layout_gravity="center"
-        android:layout_marginTop="52dp"
         android:clickable="true"
         android:enabled="true"
         android:padding="5dp"
@@ -104,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acc_linear_layout" />
+        app:layout_constraintTop_toBottomOf="@id/redo_location" />
 
     <Button
         android:id="@+id/bouton_suivant_ex7"
@@ -116,6 +115,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/redo_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/refresh"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acc_linear_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
