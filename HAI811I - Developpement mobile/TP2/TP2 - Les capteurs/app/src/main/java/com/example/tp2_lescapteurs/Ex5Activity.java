@@ -135,11 +135,11 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
         try {
             cameraId = cameraManager.getCameraIdList()[0];
             cameraManager.setTorchMode(cameraId, false);
-            flashValue.setText(getString(R.string.off));
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+        texteFlash.setText(getString(R.string.off));
         sensorManager.unregisterListener(this);
     }
 

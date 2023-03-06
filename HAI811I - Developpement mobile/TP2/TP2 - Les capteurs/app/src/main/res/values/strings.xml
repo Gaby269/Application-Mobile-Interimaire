@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HAI811I - TP2 - Les Capteurs</string>
+    <string name="app_name">GH_GP - Les Capteurs</string>
     <string name="aff_capteur">Liste de tous les capteurs</string>
     <string name="liste_capteur">Liste des capteurs</string>
     <string name="aff_capteur_disponible">Liste des capteurs indisponibles</string>
