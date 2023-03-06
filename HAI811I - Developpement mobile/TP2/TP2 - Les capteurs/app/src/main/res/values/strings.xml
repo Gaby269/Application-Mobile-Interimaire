@@ -31,4 +31,5 @@
     <string name="force">Force :</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu">Menu des applications</string>
+    <string name="proximite">Rapprochez vous du téléphone pour changer l\'image</string>
 </resources>
