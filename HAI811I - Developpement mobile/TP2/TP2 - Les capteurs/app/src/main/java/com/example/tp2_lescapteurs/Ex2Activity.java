@@ -18,14 +18,9 @@ import java.util.List;
 
 //Classe pour les informations sur les capteurs
 class SensorInfoDisponible {
-    private final String name;
-    private final int type;
-    private final String vendeur;
-    private final int version;
+    private final String name, vendeur;
+    private final int type, version;
     private final boolean isDisponible;
-
-    boolean False;
-    boolean True;
 
     //Constructeur des informations sur les capteurs
     public SensorInfoDisponible(String name, int type, String vendeur, int version, boolean isDisponible) {
@@ -74,6 +69,7 @@ public class Ex2Activity extends AppCompatActivity {
     private ListView listViewSensors;
     private ArrayAdapter<SensorInfoDisponible> adapter;
     boolean False;
+    SensorManager sensorManager;
 
 
     @Override
@@ -89,7 +85,7 @@ public class Ex2Activity extends AppCompatActivity {
         listViewSensors.setAdapter(adapter);
 
         // Recuperation des capteurs
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
 
         //pour chaque capteur
@@ -120,5 +116,15 @@ public class Ex2Activity extends AppCompatActivity {
                 startActivity(iCal);
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

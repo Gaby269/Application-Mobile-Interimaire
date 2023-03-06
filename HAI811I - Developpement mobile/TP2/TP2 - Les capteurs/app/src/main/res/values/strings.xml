@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">HAI811I - TP2 - Les Capteurs</string>
-    <string name="aff_capteur">Listes de tous les capteurs</string>
-    <string name="liste_capteur">Listes des capteurs</string>
-    <string name="aff_capteur_disponible">Listes des capteurs indisponibles</string>
-    <string name="unavailable_acc">Accélérometre non disponibles.</string>
-    <string name="unavailable_geo">Permission de géolocalisation refusée.</string>
+    <string name="aff_capteur">Liste de tous les capteurs</string>
+    <string name="liste_capteur">Liste des capteurs</string>
+    <string name="aff_capteur_disponible">Liste des capteurs indisponibles</string>
+    <string name="unavailable_acc">Accélérometre non disponibles</string>
+    <string name="unavailable_geo">Permission de géolocalisation refusée</string>
     <string name="wake_geo">Allumage du GPS</string>
     <string name="refresh">🔄 Recentrer</string>
     <string name="suivant">Menu</string>

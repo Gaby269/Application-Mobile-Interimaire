@@ -20,6 +20,8 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
 
     TextView directionValue, xValue, yValue, zValue;
     ImageView image_left, image_right, image_up, image_down;
+    SensorManager sensorManager;
+    Sensor accelerometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,13 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
 
 
         //Recuperer les capteurs et notamment celui de l'acceleromettre
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
-            Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             if (accelerometer != null) {
                 sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-            } else {
+            }
+            else {
                 Toast.makeText(this, "Accelerometer not available", Toast.LENGTH_SHORT).show();
             }
         }
@@ -75,11 +78,6 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
 
         //modifie les indications
         updateDirection(x, y, z);
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
     }
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
@@ -126,5 +124,22 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
         xValue.setText("X : " + String.format("%.2f", x));
         yValue.setText("Y : " + String.format("%.2f", y));
         zValue.setText("Z : " + String.format("%.2f", z));
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {}
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 }

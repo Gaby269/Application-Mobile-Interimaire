@@ -25,6 +25,7 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
     TextView flashValue, texteFlash;
     Sensor accelerometer;
     CameraManager cameraManager;
+    SensorManager sensorManager;
     String cameraId;
     CameraCharacteristics characteristics;
     boolean isFlashOn = false;
@@ -53,12 +54,13 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
 
 
         //Recuperer les capteurs et notamment celui de l'acceleromettre
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             if (accelerometer != null) {
                 sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-            } else {
+            }
+            else {
                 Toast.makeText(this, getString(R.string.unavailable_acc), Toast.LENGTH_SHORT).show();
             }
         }
@@ -101,10 +103,6 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
 
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
-
     @SuppressLint("SetTextI18n")
     private void toggleFlash() {
         try {
@@ -128,6 +126,10 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
     }
 
     @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         try {
@@ -138,7 +140,15 @@ public class Ex5Activity extends AppCompatActivity implements SensorEventListene
         catch (Exception e) {
             e.printStackTrace();
         }
+        sensorManager.unregisterListener(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 }
 

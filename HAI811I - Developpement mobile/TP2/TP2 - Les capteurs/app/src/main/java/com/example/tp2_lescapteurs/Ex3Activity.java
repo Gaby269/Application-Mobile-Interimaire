@@ -20,9 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Ex3Activity extends AppCompatActivity implements SensorEventListener {
 
-    private TextView xValue, yValue, zValue, accelerationValue;
-
-    private View background;
+    TextView xValue, yValue, zValue, accelerationValue;
+    View background;
+    SensorManager sensorManager;
+    Sensor accelerometer;
 
 
     @Override
@@ -39,12 +40,13 @@ public class Ex3Activity extends AppCompatActivity implements SensorEventListene
 
 
         //Recuperer les capteurs et notamment celui de l'acceleromettre
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
-            Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             if (accelerometer != null) {
                 sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-            } else {
+            }
+            else {
                 Toast.makeText(this, getString(R.string.unavailable_acc), Toast.LENGTH_SHORT).show();
             }
         }
@@ -60,7 +62,6 @@ public class Ex3Activity extends AppCompatActivity implements SensorEventListene
             }
         });
     }
-
 
 
     @Override
@@ -91,11 +92,6 @@ public class Ex3Activity extends AppCompatActivity implements SensorEventListene
         background.setBackgroundColor(color);
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
-
 
     // Détermine la catégorie (0 = fuchsia, 1 = vert, 2 = bleu électrique) d'une valeur donnée
     private int getCategoryForValue(float value, float minValue, float maxValue) {
@@ -110,26 +106,21 @@ public class Ex3Activity extends AppCompatActivity implements SensorEventListene
         }
     }
 
-    // Détermine la couleur à utiliser pour une valeur donnée
-    private int getColorForValue(float value, float minValue, float maxValue) {
-        int category = getCategoryForValue(value, minValue, maxValue);
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {}
 
-        if (category == 1) {
-            return Color.rgb(90, 0, 75);
-        } else if (category == 0) {
-            return Color.rgb(0, 105, 14);
-        } else {
-            return Color.rgb(0, 39, 181); //bleu electrique
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
     }
 
-    // Détermine la couleur de fond à utiliser en fonction des couleurs des axes X, Y et Z
-    private int getBackgroundColor(int colorX, int colorY, int colorZ) {
-        int red = Math.max(colorX, Math.max(colorY, colorZ));
-        int green = Math.min(colorX, Math.min(colorY, colorZ));
-        int blue = (colorX + colorY + colorZ) - red - green;
-
-        return Color.rgb(red, green, blue);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
 }
