@@ -89,31 +89,31 @@ public class Ex4Activity extends AppCompatActivity implements SensorEventListene
 
         // Choix de la direction en fonction de l'angle
         if (angle >= -45 && angle <= 45) {
-            direction = "Droite";
-            image_right.setVisibility(View.VISIBLE);
-            image_up.setVisibility(View.GONE);
+            direction = "Haut";
+            image_right.setVisibility(View.GONE);
+            image_up.setVisibility(View.VISIBLE);
             image_left.setVisibility(View.GONE);
             image_down.setVisibility(View.GONE);
         }
         else if (angle > 45 && angle < 135) {
-            direction = "Haut";
-            image_up.setVisibility(View.VISIBLE);
-            image_down.setVisibility(View.GONE);
-            image_left.setVisibility(View.GONE);
-            image_right.setVisibility(View.GONE);
-        }
-        else if (angle >= 135 || angle <= -135) {
-            direction = "Gauche";
-            image_left.setVisibility(View.VISIBLE);
+            direction = "Droite";
             image_up.setVisibility(View.GONE);
             image_down.setVisibility(View.GONE);
+            image_left.setVisibility(View.GONE);
+            image_right.setVisibility(View.VISIBLE);
+        }
+        else if (angle >= 135 || angle <= -135) {
+            direction = "Bas";
+            image_left.setVisibility(View.GONE);
+            image_up.setVisibility(View.GONE);
+            image_down.setVisibility(View.VISIBLE);
             image_right.setVisibility(View.GONE);
         }
         else if (angle < -45 && angle > -135) {
-            direction = "Bas";
-            image_down.setVisibility(View.VISIBLE);
+            direction = "Gauche";
+            image_down.setVisibility(View.GONE);
             image_up.setVisibility(View.GONE);
-            image_left.setVisibility(View.GONE);
+            image_left.setVisibility(View.VISIBLE);
             image_right.setVisibility(View.GONE);
         }
 

@@ -78,45 +78,9 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             userLocation = recupererLocalisation();
+            setMap();
         }
         else {turnOnGPS();}
-
-        if (userLocation == null) {
-            Toast.makeText(this, getString(R.string.unavailable_geo), Toast.LENGTH_SHORT).show();
-        }
-        else {
-            double latitude = userLocation.getLatitude();
-            double longitude = userLocation.getLongitude();
-
-            // Afficher les coordonnées dans un TextView
-            tvLat.setText(Double.toString(latitude));
-            tvLong.setText(Double.toString(longitude));
-
-            // Affichage des coordonnées géographiques de l'utilisateur sur la carte
-            ma_loc = new GeoPoint(latitude, longitude);
-            map.getController().setCenter(ma_loc);
-            map.getController().setZoom(17.0);
-
-            ArrayList<OverlayItem> pins = new ArrayList<>();
-            OverlayItem les_pins = new OverlayItem("position", "refresh", ma_loc);
-            Drawable m = les_pins.getMarker(0);
-            pins.add(les_pins);
-
-            ItemizedOverlayWithFocus<OverlayItem> myOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), pins, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                @Override
-                public boolean onItemSingleTapUp(int index, OverlayItem item) {
-                    return true;
-                }
-
-                @Override
-                public boolean onItemLongPress(int index, OverlayItem item) {
-                    return false;
-                }
-            });
-
-            myOverlay.setFocusItemsOnTap(true);
-            map.getOverlays().add(myOverlay);
-        }
 
 
 
@@ -125,8 +89,8 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
         getNewLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                map.getController().setCenter(ma_loc);
-                map.getController().setZoom(17.0);
+                userLocation = recupererLocalisation();
+                setMap();
             }
         });
 
@@ -233,6 +197,40 @@ public class Ex7Activity extends AppCompatActivity implements LocationListener {
         });
         final AlertDialog alertDialog=builder.create();
         alertDialog.show();
+    }
+
+    private void setMap() {
+        double latitude = userLocation.getLatitude();
+        double longitude = userLocation.getLongitude();
+
+        // Afficher les coordonnées dans un TextView
+        tvLat.setText(Double.toString(latitude));
+        tvLong.setText(Double.toString(longitude));
+
+        // Affichage des coordonnées géographiques de l'utilisateur sur la carte
+        ma_loc = new GeoPoint(latitude, longitude);
+        map.getController().setCenter(ma_loc);
+        map.getController().setZoom(17.0);
+
+        ArrayList<OverlayItem> pins = new ArrayList<>();
+        OverlayItem les_pins = new OverlayItem("position", "refresh", ma_loc);
+        Drawable m = les_pins.getMarker(0);
+        pins.add(les_pins);
+
+        ItemizedOverlayWithFocus<OverlayItem> myOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), pins, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+            @Override
+            public boolean onItemSingleTapUp(int index, OverlayItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onItemLongPress(int index, OverlayItem item) {
+                return false;
+            }
+        });
+
+        myOverlay.setFocusItemsOnTap(true);
+        map.getOverlays().add(myOverlay);
     }
 
     @Override
