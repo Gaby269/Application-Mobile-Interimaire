@@ -17,6 +17,8 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private final Context mContext;
     private final ArrayList<String> mItems;
     private final ArrayList<Integer> mImages;
+    @SuppressLint("ResourceType")
+    // Constructeur
     public CustomListAdapter(Context context, ArrayList<String> items, ArrayList<Integer> images) {
         super(context, R.layout.list_item, items);
         mContext = context;
@@ -25,9 +27,10 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     }
     @NonNull
     @Override
+    // View qu'on va voir sur le fichier
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("ViewHolder") View rowView = inflater.inflate(R.layout.list_item, parent, false);
+        @SuppressLint({"ViewHolder", "ResourceType"}) View rowView = inflater.inflate(R.layout.list_item, parent, false);
         ImageView imageView = rowView.findViewById(R.id.image_view);
         TextView textView = rowView.findViewById(R.id.text_view);
         imageView.setImageResource(mImages.get(position));
