@@ -1,4 +1,0 @@
-Première chose : 
-
-- trouver les propriétés et les lister 
-    problème actuel: il y a 6 objets qui sont des listes de prédicats et objets ils-mêmes
