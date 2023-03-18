@@ -1,14 +1,12 @@
 package com.example.tp3_fragementsservices;
 
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +17,11 @@ import android.widget.EditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Fragment1 extends Fragment {
@@ -37,7 +29,6 @@ public class Fragment1 extends Fragment {
     EditText prenomField, nomField, anniversaireField, telephoneField, mailField;
 
     String FILE_NAME = "data.json";
-
     public Fragment1() {}
 
     @Override
@@ -126,68 +117,21 @@ public class Fragment1 extends Fragment {
             }
         });
 
-        //Même chose pour le outon de telechargement
+        //Même chose pour le bouton de telechargement
         Button telechargerButton = view.findViewById(R.id.telecharger_button);
         telechargerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DownloadFileTask().execute("https://jsonplaceholder.typicode.com/todos/1");
+                Fragment3 fragment3 = new Fragment3();
+                assert requireActivity().getSupportFragmentManager() != null;
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, fragment3)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         return view;
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class DownloadFileTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... urls) {
-            String response = "";
-            HttpURLConnection urlConnection = null;
-            try {
-                URL url = new URL(urls[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                response = convertInputStreamToString(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-            }
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // Traiter le résultat ici
-            Bundle bundle = new Bundle();
-            bundle.putString("fichierJAVA", result);
-
-            // Creer le fragment 3 et ses arguments
-            Fragment3 fragment3 = new Fragment3();
-            fragment3.setArguments(bundle);
-
-            // Aller au fragment 2
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment3)
-                    .addToBackStack(null)
-                    .commit();
-        }
-    }
-
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            stringBuilder.append(line).append("\n");
-        }
-        bufferedReader.close();
-        return stringBuilder.toString();
     }
 
 
@@ -211,6 +155,4 @@ public class Fragment1 extends Fragment {
         nomField.setText(jsonObject.getString("nom"));
         anniversaireField.setText(jsonObject.getString("anniversaire"));
     }
-
-
 }

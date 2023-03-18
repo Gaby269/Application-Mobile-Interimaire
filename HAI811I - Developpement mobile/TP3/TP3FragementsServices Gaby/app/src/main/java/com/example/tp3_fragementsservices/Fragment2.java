@@ -2,7 +2,6 @@ package com.example.tp3_fragementsservices;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,21 +13,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Fragment2 extends Fragment {
 
@@ -140,17 +133,15 @@ public class Fragment2 extends Fragment {
         bundle.putString("mail", emailString);
         bundle.putString("interests", interetsString);
 
-        // Creer le fragment 3 et ses arguments
+        // Creer le fragment 4 et ses arguments
         Fragment4 fragment4 = new Fragment4();
         fragment4.setArguments(bundle);
 
-        // Aller au fragment 2
-        assert getFragmentManager() != null;
-        getFragmentManager().beginTransaction()
+        // Aller au fragment 4
+        assert requireActivity().getSupportFragmentManager() != null;
+        requireActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment4)
                 .addToBackStack(null)
                 .commit();
-
-
     }
 }

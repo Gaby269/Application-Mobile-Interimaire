@@ -6,17 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.Objects;
-
 public class Fragment4 extends Fragment {
 
-    public Fragment4() {
-        // Required empty public constructor
-    }
+    public Fragment4() {}
 
     @Override
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
