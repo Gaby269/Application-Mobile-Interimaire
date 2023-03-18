@@ -14,12 +14,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Fragment2 extends Fragment {
 
@@ -37,12 +46,13 @@ public class Fragment2 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_2, container, false);
 
         Bundle bundle = getArguments();
+        assert bundle != null;
         prenom = bundle.getString("prenom");
         nom = bundle.getString("nom");
         anniversaire = bundle.getString("anniversaire");
         telephone = bundle.getString("telephone");
         mail = bundle.getString("mail");
-        interests = bundle.getStringArrayList("interets");
+        interests = bundle.getStringArrayList("interests");
         boolean sync = bundle.getBoolean("sync");
 
         TextView nomCompletTextView = view.findViewById(R.id.nomComplet_textview);
@@ -66,19 +76,19 @@ public class Fragment2 extends Fragment {
             public void onClick(View v) {
                 try {
                     saveData();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (JSONException e) {
+                    Toast.makeText(getActivity(), "Enregistrement des données !", Toast.LENGTH_SHORT).show();
+                    downloadData();
+                } catch (IOException | JSONException e) {
                     throw new RuntimeException(e);
                 }
-                Toast.makeText(getActivity(), "Validation des données !", Toast.LENGTH_SHORT).show();
+
             }
         });
 
         return view;
     }
 
-
+    //telechargement des données dans un fichier
     public void saveData() throws IOException, JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("prenom", prenom);
@@ -95,5 +105,52 @@ public class Fragment2 extends Fragment {
         fileOutputStream = getActivity().getApplicationContext().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
         fileOutputStream.write(userString.getBytes());
         fileOutputStream.close();
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    public void downloadData() throws IOException, JSONException{
+        // Lecture du fichier JSON
+        FileInputStream fileInputStream = getActivity().openFileInput(FILE_NAME);
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            stringBuilder.append(line);
+        }
+        fileInputStream.close();
+        String jsonString = stringBuilder.toString();
+        System.out.println("Contenu du fichier JSON dans le fichier "+ FILE_NAME + ": " + jsonString);
+
+        JSONObject json = new JSONObject(jsonString);
+        String prenomString = json.getString("prenom");
+        String nomString = json.getString("nom");
+        String anniversaireString = json.getString("anniversaire");
+        String telephoneString = json.getString("telephone");
+        String emailString = json.getString("mail");
+        String interetsString = json.getString("interests");
+
+        // Traiter le résultat ici
+        Bundle bundle = new Bundle();
+        bundle.putString("prenom", prenomString);
+        bundle.putString("nom", nomString);
+        bundle.putString("anniversaire", anniversaireString);
+        bundle.putString("telephone", telephoneString);
+        bundle.putString("mail", emailString);
+        bundle.putString("interests", interetsString);
+
+        // Creer le fragment 3 et ses arguments
+        Fragment4 fragment4 = new Fragment4();
+        fragment4.setArguments(bundle);
+
+        // Aller au fragment 2
+        assert getFragmentManager() != null;
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment4)
+                .addToBackStack(null)
+                .commit();
+
+
     }
 }

@@ -6,6 +6,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
@@ -20,5 +31,6 @@ public class MainActivity extends AppCompatActivity{
         transaction.add(R.id.fragment_container, fragment1);
         transaction.commit();
     }
+
 
 }

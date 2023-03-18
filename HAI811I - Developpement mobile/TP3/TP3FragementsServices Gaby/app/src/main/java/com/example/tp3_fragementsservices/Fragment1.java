@@ -1,12 +1,14 @@
 package com.example.tp3_fragementsservices;
 
 import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Fragment1 extends Fragment {
@@ -61,10 +64,7 @@ public class Fragment1 extends Fragment {
             try {
                 loadData();
             }
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            catch (JSONException e) {
+            catch (IOException | JSONException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -111,7 +111,7 @@ public class Fragment1 extends Fragment {
                 bundle.putString("anniversaire", anniversaire);
                 bundle.putString("telephone", telephone);
                 bundle.putString("mail", mail);
-                bundle.putStringArrayList("interets", interests);
+                bundle.putStringArrayList("interests", interests);
                 bundle.putBoolean("sync", sync);
 
                 Fragment2 fragment2 = new Fragment2();
@@ -126,65 +126,72 @@ public class Fragment1 extends Fragment {
             }
         });
 
+        //Même chose pour le outon de telechargement
         Button telechargerButton = view.findViewById(R.id.telecharger_button);
         telechargerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                URL url = null;
-                try {
-                    url = new URL("https://jsonplaceholder.typicode.com/posts");
-                }
-                catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
-                }
-
-                HttpURLConnection urlConnection = null;
-                try {
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                }
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-                try {
-                    InputStream inputStream = null;
-                    try {
-                        inputStream = new BufferedInputStream(urlConnection.getInputStream());
-                    }
-                    catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    try {
-                        String jsonString = convertInputStreamToString(inputStream);
-                    }
-                    catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                finally {
-                    urlConnection.disconnect();
-                }
-
-
-
+            public void onClick(View view) {
+                new DownloadFileTask().execute("https://jsonplaceholder.typicode.com/todos/1");
             }
         });
 
         return view;
     }
 
-    public static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+    @SuppressLint("StaticFieldLeak")
+    private class DownloadFileTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            try {
+                URL url = new URL(urls[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                response = convertInputStreamToString(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // Traiter le résultat ici
+            Bundle bundle = new Bundle();
+            bundle.putString("fichierJAVA", result);
+
+            // Creer le fragment 3 et ses arguments
+            Fragment3 fragment3 = new Fragment3();
+            fragment3.setArguments(bundle);
+
+            // Aller au fragment 2
+            assert getFragmentManager() != null;
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment3)
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while ((line = bufferedReader.readLine()) != null) {
-            stringBuilder.append(line);
+            stringBuilder.append(line).append("\n");
         }
-        inputStream.close();
+        bufferedReader.close();
         return stringBuilder.toString();
     }
 
+
+    // Ecriture des données
     public void loadData() throws IOException, JSONException {
         FileInputStream fileInputStream = getActivity().openFileInput(FILE_NAME);
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -196,13 +203,14 @@ public class Fragment1 extends Fragment {
         }
         fileInputStream.close();
         String json = stringBuilder.toString();
-        System.out.println("Contenu du fichier JSON : " + json);
+        System.out.println("Contenu du fichier JSON dans le fichier "+ FILE_NAME + ": " + json);
 
         JSONObject jsonObject = new JSONObject(json);
 
         //taitement des données
         nomField.setText(jsonObject.getString("nom"));
-        prenomField.setText(jsonObject.getString("prenom"));
+        anniversaireField.setText(jsonObject.getString("anniversaire"));
     }
+
 
 }

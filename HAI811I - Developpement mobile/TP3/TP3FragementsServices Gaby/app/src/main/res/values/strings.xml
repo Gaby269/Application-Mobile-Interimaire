@@ -22,4 +22,6 @@
     <string name="aff_tel">Numéro de téléphone</string>
     <string name="aff_mail">Adresse mail</string>
     <string name="aff_interet">Interets</string>
+    <string name="aff_resultat">Résultat obtenu :</string>
+    <string name="aff_resultat_2">Parser le fichier :</string>
 </resources>
