@@ -1,6 +1,8 @@
 package com.example.tp3_fragementsservices;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,9 +14,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Fragment2 extends Fragment {
+
+    String prenom, nom, anniversaire, telephone, mail;
+    ArrayList<String> interests;
+    String FILE_NAME = "data.json";
 
     public Fragment2() {
         // Required empty public constructor
@@ -22,22 +33,18 @@ public class Fragment2 extends Fragment {
 
     @Override
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_2, container, false);
 
-        // Get user data from arguments
         Bundle bundle = getArguments();
-        String prenom = bundle.getString("prenom");
-        String nom = bundle.getString("nom");
-        String anniversaire = bundle.getString("anniversaire");
-        String telephone = bundle.getString("telephone");
-        String mail = bundle.getString("mail");
-        ArrayList<String> interests = bundle.getStringArrayList("interets");
+        prenom = bundle.getString("prenom");
+        nom = bundle.getString("nom");
+        anniversaire = bundle.getString("anniversaire");
+        telephone = bundle.getString("telephone");
+        mail = bundle.getString("mail");
+        interests = bundle.getStringArrayList("interets");
         boolean sync = bundle.getBoolean("sync");
 
-        // Set user data in UI
         TextView nomCompletTextView = view.findViewById(R.id.nomComplet_textview);
         nomCompletTextView.setText("Nom complet : " + prenom + " " + nom);
 
@@ -57,10 +64,36 @@ public class Fragment2 extends Fragment {
         validerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    saveData();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
                 Toast.makeText(getActivity(), "Validation des données !", Toast.LENGTH_SHORT).show();
             }
         });
 
         return view;
+    }
+
+
+    public void saveData() throws IOException, JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("prenom", prenom);
+        jsonObject.put("nom", nom);
+        jsonObject.put("anniversaire", anniversaire);
+        jsonObject.put("telephone", telephone);
+        jsonObject.put("mail", mail);
+        jsonObject.put("interests", interests);
+
+        String userString = jsonObject.toString();
+        System.out.println("Contenu du fichier JSON : " + userString);
+
+        FileOutputStream fileOutputStream = null;
+        fileOutputStream = getActivity().getApplicationContext().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+        fileOutputStream.write(userString.getBytes());
+        fileOutputStream.close();
     }
 }
