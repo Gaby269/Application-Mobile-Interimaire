@@ -43,7 +43,6 @@ public class Fragment3 extends Fragment {
         // Association de la vue au fragment 3
         view = inflater.inflate(R.layout.fragment_3, container, false);
 
-
         Intent intent = new Intent(getActivity(), DownloadService.class);
         intent.putExtra("url", URL_LINK);
         ContextCompat.startForegroundService(getActivity(), intent);
