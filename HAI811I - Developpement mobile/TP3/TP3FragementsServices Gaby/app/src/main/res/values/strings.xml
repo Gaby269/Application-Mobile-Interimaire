@@ -24,4 +24,7 @@
     <string name="aff_interet">Interets</string>
     <string name="aff_resultat">Résultat obtenu :</string>
     <string name="aff_resultat_2">Parser le fichier :</string>
+    <string name="menu">Fragment - Service</string>
+    <string name="aff_frag">Fragment</string>
+    <string name="aff_serv">Service</string>
 </resources>
