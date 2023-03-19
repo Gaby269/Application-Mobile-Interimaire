@@ -17,10 +17,10 @@ public class Fragment4 extends Fragment {
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Associé la vue au fragment 4
         View view = inflater.inflate(R.layout.fragment_4, container, false);
 
-        // Get user data from arguments
+        // Recuperation des info du bundle
         Bundle bundle = getArguments();
         assert bundle != null;
         String prenomString = bundle.getString("prenom");
@@ -30,7 +30,7 @@ public class Fragment4 extends Fragment {
         String emailString = bundle.getString("mail");
         String interetsString = bundle.getString("interests");
 
-        // afficher les données dans les TextView correspondants
+        // Afficher les données dans les TextView correspondants
         TextView nameTextView = view.findViewById(R.id.nomComplet);
         nameTextView.setText("Nom complet : " + prenomString + nomString);
         TextView annivTextView = view.findViewById(R.id.anniversaire);

@@ -40,14 +40,15 @@ public class Fragment3 extends Fragment {
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        // Association de la vue au fragment 3
         view = inflater.inflate(R.layout.fragment_3, container, false);
 
-        //new DownloadFileTask().execute(URL_LINK);
 
         Intent intent = new Intent(getActivity(), DownloadService.class);
         intent.putExtra("url", URL_LINK);
         ContextCompat.startForegroundService(getActivity(), intent);
 
+        // Recuperation des informations du ficheir du site
         downloadCompleteReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -66,6 +67,7 @@ public class Fragment3 extends Fragment {
     }
 
 
+    // Telechargement des informations du site
     @SuppressLint("StaticFieldLeak")
     private class DownloadFileTask extends AsyncTask<String, Void, String> {
 
@@ -74,6 +76,7 @@ public class Fragment3 extends Fragment {
             String response = "";
             HttpURLConnection urlConnection = null;
             try {
+                // Recuperation de l'URL du site
                 URL url = new URL(urls[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -99,6 +102,7 @@ public class Fragment3 extends Fragment {
     }
 
 
+    // Conversion du ficheir en string
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder stringBuilder = new StringBuilder();
