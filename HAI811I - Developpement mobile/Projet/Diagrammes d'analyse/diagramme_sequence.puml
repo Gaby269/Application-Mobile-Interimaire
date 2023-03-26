@@ -1,0 +1,244 @@
+@startuml "Diagramme de sequence d'une application d'interimère"
+'https://plantuml.com/class-diagram
+
+!include https://raw.githubusercontent.com/plantuml/plantuml/master/themes/puml-theme-mars.puml
+
+circle candidat #back:ffe6b4
+circle entreprise #back:ffd0e3
+circle candidat/entreprise #back:d3dbff
+enum typeCompte{
+    Employeur
+    Candidat
+}
+enum typeAbo{
+    Ponctuel
+    Mensuel
+    Trimestriel
+    Semestriel
+    Annuel
+    Renouvelable
+}
+enum statueOffre{
+    NonOuverte
+    EnCours
+    Terminé
+    Perimé
+}
+
+Class Accueil #back:d3dbff;text:Black{}
+
+Class Connexion #back:d3dbff;text:Black{
+    -identifiant:String
+    -motDePass:String
+}
+
+Class Inscription #back:d3dbff;text:Black{
+    -nom:String
+    -prenom:String
+    -email:String
+    -motDePass:String
+    -typeCompte:typeCompte
+}
+
+Class EtapeInscription #back:d3dbff;text:Black{
+    -nom:String
+    -numeroSiret:String
+    -AdressePostale:String
+
+    -nomComplet:String
+    -email:String
+    -telephone:Integer
+    -motDePass:String
+}
+
+Class ConfirmationTelephone #back:d3dbff;text:Black{
+    -codeNumero:Integer 
+}
+
+Class OffreAbonnement #back:d3dbff;text:Black{
+    -typeAbonnement:typeAbo
+    -prix:Integer
+}
+
+Class RecapitulationPaiement #back:d3dbff;text:Black{
+    -prixTotal:Integer
+    -reduction:String
+}
+
+Class Paiement #back:d3dbff;text:Black{
+    -nomCarte:String
+    -numeroCarte:Integer
+    -dateExpiration:String
+    -cvv:Integer
+    -adresseFacturation:String
+}
+
+Class TutoDemarage #back:d3dbff;text:Black{}
+
+Class ConsultationsOffres #back:d3dbff;text:Black{
+    -listOffre:tabString
+    -filtre:listString
+}
+
+Class Messagerie #back:d3dbff;text:Black{
+    -idCandidat:Integer
+    -idEmployeur:Integer
+    -conversation:String
+}
+
+Class ConsultationCompte #back:d3dbff;text:Black{
+    -cv:fichierPDF
+}
+Class SupprimerCompte #back:d3dbff;text:Black{
+    -idCompte:Integer
+}
+Class ModificationCompte #back:d3dbff;text:Black{
+    -cv:fichierPDF
+}
+
+
+Class ConsultationCandidature #back:d3dbff;text:Black{
+    si entreprise :
+    ..
+    -listCandidature :listInteger 
+    ==
+    si candidat :
+    ..
+    -idCandidature:Integer
+}
+
+Class ConsultationOffresFavorite #back:ffe6b4;{
+    -listOffre:listInteger
+}
+Class AjoutFavorie #back:ffe6b4;{
+    -idOffre:Integer
+}
+Class SupprimerFavorie #back:ffe6b4;{
+    -idOffre:Integer
+}
+
+Class ConsultationCandidaturesFavorite #back:ffd0e3;{
+    -listCandidature :listInteger 
+}
+
+Class AfficherDetailsOffre #back:d3dbff;text:Black{
+    -idOffre:Integer
+    -is_postuler:Boolean
+    -statue:statueOffre
+}
+
+Class CreerOffre #back:ffd0e3;text:Black;{
+    -idOffre:Integer
+    -titreOffre:String
+    -typePoste:String
+    -descriptionOffre:String
+
+    -periodeEmploi:String
+    -lieu:String
+    -remuneration:String
+    -detailsSuplementaire:String
+}
+Class SupprimerOffre #back:ffd0e3;text:Black;{
+    -idOffre:Integer
+}
+Class ModificationOffres #back:ffd0e3;text:Black;{
+    -idOffre:Integer
+    -newTitreOffre:String
+    -newTypePoste:String
+    -newDescriptionOffre:String
+
+    -newPeriodeEmploi:String
+    -newLieu:String
+    -newRemuneration:String
+    -newDetailsSuplementaire:String
+}
+
+Class Postuler #back:ffe6b4;{
+    -idCandidature:Integer
+    -idOffre:Integer
+    -idCandidat:Integer
+    -indication:String
+}
+Class SupprimerCandidature #back:ffe6b4;{
+    -idCandidature:Integer
+}
+Class ModificationCandidature #back:ffe6b4;text:Black{
+    -idCandidature:Integer
+    -indication:String
+}
+
+Class Menu #back:d3dbff;text:Black{}
+
+Class Accepter_RefuserCandidature #back:ffd0e3;text:Black;{
+    -idOffre:Integer
+    -idCandidature:Integer
+    -commentaire:String
+    -conversation:String
+}
+
+Class MettreCandidatureFavorie #back:ffd0e3;text:Black;{
+    -idCandidature:Integer
+}
+
+
+note top of ConsultationsOffres : Un invité ne peu que consulter les offres
+
+Accueil --> Connexion
+Accueil --> Inscription
+Accueil <..> ConsultationsOffres: invité >
+
+
+Inscription <--> EtapeInscription
+EtapeInscription <--> ConfirmationTelephone
+ConfirmationTelephone <--> OffreAbonnement
+OffreAbonnement <--> RecapitulationPaiement
+RecapitulationPaiement <--> Paiement
+Paiement <--> TutoDemarage
+
+TutoDemarage --> Menu
+Connexion --> Menu
+
+Menu <--> ConsultationCompte
+Menu <--> ConsultationCandidature
+Menu <--> ConsultationOffresFavorite
+Menu <--> ConsultationsOffres
+
+ConsultationsOffres <--> CreerOffre
+ConsultationsOffres --> AfficherDetailsOffre
+ConsultationsOffres --> AjoutFavorie
+ConsultationsOffres ..> Connexion: invités >
+ConsultationsOffres ..> Inscription: invités >
+
+AfficherDetailsOffre <--> Postuler
+AfficherDetailsOffre <--> Messagerie
+AfficherDetailsOffre <--> AjoutFavorie
+AfficherDetailsOffre <--> ModificationOffres
+AfficherDetailsOffre <--> ConsultationCandidature
+AfficherDetailsOffre --> SupprimerOffre
+AfficherDetailsOffre <-- SupprimerCandidature
+
+SupprimerOffre --> ConsultationsOffres
+SupprimerCompte --> Accueil
+
+ConsultationCandidature <--> Accepter_RefuserCandidature
+ConsultationCandidature <--> Messagerie
+ConsultationCandidature <--> MettreCandidatureFavorie
+ConsultationCandidature <--> ModificationCandidature
+ConsultationCandidature --> SupprimerCandidature
+
+ConsultationCandidaturesFavorite <--> ConsultationCandidature
+
+Accepter_RefuserCandidature <--> Messagerie
+
+Postuler <--> Messagerie
+Postuler --> ConsultationCandidature
+
+ConsultationCompte <--> ModificationCompte
+ConsultationCompte --> SupprimerCompte
+
+ConsultationOffresFavorite <--> SupprimerFavorie
+ConsultationOffresFavorite <--> ConsultationsOffres
+
+
+
+@enduml
