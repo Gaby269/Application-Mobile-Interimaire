@@ -33,4 +33,16 @@
     <string name="moyen_payer">Moyen de paiement</string>
     <string name="recap_payer">Recapitulation du prix</string>
     <string name="boutton_confirmer">Confirmation</string>
+    <string-array name="typeCompte">
+        <item>Entreprise</item>
+        <item>Candidat</item>
+    </string-array>
+    <string-array name="typeAbonnement">
+        <item>Ponctuel (un abonnement)</item>
+        <item>Mensuel</item>
+        <item>Trimestriel</item>
+        <item>Semestriel</item>
+        <item>Annuel</item>
+        <item>Renouvelable</item>
+    </string-array>
 </resources>

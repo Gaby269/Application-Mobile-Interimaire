@@ -33,6 +33,7 @@ public class InscriptionActivity extends AppCompatActivity {
         Spinner typeCompteSpinner = (Spinner) findViewById(R.id.typeCompteSpinner);
         //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
         List<String> listType = new ArrayList<>();
+        listType.add("Type de compte");
         listType.add("Entreprise");
         listType.add("Candidat");
 
