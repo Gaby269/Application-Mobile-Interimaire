@@ -20,6 +20,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".InscriptionActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ConfirmationTelephoneActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".EntrepriseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AbonnementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MoyenPaiementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecapPaiementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TutoActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
