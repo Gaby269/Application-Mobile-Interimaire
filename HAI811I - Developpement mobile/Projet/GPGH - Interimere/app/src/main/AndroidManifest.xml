@@ -41,6 +41,9 @@
         <activity
             android:name=".TutoActivity"
             android:exported="false" />
+        <activity
+            android:name=".OffresActivity"
+            android:exported="false" />
 
     </application>
 

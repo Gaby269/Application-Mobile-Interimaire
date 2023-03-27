@@ -44,15 +44,15 @@
         app:layout_constraintBottom_toTopOf="@id/fragment_container_abonnement"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ServiceTextView">
+        app:layout_constraintTop_toBottomOf="@id/ServiceTextView"
+        android:padding="10dp">
 
         <Spinner
             android:id="@+id/typeAboSpinner"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="60dp"
-            android:background="@drawable/arrondir_bouton"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:gravity="center_vertical"
             android:entries="@array/typeAbonnement"/>
 
@@ -61,15 +61,14 @@
     <FrameLayout
         android:id="@+id/fragment_container_abonnement"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="300dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
         android:background="@drawable/arrondir_edit"
         app:layout_constraintBottom_toTopOf="@id/layout_boutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_abo" />
+        app:layout_constraintTop_toBottomOf="@id/layout_abo"/>
 
     <LinearLayout
         android:id="@+id/layout_boutton"

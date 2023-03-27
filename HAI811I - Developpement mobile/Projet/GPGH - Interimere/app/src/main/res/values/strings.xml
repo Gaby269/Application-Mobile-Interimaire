@@ -28,21 +28,29 @@
     <string name="service_text">Notre expertise à votre service</string>
     <string name="boutton_choixAbo">Cet abonnement</string>
     <string name="abonnement">Abonnement</string>
-    <string name="ponctuel">Offre Ponctuel</string>
     <string name="boutton_payer">Payer</string>
     <string name="moyen_payer">Moyen de paiement</string>
     <string name="recap_payer">Recapitulation du prix</string>
     <string name="boutton_confirmer">Confirmation</string>
+    <string name="ponctuelle">Offre Ponctuelle</string>
+    <string name="renouvelable">Offre renouvelable</string>
+    <string name="mensuelle">Offre mensuelle</string>
+    <string name="trimestrielle">Offre trimestrielle</string>
+    <string name="annuelle">Offre annuelle</string>
+    <string name="semestrielle">Offre Semestrielle</string>
+    <string name="tuto">Tutoriel</string>
+    <string name="boutton_passer">Passer</string>
+    <string name="boutton_next">Next</string>
     <string-array name="typeCompte">
         <item>Entreprise</item>
         <item>Candidat</item>
     </string-array>
     <string-array name="typeAbonnement">
-        <item>Ponctuel (un abonnement)</item>
-        <item>Mensuel</item>
-        <item>Trimestriel</item>
-        <item>Semestriel</item>
-        <item>Annuel</item>
+        <item>Ponctuelle (un abonnement)</item>
+        <item>Mensuelle</item>
+        <item>Trimestrielle</item>
+        <item>Semestrielle</item>
+        <item>Annuelle</item>
         <item>Renouvelable</item>
     </string-array>
 </resources>

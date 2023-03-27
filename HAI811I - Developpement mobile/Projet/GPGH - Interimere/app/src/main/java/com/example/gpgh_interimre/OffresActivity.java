@@ -2,26 +2,24 @@ package com.example.gpgh_interimre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class TutoActivity extends AppCompatActivity {
+public class OffresActivity extends AppCompatActivity {
 
     @Override
-    @SuppressLint({"MissingInflatedId", "LocalSuppress"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tuto);
+        setContentView(R.layout.activity_main);
 
 
-        Button inscriptionButton = findViewById(R.id.boutton_passer);
+        Button inscriptionButton = findViewById(R.id.boutton_inscription);
         inscriptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(TutoActivity.this, OffresActivity.class);
+                Intent i = new Intent(OffresActivity.this, InscriptionActivity.class);
                 startActivity(i);
             }
         });
