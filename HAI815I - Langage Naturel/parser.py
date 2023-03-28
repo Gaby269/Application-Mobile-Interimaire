@@ -7,11 +7,11 @@ import os
 def tri_cle(cle):
 	if 'formated name' in cle:  #entite
 		return 0
-	elif 'ntname' in cle:  # typede entite
+	elif 'ntname' in cle:  #typede entite
 		return 1
 	elif 'node1' in cle:  #relation
 		return 2
-	elif 'rthelp' in cle:  # type relation
+	elif 'rthelp' in cle:  #type relation
 		return 3
 
 
@@ -30,14 +30,11 @@ def rechercheRESEAU(phr,
 			if p == phr[1]:
 				continue
 
-		#print("\n\nMot : ", p)
-
-		# Si le mot a deja été trouvé
-		if (os.path.exists(f"selected_files/selected_{p}.txt") and (depart == True)):
-			print(
-			 f"\nLe fichier selected_files/selected_{p}.txt existe déjà alors on fait seulement le dictionnaire"
-			)
-		else:
+		# Si le mot a pas deja été trouvé
+		if not (os.path.exists(f"selected_files/selected_{p}.txt") and
+		        (depart == True)):
+			#     print(f"\nLe fichier selected_files/selected_{p}.txt existe déjà alors on fait seulement le dictionnaire")
+			# else:
 			sortante = ""
 			entrante = ""
 			id = ""
@@ -51,7 +48,7 @@ def rechercheRESEAU(phr,
 
 			# Faire la requête HTTP
 			url = "https://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=" + p + "&rel=" + id + sortante + entrante
-			print(url)
+			#print(url)
 			response = requests.get(url)
 
 			# Recuperation des données de reseauDump dans body
@@ -65,28 +62,52 @@ def rechercheRESEAU(phr,
 
 			# Si le mot existe dans la base
 			if start_index != -1:
-				# Recherche de la position de la fin de la balise </CODE>
+				start_index += 6  # On rajoute la longueur de la balise <CODE>
 				end_index = body.find("</CODE>", start_index)
 
 				if end_index != -1:
 					# Extraction du contenu entre les balises <CODE> et </CODE>
-					code_content = body[start_index + len("<CODE>"):end_index]
-					selected += code_content  # ajout à la chaine de caractere
+					code_content = body[start_index:end_index]
+					selected = code_content
 
-			# Sinon on regarde si il y a un message d'erreur qui dit que le mot n'existe pas
+			# Sinon on regarde s'il y a un message d'erreur qui dit que le mot n'existe pas
 			else:
 				start_index_warning = body.find(u"""<div class="jdm-warning">""")
 				if start_index_warning == -1:
-					selected = "Le mot " + p + " n'existe pas"
-					print("\nLe mot n'existe pas veuillez changer la phrase")
-					exit()
-			#print(selected)
+					print(f"\nLe mot {p} n'existe pas veuillez changer la phrase")
+					exit(1)
 
 			# Ecriture dans un texte
-			with open(f"./selected_files/selected_{p}.txt", "w", encoding="utf-8") as f:
-				f.write(selected)
-			print(
-			 f"\n\nLes données ont été écrites dans le fichier selected_{p}.txt\n\n")
+			if depart == True:
+				with open(f"./selected_files/selected_{p}.txt", "w") as f:
+					f.write(selected)
+				print(
+				 f"\n\nLes données ont été écrites dans le fichier selected_{p}.txt\n\n")
+			else:
+				lines2 = selected.split("\n")  # split par les truc ajouté
+				lines1 = []
+				# Recuperationd les informations dans le fichier
+				with open(f"./selected_files/selected_{p}.txt", "r") as f:
+					lines1 = f.readlines()  # lit les lignes de code
+
+				# Modification de selected
+				i = 0
+				for j in range(len(lines1)+1):
+					print(j)
+					if lines1[j] == lines2[i]:
+						i += 1
+					else:
+						i += 1
+						selected = selected[:selected.find('\n', selected.find(lines1[j])) +
+						                    1] + lines1[j] + '\n' + selected[
+						                     selected.find('\n', selected.find(lines1[j])) + 1:]
+
+				# Ecriture dans le ficheir des modifications
+				with open(f"./selected_files/selected_{p}.txt", "w") as file:
+					file.write(selected)
+
+				print(
+				 f"\n\nLes données ont été ajouté dans le fichier selected_{p}.txt\n\n")
 
 
 #Fonction qui forme le texte en dico
@@ -96,7 +117,7 @@ def formaterDico(phr):
 	dico_entier = {}
 
 	for p in phr:
-		
+
 		# Remplir le dico
 		dico_entier[p] = {}
 
@@ -105,9 +126,9 @@ def formaterDico(phr):
 
 		with open(f'./selected_files/selected_{p}.txt', 'r') as file:
 
-			categorie_actuelle = "None"  # dans quelle cate on est
-			num_categorie = 0  # id de la cate
-			a_l_interieur_de_la_balise = False  #si tes dans <def></def>
+			categorie_actuelle = "None"  # dans quelle categorie on est
+			num_categorie = 0  # id de la categorie
+			a_l_interieur_de_la_balise = False  # si tes dans <def></def>
 			lignes = file.readlines()
 
 			for ligne in lignes:
@@ -126,33 +147,31 @@ def formaterDico(phr):
 				if ligne.startswith('//') and not ":" in ligne:
 					continue
 				if ligne.startswith('//') and ":" in ligne:
-					#print(ligne)
 					# on peut regardant tant quon a pas start par r
 					if ((len(donnees_par_categorie.get(categorie_actuelle, [])) == 0)
-						and len(donnees_par_categorie) !=
-						0):  # si la categorie est vide alors on saute le commentaire
-						#print("vide")
+					    and len(donnees_par_categorie) !=
+					    0):  # si la categorie est vide alors on saute le commentaire
 						continue
 					# Sinon on a trouvé une nouvelle catégorie
-					if "les relations sortantes" not in ligne and num_categorie == 3:  # on verifie que si jamais ya pas de relations sortantes on incremente
+					elif ("les relations sortantes" not in ligne) and (
+					  num_categorie == 3
+					):  # on verifie que si jamais ya pas de relations sortantes on incremente
 						# cela veut dire quon est en relations entrantes et que il n'y a pas de relations sortantes
 						num_categorie += 1
-						categorie_actuelle = str(num_categorie) + ";" + (
-						 ligne.split(":")[1]
-						).strip()  # on peut prendre les meme chose que la ligne suivante
+						categorie_actuelle = str(num_categorie) + ";" + (ligne.split(
+						 ":")[1]).strip()  # on peut prendre les meme chose que la ligne suivante
 						donnees_par_categorie[categorie_actuelle] = []
 						# on passe a la categorie suivante normalement
 						num_categorie += 1
-						categorie_actuelle = str(num_categorie) + ";" + (
-						 ligne.split(":")[1]
-						).strip()  # on peut prendre les meme chose que la ligne suivante
+						categorie_actuelle = str(num_categorie) + ";" + (ligne.split(
+						 ":")[1]).strip()  # on peut prendre les meme chose que la ligne suivante
 						donnees_par_categorie[categorie_actuelle] = []
-					elif "les relations entrantes" not in ligne and num_categorie == 4:  # on regarde si ya des relations entrantes
+					elif ("les relations entrantes" not in ligne) and (
+					  num_categorie == 4):  # on regarde si ya des relations entrantes
 						# cela veut dire quon est en relations entrantes mais que yen a pas
 						num_categorie += 1
-						categorie_actuelle = str(num_categorie) + ";" + (
-						 ligne.split(":")[1]
-						).strip()  # on peut prendre les meme chose que la ligne suivante
+						categorie_actuelle = str(num_categorie) + ";" + (ligne.split(
+						 ":")[1]).strip()  # on peut prendre les meme chose que la ligne suivante
 						donnees_par_categorie[categorie_actuelle] = []
 					else:  # sinon on est dans les sortantes et ya pas de problème
 						num_categorie += 1
@@ -171,14 +190,14 @@ def formaterDico(phr):
 
 		#print(dico_entier)
 		# Ecriture dans un texte mais pas obligé
-			# Si les deux fichiers n'existe pas
+		# Si les deux fichiers n'existe pas
 		#if (not os.path.exists(f"dico_files/dico_{p}.txt") :
-			#with open(f"./dico_files/dico_{p}.txt", "w") as f:
-		#		json.dump(dico_entier[p], f, indent=1)
-		#		#f.write(str(dico_entier))
-			#print(f"\n\nLes données ont été écrites dans le fichier dico_{p}.txt\n\n")
+		#with open(f"./dico_files/dico_{p}.txt", "w") as f:
+		#        json.dump(dico_entier[p], f, indent=1)
+		#        #f.write(str(dico_entier))
+		#print(f"\n\nLes données ont été écrites dans le fichier dico_{p}.txt\n\n")
 		#else :
-		#	print("\n\nElles y été deja\n\n")
+		#    print("\n\nElles y été deja\n\n")
 
 	return dico_entier
 
@@ -259,7 +278,6 @@ def parserDico(dico,
 		#           "5;r;rid;node1;node2;type;w",
 		#           "3;rt;rtid;'trname';'trgpname';'rthelp'"
 		#       ]
-		#print(cle)
 		# Parcours du dictionnaire
 		for key in cle:
 			#print(key)
@@ -273,7 +291,7 @@ def parserDico(dico,
 						# Si l'entite trouvé est dedans on garde
 						if tab == ent and tab not in tab_Entites:
 							tab_Entites.append(tab)
-				# Choix des types d'etnités
+				# Choix des types d'entités
 				if tab[0] == 'nt':
 					# Parcours du tableau des entités
 					for e in tab_Entites:

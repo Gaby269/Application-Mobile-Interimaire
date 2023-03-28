@@ -226,6 +226,11 @@ def induction(mot1, relation, mot2):  # A relation B
 
 	# Recuperer les relations entrantes de relation vers mot2
 	dico2_form = parserDico(dico2, "relation", relation, is_sortante=False)
+	if len(dico2_form["5;r;rid;node1;node2;type;w"]) == 0 :
+		rechercheRESEAU([mot2],
+						depart=False,
+		                not_sortante=True)
+		
 	print("RELATION ENTRANTES mot2 : ",dico2_form["5;r;rid;node1;node2;type;w"])
 	
 	# Recup les elements c de dico1
@@ -257,10 +262,19 @@ def induction(mot1, relation, mot2):  # A relation B
 			 f"   * un {mot1} est un(e) {iprim}, et un {iprim} a un(e)/des {mot2} !!!")
 	
 	print("\n\n")
+	
+	copy_dico1 = dico1.copy()
+	copy_dico2 = dico2.copy()
+	
+	for cle in copy_dico2.keys():
+		copy_dico1[cle] = copy_dico1.get(cle, "") + copy_dico2[cle]
+	
+	dico3_form = parserDico(copy_dico1, "entite", intersection)
+	print(dico3_form)
 
 
 
 if __name__ == "__main__":
 	# 9 = r_has_part
 	#deduction("lion", "9", "moustache")
-	induction("oiseau", '9', "ailes")
+	induction("oiseau", '9', "bec")
