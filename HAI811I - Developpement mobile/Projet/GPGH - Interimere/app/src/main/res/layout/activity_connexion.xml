@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/EcouteTextView" />
 
     <LinearLayout
-        android:id="@+id/layout_inscription"
+        android:id="@+id/layout_connexion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -93,7 +93,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/boutton_creationCompte"
+        android:id="@+id/boutton_connexion"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@drawable/arrondir_bouton"
@@ -103,6 +103,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_inscription" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_connexion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,6 +44,30 @@
     <string name="tuto">Tutoriel</string>
     <string name="boutton_passer">Passer</string>
     <string name="boutton_next">Next</string>
+    <string name="filtrer">Filtrer</string>
+    <string name="favorie">Favorie</string>
+    <string name="boutton_retour">Retour</string>
+    <string name="details">Details de l\'offre</string>
+    <string name="boutton_postuler">Postuler</string>
+    <string name="mesCandidatures">Mes Candidatures</string>
+    <string name="compte">Votre compte</string>
+    <string name="boutton_supprimer">Supprimer</string>
+    <string name="boutton_modifier">Modifier</string>
+    <string name="creationOffre">Créer votre offre</string>
+    <string name="titreOffre">Titre de l\'offre :</string>
+    <string name="typePoste">Type de poste :</string>
+    <string name="descriptionOffre">Description de l\'offre :</string>
+    <string name="exTypePoste">ex : Stage</string>
+    <string name="exTitre">ex : Stagiaire RH</string>
+    <string name="boutton_suivant"><![CDATA[Suivant >]]></string>
+    <string name="periodeOffre">Periode de l\'emploi</string>
+    <string name="exPeriode">ex : 3 jours</string>
+    <string name="lieu">Lieu</string>
+    <string name="exLieu">ex : 9 rue de la Vignette, 34090 Montpellier</string>
+    <string name="remuneration">Remuneration</string>
+    <string name="exRemuneration">ex : 25€ - 30€</string>
+    <string name="detailsOffre">Details suplémentaire (facultatif)</string>
+    <string name="boutton_terminer">Terminer</string>
     <string-array name="typeCompte">
         <item>Entreprise</item>
         <item>Candidat</item>
@@ -55,5 +79,9 @@
         <item>Semestrielle</item>
         <item>Annuelle</item>
         <item>Renouvelable</item>
+    </string-array>
+    <string-array name="filtreRecherche">
+        <item>Filter</item>
+        <item>Plus grand</item>
     </string-array>
 </resources>

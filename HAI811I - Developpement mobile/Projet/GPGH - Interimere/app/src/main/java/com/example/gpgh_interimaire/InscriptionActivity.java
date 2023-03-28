@@ -2,6 +2,7 @@ package com.example.gpgh_interimaire;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.List;
 public class InscriptionActivity extends AppCompatActivity {
 
     @Override
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription);
@@ -25,6 +27,15 @@ public class InscriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(InscriptionActivity.this, ConfirmationTelephoneActivity.class);
+                startActivity(i);
+            }
+        });
+
+        Button connexionButton = findViewById(R.id.boutton_connexion);
+        connexionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(InscriptionActivity.this, ConnexionActivity.class);
                 startActivity(i);
             }
         });
