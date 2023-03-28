@@ -9,18 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class CompteActivity extends AppCompatActivity {
+public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
 
     @Override
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compte);
+        setContentView(R.layout.activity_afficher_details_candidature);
 
         Button retourButton = findViewById(R.id.boutton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(CompteActivity.this, OffresActivity.class);
+                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, CandidatureActivity.class);
                 startActivity(i);
             }
         });
@@ -29,7 +30,7 @@ public class CompteActivity extends AppCompatActivity {
         modifierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(CompteActivity.this, ModificationCompteActivity.class);
+                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, ModificationCandidatureActivity.class);
                 startActivity(i);
             }
         });
@@ -38,8 +39,10 @@ public class CompteActivity extends AppCompatActivity {
         supprimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CompteActivity.this,R.string.boutton_supprimer,Toast.LENGTH_SHORT).show();
-                // affichage d'une boite de dialogue pour confirmer
+                // boite de dialogue + affichage
+                Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureSupp,Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, CandidatureActivity.class);
+                startActivity(i);
             }
         });
     }

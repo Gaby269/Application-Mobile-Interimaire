@@ -7,34 +7,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
-public class PostulerActivity extends AppCompatActivity {
+public class ModificationCandidatureActivity extends AppCompatActivity {
 
     @Override
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_postuler);
-
+        setContentView(R.layout.activity_modification_candidature);
 
         Button retourButton = findViewById(R.id.boutton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PostulerActivity.this, AfficherDetailsOffreActivity.class);
+                Intent i = new Intent(ModificationCandidatureActivity.this, AfficherDetailsCandidatureActivity.class);
                 startActivity(i);
             }
         });
-
-        Button envoyerButton = findViewById(R.id.boutton_envoyer);
-        envoyerButton.setOnClickListener(new View.OnClickListener() {
+        Button modifierButton = findViewById(R.id.boutton_modifier);
+        modifierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PostulerActivity.this, CandidatureActivity.class);
+                Intent i = new Intent(ModificationCandidatureActivity.this, AfficherDetailsCandidatureActivity.class);
                 startActivity(i);
+                Toast.makeText(ModificationCandidatureActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

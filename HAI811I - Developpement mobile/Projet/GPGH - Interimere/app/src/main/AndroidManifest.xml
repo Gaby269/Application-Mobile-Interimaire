@@ -12,6 +12,15 @@
         android:theme="@style/Theme.GPGHInterimaire"
         tools:targetApi="31">
         <activity
+            android:name=".ModificationCandidatureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AfficherDetailsCandidatureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModificationCompteActivity"
+            android:exported="false" />
+        <activity
             android:name=".CandidatureActivity"
             android:exported="false" />
         <activity

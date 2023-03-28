@@ -5,48 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".ModificationOffresActivity">
+    tools:context=".AfficherDetailsCandidatureActivity">
 
     <TextView
-        android:id="@+id/modifOffreTextView"
+        android:id="@+id/CandidatureDetailsTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/modifOffre"
+        android:text="@string/detailsCand"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/offreTextView"
+        app:layout_constraintBottom_toTopOf="@+id/EcouteTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/offreTextView"
+        android:id="@+id/EcouteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/titreOffre"
+        android:text="@string/ecoute_text"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/modifOffreTextView"
+        app:layout_constraintTop_toBottomOf="@+id/CandidatureDetailsTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+    <!--Faudrait mettre une listeView de layout avec cette decription-->
+    <LinearLayout
+        android:id="@+id/layout_Candidature_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:orientation="vertical"
+        android:background="@drawable/arrondir_edit_bord_bleu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/EcouteTextView"
+        android:padding="150dp">
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_boutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/offreTextView">
+        app:layout_constraintTop_toBottomOf="@+id/layout_Candidature_details">
 
         <Button
             android:id="@+id/boutton_retour"
@@ -56,20 +74,27 @@
             android:text="@string/boutton_retour"
             android:background="@drawable/arrondir_bouton"
             android:textSize="15sp" />
-
         <Button
             android:id="@+id/boutton_modifier"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:gravity="center_vertical"
             android:text="@string/boutton_modifier"
             android:background="@drawable/arrondir_bouton"
             android:textSize="15sp" />
 
+        <Button
+            android:id="@+id/boutton_supprimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/boutton_supprimer"
+            android:background="@drawable/arrondir_bouton"
+            android:textSize="15sp" />
 
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

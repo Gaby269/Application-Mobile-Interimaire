@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".FavorieActivity">
+    tools:context=".AfficherDetailsOffreActivity">
 
     <TextView
         android:id="@+id/offreDetailsTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/details"
+        android:text="@string/detailsOff"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"

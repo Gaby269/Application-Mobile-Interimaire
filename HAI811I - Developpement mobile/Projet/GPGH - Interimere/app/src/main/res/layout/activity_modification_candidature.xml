@@ -5,25 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".ModificationOffresActivity">
+    tools:context=".ModificationCandidatureActivity">
 
     <TextView
-        android:id="@+id/modifOffreTextView"
+        android:id="@+id/modifCandidatureTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/modifOffre"
+        android:text="@string/modifCandidature"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/offreTextView"
+        app:layout_constraintBottom_toTopOf="@+id/CandidatureTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/offreTextView"
+        android:id="@+id/CandidatureTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -32,7 +32,7 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/modifOffreTextView"
+        app:layout_constraintTop_toBottomOf="@+id/modifCandidatureTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/offreTextView">
+        app:layout_constraintTop_toBottomOf="@+id/CandidatureTextView">
 
         <Button
             android:id="@+id/boutton_retour"

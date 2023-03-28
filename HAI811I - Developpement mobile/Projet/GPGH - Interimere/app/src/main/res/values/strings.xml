@@ -47,7 +47,7 @@
     <string name="filtrer">Filtrer</string>
     <string name="favorie">Favorie</string>
     <string name="boutton_retour">Retour</string>
-    <string name="details">Details de l\'offre</string>
+    <string name="detailsOff">Details de l\'offre</string>
     <string name="boutton_postuler">Postuler</string>
     <string name="mesCandidatures">Mes Candidatures</string>
     <string name="compte">Votre compte</string>
@@ -68,6 +68,19 @@
     <string name="exRemuneration">ex : 25€ - 30€</string>
     <string name="detailsOffre">Details suplémentaire (facultatif)</string>
     <string name="boutton_terminer">Terminer</string>
+    <string name="postuler">Complétez votre candidature</string>
+    <string name="ajoutCandidatOffre">Complément à votre candidature</string>
+    <string name="boutton_envoyer">Envoyer</string>
+    <string name="messagerie">Messagerie (à modifier)</string>
+    <string name="modifOffre">Modification de l\'offre</string>
+    <string name="titreCompte">"Le compte : "</string>
+    <string name="modifCompte">Modification de votre compte</string>
+    <string name="compteModif">Compte modifié</string>
+    <string name="offreModif">Offre modifié</string>
+    <string name="candidatureSupp">Candidature supprimée</string>
+    <string name="modifCandidature">Modification de votre candidature</string>
+    <string name="detailsCand">Details de votre candidature</string>
+    <string name="offreCree">Creation de l\'offre</string>
     <string-array name="typeCompte">
         <item>Entreprise</item>
         <item>Candidat</item>

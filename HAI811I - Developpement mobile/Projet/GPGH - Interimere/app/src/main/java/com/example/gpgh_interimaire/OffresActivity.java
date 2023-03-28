@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class OffresActivity extends AppCompatActivity {
 
@@ -17,7 +19,7 @@ public class OffresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_offres);
 
 
-        Button favorieButton = findViewById(R.id.star_button);
+        ImageView favorieButton = findViewById(R.id.star_button);
         favorieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -26,7 +28,7 @@ public class OffresActivity extends AppCompatActivity {
             }
         });
 
-        Button compteButton = findViewById(R.id.compte_button);
+        ImageView compteButton = findViewById(R.id.compte_button);
         compteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,7 +37,7 @@ public class OffresActivity extends AppCompatActivity {
             }
         });
 
-        Button messagerieButton = findViewById(R.id.messagerie_button);
+        ImageView messagerieButton = findViewById(R.id.messagerie_button);
         messagerieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +46,7 @@ public class OffresActivity extends AppCompatActivity {
             }
         });
 
-        Button candidatureButton = findViewById(R.id.candidature_button);
+        ImageView candidatureButton = findViewById(R.id.candidature_button);
         candidatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,7 +55,7 @@ public class OffresActivity extends AppCompatActivity {
             }
         });
 
-        Button creationOffreButton = findViewById(R.id.create_button);
+        ImageView creationOffreButton = findViewById(R.id.create_button);
         creationOffreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +66,7 @@ public class OffresActivity extends AppCompatActivity {
 
 
 
-        Button offreButton = findViewById(R.id.layout_abo);
+        LinearLayout offreButton = findViewById(R.id.layout_abo);
         offreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
