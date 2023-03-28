@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">GPGH - Interimère</string>
+    <string name="app_name">GPGH - Interimaire</string>
     <string name="home">GPGH</string>
-    <string name="prem_text">L\'application d\'interimère qui vous correspond</string>
+    <string name="prem_text">L\'application d\'interimaire qui vous correspond</string>
     <string name="boutton_inscription">S\'inscrire</string>
     <string name="sec_text"><![CDATA[Déjà inscrit ? Se connecter >]]></string>
     <string name="inscription">Inscription</string>

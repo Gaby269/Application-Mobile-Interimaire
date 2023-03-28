@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.gpgh_interimre'
+    namespace 'com.example.gpgh_interimaire'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.gpgh_interimre"
+        applicationId "com.example.gpgh_interimaire"
         minSdk 24
         targetSdk 33
         versionCode 1

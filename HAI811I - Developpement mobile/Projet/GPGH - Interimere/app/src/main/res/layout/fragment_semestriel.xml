@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context="com.example.gpgh_interimre.FragmentSemestriel">
+    tools:context="com.example.gpgh_interimaire.FragmentSemestriel">
 
     <TextView
         android:id="@+id/ponctuelTextView"
