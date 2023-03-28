@@ -58,6 +58,7 @@
             android:background="@drawable/arrondir_edit"
             android:hint="@string/nomEntreprise"
             android:textSize="15sp"
+            android:paddingStart="10dp"
             android:inputType="text" />
         <EditText
             android:id="@+id/numSiretEditText"
@@ -70,6 +71,7 @@
             android:hint="@string/siret"
             android:background="@drawable/arrondir_edit"
             android:textSize="15sp"
+            android:paddingStart="10dp"
             android:inputType="number"/>
         <EditText
             android:id="@+id/adresseEditText"
@@ -81,6 +83,7 @@
             android:gravity="center_vertical"
             android:hint="@string/adresse"
             android:textSize="15sp"
+            android:paddingStart="10dp"
             android:background="@drawable/arrondir_edit"
             android:inputType="textPostalAddress" />
 
@@ -104,6 +107,7 @@
             android:gravity="center_vertical"
             android:hint="@string/nomComplet"
             android:textSize="15sp"
+            android:paddingStart="10dp"
             android:background="@drawable/arrondir_edit"
             android:inputType="phone" />
         <EditText
@@ -116,6 +120,7 @@
             android:gravity="center_vertical"
             android:hint="@string/mail"
             android:textSize="15sp"
+            android:paddingStart="10dp"
             android:background="@drawable/arrondir_edit"
             android:inputType="textEmailAddress" />
 
@@ -129,6 +134,7 @@
             android:gravity="center_vertical"
             android:hint="@string/telephone"
             android:textSize="15sp"
+            android:paddingStart="10dp"
             android:background="@drawable/arrondir_edit"
             android:inputType="phone" />
 
@@ -142,6 +148,7 @@
             android:gravity="center_vertical"
             android:hint="@string/mdp"
             android:textSize="15sp"
+            android:paddingStart="10dp"
             android:background="@drawable/arrondir_edit"
             android:inputType="text" />
 

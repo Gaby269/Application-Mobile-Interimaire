@@ -3,8 +3,10 @@
     <string name="home">GPGH</string>
     <string name="prem_text">L\'application d\'interimaire qui vous correspond</string>
     <string name="boutton_inscription">S\'inscrire</string>
+    <string name="boutton_connexion">Se connecter</string>
     <string name="sec_text"><![CDATA[Déjà inscrit ? Se connecter >]]></string>
     <string name="inscription">Inscription</string>
+    <string name="connexion">Connexion</string>
     <string name="ecoute_text">Des professionnels à votre écoute</string>
     <string name="boutton_creaCompte">Créer votre compte</string>
     <string name="mdp">    Mot de passe</string>
@@ -12,6 +14,7 @@
     <string name="nom">   Nom</string>
     <string name="prenom">   Prénom</string>
     <string name="creaCompte_text">Créez un compte avec votre adresse email</string>
+    <string name="connexion_text">Connectez-vous avec votre adresse email</string>
     <string name="typeSpinner">Type de compte</string>
     <string name="telephone">   Téléphone</string>
     <string name="confTel_text">Confirmations de votre téléphone</string>
