@@ -5,7 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".OffresActivity">
+    tools:context=".MesCandidaturesActivity">
+
+    <TextView
+        android:id="@+id/favorieTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/mesCandidatures"
+        android:textSize="30dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/EcouteTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/EcouteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/ecoute_text"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/favorieTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <LinearLayout
         android:id="@+id/layout_recherche"
@@ -16,9 +45,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/EcouteTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:id="@+id/layout_rechercheGauche"
@@ -71,101 +100,42 @@
             android:gravity="right"
             android:layout_marginStart="30dp"
             android:background="@drawable/arrondir_edit"
-            android:text="@string/filter"
-            android:entries="@array/filtreRecherche"
-            tools:ignore="RtlHardcoded" />
+            android:layout_alignBottom="@+id/bar_recherche"
+            android:layout_alignEnd="@+id/filter_button"
+            android:text="Filter"
+            android:entries="@array/filtreRecherche"/>
 
     </LinearLayout>
 
-<!--Faudrait mettre une listeView de layout avec cette decription-->
+    <!--Faudrait mettre une listeView de layout avec cette decription-->
     <LinearLayout
-        android:id="@+id/layout_abo"
+        android:id="@+id/layout_candidature"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
         android:orientation="vertical"
-        android:gravity="center"
         android:background="@drawable/arrondir_edit_bord_bleu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_recherche">
+        app:layout_constraintTop_toBottomOf="@id/layout_recherche"
+        android:padding="150dp">
 
-        <Button
-            android:id="@+id/boutton_candidature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/arrondir_bouton"
-            android:text="@string/boutton_candidature"
-            android:textSize="15sp" />
 
     </LinearLayout>
 
-    <!-- changer lemenu en focntion du compte pour afficher les bon icones-->
-    <LinearLayout
-        android:id="@+id/layout_menu_entreprise"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:orientation="horizontal"
-        android:background="@color/white"
+    <Button
+        android:id="@+id/boutton_retour"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/arrondir_bouton"
+        android:gravity="center_vertical"
+        android:text="@string/boutton_retour"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_candidature" />
 
-
-        <ImageView
-            android:id="@+id/star_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/star_icon" />
-
-
-
-        <ImageView
-            android:id="@+id/messagerie_button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/message_icon"
-            android:contentDescription="TODO" />
-
-
-        <ImageView
-            android:id="@+id/compte_button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="2dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/compte_icon"
-            android:contentDescription="TODO" />
-
-        <ImageView
-            android:id="@+id/candidature_button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/postuler_icon"
-            android:contentDescription="TODO" />
-
-        <ImageView
-            android:id="@+id/create_button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/create_icon"
-            android:contentDescription="TODO" />
-
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

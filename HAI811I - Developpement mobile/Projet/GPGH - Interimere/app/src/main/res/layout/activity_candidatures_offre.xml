@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".CandidatureActivity">
+    tools:context=".CandidaturesOffreActivity">
 
     <TextView
         android:id="@+id/favorieTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/mesCandidatures"
+        android:text="@string/Candidatures"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
@@ -23,11 +23,11 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/EcouteTextView"
+        android:id="@+id/offreTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/ecoute_text"
+        android:text="@string/titreOffre"
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
@@ -45,13 +45,13 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/EcouteTextView"
+        app:layout_constraintTop_toBottomOf="@+id/offreTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/layout_rechercheGauche"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
             android:orientation="horizontal"
@@ -62,33 +62,37 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/recoder_button"
+                android:id="@+id/recorder_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/recorder_icon" />
+                android:src="@drawable/recorder_icon"
+                android:contentDescription="TODO"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/bar_recherche" />
 
             <EditText
                 android:id="@+id/bar_recherche"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/filtre_spinner"
-                android:layout_toEndOf="@+id/recoder_button"
-                android:hint="Rechercher"
-                tools:ignore="NotSibling"
-                android:autofillHints="" />
+                android:hint="@string/rechercher"
+                android:autofillHints=""
+                android:inputType="text"
+                app:layout_constraintStart_toEndOf="@id/recorder_button"
+                app:layout_constraintEnd_toStartOf="@id/search_button" />
 
             <ImageView
                 android:id="@+id/search_button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="4dp"
-                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/search_icon"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                app:layout_constraintStart_toEndOf="@id/bar_recherche"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        </RelativeLayout>
+
+        </LinearLayout>
         <Spinner
             android:id="@+id/filtre_spinner"
             android:layout_width="wrap_content"
@@ -105,7 +109,7 @@
 
     <!--Faudrait mettre une listeView de layout avec cette decription-->
     <LinearLayout
-        android:id="@+id/layout_favorie"
+        android:id="@+id/layout_candidature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -124,7 +128,7 @@
     <Button
         android:id="@+id/boutton_retour"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/arrondir_bouton"
         android:gravity="center_vertical"
         android:text="@string/boutton_retour"
@@ -132,6 +136,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_favorie" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_candidature" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

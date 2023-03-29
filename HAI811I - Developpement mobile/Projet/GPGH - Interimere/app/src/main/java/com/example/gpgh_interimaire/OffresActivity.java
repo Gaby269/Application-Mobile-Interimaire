@@ -46,17 +46,19 @@ public class OffresActivity extends AppCompatActivity {
             }
         });
 
-        ImageView candidatureButton = findViewById(R.id.candidature_button);
-        candidatureButton.setOnClickListener(new View.OnClickListener() {
+        ImageView candidatureImage = findViewById(R.id.candidature_button);
+        candidatureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(OffresActivity.this, CandidatureActivity.class);
+                //mesCandidatures si tu est un candidat
+                //liste des offres et la candidature a voir si entreprise
+                Intent i = new Intent(OffresActivity.this, MesCandidaturesActivity.class);
                 startActivity(i);
             }
         });
 
-        ImageView creationOffreButton = findViewById(R.id.create_button);
-        creationOffreButton.setOnClickListener(new View.OnClickListener() {
+        ImageView creationOffreImage = findViewById(R.id.create_button);
+        creationOffreImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(OffresActivity.this, CreationOffre1Activity.class);
@@ -71,6 +73,16 @@ public class OffresActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(OffresActivity.this, AfficherDetailsOffreActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //aparait que si c'ets une entreprise
+        Button candidatureButton = findViewById(R.id.boutton_candidature);
+        candidatureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OffresActivity.this, CandidaturesOffreActivity.class);
                 startActivity(i);
             }
         });

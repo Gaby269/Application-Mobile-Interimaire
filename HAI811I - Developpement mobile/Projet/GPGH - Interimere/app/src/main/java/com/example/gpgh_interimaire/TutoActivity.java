@@ -17,8 +17,8 @@ public class TutoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tuto);
 
 
-        Button inscriptionButton = findViewById(R.id.boutton_passer);
-        inscriptionButton.setOnClickListener(new View.OnClickListener() {
+        Button passerButton = findViewById(R.id.boutton_passer);
+        passerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(TutoActivity.this, OffresActivity.class);

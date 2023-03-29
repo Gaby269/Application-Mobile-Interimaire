@@ -8,7 +8,7 @@
     tools:context=".AfficherDetailsCandidatureActivity">
 
     <TextView
-        android:id="@+id/CandidatureDetailsTextView"
+        android:id="@+id/candidatureDetailsTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -31,7 +31,7 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/CandidatureDetailsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/candidatureDetailsTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -91,6 +91,40 @@
             android:layout_marginStart="20dp"
             android:gravity="center_vertical"
             android:text="@string/boutton_supprimer"
+            android:background="@drawable/arrondir_bouton"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_boutton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_boutton">
+
+        <Button
+            android:id="@+id/boutton_accepter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/boutton_accepter"
+            android:background="@drawable/arrondir_bouton"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/boutton_refuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/boutton_refuser"
             android:background="@drawable/arrondir_bouton"
             android:textSize="15sp" />
 

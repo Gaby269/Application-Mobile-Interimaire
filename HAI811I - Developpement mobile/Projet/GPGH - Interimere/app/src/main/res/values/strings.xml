@@ -81,6 +81,16 @@
     <string name="modifCandidature">Modification de votre candidature</string>
     <string name="detailsCand">Details de votre candidature</string>
     <string name="offreCree">Creation de l\'offre</string>
+    <string name="rechercher">Rechercher</string>
+    <string name="filter">Filter</string>
+    <string name="candidatureReff">Candidature refusée</string>
+    <string name="candidatureAcc">Candidature Acceptée</string>
+    <string name="candidatureModif">Candidature modifiée</string>
+    <string name="boutton_refuser">Refuser</string>
+    <string name="boutton_accepter">Accepter</string>
+    <string name="Candidatures">Candidatures de l\'offre</string>
+    <string name="boutton_candidature">Candidatures</string>
+    <string name="boutton_invite">Invite</string>
     <string-array name="typeCompte">
         <item>Entreprise</item>
         <item>Candidat</item>

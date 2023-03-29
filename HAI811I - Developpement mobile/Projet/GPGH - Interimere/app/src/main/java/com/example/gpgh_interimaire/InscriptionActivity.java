@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class InscriptionActivity extends AppCompatActivity {
             }
         });
 
-        Button connexionButton = findViewById(R.id.boutton_connexion);
+        TextView connexionButton = findViewById(R.id.boutton_connexion);
         connexionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
