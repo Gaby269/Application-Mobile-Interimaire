@@ -23,7 +23,7 @@ public class OffresActivity extends AppCompatActivity {
         favorieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(OffresActivity.this, FavorieActivity.class);
+                Intent i = new Intent(OffresActivity.this, FavorisActivity.class);
                 startActivity(i);
             }
         });

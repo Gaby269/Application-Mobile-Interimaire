@@ -36,7 +36,7 @@
             android:name=".CompteActivity"
             android:exported="false" />
         <activity
-            android:name=".FavorieActivity"
+            android:name=".FavorisActivity"
             android:exported="false" />
         <activity
             android:name=".AfficherDetailsOffreActivity"

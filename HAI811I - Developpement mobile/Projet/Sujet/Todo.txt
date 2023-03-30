@@ -1,1 +1,6 @@
-- Systeme de connexion
+- Systeme de d'inscription
+	- Type de comptes : Intérimaire, Recruteur, Agence
+- Connexion
+- Display des pages en fonction du role 
+
+déjà c'est pas mal
