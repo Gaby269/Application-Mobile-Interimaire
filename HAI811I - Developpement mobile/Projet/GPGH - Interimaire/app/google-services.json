@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "289390525299",
+    "project_id": "gpgh-interimaire",
+    "storage_bucket": "gpgh-interimaire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289390525299:android:d1a9a7d835669a2b85e306",
+        "android_client_info": {
+          "package_name": "com.example.gpgh_interimaire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289390525299-ntnhj44i1am3oo3r628v6jbm4nbrir78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8WlY9mOyCUPxnx3KxzTBj-thQ63DEXTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289390525299-ntnhj44i1am3oo3r628v6jbm4nbrir78.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

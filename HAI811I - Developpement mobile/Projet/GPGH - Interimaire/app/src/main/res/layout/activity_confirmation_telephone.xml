@@ -17,17 +17,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/EcouteTextView"
+        app:layout_constraintBottom_toTopOf="@+id/UsernameTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/EcouteTextView"
+        android:id="@+id/UsernameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/ecoute_text"
+        android:text="@string/hello_user"
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EcouteTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/UsernameTextView" />
 
     <LinearLayout
         android:id="@+id/layout_confTel"
@@ -57,7 +57,6 @@
         android:layout_marginTop="36dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/layout_boutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

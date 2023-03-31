@@ -73,6 +73,7 @@
             android:textSize="15sp"
             android:paddingStart="10dp"
             android:inputType="text" />
+
         <EditText
             android:id="@+id/nomEditText"
             android:layout_width="match_parent"
@@ -86,6 +87,7 @@
             android:textSize="15sp"
             android:paddingStart="10dp"
             android:inputType="text"/>
+
         <EditText
             android:id="@+id/mailEditText"
             android:layout_width="match_parent"
@@ -99,6 +101,7 @@
             android:paddingStart="10dp"
             android:background="@drawable/arrondir_edit"
             android:inputType="textEmailAddress" />
+
         <EditText
             android:id="@+id/telephoneEditText"
             android:layout_width="match_parent"

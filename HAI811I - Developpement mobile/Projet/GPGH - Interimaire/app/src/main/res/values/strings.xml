@@ -63,6 +63,7 @@
     <string name="periodeOffre">Periode de l\'emploi</string>
     <string name="exPeriode">ex : 3 jours</string>
     <string name="lieu">Lieu</string>
+    <string name="hello_user">Bonjour USER</string>
     <string name="exLieu">ex : 9 rue de la Vignette, 34090 Montpellier</string>
     <string name="remuneration">Remuneration</string>
     <string name="exRemuneration">ex : 25€ - 30€</string>
