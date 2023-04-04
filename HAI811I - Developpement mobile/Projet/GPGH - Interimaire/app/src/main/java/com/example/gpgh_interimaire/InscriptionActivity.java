@@ -139,6 +139,12 @@ public class InscriptionActivity extends AppCompatActivity {
         }
         user.put("email", email);
         user.put("typeCompte", type);
+        if (type == "Candidat") {
+            user.put("signup_step", "10");
+        }
+        else {
+            user.put("signup_step", "1");
+        }
 
         db.collection("users")
                 .document(userId)
@@ -168,17 +174,44 @@ public class InscriptionActivity extends AppCompatActivity {
     }
 
 
-/*
+    private void redirect() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            // Utilisateur déjà connecté, check si connexion effectuée
+            String userId = currentUser.getUid();
+            db.collection("users")
+                    .document(userId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            int signup_step = Integer.parseInt(documentSnapshot.getString("signup_step"));
+                            if (signup_step == 1) {
+                                Intent i = new Intent(InscriptionActivity.this, ConfirmationTelephoneActivity.class);
+                                startActivity(i);
+                            }
+                            else if (signup_step == 2) {
+                                Intent i = new Intent(InscriptionActivity.this, EntrepriseActivity.class);
+                                startActivity(i);
+                            }
+                            //suite des else
+                            else {
+                                Intent i = new Intent(InscriptionActivity.this, OffresActivity.class);
+                                startActivity(i);
+                            }
+                        }
+                        else {
+                            Log.w(TAG, "No document found for user");
+                        }
+                    })
+                    .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));
+        }
+    }
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            // Utilisateur déjà connecté, redirigez vers l'activité principale
-            Intent i = new Intent(InscriptionActivity.this, ConfirmationTelephoneActivity.class);
-            i.putExtra("userId", currentUser.getUid());
-            startActivity(i);
-        }
+        redirect();
     }
-    */
 }
