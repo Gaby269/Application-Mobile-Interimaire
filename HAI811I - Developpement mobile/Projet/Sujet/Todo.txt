@@ -1,12 +1,15 @@
 - Systeme de d'inscription
 	- Type de comptes : Intérimaire, Recruteur, Agence
+	
 - Connexion
 	- Inscription
 	- Garder le token de connexion
 	- Register des infos dans la BDD
 	- Skip l'inscription ou la connexion si connecté
 	- Déconnexion
+		-> Page mon compte
 	- Display des infos dans la page "mon compte"
-- Display des pages en fonction du role 
+	- Chemin d'inscription entreprise (téléphone, autre)
+		- Enregistrement de l'étape de connexion
 
-déjà c'est pas mal
+- Display des pages en fonction du role
