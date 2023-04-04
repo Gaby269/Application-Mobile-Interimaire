@@ -84,13 +84,12 @@ public class CompteActivity extends AppCompatActivity {
     }
 
 
-    private void redirect() {
+    private void checkIfConnected() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             // Utilisateur pas connecté, redirect sur la page de connexion
             Intent i = new Intent(CompteActivity.this, ConnexionActivity.class);
             startActivity(i);
-                            
         }
     }
 
@@ -98,6 +97,6 @@ public class CompteActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        redirect();
+        checkIfConnected();
     }
 }
