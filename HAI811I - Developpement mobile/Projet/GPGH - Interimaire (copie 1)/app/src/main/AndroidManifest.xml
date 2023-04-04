@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GPGHInterimaire"
+        tools:targetApi="31" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <activity
+            android:name=".CandidaturesOffreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModificationCandidatureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AfficherDetailsCandidatureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModificationCompteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MesCandidaturesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PostulerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessagerieActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CompteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavorisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AfficherDetailsOffreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModificationOffresActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreationOffre1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".CreationOffre2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ConnexionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".InscriptionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ConfirmationTelephoneActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EntrepriseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AbonnementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MoyenPaiementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecapPaiementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TutoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OffresActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>
