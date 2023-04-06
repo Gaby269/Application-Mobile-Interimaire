@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +23,8 @@ public class CompteActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+    TextView textViewNom, textViewPrenom, textViewEmail, textViewNumero;
+    String firstName, lastName, phoneNumber, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,20 @@ public class CompteActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+
+        textViewNom = findViewById(R.id.textViewNom);
+        textViewPrenom = findViewById(R.id.textViewPrenom);
+        textViewEmail = findViewById(R.id.textViewEmail);
+        textViewNumero = findViewById(R.id.textViewNumero);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userId = currentUser.getUid();
+
+        if (userId != null) {
+            email = currentUser.getEmail();
+            fetchUserInfo(userId);
+        }
+
 
         Button retourButton = findViewById(R.id.boutton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +108,29 @@ public class CompteActivity extends AppCompatActivity {
             Intent i = new Intent(CompteActivity.this, ConnexionActivity.class);
             startActivity(i);
         }
+    }
+
+    private void fetchUserInfo(String userId) {
+        db.collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        firstName = documentSnapshot.getString("prenom");
+                        lastName = documentSnapshot.getString("nom");
+                        phoneNumber = documentSnapshot.getString("telephone");
+
+                        textViewPrenom.setText(getResources().getString(R.string.nom) + " : " + firstName);
+                        textViewNom.setText(getResources().getString(R.string.prenom) + " : " + lastName);
+                        textViewEmail.setText(getResources().getString(R.string.mail) + " : " + email);
+                        textViewNumero.setText(getResources().getString(R.string.telephone) + " : " + phoneNumber);
+
+                    }
+                    else {
+                        Log.w(TAG, "DB Non trouvée");
+                    }
+                })
+                .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));
     }
 
 

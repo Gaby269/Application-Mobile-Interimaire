@@ -40,6 +40,18 @@ public class ConnexionActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button fastLogin = findViewById(R.id.buttonTmp);
+        fastLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = "gatienhaddad@hotmail.fr";
+                String mdp = "123456";
+                if (validateInput(email, mdp)) {
+                    signInUser(email, mdp);
+                }
+            }
+        });
     }
 
 

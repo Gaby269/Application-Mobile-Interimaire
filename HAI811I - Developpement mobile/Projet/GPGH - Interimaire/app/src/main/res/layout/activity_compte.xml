@@ -12,47 +12,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/compte"
-        android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/EcouteTextView"
+        android:text="@string/compte"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/EcouteTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/ecoute_text"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/compteTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!--Faudrait mettre une listeView de layout avec cette decription-->
+
     <LinearLayout
         android:id="@+id/layout_offre_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="365dp"
+        android:layout_height="239dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:orientation="vertical"
         android:background="@drawable/arrondir_edit_bord_bleu"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/EcouteTextView"
-        android:padding="150dp">
+        app:layout_constraintTop_toBottomOf="@+id/compteTextView"
+        android:padding="15px">
 
+        <TextView
+            android:id="@+id/textViewNom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="@string/nom" />
+
+        <TextView
+            android:id="@+id/textViewPrenom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="@string/prenom" />
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="@string/mail" />
+
+        <TextView
+            android:id="@+id/textViewNumero"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="@string/telephone" />
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/layout_boutton"

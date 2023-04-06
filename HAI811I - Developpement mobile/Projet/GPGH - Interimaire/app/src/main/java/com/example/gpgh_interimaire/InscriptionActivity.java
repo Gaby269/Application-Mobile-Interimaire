@@ -69,11 +69,11 @@ public class InscriptionActivity extends AppCompatActivity {
                 Log.w(TAG, "Creation du compte");
                 String email = mailEditText.getText().toString();
                 String mdp = mdpEditText.getText().toString();
-                if (validateInput(email, mdp)) {
+                String tel = telephoneEditText.getText().toString();
+                if (validateInput(email, mdp, tel)) {
                     Log.w(TAG, "Champs ok");
                     String nom = nomEditText.getText().toString();
                     String prenom = prenomEditText.getText().toString();
-                    String tel = telephoneEditText.getText().toString();
                     String type = selectedTypeCompte;
                     createUser(nom, prenom, tel, email, mdp, type);
                 }
@@ -154,23 +154,33 @@ public class InscriptionActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateInput(String email, String password) {
+    private boolean validateInput(String email, String password, String tel) {
+        boolean check = true;
         if (email.isEmpty()) {
-            mailEditText.setError("L'email ne peut pas être vide");
-            return false;
+            mailEditText.setError(getString(R.string.email_vide));
+            check = false;
+        }
+
+        if (tel.isEmpty()) {
+            mailEditText.setError(getString(R.string.tel_vide));
+            check = false;
         }
 
         if (password.isEmpty()) {
-            mdpEditText.setError("Le mot de passe ne peut pas être vide");
-            return false;
+            mdpEditText.setError(getString(R.string.mdp_vide));
+            check = false;
         }
 
         if (password.length() < 6) {
-            mdpEditText.setError("Le mot de passe doit contenir au moins 6 caractères");
-            return false;
+            mdpEditText.setError(getString(R.string.mdp_court));
+            check = false;
+        }
+        if (typeCompteSpinner.getSelectedItemPosition() == 0) {
+            ((TextView) typeCompteSpinner.getSelectedView()).setError(getString(R.string.choisir_compte));
+            check = false;
         }
 
-        return true;
+        return check;
     }
 
 
@@ -200,7 +210,7 @@ public class InscriptionActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            Log.w(TAG, "No document found for user");
+                            Log.w(TAG, "DB Non trouvée");
                         }
                     })
                     .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));

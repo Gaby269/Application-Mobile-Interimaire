@@ -35,7 +35,7 @@ public class OffresActivity extends AppCompatActivity {
         });
 
         LinearLayout compteButton = findViewById(R.id.layout_compte);
-        compteButton.setVisibility(showLinearLayout=="true" ? View.VISIBLE : View.GONE);
+        //compteButton.setVisibility(showLinearLayout == "true" ? View.VISIBLE : View.GONE);
         compteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +45,7 @@ public class OffresActivity extends AppCompatActivity {
         });
 
         LinearLayout messagerieButton = findViewById(R.id.layout_message);
-        messagerieButton.setVisibility(showLinearLayout=="true" ? View.VISIBLE : View.GONE);
+        //messagerieButton.setVisibility(showLinearLayout == "true" ? View.VISIBLE : View.GONE);
         messagerieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
