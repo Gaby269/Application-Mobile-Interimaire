@@ -70,10 +70,10 @@ public class InscriptionActivity extends AppCompatActivity {
                 String email = mailEditText.getText().toString();
                 String mdp = mdpEditText.getText().toString();
                 String tel = telephoneEditText.getText().toString();
-                if (validateInput(email, mdp, tel)) {
+                String nom = nomEditText.getText().toString();
+                String prenom = prenomEditText.getText().toString();
+                if (validateInput(email, mdp, tel, nom, prenom)) {
                     Log.w(TAG, "Champs ok");
-                    String nom = nomEditText.getText().toString();
-                    String prenom = prenomEditText.getText().toString();
                     String type = selectedTypeCompte;
                     createUser(nom, prenom, tel, email, mdp, type);
                 }
@@ -116,7 +116,7 @@ public class InscriptionActivity extends AppCompatActivity {
                         addUserToFirestore(userId, prenom, nom, email, tel, type);
 
                         Intent i = new Intent(InscriptionActivity.this, ConfirmationTelephoneActivity.class);
-                        i.putExtra("userId", userId);
+                        i.putExtra("phoneNumber", tel);
                         startActivity(i);
                     }
                     else {
@@ -126,17 +126,11 @@ public class InscriptionActivity extends AppCompatActivity {
                 });
     }
 
-    private void addUserToFirestore(String userId, String prenom, String nom, String tel, String email, String type) {
+    private void addUserToFirestore(String userId, String prenom, String nom, String email, String tel, String type) {
         Map<String, Object> user = new HashMap<>();
-        if (prenom != null && !prenom.isEmpty()) {
-            user.put("prenom", prenom);
-        }
-        if (nom != null && !nom.isEmpty()) {
-            user.put("nom", nom);
-        }
-        if (tel != null && !tel.isEmpty()) {
-            user.put("telephone", tel);
-        }
+        user.put("prenom", prenom);
+        user.put("nom", nom);
+        user.put("telephone", tel);
         user.put("email", email);
         user.put("typeCompte", type);
         if (type == "Candidat") {
@@ -154,15 +148,25 @@ public class InscriptionActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateInput(String email, String password, String tel) {
+    private boolean validateInput(String email, String password, String tel, String nom, String prenom) {
         boolean check = true;
         if (email.isEmpty()) {
             mailEditText.setError(getString(R.string.email_vide));
             check = false;
         }
 
-        if (tel.isEmpty()) {
-            mailEditText.setError(getString(R.string.tel_vide));
+        if (nom.isEmpty()) {
+            nomEditText.setError(getString(R.string.nom_vide));
+            check = false;
+        }
+
+        if (prenom.isEmpty()) {
+            prenomEditText.setError(getString(R.string.prenom_vide));
+            check = false;
+        }
+
+        if (tel.length() < 10) {
+            telephoneEditText.setError(getString(R.string.tel_vide));
             check = false;
         }
 
@@ -170,11 +174,11 @@ public class InscriptionActivity extends AppCompatActivity {
             mdpEditText.setError(getString(R.string.mdp_vide));
             check = false;
         }
-
-        if (password.length() < 6) {
+        else if (password.length() < 6) {
             mdpEditText.setError(getString(R.string.mdp_court));
             check = false;
         }
+
         if (typeCompteSpinner.getSelectedItemPosition() == 0) {
             ((TextView) typeCompteSpinner.getSelectedView()).setError(getString(R.string.choisir_compte));
             check = false;
