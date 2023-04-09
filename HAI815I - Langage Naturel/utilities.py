@@ -1,3 +1,7 @@
+from parser import rechercheASK
+import numpy as np
+import re
+
 def traductionFrancaisToChiffre(mot):
     mot = mot.lower().strip()
     try:
@@ -5,16 +9,29 @@ def traductionFrancaisToChiffre(mot):
         return mot
     except:
         dictionnaire = {
-            '0': ["associe", "associé"],
+            '0': ["associe", "associé", "associer"],
             '6': ["est", "sont", "etre", "être"],
-            '9': ["possède", "possede", "a", "à", "ont", "posseder", "partie de"],
-            '13': ["r_agent"],
+            '7' : ["est le contraire de", "contraire", "être contraire", "etre contraire", "opposé"],
+            '9': ["a", "à", "ont", "partie de"],
+            '13': ["r_agent", "agent", "sujet", "avoir pour sujet", "a pour sujet", "a sujet", "avoir sujet"],
+            '15': ["est à", "être à", "r_lieu", "lieu", "être à", "est à", "est a", "être a"],
             '24': ["r_agent-1", "peut", "peuvent", "pouvoir"],
-            '41': ["conséquence", "consequence"]               # r_has_conseq
+            '28': ["a comme lieu", "r_lieu-1"],
+            '41': ["conséquence", "consequence", "être consequence","etre consequence"],
+            '42': ["cause", "causer", "a pour cause"],
+            '53': ["produit", "produire"],
+            '57':["impliqie", "implication"],
+            '60':["avoir féminin", "féminin", "feminin", "avoir feminin", "être le féminin", "être féminin"],
+            '67':["est similaire à", "similaire"],
+            '106':["a pour couleur", "avoir couleur"],
+            '121': ["possède", "possede", "tient", "tenir", "posseder"],
+            '156':["est utilisé par", "utilise", "utilisé"],
+            '163': ["concerne"],
+            '170':["a pour forme générique", "singulier", "a pour singulier", "au singulier"]
         }
         for (id, relations) in dictionnaire.items():
             for relation in relations:
-                if relation in mot:
+                if relation == mot:
                     return id
                     
         relation = input("Veuillez donner une bonne relation :")
@@ -31,7 +48,20 @@ def traductionChiffreToRelation(mot):
         "r_has_part": ['9'],
         "r_agent": ['13'],
         "r_agent-1": ['24'],
-        "r_has_conseq": ['41']               # r_has_conseq
+        "r_has_conseq": ['41'],               # r_has_conseq
+        "r_lieu":['15'],
+        "r_anto":['7'],
+        "r_lieu-1":['28'],
+        "r_has_causatif":['42'],
+        "r_make":['53'],
+        "r_implication":['57'],
+        "r_fem":['60'],
+        "r_similar":['67'],
+        "r_has_color":['106'],
+        "r_own": ['121'],
+        "r_is_used_by": ['156'],
+        "r_concerning": ['163'],
+        "r_sing_form": ['170']
     }
     for (id, relations) in dictionnaire.items():
         for relation in relations:
@@ -42,17 +72,29 @@ def traductionChiffreToRelation(mot):
     return traductionChiffreToRelation(relation)
 
 
-
 def traductionChiffreToFrancais(mot):
     mot = mot.lower().strip()
     
     dictionnaire = {
         "est associé à": ['0'],
-        "est un(e)": ['6'],
-        "a/ont un(e)/des": ['9'],
+        "est un(e)/du": ['6'],
+        "a un(e)/de/du": ['9'],
         "est possible par": ['13'],
         "peut": ['24'],
-        "a pour conséquence": ['41']               # r_has_conseq
+        "a pour conséquence": ['41'],               # r_has_conseq
+        "est à": ['15'],
+        "est le contraire de": ['7'],
+        "produit du": ['53'],
+        "comporte comme lieu la/le": ['28'],
+        "implique que": ['57'],
+        "a pour féminin": ['60'],
+        "est similaire à": ['67'],
+        "a pour couleur": ['106'],
+        "a pour cause" :['42'],
+        "possède du": ['121'],
+        "est utilisé par": ['156'],
+        "conserne":['163'],
+        "a pour singulier": ['170']
     }
     for (id, relations) in dictionnaire.items():
         for relation in relations:
@@ -70,11 +112,24 @@ def traductionChiffreToFrancaisNeg(mot):
     
     dictionnaire = {
         "n'est pas associé à": ['0'],
-        "n'est pas un(e)": ['6'],
-        "n'a/ont pas un(e)/des": ['9'],
+        "n'est pas un(e)/du": ['6'],
+        "n'a pas un(e)/de": ['9'],
         "n'est pas possible par": ['13'],
         "ne peut pas": ['24'],
-        "n'a pas pour conséquence": ['41']               # r_has_conseq
+        "n'a pas pour conséquence": ['41'],               # r_has_conseq
+        "n'a pas pour lieu": ['15'],
+        "n'est pas le contraire de/du": ['7'],
+        "n'a pas pour féminin": ['60'],
+        "ne comporte pas comme lieu le/la": ['28'],
+        "n'est pas causé par":['42'],
+        "ne produit pas du":['53'],
+        "n'implique pas": ['57'],
+        "n'est pas similair à": ['67'],
+        "n'a pas pour couleur": ['106'],
+        "ne possède pas de": ['121'],
+        "n'est pas utilisé par": ["156"],
+        "ne conserne pas": ['163'],
+        "n'a pas pour singulier": ['170']
     }
     for (id, relations) in dictionnaire.items():
         for relation in relations:
@@ -97,40 +152,45 @@ def calculIntersection(ens1, ens2) :
 
     return intersection
 
+    
 
-def calculNoteRelation(tab_ask, tab_note) :
+def tri_relations(tab):
+    return (-tab[4], -tab[5])
 
-    # Parcours du tableau des notes)
-    for i in range(len(tab_ask)):
-        if "peu pertinent" in tab_ask[i][2] or "non pertinent" in tab_ask[i][2] :
-            tab_note[i] = tab_note[i] / 4
-        elif "pertinent" in tab_ask[i][2] :
-            tab_note[i] = tab_note[i] * 4
-        
-        if "toujours vrai" in tab_ask[i][2] : 
-            tab_note[i] = tab_note[i] * 3
-        if "rare" in tab_ask[i][2] :
-            tab_note[i] = tab_note[i] / 3
+def triageExplication(mot1, mot2, relationString, tab_iprim, tab_note, tab_pourcentage, tab_triplet2):
+    # Trier les explications
+    relations_triees = [] # [mot1, iprim, relation, mot2, noteClassement, poidFrequence]
+    for iprim, noteExplication, tab2, pourcentage in zip(tab_iprim, tab_note, tab_triplet2, tab_pourcentage):
+        relations_triees.append([mot1, iprim, relationString, mot2, noteExplication, pourcentage])
 
-        if "fréquent" in tab_ask[i][2] :
-            tab_note[i] = tab_note[i] * 2
-        if "possible" in tab_ask[i][2] :
-            tab_note[i] = tab_note[i] / 2
+    # Tri du tableau en fonction des notes des explications, puis en fonction des poids d'annotation si égalité
+    relations_triees.sort(key=tri_relations)
 
-        if tab_ask[i][2] == "VIDE" or "non spécifique" in tab_ask[i][2] :
-            tab_note[i] = tab_note[i]
-        # A changer pcq faut le prendre en compte correctement
-        if "constrastif" in tab_ask[i][2] :
-            tab_note[i] = tab_note[i]
+    return relations_triees
 
-    return tab_note
-# Ajouter dans intersection un poit de 1
-# Si ya tjs vrai alors on multiplie 2
-# Si ya peu pertinent ou non pertinent divise par 3
-# Si ya possible divise par 2
-# Si ya fréquent 
-# Si ya contrastif contraste (ya plusieurs sens et faux pour l'un et vrai pour l'autre)  voir comment prendre en compte ce critère
-# Si juste vide ou non spécifique our faire rien 
-# constitutif : etre dns la definition
-# rare
-# [pertinent - , peu pertinent, non pertinent, possible, frequent, rare, contrastif, non spécifique]
+def traductionNomIprim(intersection, tab_iprim) :
+
+    tab_iprim_nom = tab_iprim.copy()
+    for entite in intersection :
+        if len(entite) == 6 :
+            tab_iprim_nom[intersection.index(entite)] = entite[5][1:-1]
+
+    return tab_iprim_nom
+
+
+
+def rechercheAnnotations(intersection, mot1, mot2, relationString) :
+    
+    tab_triplet1 = []
+    tab_triplet2 = []
+    tab_iprim = []
+
+    for i in intersection:
+        iprim = i[2].strip("'")
+        r1, w1, anot1 = rechercheASK(mot1, "r_isa", iprim)
+        r2, w2, anot2 = rechercheASK(iprim, relationString, mot2)
+        tab_triplet1.append([r1, w1, anot1])
+        tab_triplet2.append([r2, w2, anot2])
+        tab_iprim.append(iprim)
+
+    return tab_triplet1, tab_triplet2, tab_iprim

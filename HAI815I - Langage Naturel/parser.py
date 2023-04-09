@@ -30,12 +30,21 @@ def rechercheDUMP(mots,
                 id = str(id_relation)
     
             # Faire la requête HTTP
+            if len(mot.split()) > 1 :
+                for m in mot.split()[1:-1] :
+                    mot = mot+"+"+m
+                    if m == mot.split()[-1] :
+                        mot+=m
             url1 = "https://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=" + mot + "&rel=" + id + "&relin=norelin"
             url2 = "https://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=" + mot + "&rel=" + id + "&relout=norelout"
+            
+            print(url1)
+            print(url2)
 
             selected1 = "MUTED_PLEASE_RESEND"
-            while ("MUTED_PLEASE_RESEND" in selected1):
-                # print(url)
+            selected2 = "MUTED_PLEASE_RESEND"
+            while ("MUTED_PLEASE_RESEND" in selected1 or "MUTED_PLEASE_RESEND" in selected2):
+                
                 response1 = requests.get(url1)
                 response2 = requests.get(url2)
         
@@ -82,11 +91,79 @@ def rechercheDUMP(mots,
             with open(f"./dump_files/selected_{mot}.txt", "a") as file:
                 file.write(body2)
                     
-            print(f"\n\nLes données du mot {mot} ont été récupérées.\n\n")
+            print(f"\n   Les données du mot {mot} ont été récupérées.\n")
+        else :
+            print(f"   Le fichier dump_files/selected_{mot}.txt existe déjà\n")
+
+
+def rechercheFilterDUMP(mot,
+                  overwrite=False,
+                  id_relation=-1,
+                  with_sortante=True, 
+                  with_entrante=True):
+
+    # Si le mot a pas deja été trouvé
+    if (not os.path.exists(f"filter_files/filter_{mot}_{id_relation}_{with_sortante}_{with_entrante}.txt") or (overwrite == True)):
+        id = ""
+        if (id_relation != -1):
+            id = str(id_relation)
+
+        url = ""
+        if with_sortante == False : 
+            # Faire la requête HTTP
+            url = "https://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=" + mot + "&rel=" + id + "&relout=norelout"
+            print(url)
             
+        if with_entrante == False :
+            # Faire la requête HTTP
+            url = "https://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=" + mot + "&rel=" + id + "&relin=norelin"
+            print(url)
+        
+
+        selected = "MUTED_PLEASE_RESEND"
+        while ("MUTED_PLEASE_RESEND" in selected):
+            # print(url)
+            response = requests.get(url)
+    
+            # Recuperation des données de reseauDump dans body
+            body = response.text
+    
+            # Recherche de la position de la première occurrence de la balise <CODE> pour récuperer les choses à l'interieur
+            start_index = body.find("<CODE>")
+    
+            # Recuperation du texte du code source
+            selected = ""
+    
+            # Si le mot existe dans la base
+            if start_index != -1:
+                end_index = body.find("</CODE>", start_index)
+    
+                if end_index != -1:
+                    # Extraction du contenu entre les balises <CODE> et </CODE>
+                    selected = body[start_index+6:end_index] # On rajoute la longueur de la balise <CODE>
+    
+            # Sinon on regarde s'il y a un message d'erreur qui dit que le mot n'existe pas
+            else:
+                start_index_warning = body.find(u"""<div class="jdm-warning">""")
+                if start_index_warning != -1:
+                    print(f"\nLe mot {mot} n'existe pas veuillez changer la phrase")
+                else:
+                    print("\nErreur lors de la requête")
+                exit(1)
+
+        body = selected[:-7]
+        
+        # Ecriture des relations sortantes
+        with open(f"./filter_files/filter_{mot}_{id_relation}_{with_sortante}_{with_entrante}.txt", "w") as f:
+            f.write(body)
+                
+        print(f"\n\n   Les données du mot {mot} ont été récupérées.\n\n")
+    else :
+        print(f"\n   Le fichier filter_files/filter_{mot}_{id_relation}_{with_sortante}_{with_entrante}.txt existe déjà")
+
 
 #Fonction qui forme le texte en dico
-def formaterDico(phr):
+def formaterDico(phr, filter=False, id_relation=-1, with_sortante=True, with_entrante=True):
 
     # Dictionnaire pour tous les mots de la phrase
     dico_entier = {}
@@ -99,7 +176,14 @@ def formaterDico(phr):
         # Bossage avec le fichier mtn
         donnees_par_categorie = {}
 
-        with open(f'./dump_files/selected_{p}.txt', 'r') as file:
+        # Choix du fichier a utiliser
+        fichier = ""
+        if filter :
+            fichier = f"./filter_files/filter_{p}_{str(id_relation)}_{str(with_sortante)}_{str(with_entrante)}.txt"
+        else : 
+            fichier = f"./dump_files/selected_{p}.txt"
+            
+        with open(fichier, 'r') as file:
 
             categorie_actuelle = "None"  # dans quelle categorie on est
             num_categorie = 0  # id de la categorie
@@ -128,9 +212,8 @@ def formaterDico(phr):
                         0):  # si la categorie est vide alors on saute le commentaire
                         continue
                     # Sinon on a trouvé une nouvelle catégorie
-                    elif ("les relations sortantes" not in ligne) and (
-                      num_categorie == 3
-                    ):  # on verifie que si jamais ya pas de relations sortantes on incremente
+                    
+                    elif ("les relations sortantes" not in ligne) and (num_categorie == 3):  # on verifie que si jamais ya pas de relations sortantes on incremente
                         # cela veut dire quon est en relations entrantes et que il n'y a pas de relations sortantes
                         num_categorie += 1
                         categorie_actuelle = str(num_categorie) + ";" + (ligne.split(
@@ -141,13 +224,14 @@ def formaterDico(phr):
                         categorie_actuelle = str(num_categorie) + ";" + (ligne.split(
                          ":")[1]).strip()  # on peut prendre les meme chose que la ligne suivante
                         donnees_par_categorie[categorie_actuelle] = []
-                    elif ("les relations entrantes" not in ligne) and (
-                      num_categorie == 4):  # on regarde si ya des relations entrantes
+                        
+                    elif ("les relations entrantes" not in ligne) and (num_categorie == 4):  # on regarde si ya des relations entrantes
                         # cela veut dire quon est en relations entrantes mais que yen a pas
                         num_categorie += 1
                         categorie_actuelle = str(num_categorie) + ";" + (ligne.split(
                          ":")[1]).strip()  # on peut prendre les meme chose que la ligne suivante
                         donnees_par_categorie[categorie_actuelle] = []
+                        
                     else:  # sinon on est dans les sortantes et ya pas de problème
                         num_categorie += 1
                         categorie_actuelle = str(num_categorie) + ";" + (
@@ -195,7 +279,7 @@ def parserDico(dico,
         # Parcours du dictionnaire
        
         for key in cle: 
-            cpt = 0
+            #cpt = 0
             # Parcours des tableaux
             for tab in dico_formater[key]:
                 
@@ -210,7 +294,7 @@ def parserDico(dico,
                 if tab[0] == 'r' and tab[4] == valeur_trie:
                     # Si on choisis les relation sortantes + Si c'est bien la clé pour les relations sortantes (4)
                     if is_sortante and key[0] == '4' and tab not in tab_sortantes and int(
-                      tab[5]) > 0:
+                      tab[5]) > 0 :
                         tab_sortantes.append(tab)
                     # Si c'est une relation et que la relation est de type relation + Si c'est bien la clé pour les relations entrantes (5)
                     if is_entrante and key[0] == '5' and tab not in tab_entrantes and int(
@@ -236,7 +320,7 @@ def parserDico(dico,
                         # Si le type aparait dans une des entites il faut le garder
                         if e[3] == tab[1] and tab not in tab_typeEntit:
                             tab_typeEntit.append(tab)
-
+    """ PAS SUP
     elif type_trie == "entite":
 
         #entite // typeentite // relations // type de realtion
@@ -299,7 +383,7 @@ def parserDico(dico,
                             #  Si le type existe dans la relation on garde
                             if tab[1] == s[4] and tab not in tab_typeRelat:
                                 tab_typeRelat.append(tab)
-
+    """
     # Reconstruction du dictionnaire a partir des données de maintenant
     dico_formater["1;nt;ntid;'ntname'"] = tab_typeEntit
     #print(tab_Entites,tab_sortantes, tab_entrantes)
