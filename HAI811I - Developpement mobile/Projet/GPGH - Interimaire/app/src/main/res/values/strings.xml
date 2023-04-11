@@ -13,6 +13,18 @@
     <!-- Inscription -->
     <string name="inscription">Inscription</string>
     <string name="connexion">Connexion</string>
+<<<<<<< HEAD
+=======
+    <!-- erreurs -->
+    <string name="code_incorrect">Code incorrect</string>
+    <string name="nom_vide">Entrez un nom</string>
+    <string name="prenom_vide">Entrez un prenom</string>
+    <string name="email_vide">L\'email ne peut pas être vide</string>
+    <string name="mdp_vide">Le mot de passe ne peut pas être vide</string>
+    <string name="tel_vide">Entrez un numéro de téléphone valide</string>
+    <string name="mdp_court">Le mot de passe doit contenir au moins 6 caractères</string>
+    <string name="choisir_compte">Choissisez un type de compte</string>
+>>>>>>> 4b98929c58c13db7ce9c878b1760ca1b30aeeef4
     <string name="ecoute_text">Des professionnels à votre écoute</string>
     <string name="boutton_creaCompte">Créer votre compte</string>
     <string name="mdp">Mot de passe</string>

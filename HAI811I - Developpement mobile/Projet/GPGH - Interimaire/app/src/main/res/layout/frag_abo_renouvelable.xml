@@ -5,14 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context="com.example.gpgh_interimaire.FragmentSemestriel">
+    tools:context="com.example.gpgh_interimaire.FragAboRenouvelable">
 
     <TextView
         android:id="@+id/ponctuelTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/semestrielle"
+        android:text="@string/renouvelable"
         android:textSize="20dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"

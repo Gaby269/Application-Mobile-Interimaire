@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
@@ -19,7 +18,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AfficherDetailsOffreActivity.this, OffresActivity.class);
+                Intent i = new Intent(AfficherDetailsOffreActivity.this, FragPageOffres.class);
                 startActivity(i);
             }
         });

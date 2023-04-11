@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient"
+    tools:context="com.example.gpgh_interimaire.FragPageCompte">
+
+    <TextView
+        android:id="@+id/compteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="@string/compte"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--Faudrait mettre une listeView de layout avec cette decription-->
+
+    <LinearLayout
+        android:id="@+id/layout_offre_details"
+        android:layout_width="365dp"
+        android:layout_height="239dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/arrondir_edit_bord_bleu"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/compteTextView"
+        android:padding="15px">
+
+        <TextView
+            android:id="@+id/textViewNom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="@string/nom" />
+
+        <TextView
+            android:id="@+id/textViewPrenom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="@string/prenom" />
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="@string/mail" />
+
+        <TextView
+            android:id="@+id/textViewNumero"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="30px"
+            android:text="@string/telephone" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/layout_boutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_offre_details">
+
+        <Button
+            android:id="@+id/boutton_retour"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/boutton_retour"
+            android:background="@drawable/arrondir_bouton"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/boutton_modifier"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/boutton_modifier"
+            android:background="@drawable/arrondir_bouton"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/boutton_supprimer"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:text="@string/boutton_supprimer"
+            android:background="@drawable/arrondir_bouton"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

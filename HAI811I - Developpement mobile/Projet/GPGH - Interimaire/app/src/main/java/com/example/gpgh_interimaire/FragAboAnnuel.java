@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class FragmentAnnuel extends Fragment {
+public class FragAboAnnuel extends Fragment {
 
 
     // Constructeur
-    public FragmentAnnuel() {}
+    public FragAboAnnuel() {}
 
     // Création de la vue pour le fragment 1
     @Override
@@ -20,7 +20,7 @@ public class FragmentAnnuel extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Associé la vue au layout du fragment 1
-        View view = inflater.inflate(R.layout.fragment_annuel, container, false);
+        View view = inflater.inflate(R.layout.frag_abo_annuel, container, false);
 
         return view;
     }

@@ -229,7 +229,7 @@ public class InscriptionActivity extends AppCompatActivity {
                             }
                             //suite des else
                             else {
-                                Intent i = new Intent(InscriptionActivity.this, OffresActivity.class);
+                                Intent i = new Intent(InscriptionActivity.this, FragPageOffres.class);
                                 startActivity(i);
                             }
                         }

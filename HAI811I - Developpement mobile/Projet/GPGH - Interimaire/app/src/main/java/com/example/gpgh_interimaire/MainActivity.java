@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         inviteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, OffresActivity.class);
+                Intent i = new Intent(MainActivity.this, NavbarActivity.class);
                 i.putExtra("showLinearLayout", false);
                 i.putExtra("invite", true);
                 startActivity(i);
