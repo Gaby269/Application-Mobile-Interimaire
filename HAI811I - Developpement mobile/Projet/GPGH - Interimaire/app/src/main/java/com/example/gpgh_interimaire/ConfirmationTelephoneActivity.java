@@ -52,13 +52,16 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
             fetchUserInfo(userId);
         }
 
-        initCallbacks();
-        sendVerificationCode(phoneNumber);
+        // on skip tant que ça marche pas
+        //initCallbacks();
+        //sendVerificationCode(phoneNumber);
 
         Button inscriptionButton = findViewById(R.id.boutton_confirmationTel);
         inscriptionButton.setOnClickListener(view -> {
-            //Intent i = new Intent(ConfirmationTelephoneActivity.this, EntrepriseActivity.class);
+            Intent i = new Intent(ConfirmationTelephoneActivity.this, EntrepriseActivity.class);
+            startActivity(i);
 
+            /*
             String verificationCode1 = verificationCodeEditText.getText().toString().trim();
             String verificationId = ""; // L'ID de vérification reçu dans la méthode onCodeSent
 
@@ -69,6 +72,7 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
             else {
                 verificationCodeEditText.setError(getString(R.string.code_incorrect));
             }
+             */
         });
     }
 
@@ -132,8 +136,8 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = task.getResult().getUser();
-
-                        // Effectuez les opérations souhaitées
+                        //rediriger vers entrepriseActivity
+                        // mettre à jour la BDD pour signup_step
                     } else {
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                             Log.w(TAG, "Invalid verification code");
