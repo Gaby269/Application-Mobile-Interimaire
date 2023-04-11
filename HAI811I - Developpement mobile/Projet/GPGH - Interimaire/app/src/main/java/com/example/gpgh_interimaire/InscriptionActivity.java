@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class InscriptionActivity extends AppCompatActivity {
 
@@ -77,6 +78,25 @@ public class InscriptionActivity extends AppCompatActivity {
                     String type = selectedTypeCompte;
                     createUser(nom, prenom, tel, email, mdp, type);
                 }
+            }
+        });
+
+        //signup tmp
+        Button tmpSignup = findViewById(R.id.button);
+        tmpSignup.setOnClickListener(view -> {
+            Random rand = new Random();
+            String randInt = Integer.toString(rand.nextInt(10000)); //entre 0 et 9999
+
+            Log.w(TAG, "Creation du compte "+randInt);
+            String email = randInt+"@gmail.com";
+            String mdp = "123456";
+            String tel = "0782235495";
+            String nom = "Jean"+randInt;
+            String prenom = "Test"+randInt;
+            if (validateInput(email, mdp, tel, nom, prenom)) {
+                Log.w(TAG, "Champs ok");
+                String type = selectedTypeCompte;
+                createUser(nom, prenom, tel, email, mdp, type);
             }
         });
 
