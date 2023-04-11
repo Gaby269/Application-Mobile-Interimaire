@@ -21,7 +21,7 @@ public class ModificationOffresActivity extends AppCompatActivity {
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ModificationOffresActivity.this, OffresActivity.class);
+                Intent i = new Intent(ModificationOffresActivity.this, FragPageOffres.class);
                 startActivity(i);
             }
         });
@@ -29,7 +29,7 @@ public class ModificationOffresActivity extends AppCompatActivity {
         modifierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ModificationOffresActivity.this, OffresActivity.class);
+                Intent i = new Intent(ModificationOffresActivity.this, FragPageOffres.class);
                 startActivity(i);
                 Toast.makeText(ModificationOffresActivity.this,R.string.offreModif,Toast.LENGTH_SHORT).show();
             }

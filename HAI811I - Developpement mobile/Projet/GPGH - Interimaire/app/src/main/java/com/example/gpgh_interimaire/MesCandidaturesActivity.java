@@ -21,7 +21,7 @@ public class MesCandidaturesActivity extends AppCompatActivity {
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MesCandidaturesActivity.this, OffresActivity.class);
+                Intent i = new Intent(MesCandidaturesActivity.this, FragPageOffres.class);
                 startActivity(i);
             }
         });

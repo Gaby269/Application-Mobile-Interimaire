@@ -23,7 +23,7 @@ public class CreationOffre2Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(CreationOffre2Activity.this,R.string.offreCree,Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(CreationOffre2Activity.this, OffresActivity.class);
+                Intent i = new Intent(CreationOffre2Activity.this, FragPageOffres.class);
                 startActivity(i);
 
             }

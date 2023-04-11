@@ -61,7 +61,7 @@ public class ConnexionActivity extends AppCompatActivity {
                     if (task.isSuccessful()) { // Connexion réussie
                         FirebaseUser user = mAuth.getCurrentUser();
 
-                        Intent i = new Intent(ConnexionActivity.this, CompteActivity.class);
+                        Intent i = new Intent(ConnexionActivity.this, LoadingActivity.class);
                         startActivity(i);
                     }
                     else { // Échec de la connexion

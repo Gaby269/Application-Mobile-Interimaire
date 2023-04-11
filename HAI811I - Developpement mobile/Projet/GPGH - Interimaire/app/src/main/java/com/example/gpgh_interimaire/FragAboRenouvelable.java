@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class FragmentTrimestriel extends Fragment {
+public class FragAboRenouvelable extends Fragment {
 
 
     // Constructeur
-    public FragmentTrimestriel() {}
+    public FragAboRenouvelable() {}
 
     // Création de la vue pour le fragment 1
     @Override
@@ -20,7 +20,7 @@ public class FragmentTrimestriel extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Associé la vue au layout du fragment 1
-        View view = inflater.inflate(R.layout.fragment_trimestriel, container, false);
+        View view = inflater.inflate(R.layout.frag_abo_renouvelable, container, false);
 
         return view;
     }
