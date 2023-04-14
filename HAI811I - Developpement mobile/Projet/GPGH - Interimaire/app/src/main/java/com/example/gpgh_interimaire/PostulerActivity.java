@@ -30,7 +30,7 @@ public class PostulerActivity extends AppCompatActivity {
         envoyerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PostulerActivity.this, MesCandidaturesActivity.class);
+                Intent i = new Intent(PostulerActivity.this, NavbarActivity.class);
                 startActivity(i);
             }
         });

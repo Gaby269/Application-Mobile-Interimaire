@@ -17,7 +17,6 @@ public class LoadingActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    private ViewModel mViewModel;
     static final String TAG = "LoadingActivity";
 
     @Override
@@ -25,18 +24,15 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        // Initialiser ViewModel
-        mViewModel = new ViewModelProvider(this).get(MyViewModel.class);
-
         // Récuperer le type de compte à partir de la bdd
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String userId = currentUser.getUid();
-        fetchUserTypeCompte(userId, (MyViewModel) mViewModel);
+        fetchUserTypeCompte(userId);
     }
 
-    private void fetchUserTypeCompte(String userId, MyViewModel mViewModel) {
+    private void fetchUserTypeCompte(String userId) {
 
         db.collection("users")
                 .document(userId)
@@ -44,10 +40,9 @@ public class LoadingActivity extends AppCompatActivity {
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         String typeCompte = documentSnapshot.getString("typeCompte");
-                        mViewModel.setUserTypeCompte(typeCompte);
-                        Toast.makeText(LoadingActivity.this, ""+typeCompte+"",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoadingActivity.this, typeCompte,Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(LoadingActivity.this, NavbarActivity.class);
-                        i.putExtra("typeCompte", ""+typeCompte+"");
+                        i.putExtra("typeCompte", getTypeInString(typeCompte));
                         startActivity(i);
                     }
                     else {
@@ -61,5 +56,20 @@ public class LoadingActivity extends AppCompatActivity {
     private String getUserId() {
         // A remplacer par votre fonction pour récupérer l'ID de l'utilisateur actuel
         return "123456";
+    }
+
+    private String getTypeInString(String s){
+        if (s.contains("Entreprise")){
+            Log.i(TAG, "Entreprise");
+            return "Entreprise";
+        }
+        else if (s.contains("Candidat")){
+            Log.i(TAG, "Candidat");
+            return "Candidat";
+        }
+        else {
+            Log.i(TAG, "Agence d'interim");
+            return "Agence d'interim";
+        }
     }
 }

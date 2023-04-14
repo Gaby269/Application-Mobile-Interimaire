@@ -104,5 +104,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/boutton_ajout"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:src="@drawable/add_circle_black_24dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_weight="1" />
+
 
 </LinearLayout>

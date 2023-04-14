@@ -52,11 +52,13 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/image_favoris"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/favorite_border_black_24dp"/>
 
             <TextView
+                android:id="@+id/text_favoris"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Favoris"/>
@@ -72,14 +74,62 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/image_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/textsms_black_24dp"/>
 
             <TextView
+                android:id="@+id/text_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Message"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_offres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image_offres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/description_black_24dp"/>
+
+            <TextView
+                android:id="@+id/text_offres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Offres"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_candidature"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image_candidature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/description_black_24dp"/>
+
+            <TextView
+                android:id="@+id/text_candidature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Candidature"/>
 
         </LinearLayout>
 
@@ -92,54 +142,16 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/image_compte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/account_circle_black_24dp"/>
 
             <TextView
+                android:id="@+id/text_compte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Compte"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_candidature"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/remove_circle_outline_black_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Icon 1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_ajout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/post_add_black_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ajout"/>
 
         </LinearLayout>
 

@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,23 +31,34 @@ public class NavbarActivity extends AppCompatActivity {
     static final String TAG = "CompteActivity";
 
     FirebaseAuth mAuth;
-    FirebaseFirestore db;
     String typeCompte;
-    private MyViewModel mViewModel;
 
     @Override
+    @SuppressLint({"MissingInflatedId", "ResourceAsColor"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navbar);
 
         Intent i = getIntent();
-        showLinearLayout = showLinearLayout+i.getStringExtra("typeCompte");
+        typeCompte = i.getStringExtra("typeCompte");
+
+        Bundle args = new Bundle();
+        args.putString("typeCompte", typeCompte);
 
         Fragment fragment = new FragPageOffres();
+        fragment.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_layout, fragment);
         transaction.addToBackStack(null); // ajouter à la pile de retour
         transaction.commit();
+
+        ImageView messagerieImage = findViewById(R.id.image_message);
+        ImageView favorieImage = findViewById(R.id.image_favoris);
+        ImageView compteImage = findViewById(R.id.image_compte);
+        ImageView offresImage = findViewById(R.id.image_offres);
+        ImageView candidatureImage = findViewById(R.id.image_candidature);
+
+        offresImage.setImageResource(R.drawable.description_black_24dp_black);
 
 
         // Gérer la nav bar
@@ -52,7 +66,44 @@ public class NavbarActivity extends AppCompatActivity {
         favorieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Modification de la messagerie en couleur
+                favorieImage.setImageResource(R.drawable.favorite_black_24dp);
+
+                // Remettre tout en noir
+                compteImage.setImageResource(R.drawable.account_circle_black_24dp);
+                candidatureImage.setImageResource(R.drawable.content_paste_black_24dp);
+                offresImage.setImageResource(R.drawable.description_black_24dp);
+                messagerieImage.setImageResource(R.drawable.textsms_black_24dp);
+
                 Fragment fragment = new FragPageFavoris();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container_layout, fragment);
+                transaction.addToBackStack(null); // ajouter à la pile de retour
+                transaction.commit();
+            }
+        });
+
+        LinearLayout offresButton = findViewById(R.id.layout_offres);
+        offresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Modification de la messagerie en couleur
+                offresImage.setImageResource(R.drawable.description_black_24dp_black);
+
+                // Remettre tout en noir
+                favorieImage.setImageResource(R.drawable.favorite_border_black_24dp);
+                compteImage.setImageResource(R.drawable.account_circle_black_24dp);
+                candidatureImage.setImageResource(R.drawable.content_paste_black_24dp);
+                messagerieImage.setImageResource(R.drawable.textsms_black_24dp);
+
+
+                Bundle args = new Bundle();
+                args.putString("typeCompte", typeCompte);
+
+                Fragment fragment = new FragPageOffres();
+                fragment.setArguments(args);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_layout, fragment);
                 transaction.addToBackStack(null); // ajouter à la pile de retour
@@ -62,8 +113,19 @@ public class NavbarActivity extends AppCompatActivity {
 
         LinearLayout compteButton = findViewById(R.id.layout_compte);
         compteButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
+                // Modification de la compte en couleur
+                compteImage.setImageResource(R.drawable.account_circle_black_24dp_black);
+
+                // Remettre tout en noir
+                favorieImage.setImageResource(R.drawable.favorite_border_black_24dp);
+                offresImage.setImageResource(R.drawable.description_black_24dp);
+                candidatureImage.setImageResource(R.drawable.content_paste_black_24dp);
+                messagerieImage.setImageResource(R.drawable.textsms_black_24dp);
+
                 Fragment fragment = new FragPageCompte();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_layout, fragment);
@@ -75,9 +137,20 @@ public class NavbarActivity extends AppCompatActivity {
         // Pour tout le monde
         LinearLayout messagerieButton = findViewById(R.id.layout_message);
         messagerieButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
 
+                // Modification de la messagerie en couleur
+                messagerieImage.setImageResource(R.drawable.textsms_black_24dp_black);
+
+                // Remettre tout en noir
+                favorieImage.setImageResource(R.drawable.favorite_border_black_24dp);
+                compteImage.setImageResource(R.drawable.account_circle_black_24dp);
+                offresImage.setImageResource(R.drawable.description_black_24dp);
+                candidatureImage.setImageResource(R.drawable.content_paste_black_24dp);
+
+                // Mettre le fragement correspondant
                 Fragment fragment = new FragPageMessagerie();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_layout, fragment);
@@ -93,33 +166,37 @@ public class NavbarActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //mesCandidatures si tu est un candidat
                 //liste des offres et la candidature a voir si entreprise
-                Intent i = new Intent(NavbarActivity.this, MesCandidaturesActivity.class);
-                startActivity(i);
+                // Modification de la compte en couleur
+                candidatureImage.setImageResource(R.drawable.content_paste_search_black_24dp_black);
+
+                // Remettre tout en noir
+                favorieImage.setImageResource(R.drawable.favorite_border_black_24dp);
+                offresImage.setImageResource(R.drawable.description_black_24dp);
+                compteImage.setImageResource(R.drawable.account_circle_black_24dp);
+                messagerieImage.setImageResource(R.drawable.textsms_black_24dp);
+
+                Fragment fragment = new FragPageMesCandidatures();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container_layout, fragment);
+                transaction.addToBackStack(null); // ajouter à la pile de retour
+                transaction.commit();
             }
         });
 
-        // Que pour les entreprises et les agences qui peuvent créer les offres
-        LinearLayout creationOffreButton = findViewById(R.id.layout_ajout);
-        creationOffreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(NavbarActivity.this, CreationOffre1Activity.class);
-                startActivity(i);
-            }
-        });
 
         // Mettre à jour la barre de navigation en fonction du type de compte de l'utilisateur
-        if (typeCompte == "Candidat") {
+        if (typeCompte.contains("Candidat")) {
+            favorieButton.setVisibility(View.VISIBLE);
+            candidatureButton.setVisibility(View.VISIBLE);
         }
-        else if (typeCompte == "Entreprise" || typeCompte == "Agence d'interim"){
+        else if (typeCompte.contains("Entreprise") || typeCompte.contains("Agence")){
             favorieButton.setVisibility(View.GONE);
-        }
-        else{
-            Toast.makeText(NavbarActivity.this, ""+typeCompte+"",Toast.LENGTH_SHORT).show();
+            candidatureButton.setVisibility(View.GONE);
         }
 
 
     }
+
 
 
     // Deconnection

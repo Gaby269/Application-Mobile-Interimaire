@@ -38,7 +38,7 @@ public class FragPageCompte extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Associé la vue au layout du fragment 1
-        View view = inflater.inflate(R.layout.frag_page_offres, container, false);
+        View view = inflater.inflate(R.layout.frag_page_compte, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();

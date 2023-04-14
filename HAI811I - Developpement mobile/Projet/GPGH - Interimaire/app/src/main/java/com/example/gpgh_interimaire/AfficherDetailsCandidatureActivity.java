@@ -27,7 +27,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, MesCandidaturesActivity.class);
+                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, NavbarActivity.class);
                 startActivity(i);
             }
         });
@@ -49,7 +49,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                 // supprimer que si c'est candidat
                 // boite de dialogue + affichage
                 Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureSupp,Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, MesCandidaturesActivity.class);
+                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, NavbarActivity.class);
                 startActivity(i);
             }
         });

@@ -23,7 +23,7 @@ public class FragPageFavoris extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Associé la vue au layout du fragment 1
-        View view = inflater.inflate(R.layout.frag_page_offres, container, false);
+        View view = inflater.inflate(R.layout.frag_page_favoris, container, false);
 
         LinearLayout offreButton = view.findViewById(R.id.layout_favorie);
         offreButton.setOnClickListener(new View.OnClickListener() {

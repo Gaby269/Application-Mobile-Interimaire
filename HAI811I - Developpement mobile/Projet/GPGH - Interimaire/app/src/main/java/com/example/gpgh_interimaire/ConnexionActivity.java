@@ -45,7 +45,7 @@ public class ConnexionActivity extends AppCompatActivity {
         fastLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = "gatienhaddad@hotmail.fr";
+                String email = "7134@gmail.com";
                 String mdp = "123456";
                 if (validateInput(email, mdp)) {
                     signInUser(email, mdp);

@@ -136,9 +136,10 @@
         android:id="@+id/layout_boutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/layout_menu_entreprise"
+        app:layout_constraintBottom_toTopOf="@+id/layout_entreprise"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_entreprise">
@@ -154,126 +155,6 @@
 
 
     </LinearLayout>
-
-
-    <!-- Le menu -->
-    <LinearLayout
-        android:id="@+id/layout_menu_entreprise"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-
-
-        <LinearLayout
-            android:id="@+id/layout_favoris"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/favorite_border_black_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Favoris"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/textsms_black_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Message"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_compte"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/account_circle_black_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Compte"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_candidature"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/description_black_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Candidature"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_ajout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/post_add_black_24dp_black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ajout"
-                android:textColor="#0001d3"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

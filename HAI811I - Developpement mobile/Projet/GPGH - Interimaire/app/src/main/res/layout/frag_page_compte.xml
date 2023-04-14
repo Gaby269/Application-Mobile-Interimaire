@@ -27,11 +27,12 @@
 
     <LinearLayout
         android:id="@+id/layout_offre_details"
-        android:layout_width="365dp"
+        android:layout_width="match_parent"
         android:layout_height="239dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/arrondir_edit_bord_bleu"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,15 +92,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_offre_details">
 
-        <Button
-            android:id="@+id/boutton_retour"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="center_vertical"
-            android:text="@string/boutton_retour"
-            android:background="@drawable/arrondir_bouton"
-            android:textSize="15sp" />
 
         <Button
             android:id="@+id/boutton_modifier"
