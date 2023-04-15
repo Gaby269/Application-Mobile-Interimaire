@@ -40,7 +40,7 @@
             android:layout_height="55dp"
             android:gravity="center_vertical"
             android:text="@string/boutton_payer"
-            android:background="@drawable/arrondir_bouton"
+            android:background="@drawable/arrondir_edit_bleu"
             android:textSize="17sp" />
 
     </LinearLayout>

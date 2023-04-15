@@ -3,25 +3,16 @@ package com.example.gpgh_interimaire;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class NavbarActivity extends AppCompatActivity {
 
@@ -58,7 +49,7 @@ public class NavbarActivity extends AppCompatActivity {
         ImageView offresImage = findViewById(R.id.image_offres);
         ImageView candidatureImage = findViewById(R.id.image_candidature);
 
-        offresImage.setImageResource(R.drawable.description_black_24dp_black);
+        offresImage.setImageResource(R.drawable.icon_fichier_bleu);
 
 
         // Gérer la nav bar
@@ -68,13 +59,13 @@ public class NavbarActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Modification de la messagerie en couleur
-                favorieImage.setImageResource(R.drawable.favorite_black_24dp);
+                favorieImage.setImageResource(R.drawable.icon_favori_bleu);
 
                 // Remettre tout en noir
-                compteImage.setImageResource(R.drawable.account_circle_black_24dp);
-                candidatureImage.setImageResource(R.drawable.content_paste_black_24dp);
-                offresImage.setImageResource(R.drawable.description_black_24dp);
-                messagerieImage.setImageResource(R.drawable.textsms_black_24dp);
+                compteImage.setImageResource(R.drawable.icon_compte_black);
+                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
+                offresImage.setImageResource(R.drawable.icon_fichier_black);
+                messagerieImage.setImageResource(R.drawable.icon_message_black);
 
                 Fragment fragment = new FragPageFavoris();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -90,13 +81,13 @@ public class NavbarActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Modification de la messagerie en couleur
-                offresImage.setImageResource(R.drawable.description_black_24dp_black);
+                offresImage.setImageResource(R.drawable.icon_fichier_bleu);
 
                 // Remettre tout en noir
-                favorieImage.setImageResource(R.drawable.favorite_border_black_24dp);
-                compteImage.setImageResource(R.drawable.account_circle_black_24dp);
-                candidatureImage.setImageResource(R.drawable.content_paste_black_24dp);
-                messagerieImage.setImageResource(R.drawable.textsms_black_24dp);
+                favorieImage.setImageResource(R.drawable.icon_favori_black);
+                compteImage.setImageResource(R.drawable.icon_compte_black);
+                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
+                messagerieImage.setImageResource(R.drawable.icon_message_black);
 
 
                 Bundle args = new Bundle();
@@ -118,13 +109,13 @@ public class NavbarActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Modification de la compte en couleur
-                compteImage.setImageResource(R.drawable.account_circle_black_24dp_black);
+                compteImage.setImageResource(R.drawable.icon_compte_bleu);
 
                 // Remettre tout en noir
-                favorieImage.setImageResource(R.drawable.favorite_border_black_24dp);
-                offresImage.setImageResource(R.drawable.description_black_24dp);
-                candidatureImage.setImageResource(R.drawable.content_paste_black_24dp);
-                messagerieImage.setImageResource(R.drawable.textsms_black_24dp);
+                favorieImage.setImageResource(R.drawable.icon_favori_black);
+                offresImage.setImageResource(R.drawable.icon_fichier_black);
+                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
+                messagerieImage.setImageResource(R.drawable.icon_message_black);
 
                 Fragment fragment = new FragPageCompte();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -142,13 +133,13 @@ public class NavbarActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Modification de la messagerie en couleur
-                messagerieImage.setImageResource(R.drawable.textsms_black_24dp_black);
+                messagerieImage.setImageResource(R.drawable.icon_message_bleu);
 
                 // Remettre tout en noir
-                favorieImage.setImageResource(R.drawable.favorite_border_black_24dp);
-                compteImage.setImageResource(R.drawable.account_circle_black_24dp);
-                offresImage.setImageResource(R.drawable.description_black_24dp);
-                candidatureImage.setImageResource(R.drawable.content_paste_black_24dp);
+                favorieImage.setImageResource(R.drawable.icon_favori_black);
+                compteImage.setImageResource(R.drawable.icon_compte_black);
+                offresImage.setImageResource(R.drawable.icon_fichier_black);
+                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
 
                 // Mettre le fragement correspondant
                 Fragment fragment = new FragPageMessagerie();
@@ -167,13 +158,13 @@ public class NavbarActivity extends AppCompatActivity {
                 //mesCandidatures si tu est un candidat
                 //liste des offres et la candidature a voir si entreprise
                 // Modification de la compte en couleur
-                candidatureImage.setImageResource(R.drawable.content_paste_search_black_24dp_black);
+                candidatureImage.setImageResource(R.drawable.icon_formulaire_recherche_bleu);
 
                 // Remettre tout en noir
-                favorieImage.setImageResource(R.drawable.favorite_border_black_24dp);
-                offresImage.setImageResource(R.drawable.description_black_24dp);
-                compteImage.setImageResource(R.drawable.account_circle_black_24dp);
-                messagerieImage.setImageResource(R.drawable.textsms_black_24dp);
+                favorieImage.setImageResource(R.drawable.icon_favori_black);
+                offresImage.setImageResource(R.drawable.icon_fichier_black);
+                compteImage.setImageResource(R.drawable.icon_compte_black);
+                messagerieImage.setImageResource(R.drawable.icon_message_black);
 
                 Fragment fragment = new FragPageMesCandidatures();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

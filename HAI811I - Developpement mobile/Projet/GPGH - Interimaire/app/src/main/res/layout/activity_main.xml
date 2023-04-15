@@ -59,7 +59,7 @@
             android:id="@+id/boutton_inscription"
             android:layout_width="wrap_content"
             android:layout_height="55dp"
-            android:background="@drawable/arrondir_bouton"
+            android:background="@drawable/arrondir_edit_bleu"
             android:gravity="center_vertical"
             android:text="@string/boutton_inscription"
             android:textSize="17sp" />
@@ -93,7 +93,7 @@
             android:layout_height="55dp"
             android:gravity="center_vertical"
             android:text="@string/boutton_invite"
-            android:background="@drawable/arrondir_bouton"
+            android:background="@drawable/arrondir_edit_bleu"
             android:textSize="17sp" />
 
     </LinearLayout>

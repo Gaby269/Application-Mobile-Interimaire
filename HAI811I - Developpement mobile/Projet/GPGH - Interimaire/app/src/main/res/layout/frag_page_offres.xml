@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:orientation="horizontal"
-            android:background="@drawable/arrondir_edit"
+            android:background="@drawable/arrondir_edit_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
                 android:id="@+id/recorder_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/mic_none_black_24dp"
+                android:src="@drawable/icon_micro_black"
                 android:contentDescription="TODO"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/bar_recherche" />
@@ -58,7 +58,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/search_black_24dp"
+                android:src="@drawable/icon_recherche_black"
                 android:contentDescription="TODO"
                 app:layout_constraintStart_toEndOf="@id/bar_recherche"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -71,7 +71,7 @@
             android:layout_height="match_parent"
             android:gravity="right"
             android:layout_marginStart="30dp"
-            android:background="@drawable/arrondir_edit"
+            android:background="@drawable/arrondir_edit_white"
             android:text="@string/filter"
             android:entries="@array/filtreRecherche"
             tools:ignore="RtlHardcoded" />
@@ -88,7 +88,7 @@
         android:layout_marginStart="10dp"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/arrondir_edit_bord_bleu"
+        android:background="@drawable/arrondir_edit_white_bord_bleu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_recherche">
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:background="@drawable/arrondir_bouton"
+            android:background="@drawable/arrondir_edit_bleu"
             android:text="@string/boutton_candidature"
             android:textSize="15sp" />
 
@@ -108,7 +108,7 @@
         android:id="@+id/boutton_ajout"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:src="@drawable/add_circle_black_24dp"
+        android:src="@drawable/icon_ajouter_bleu"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:layout_weight="1" />

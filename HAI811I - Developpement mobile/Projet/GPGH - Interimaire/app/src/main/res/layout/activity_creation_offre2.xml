@@ -69,7 +69,7 @@
             android:layout_marginEnd="70dp"
             android:layout_marginStart="70dp"
             android:gravity="center_vertical"
-            android:background="@drawable/arrondir_edit"
+            android:background="@drawable/arrondir_edit_white"
             android:hint="@string/exPeriode"
             android:textSize="15sp"
             android:paddingStart="10dp"
@@ -96,7 +96,7 @@
             android:layout_marginStart="70dp"
             android:gravity="center_vertical"
             android:hint="@string/exLieu"
-            android:background="@drawable/arrondir_edit"
+            android:background="@drawable/arrondir_edit_white"
             android:textSize="15sp"
             android:paddingStart="10dp"/>
 
@@ -121,7 +121,7 @@
             android:layout_marginStart="70dp"
             android:gravity="center_vertical"
             android:hint="@string/exRemuneration"
-            android:background="@drawable/arrondir_edit"
+            android:background="@drawable/arrondir_edit_white"
             android:textSize="15sp"
             android:paddingStart="10dp"/>
 
@@ -149,7 +149,7 @@
             android:textSize="15sp"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
-            android:background="@drawable/arrondir_edit"
+            android:background="@drawable/arrondir_edit_white"
             android:inputType="textLongMessage" />
 
 
@@ -172,7 +172,7 @@
             android:layout_height="40dp"
             android:gravity="center_vertical"
             android:text="@string/boutton_terminer"
-            android:background="@drawable/arrondir_bouton"
+            android:background="@drawable/arrondir_edit_bleu"
             android:textSize="15sp" />
 
 

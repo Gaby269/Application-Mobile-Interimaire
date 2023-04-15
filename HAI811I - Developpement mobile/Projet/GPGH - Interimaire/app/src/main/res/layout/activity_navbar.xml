@@ -20,7 +20,7 @@
             android:id="@+id/fragment_container_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/arrondir_edit"
+            android:background="@drawable/arrondir_edit_white"
             app:layout_constraintBottom_toTopOf="@+id/layout_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
                 android:id="@+id/image_favoris"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/favorite_border_black_24dp"/>
+                android:src="@drawable/icon_favori_black"/>
 
             <TextView
                 android:id="@+id/text_favoris"
@@ -77,7 +77,7 @@
                 android:id="@+id/image_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/textsms_black_24dp"/>
+                android:src="@drawable/icon_message_black"/>
 
             <TextView
                 android:id="@+id/text_message"
@@ -100,7 +100,7 @@
                 android:id="@+id/image_offres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/description_black_24dp"/>
+                android:src="@drawable/icon_fichier_black"/>
 
             <TextView
                 android:id="@+id/text_offres"
@@ -123,7 +123,7 @@
                 android:id="@+id/image_candidature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/description_black_24dp"/>
+                android:src="@drawable/icon_fichier_black"/>
 
             <TextView
                 android:id="@+id/text_candidature"
@@ -145,7 +145,7 @@
                 android:id="@+id/image_compte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/account_circle_black_24dp"/>
+                android:src="@drawable/icon_compte_black"/>
 
             <TextView
                 android:id="@+id/text_compte"

@@ -45,7 +45,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
         android:orientation="vertical"
-        android:background="@drawable/arrondir_edit_bord_bleu"
+        android:background="@drawable/arrondir_edit_white_bord_bleu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/EcouteTextView"
@@ -72,7 +72,7 @@
             android:layout_height="40dp"
             android:gravity="center_vertical"
             android:text="@string/boutton_retour"
-            android:background="@drawable/arrondir_bouton"
+            android:background="@drawable/arrondir_edit_bleu"
             android:textSize="15sp" />
 
 
@@ -83,7 +83,7 @@
             android:layout_marginStart="60dp"
             android:gravity="center_vertical"
             android:text="@string/boutton_postuler"
-            android:background="@drawable/arrondir_bouton"
+            android:background="@drawable/arrondir_edit_bleu"
             android:textSize="15sp" />
 
     </LinearLayout>
