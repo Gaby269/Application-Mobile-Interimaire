@@ -32,7 +32,7 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
     FirebaseFirestore db;
     TextView usernameTextView;
     EditText verificationCodeEditText;
-    String userId, firstName, lastName, phoneNumber, verificationCode;
+    String userId, firstName, lastName, phoneNumber, verificationCode, typeCompte;
 
     @Override
     @SuppressLint("MissingInflatedId")
@@ -58,8 +58,7 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
 
         Button inscriptionButton = findViewById(R.id.boutton_confirmationTel);
         inscriptionButton.setOnClickListener(view -> {
-            Intent i = new Intent(ConfirmationTelephoneActivity.this, EntrepriseActivity.class);
-            startActivity(i);
+            redirectUserIfSuccessful();
 
             /*
             String verificationCode1 = verificationCodeEditText.getText().toString().trim();
@@ -85,12 +84,12 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
                         firstName = documentSnapshot.getString("prenom");
                         lastName = documentSnapshot.getString("nom");
                         phoneNumber = documentSnapshot.getString("telephone");
+                        typeCompte = documentSnapshot.getString("typeCompte");
 
                         usernameTextView = findViewById(R.id.UsernameTextView);
                         usernameTextView.setText("Bonjour " + firstName + " " + lastName);
 
-                    }
-                    else {
+                    } else {
                         Log.w(TAG, "DB Non trouvée");
                         usernameTextView.setText("Bonjour");
                     }
@@ -136,8 +135,7 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = task.getResult().getUser();
-                        //rediriger vers entrepriseActivity
-                        // mettre à jour la BDD pour signup_step
+                        redirectUserIfSuccessful();
                     } else {
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                             Log.w(TAG, "Invalid verification code");
@@ -146,6 +144,30 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
                 });
     }
 
+    private void redirectUserIfSuccessful() {
+        //afiche un toast avec le type de compte
+        // Toast.makeText(ConfirmationTelephoneActivity.this, "Vous êtes connecté en tant que " + typeCompte, Toast.LENGTH_SHORT).show();
+        if (typeCompte.equals("Candidat")) {
+            // mettre à jour signup_step dans la BDD 
+            db.collection("users")
+                    .document(userId)
+                    .update("signup_step", "10")
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "signup_step mis à jour !"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de la MaJ de signup_step", e));
+
+            Intent i = new Intent(ConfirmationTelephoneActivity.this, LoadingActivity.class);
+            startActivity(i);
+        }
+        else {
+            db.collection("users")
+                    .document(userId)
+                    .update("signup_step", "2")
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "signup_step mis à jour !"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de la MaJ de signup_step", e));
+            Intent i = new Intent(ConfirmationTelephoneActivity.this, EntrepriseActivity.class);
+            startActivity(i);
+        }
+    }
 
 
 }

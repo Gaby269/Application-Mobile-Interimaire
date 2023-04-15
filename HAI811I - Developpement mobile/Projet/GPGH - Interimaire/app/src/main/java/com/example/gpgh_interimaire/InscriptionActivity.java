@@ -1,6 +1,9 @@
 package com.example.gpgh_interimaire;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.example.gpgh_interimaire.FragmentLoading;
+
 public class InscriptionActivity extends AppCompatActivity {
 
     static final String TAG = "InscriptionActivity";
@@ -33,6 +39,8 @@ public class InscriptionActivity extends AppCompatActivity {
     EditText nomEditText, prenomEditText, telephoneEditText, mailEditText, mdpEditText;
     Spinner typeCompteSpinner;
     String selectedTypeCompte = "Candidat";
+
+    FragmentTransaction transaction;
 
 
     @Override
@@ -67,19 +75,33 @@ public class InscriptionActivity extends AppCompatActivity {
         creaCompteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.w(TAG, "Creation du compte");
                 String email = mailEditText.getText().toString();
                 String mdp = mdpEditText.getText().toString();
                 String tel = telephoneEditText.getText().toString();
                 String nom = nomEditText.getText().toString();
                 String prenom = prenomEditText.getText().toString();
                 if (validateInput(email, mdp, tel, nom, prenom)) {
+                    displayloadingScreen();
                     Log.w(TAG, "Champs ok");
                     String type = selectedTypeCompte;
                     createUser(nom, prenom, tel, email, mdp, type);
                 }
             }
         });
+
+        //Récupération du Spinner déclaré dans le fichier activity_inscription.xml
+        Spinner typeCompteSpinner = (Spinner) findViewById(R.id.typeCompteSpinner);
+        //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
+        List<String> listType = new ArrayList<>();
+        listType.add("Type de compte");
+        listType.add("Candidat");
+        listType.add("Entreprise");
+        listType.add("Agence d'intérim");
+        // ArrayAdapter pour le spinner
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,listType);
+        // On definit une présentation du spinner quand il est déroulé
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeCompteSpinner.setAdapter(adapterSpinner); // on passe l'adapter au Spinner
 
         //signup tmp
         Button tmpSignup = findViewById(R.id.button);
@@ -94,6 +116,7 @@ public class InscriptionActivity extends AppCompatActivity {
             String nom = "Jean"+randInt;
             String prenom = "Test"+randInt;
             if (validateInput(email, mdp, tel, nom, prenom)) {
+                displayloadingScreen();
                 Log.w(TAG, "Champs ok");
                 String type = selectedTypeCompte;
                 createUser(nom, prenom, tel, email, mdp, type);
@@ -108,21 +131,6 @@ public class InscriptionActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        //Récupération du Spinner déclaré dans le fichier activity_inscription.xml
-        Spinner typeCompteSpinner = (Spinner) findViewById(R.id.typeCompteSpinner);
-        //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
-        List<String> listType = new ArrayList<>();
-        listType.add("Type de compte");
-        listType.add("Candidat");
-        listType.add("Entreprise");
-        listType.add("Agence d'intérim");
-
-        // ArrayAdapter pour le spinner
-        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,listType);
-        // On definit une présentation du spinner quand il est déroulé
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeCompteSpinner.setAdapter(adapterSpinner); // on passe l'adapter au Spinner
     }
 
 
@@ -135,6 +143,7 @@ public class InscriptionActivity extends AppCompatActivity {
                         String userId = user.getUid();
                         addUserToFirestore(userId, prenom, nom, email, tel, type);
 
+                        dismissLoadingScreen();
                         Intent i = new Intent(InscriptionActivity.this, ConfirmationTelephoneActivity.class);
                         i.putExtra("phoneNumber", tel);
                         startActivity(i);
@@ -153,12 +162,7 @@ public class InscriptionActivity extends AppCompatActivity {
         user.put("telephone", tel);
         user.put("email", email);
         user.put("typeCompte", type);
-        if (type == "Candidat") {
-            user.put("signup_step", "10");
-        }
-        else {
-            user.put("signup_step", "1");
-        }
+        user.put("signup_step", "1");
 
         db.collection("users")
                 .document(userId)
@@ -239,6 +243,23 @@ public class InscriptionActivity extends AppCompatActivity {
                     })
                     .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));
         }
+    }
+
+
+    public void displayloadingScreen() {
+        Log.w(TAG, "Champs ok************************************************************************************");
+
+        FragmentLoading loadingFragment = new FragmentLoading();
+        loadingFragment.setTextLoading("Chargement en cours...");
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, loadingFragment);
+        //pour pas le fragment soit restauré lorsque l'utilisateur appuie sur le bouton retour
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void dismissLoadingScreen() {
+        getSupportFragmentManager().popBackStack();
     }
 
 

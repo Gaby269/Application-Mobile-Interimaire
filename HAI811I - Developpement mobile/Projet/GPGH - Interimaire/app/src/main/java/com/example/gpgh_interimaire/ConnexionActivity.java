@@ -45,29 +45,13 @@ public class ConnexionActivity extends AppCompatActivity {
         fastLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = "7134@gmail.com";
+                String email = "gatienhaddad@hotmail.fr";
                 String mdp = "123456";
                 if (validateInput(email, mdp)) {
                     signInUser(email, mdp);
                 }
             }
         });
-    }
-
-
-    private void signInUser(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) { // Connexion réussie
-                        FirebaseUser user = mAuth.getCurrentUser();
-
-                        Intent i = new Intent(ConnexionActivity.this, LoadingActivity.class);
-                        startActivity(i);
-                    }
-                    else { // Échec de la connexion
-                        Log.w(TAG, "signInWithEmail:failure", task.getException());
-                    }
-                });
     }
 
     private boolean validateInput(String email, String password) {
@@ -87,5 +71,21 @@ public class ConnexionActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+
+    private void signInUser(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) { // Connexion réussie
+                        FirebaseUser user = mAuth.getCurrentUser();
+
+                        Intent i = new Intent(ConnexionActivity.this, LoadingActivity.class);
+                        startActivity(i);
+                    }
+                    else { // Échec de la connexion
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                    }
+                });
     }
 }

@@ -107,40 +107,23 @@ public class EntrepriseActivity extends AppCompatActivity {
             entreprise.put("siret", numSiret);
             entreprise.put("adresse", adresse);
 
+            entreprise.put("nom1", nomComplet);
+            entreprise.put("prenom1", prenomComplet);
+            entreprise.put("mail1", mail);
+            entreprise.put("telephone1", telephone);
+
+            if (secondContactCeckbox.isChecked()) {
+                entreprise.put("nom2", nomComplet2);
+                entreprise.put("prenom2", prenomComplet2);
+                entreprise.put("mail2", mail2);
+                entreprise.put("telephone2", telephone2);
+            }
+
             db.collection("entreprises")
                     .document(userId)
                     .set(entreprise)
                     .addOnSuccessListener(aVoid -> Log.d(TAG, "Entreprise ajouté à la BDD"))
                     .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de l'ajout dans la BDD", e));
-
-
-            Map<String, Object> contact1 = new HashMap<>();
-            contact1.put("nom", nomComplet);
-            contact1.put("prenom", prenomComplet);
-            contact1.put("mail", mail);
-            contact1.put("telephone", telephone);
-            contact1.put("num_contact", "1");
-
-            db.collection("contact")
-                    .document(userId)
-                    .set(contact1)
-                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Contact1 ajouté à la BDD"))
-                    .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de l'ajout dans la BDD", e));
-
-            if (secondContactCeckbox.isChecked()) {
-                Map<String, Object> contact2 = new HashMap<>();
-                contact2.put("nom", nomComplet2);
-                contact2.put("prenom", prenomComplet2);
-                contact2.put("mail", mail2);
-                contact2.put("telephone", telephone2);
-                contact2.put("num_contact", "2");
-
-                db.collection("contact")
-                        .document(userId)
-                        .set(contact2)
-                        .addOnSuccessListener(aVoid -> Log.d(TAG, "Contact2 ajouté à la BDD"))
-                        .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de l'ajout dans la BDD", e));
-            }
 
             db.collection("users")
                     .document(userId)

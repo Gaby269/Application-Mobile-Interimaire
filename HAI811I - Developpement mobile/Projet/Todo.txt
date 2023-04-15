@@ -1,0 +1,83 @@
+Légende :
+** : Titre activité
+-> : Bouton
+- : fonctionnalité finie
+x : fonctionnalité à faire
+~ : En cours
+(tmp) : Temporaire, on le vire à la fin
+(off) : fait mais désactiver pour gagner du temps/tester
+[blablabla] : Réfénrence à la BDD (TABLE ou colonne)
+
+
+
+** ACCUEIL
+-> Connexion
+-> Inscription
+-> (tmp) bouton de déco
+x Check si l'user à Internet pour pas faire crash Firebase
+
+
+** CONNEXION
+-> login
+	- check si user exist
+	- rediriger vers la NavBar
+	x rediriger si pas fini inscription [signup_step]
+		- 1 : Téléphone
+		- 2 : Inscription entreprise
+		- 3 : Abonnement
+		- 4 : Tuto, etc
+		- 5 : ???
+		- 6 : ???
+		- 7 : ???
+		- 8 : ???
+		- 9 : ???
+		- 10 : fini -> Navbar (l'user arrive direct ici)
+-> (tmp) fast login gatienhaddad@hotmail.fr
+- (off) Skip connexion si déja connecté
+
+
+** INSCRIPTION
+-> Inscription
+	- Scroll de la page pour pouvoir aller en bas
+	- Check de tous les champs
+		- Telephone avec 10 numero
+		- Mail avec la bonne forme
+		- Mdp > 6 char
+-> (tmp) fast inscription
+-> Check du téléphone
+	- Check du numéro entré
+	~ Envoyer un SMS au numéro entré
+	~ Valider le numéro
+
+
+** INSCRIPTION SUITE
+-> Inscription entreprise
+	- Check des champs
+	- Enregistrement des contacts dans la BDD [CONTACT]
+	- Enregistrement des données dans entreprise [ENTREPRISE]
+	x Merge contact et entreprise [contact1, ...]
+-> Second contact
+	- Champs suplémentaires
+	- Désactivé si pas de second contact
+	- Ajout en BDD [nom2, ...]
+	
+	
+
+** TUTO
+
+
+** NAVBAR
+-> Loading page
+	- ça charge la BDD et ça lance la NavBar avec les infos dans l'intent
+~ Display des pages en fonction du role
+
+
+** MON COMPTE
+- Display des infos de l'user
+-> Déconnexion
+
+
+** MESSAGERIE
+
+
+** OFFRES
