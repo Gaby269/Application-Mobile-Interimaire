@@ -26,66 +26,138 @@
     <!--Faudrait mettre une listeView de layout avec cette decription-->
 
     <LinearLayout
-        android:id="@+id/layout_offre_details"
+        android:id="@+id/layout_compte"
         android:layout_width="match_parent"
-        android:layout_height="239dp"
+        android:layout_height="300dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/arrondir_edit_white_bord_bleu"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/compteTextView"
-        android:padding="15px">
+        app:layout_constraintTop_toBottomOf="@+id/compteTextView">
 
-        <TextView
-            android:id="@+id/textViewNom"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="30px"
-            android:text="@string/nom" />
+        <LinearLayout
+            android:id="@+id/layout_compte_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15px">
+            <TextView
+                android:id="@+id/textViewNom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:paddingLeft="30px"
+                android:text="@string/nom_" />
 
-        <TextView
-            android:id="@+id/textViewPrenom"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="30px"
-            android:text="@string/prenom" />
+            <TextView
+                android:id="@+id/textViewPrenom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:textStyle="bold"
+                android:text="@string/prenom_" />
 
-        <TextView
-            android:id="@+id/textViewEmail"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="30px"
-            android:text="@string/mail" />
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:text="@string/mail_" />
 
-        <TextView
-            android:id="@+id/textViewNumero"
+            <TextView
+                android:id="@+id/textViewNumero"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:textStyle="bold"
+                android:text="@string/telephone_" />
+            <TextView
+                android:id="@+id/textViewTypeCompte"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:textStyle="bold"
+                android:text="@string/typeCompte_" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_compte_edit"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="30px"
-            android:text="@string/telephone" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15px">
+
+            <TextView
+                android:id="@+id/editNom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/editPrenom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/editNumero"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:text="" />
+            <TextView
+                android:id="@+id/editTypeCompte"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:text="" />
+        </LinearLayout>
+
+
 
     </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/layout_boutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
+        android:gravity="right"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,26 +165,20 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_offre_details">
 
 
-        <Button
-            android:id="@+id/boutton_modifier"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/image_delete"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="center_vertical"
-            android:text="@string/boutton_modifier"
-            android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/icon_supprimer_black"/>
 
-        <Button
-            android:id="@+id/boutton_supprimer"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/image_modif"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:text="@string/boutton_supprimer"
-            android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
-
+            android:src="@drawable/icon_modifier_black"/>
     </LinearLayout>
+
 
 
 </LinearLayout>

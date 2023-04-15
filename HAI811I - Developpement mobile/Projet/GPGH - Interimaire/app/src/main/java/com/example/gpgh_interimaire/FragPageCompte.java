@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,8 @@ public class FragPageCompte extends Fragment {
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    TextView textViewNom, textViewPrenom, textViewEmail, textViewNumero;
-    String firstName, lastName, phoneNumber, email;
+    TextView textViewNom, textViewPrenom, textViewEmail, textViewNumero, textViewTypeCompte;
+    String firstName, lastName, phoneNumber, email, typeCompte;
 
     // Constructeur
     public FragPageCompte() {}
@@ -43,10 +44,11 @@ public class FragPageCompte extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        textViewNom = view.findViewById(R.id.textViewNom);
-        textViewPrenom = view.findViewById(R.id.textViewPrenom);
-        textViewEmail = view.findViewById(R.id.textViewEmail);
-        textViewNumero = view.findViewById(R.id.textViewNumero);
+        textViewNom = view.findViewById(R.id.editNom);
+        textViewPrenom = view.findViewById(R.id.editPrenom);
+        textViewEmail = view.findViewById(R.id.editEmail);
+        textViewNumero = view.findViewById(R.id.editNumero);
+        textViewTypeCompte = view.findViewById(R.id.editTypeCompte);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String userId = currentUser.getUid();
@@ -56,7 +58,7 @@ public class FragPageCompte extends Fragment {
             fetchUserInfo(userId);
         }
 
-        Button modifierButton = view.findViewById(R.id.boutton_modifier);
+        ImageView modifierButton = view.findViewById(R.id.image_modif);
         modifierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +67,7 @@ public class FragPageCompte extends Fragment {
             }
         });
 
-        Button supprimerButton = view.findViewById(R.id.boutton_supprimer);
+        ImageView supprimerButton = view.findViewById(R.id.image_delete);
         supprimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,11 +115,13 @@ public class FragPageCompte extends Fragment {
                         firstName = documentSnapshot.getString("prenom");
                         lastName = documentSnapshot.getString("nom");
                         phoneNumber = documentSnapshot.getString("telephone");
+                        typeCompte = documentSnapshot.getString("typeCompte");
 
-                        textViewPrenom.setText(getResources().getString(R.string.nom) + " : " + firstName);
-                        textViewNom.setText(getResources().getString(R.string.prenom) + " : " + lastName);
-                        textViewEmail.setText(getResources().getString(R.string.mail) + " : " + email);
-                        textViewNumero.setText(getResources().getString(R.string.telephone) + " : " + phoneNumber);
+                        textViewPrenom.setText(firstName);
+                        textViewNom.setText(lastName);
+                        textViewEmail.setText(email);
+                        textViewNumero.setText(phoneNumber);
+                        textViewTypeCompte.setText(typeCompte);
 
                     }
                     else {

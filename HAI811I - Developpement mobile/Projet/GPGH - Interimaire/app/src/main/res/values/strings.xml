@@ -73,14 +73,12 @@
     <string name="boutton_passer">Passer</string>
     <string name="boutton_next">Next</string>
 
-    <!-- Naviagtion principale -->
+    <!-- Navigation principale -->
     <string name="filtrer">Filtrer</string>
     <string name="favoris">Favoris</string>
     <string name="boutton_retour">Retour</string>
     <string name="detailsOff">Details de l\'offre</string>
     <string name="boutton_postuler">Postuler</string>
-    <string name="mesCandidatures">Mes Candidatures</string>
-    <string name="compte">Votre compte</string>
     <string name="boutton_supprimer">Supprimer</string>
     <string name="boutton_modifier">Modifier</string>
     <string name="creationOffre">Créer votre offre</string>
@@ -98,28 +96,40 @@
     <string name="exRemuneration">ex : 25€ - 30€</string>
     <string name="detailsOffre">Details suplémentaire (facultatif)</string>
     <string name="boutton_terminer">Terminer</string>
-    <string name="postuler">Complétez votre candidature</string>
-    <string name="ajoutCandidatOffre">Complément à votre candidature</string>
     <string name="boutton_envoyer">Envoyer</string>
     <string name="messagerie">Messagerie (à modifier)</string>
     <string name="modifOffre">Modification de l\'offre</string>
-    <string name="titreCompte">"Le compte : "</string>
-    <string name="modifCompte">Modification de votre compte</string>
-    <string name="compteModif">Compte modifié</string>
     <string name="offreModif">Offre modifié</string>
-    <string name="candidatureSupp">Candidature supprimée</string>
-    <string name="modifCandidature">Modification de votre candidature</string>
-    <string name="detailsCand">Details de votre candidature</string>
     <string name="offreCree">Creation de l\'offre</string>
     <string name="rechercher">Rechercher</string>
     <string name="filter">Filter</string>
+
+    <!-- Gesion du compte -->
+    <string name="compte">Votre compte</string>
+    <string name="titreCompte">"Le compte : "</string>
+    <string name="modifCompte">Modification de votre compte</string>
+    <string name="compteModif">Compte modifié</string>
+    <string name="nom_">Nom :</string>
+    <string name="prenom_">Prénom :</string>
+    <string name="mail_">Email :</string>
+    <string name="telephone_">Téléphone :</string>
+    <string name="typeCompte_">Type de compte :</string>
+    <string name="mdp_">Mot de passe :</string>
+
+    <!-- Candidatures -->
+    <string name="boutton_candidature">Candidatures</string>
+    <string name="mesCandidatures">Mes Candidatures</string>
+    <string name="modifCandidature">Modification de votre candidature</string>
+    <string name="detailsCand">Details de votre candidature</string>
+    <string name="postuler">Complétez votre candidature</string>
+    <string name="ajoutCandidatOffre">Complément à votre candidature</string>
     <string name="candidatureReff">Candidature refusée</string>
     <string name="candidatureAcc">Candidature Acceptée</string>
     <string name="candidatureModif">Candidature modifiée</string>
+    <string name="candidatureSupp">Candidature supprimée</string>
+    <string name="Candidatures">Candidatures de l\'offre</string>
     <string name="boutton_refuser">Refuser</string>
     <string name="boutton_accepter">Accepter</string>
-    <string name="Candidatures">Candidatures de l\'offre</string>
-    <string name="boutton_candidature">Candidatures</string>
 
     <!-- Spinners -->
     <string-array name="typeCompte">
