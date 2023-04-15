@@ -44,6 +44,7 @@ x Check si l'user à Internet pour pas faire crash Firebase
 		- Mail avec la bonne forme
 		- Mdp > 6 char
 -> (tmp) fast inscription
+- Fragment de chargement lors du stockage en BDD
 -> Check du téléphone
 	- Check du numéro entré
 	~ Envoyer un SMS au numéro entré
@@ -60,7 +61,6 @@ x Check si l'user à Internet pour pas faire crash Firebase
 	- Champs suplémentaires
 	- Désactivé si pas de second contact
 	- Ajout en BDD [nom2, ...]
-	
 	
 
 ** TUTO
