@@ -7,178 +7,261 @@
     android:background="@drawable/background_gradient"
     tools:context=".AfficherDetailsOffreActivity">
 
-    <TextView
-        android:id="@+id/offreDetailsTextView"
+
+    <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/detailsOff"
-        android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/ecouteTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/ecouteTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/ecoute_text"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/offreDetailsTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <LinearLayout
-        android:id="@+id/layout_offre_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:orientation="vertical"
-        android:background="@drawable/arrondir_edit_white_bord_bleu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ecouteTextView"
-        app:layout_constraintBottom_toTopOf="@id/layout_boutton">
-
-        <TextView
-            android:id="@+id/titreOffre"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:text="Titre"
-            android:textSize="30dp"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/entrepriseOffre"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Entreprise"
-            android:textSize="25dp"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-        <TextView
-            android:id="@+id/detailsOffre"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/longTexte"
-            android:textSize="16dp"
-            android:gravity="start"
-            android:textAlignment="textStart"
-            android:justificationMode="inter_word"/>
-
-        <LinearLayout
-            android:id="@+id/layout_offre_adresse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:background="@drawable/arrondir_edit_white_bord_bleu">
-
-            <LinearLayout
-                android:id="@+id/layout_image"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/image_candidature"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/icon_localisation_bleu"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_adresse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/adresseOffre"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:text="9 rue grand-père"
-                    android:textSize="18dp"
-                    android:gravity="center"/>
-                <TextView
-                    android:id="@+id/complementOffre"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Résidence Prout"
-                    android:textSize="18dp"
-                    android:gravity="center"/>
-                <TextView
-                    android:id="@+id/codeOffre"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:text="18090 Chocolat"
-                    android:textSize="18dp"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/indicationOffre"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="Idication en plus"
-            android:textSize="20dp"
-            android:gravity="center"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_boutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_offre_details">
+        app:layout_constraintStart_toStartOf="parent">
 
-
-        <Button
-            android:id="@+id/boutton_postuler"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="@string/boutton_postuler"
-            android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/offreDetailsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@string/detailsOff"
+                android:textSize="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/ecouteTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/ecouteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/ecoute_text"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/offreDetailsTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/layout_offre_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:background="@drawable/arrondir_edit_white_bord_bleu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ecouteTextView"
+                app:layout_constraintBottom_toTopOf="@id/layout_boutton">
+
+                <TextView
+                    android:id="@+id/titreOffre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:text="Titre"
+                    android:textSize="30dp"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/entrepriseOffre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Entreprise"
+                    android:textSize="25dp"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                <TextView
+                    android:id="@+id/descriptionOffre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:text="petite description"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:id="@+id/detailsOffre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/longTexte"
+                    android:textSize="16dp"
+                    android:gravity="start"
+                    android:textAlignment="textStart"
+                    android:justificationMode="inter_word"/>
+
+                <LinearLayout
+                    android:id="@+id/layout_offre_adresse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:background="@drawable/arrondir_edit_white_bord_bleu">
+
+                    <LinearLayout
+                        android:id="@+id/layout_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/image_candidature"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/icon_localisation_bleu"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_adresse"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/adresseOffre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="9 rue grand-père"
+                            android:textSize="18dp"
+                            android:gravity="center"/>
+                        <TextView
+                            android:id="@+id/complementOffre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Résidence Prout"
+                            android:textSize="18dp"
+                            android:gravity="center"/>
+                        <TextView
+                            android:id="@+id/codeOffre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="18090 Chocolat"
+                            android:textSize="18dp"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_parking"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/image_parking"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/icon_parking_black"/>
+                    <TextView
+                        android:id="@+id/parking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="9 rue grand-père"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_ticket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/image_ticket"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/icon_ticket_black"/>
+                    <TextView
+                        android:id="@+id/ticket_resto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Résidence Prout"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_teletravail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/image_teletravail"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/icon_teletravail_black"/>
+                    <TextView
+                        android:id="@+id/teletravail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Télétravail"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/layout_boutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_offre_details">
+
+
+                <Button
+                    android:id="@+id/boutton_postuler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/boutton_postuler"
+                    android:background="@drawable/arrondir_edit_bleu"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
