@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +25,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
         // si c'est un candidat on laisse votre candidature
 
 
-        Button retourButton = findViewById(R.id.boutton_retour);
+        ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,7 +34,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             }
         });
 
-        Button modifierButton = findViewById(R.id.boutton_modifier);
+        ImageView modifierButton = findViewById(R.id.bouton_modifier);
         modifierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,7 +44,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             }
         });
 
-        Button supprimerButton = findViewById(R.id.boutton_supprimer);
+        ImageView supprimerButton = findViewById(R.id.bouton_supprimer);
         supprimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +56,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             }
         });
 
-        Button accepterButton = findViewById(R.id.boutton_accepter);
+        ImageView accepterButton = findViewById(R.id.bouton_accepter);
         accepterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +68,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             }
         });
 
-        Button refuserButton = findViewById(R.id.boutton_refuser);
+        ImageView refuserButton = findViewById(R.id.bouton_refuser);
         refuserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

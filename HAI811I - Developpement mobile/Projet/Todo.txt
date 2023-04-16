@@ -97,9 +97,27 @@ x Check si l'user à Internet pour pas faire crash Firebase
 - Display le details avec un titre l'entreprise un texte l'adresse et des indications
 - ATTENTION utiliser le fichier dans layout-v26 car fonctionalité qui est ressente et utilise que v26 pour ca
 - ajout d'un logo de localisation pour affichage d'adresse
-- A FAIRE : ajouter logo de l'entreprise
+- ajout logo de l'entreprise en dessous du nom
 - ajout de scrool view 
 - ajout du tool barre avec une fleche de retour en bleu mais pas encore sur de la couleur
+- bouton retour est un imagebouton
+- A FAIRE : changer d'image avec remplissage si le candidat met en favorie
+- A FAIRE : gerer le bouton retour avec le type de compte
+
+** AFFICHER DETAILS CANDIDATURES
+- display des bouton version logo
+- ajout d'une image en bouton de modification et de suppression pour le candidat
+- ajout d'une image en bouton d'accepte et refuser pour l'entreprise
+- A FAIRE : faire disparaitre les bouton modif et supp pour une entreprise
+- A FAIRE : faire disparaitre les bouton accepter et refuser pour candidat
+- A FAIRE : faire disparaitre le bouton favorie pour le candidat
+- A FAIRE : changer dimage avec remplissage si l'entreprise met en favorie
+- A FAIRE : gerer le bouton retour avec le type de compte
+- ajout d'une barre de visuel pour montrer ce que l'entreprise voit
+- plus le details de la candidature (je sais pas encore quoi mettre)
+
+
+** A FAIRE  :  ajouter pour chaue activity des intent pour faire circuler le type de compte pour les affichages
 
 
 

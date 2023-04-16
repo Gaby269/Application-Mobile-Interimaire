@@ -81,7 +81,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical"
-                android:background="@drawable/arrondir_edit_white_bord_bleu"
+                android:background="@drawable/bord_bleu_fond_white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ecouteTextView"
@@ -90,7 +90,7 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_offre_details"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/arrondir_toolbar_haut_bleu">
 
                     <TextView
@@ -120,7 +120,7 @@
                 <TextView
                     android:id="@+id/entrepriseOffre"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Nom de l'entreprise"
                     android:textSize="23dp"
@@ -138,7 +138,7 @@
                 <TextView
                     android:id="@+id/descriptionOffre"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="17dp"
                     android:layout_marginEnd="17dp"
@@ -170,7 +170,7 @@
                     android:layout_marginStart="30dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:background="@drawable/arrondir_edit_white_bord_bleu">
+                    android:background="@drawable/bord_bleu_fond_white">
 
                     <LinearLayout
                         android:id="@+id/layout_image"
