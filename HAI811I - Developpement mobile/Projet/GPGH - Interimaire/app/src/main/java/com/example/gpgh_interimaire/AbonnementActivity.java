@@ -41,10 +41,10 @@ public class AbonnementActivity extends AppCompatActivity {
         listType = new ArrayList<>();
         listType.add(getString(R.string.type_abonnement));
         listType.add(getString(R.string.ponctuel));
-        listType.add(getString(R.string.mensuelle));
-        listType.add(getString(R.string.trimestrielle));
-        listType.add(getString(R.string.semestrielle));
-        listType.add(getString(R.string.annuelle));
+        listType.add(getString(R.string.mensuel));
+        listType.add(getString(R.string.trimestriel));
+        listType.add(getString(R.string.semestriel));
+        listType.add(getString(R.string.annuel));
         listType.add(getString(R.string.renouvelable));
 
         // ArrayAdapter pour le spinner
@@ -56,44 +56,47 @@ public class AbonnementActivity extends AppCompatActivity {
         typeAboSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
+                // String selectedItem = parent.getItemAtPosition(position).toString();
+                
+                view.setTag(position);
+                int selectedPosition = (int) view.getTag();
 
-                if (selectedItem == "Ponctuel") {
+                if (selectedPosition == 1) {
                     Fragment fragment = new FragAboPonctuel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-                else if (selectedItem == "Mensuelle"){
+                else if (selectedPosition == 2) {
                     Fragment fragment = new FragAboMensuel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-                else if (selectedItem == "Trimestrielle"){
+                else if (selectedPosition == 3) {
                     Fragment fragment = new FragAboTrimestriel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-                else if (selectedItem == "Annuelle"){
+                else if (selectedPosition == 4) {
                     Fragment fragment = new FragAboAnnuel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-                else if (selectedItem == "Semestrielle"){
+                else if (selectedPosition == 5) {
                     Fragment fragment = new FragAboSemestriel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-                else if (selectedItem == "Renouvelable"){
+                else if (selectedPosition == 6) {
                     Fragment fragment = new FragAboRenouvelable();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
