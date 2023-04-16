@@ -91,23 +91,13 @@ public class ConnexionActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) { // Connexion réussie
                         FirebaseUser user = mAuth.getCurrentUser();
-                        displayloadingScreen();
+                        
+                        Intent i = new Intent(ConnexionActivity.this, LoadingNavbarActivity.class);
+                        startActivity(i);
                     }
                     else { // Échec de la connexion
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                     }
                 });
-    }
-
-
-    public void displayloadingScreen() {
-
-        FragmentLoading loadingFragment = FragmentLoading.newInstance("Connexion...");
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, loadingFragment);
-        //pour pas le fragment soit restauré lorsque l'utilisateur appuie sur le bouton retour
-        transaction.addToBackStack(null);
-        transaction.commit();
-        // loadingFragment.setTextLoading("Création du compte...");
     }
 }

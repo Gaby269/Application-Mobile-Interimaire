@@ -2,6 +2,7 @@ package com.example.gpgh_interimaire;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -33,6 +34,7 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
     TextView usernameTextView;
     EditText verificationCodeEditText;
     String userId, firstName, lastName, phoneNumber, verificationCode, typeCompte;
+    FragmentTransaction transaction;
 
     @Override
     @SuppressLint("MissingInflatedId")
@@ -58,6 +60,7 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
 
         Button inscriptionButton = findViewById(R.id.boutton_confirmationTel);
         inscriptionButton.setOnClickListener(view -> {
+            displayloadingScreen();
             redirectUserIfSuccessful();
 
             /*
@@ -155,7 +158,8 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
                     .addOnSuccessListener(aVoid -> Log.d(TAG, "signup_step mis à jour !"))
                     .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de la MaJ de signup_step", e));
 
-            Intent i = new Intent(ConfirmationTelephoneActivity.this, LoadingActivity.class);
+            dismissLoadingScreen();
+            Intent i = new Intent(ConfirmationTelephoneActivity.this, LoadingNavbarActivity.class);
             startActivity(i);
         }
         else {
@@ -164,9 +168,23 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
                     .update("signup_step", "2")
                     .addOnSuccessListener(aVoid -> Log.d(TAG, "signup_step mis à jour !"))
                     .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de la MaJ de signup_step", e));
+
+            dismissLoadingScreen();
             Intent i = new Intent(ConfirmationTelephoneActivity.this, EntrepriseActivity.class);
             startActivity(i);
         }
+    }
+
+    public void displayloadingScreen() {
+        FragmentLoading loadingFragment = FragmentLoading.newInstance("Validation du numéro...");
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, loadingFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void dismissLoadingScreen() {
+        getSupportFragmentManager().popBackStack();
     }
 
 

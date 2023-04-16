@@ -62,22 +62,22 @@
     <string name="moyen_payer">Moyen de paiement</string>
     <string name="recap_payer">Recapitulation du prix</string>
     <string name="boutton_confirmer">Confirmation</string>
-        <!-- Type abonnement -->
-        <string name="type_abonnement">Type d\'abonnement</string>
-        <string name="ponctuel">ponctuel</string>
-        <string name="mensuel">mensuel</string>
-        <string name="trimestriel">trimestriel</string>
-        <string name="semestriel">semestriel</string>
-        <string name="annuel">annuel</string>
-        <string name="renouvelable">renouvelable</string>
-        <!-- Offres -->
-        <string name="offre">Offre</string>
-        <string name="ponctuelle">Offre ponctuelle</string>
-        <string name="mensuelle">Offre mensuelle</string>
-        <string name="trimestrielle">Offre trimestrielle</string>
-        <string name="semestrielle">Offre semestrielle</string>
-        <string name="annuelle">Offre annuelle</string>
-        <string name="offre_renouvelable">Offre renouvelable</string>
+    <!-- Type abonnement -->
+    <string name="type_abonnement">Type d\'abonnement</string>
+    <string name="ponctuel">ponctuel</string>
+    <string name="mensuel">mensuel</string>
+    <string name="trimestriel">trimestriel</string>
+    <string name="semestriel">semestriel</string>
+    <string name="annuel">annuel</string>
+    <string name="renouvelable">renouvelable</string>
+    <!-- Offres -->
+    <string name="offre">Offre</string>
+    <string name="ponctuelle">Offre ponctuelle</string>
+    <string name="mensuelle">Offre mensuelle</string>
+    <string name="trimestrielle">Offre trimestrielle</string>
+    <string name="semestrielle">Offre semestrielle</string>
+    <string name="annuelle">Offre annuelle</string>
+    <string name="offre_renouvelable">Offre renouvelable</string>
 
 
     <!-- Tutoriel entreprise -->
