@@ -129,7 +129,7 @@
     <string name="mdp_">Mot de passe :</string>
 
     <!-- Candidatures -->
-    <string name="boutton_candidature">Candidatures</string>
+    <string name="boutton_candidature">Voir Candidatures</string>
     <string name="mesCandidatures">Mes Candidatures</string>
     <string name="modifCandidature">Modification de votre candidature</string>
     <string name="detailsCand">Details de votre candidature</string>
@@ -164,5 +164,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="boutton_valider">Valider</string>
     <string name="longTexte">Saltu c\'est un texte de details au moins donc c\'est plutot cool, jefjbzjeif jfihfi fnjef fhei hfioahifohaoiefhe jifhf aifhoa F jfofddddddjeajvfjefjfejlfbkaefiaefiaefiicbjdbdfkdfesssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssseghfuegfiaeiofgaiefgiafiaeifoaeofjakvgjkavjaefaiogioagiohgariohviphvihrvoihevozrvoizrvjzrbvpzrvibzribrgvklelvbeklbfvioevbiaperioegegipe</string>
+    <string name="complementOffre">Complément de l\'offre</string>
 
 </resources>

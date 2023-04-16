@@ -7,135 +7,449 @@
     android:background="@drawable/background_gradient"
     tools:context=".CandidaturesOffreActivity">
 
-    <TextView
-        android:id="@+id/favorieTextView"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_retour"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/Candidatures"
-        android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/EcouteTextView"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:background="@color/bleu_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/offreTextView"
+        <!-- Ajoutez des éléments à la barre d'outils ici -->
+
+        <ImageButton
+            android:id="@+id/bouton_retour"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="start"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_retour_blanc"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/titreOffre"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/favorieTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <LinearLayout
-        android:id="@+id/layout_recherche"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/offreTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_retour">
 
         <LinearLayout
-            android:id="@+id/layout_rechercheGauche"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:orientation="horizontal"
-            android:background="@drawable/arrondir_edit_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/recorder_button"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/icon_micro_black"
-                android:contentDescription="TODO"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/bar_recherche" />
-
-            <EditText
-                android:id="@+id/bar_recherche"
-                android:layout_width="150dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/favorieTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/rechercher"
-                android:autofillHints=""
-                android:inputType="text"
-                app:layout_constraintStart_toEndOf="@id/recorder_button"
-                app:layout_constraintEnd_toStartOf="@id/search_button" />
+                android:layout_marginTop="50dp"
+                android:text="@string/Candidatures"
+                android:textSize="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/EcouteTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
-                android:id="@+id/search_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="4dp"
+            <TextView
+                android:id="@+id/titreTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/titreOffre"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/favorieTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Description"
+                android:textSize="20dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/favorieTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/layout_recherche"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/icon_recherche_black"
-                android:contentDescription="TODO"
-                app:layout_constraintStart_toEndOf="@id/bar_recherche"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/offreTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/layout_rechercheGauche"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    android:background="@drawable/arrondir_edit_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/recorder_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/icon_micro_black"
+                        android:contentDescription="TODO"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/bar_recherche" />
+
+                    <EditText
+                        android:id="@+id/bar_recherche"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/rechercher"
+                        android:autofillHints=""
+                        android:inputType="text"
+                        app:layout_constraintStart_toEndOf="@id/recorder_button"
+                        app:layout_constraintEnd_toStartOf="@id/search_button" />
+
+                    <ImageView
+                        android:id="@+id/search_button"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/icon_recherche_black"
+                        android:contentDescription="TODO"
+                        app:layout_constraintStart_toEndOf="@id/bar_recherche"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
+                </LinearLayout>
+                <Spinner
+                    android:id="@+id/filtre_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:layout_marginStart="30dp"
+                    android:background="@drawable/arrondir_edit_white"
+                    android:layout_alignBottom="@+id/bar_recherche"
+                    android:layout_alignEnd="@+id/filter_button"
+                    android:text="Filter"
+                    android:entries="@array/filtreRecherche"/>
+
+            </LinearLayout>
+
+            <!--Faudrait mettre une listeView de layout avec cette decription-->
+            <LinearLayout
+                android:id="@+id/layout_candidature_1"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bord_bleu_fond_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/layout_boutton"
+                app:layout_constraintTop_toBottomOf="@+id/EcouteTextView"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_offre_details1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrondir_toolbar_haut_bleu">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="?attr/actionBarSize"
+                        android:layout_marginEnd="?attr/actionBarSize"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"
+                        android:textSize="26dp"
+                        android:text="Nom Prénom du candidat"
+                        android:textColor="@color/white"
+                        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+
+                    <ImageButton
+                        android:id="@+id/btn_heart1"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="end"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/icon_favori_white_vide" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+
+                <TextView
+                    android:id="@+id/descriptionOffre1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:text="Description du candidat"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+
+
+                <LinearLayout
+                    android:id="@+id/layout_candidature1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bord_bleu_fond_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/candidatureOffre1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="17dp"
+                        android:text="Complément de candidature"
+                        android:textSize="16dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/cvOffre1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="17dp"
+                        android:layout_marginBottom="17dp"
+                        android:text="Affichage CV"
+                        android:textSize="16dp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_candidature_2"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bord_bleu_fond_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/layout_boutton"
+                app:layout_constraintTop_toBottomOf="@+id/EcouteTextView"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_offre_details2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrondir_toolbar_haut_bleu">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="?attr/actionBarSize"
+                        android:layout_marginEnd="?attr/actionBarSize"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"
+                        android:textSize="26dp"
+                        android:text="Nom Prénom du candidat"
+                        android:textColor="@color/white"
+                        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+
+                    <ImageButton
+                        android:id="@+id/btn_heart2"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="end"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/icon_favori_white_vide" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+
+                <TextView
+                    android:id="@+id/descriptionOffre2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:text="Description du candidat"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+
+                <LinearLayout
+                    android:id="@+id/layout_candidature2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bord_bleu_fond_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/candidatureOffre2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="17dp"
+                        android:text="Complément de candidature"
+                        android:textSize="16dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/cvOffre2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="17dp"
+                        android:layout_marginBottom="17dp"
+                        android:text="Affichage CV"
+                        android:textSize="16dp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_candidature_3"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bord_bleu_fond_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/layout_boutton"
+                app:layout_constraintTop_toBottomOf="@+id/EcouteTextView"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_offre_details3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrondir_toolbar_haut_bleu">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="?attr/actionBarSize"
+                        android:layout_marginEnd="?attr/actionBarSize"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"
+                        android:textSize="26dp"
+                        android:text="Nom Prénom du candidat"
+                        android:textColor="@color/white"
+                        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+
+                    <ImageButton
+                        android:id="@+id/btn_heart3"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="end"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/icon_favori_white_vide" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+
+                <TextView
+                    android:id="@+id/descriptionOffre3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:text="Description du candidat"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+
+
+                <LinearLayout
+                    android:id="@+id/layout_candidature3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bord_bleu_fond_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/candidatureOffre3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="17dp"
+                        android:text="Complément de candidature"
+                        android:textSize="16dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/cvOffre3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginEnd="17dp"
+                        android:layout_marginBottom="17dp"
+                        android:text="Affichage CV"
+                        android:textSize="16dp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
-        <Spinner
-            android:id="@+id/filtre_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:layout_marginStart="30dp"
-            android:background="@drawable/arrondir_edit_white"
-            android:layout_alignBottom="@+id/bar_recherche"
-            android:layout_alignEnd="@+id/filter_button"
-            android:text="Filter"
-            android:entries="@array/filtreRecherche"/>
-
-    </LinearLayout>
-
-    <!--Faudrait mettre une listeView de layout avec cette decription-->
-    <LinearLayout
-        android:id="@+id/layout_candidature"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:orientation="vertical"
-        android:background="@drawable/bord_bleu_fond_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_recherche"
-        android:padding="150dp">
-
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/boutton_retour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/arrondir_edit_bleu"
-        android:gravity="center_vertical"
-        android:text="@string/boutton_retour"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_candidature" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

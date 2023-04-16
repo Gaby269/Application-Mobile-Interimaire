@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class CreationOffre1Activity extends AppCompatActivity {
 
@@ -22,6 +23,15 @@ public class CreationOffre1Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(CreationOffre1Activity.this, CreationOffre2Activity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageButton retourButton = findViewById(R.id.bouton_retour);
+        retourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(CreationOffre1Activity.this, NavbarActivity.class);
                 startActivity(i);
             }
         });

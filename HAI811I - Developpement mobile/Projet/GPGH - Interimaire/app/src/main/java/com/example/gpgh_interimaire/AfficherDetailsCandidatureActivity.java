@@ -24,6 +24,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
         // si c'est une entreprise : details de la candidature (modifie le texte)
         // si c'est un candidat on laisse votre candidature
 
+        String typeCompte = "Candidat";
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
@@ -79,5 +80,18 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        if (typeCompte.contains("Candidat")) {
+            refuserButton.setVisibility(View.GONE);
+            accepterButton.setVisibility(View.GONE);
+            supprimerButton.setVisibility(View.VISIBLE);
+            modifierButton.setVisibility(View.VISIBLE);
+        }
+        else if (typeCompte.contains("Entreprise") || typeCompte.contains("Agence")){
+            refuserButton.setVisibility(View.VISIBLE);
+            accepterButton.setVisibility(View.VISIBLE);
+            supprimerButton.setVisibility(View.GONE);
+            modifierButton.setVisibility(View.GONE);
+        }
     }
 }

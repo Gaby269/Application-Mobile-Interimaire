@@ -20,15 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class NavbarActivity extends AppCompatActivity {
 
-
-    String showLinearLayout = ""; // Définir la variable showLinearLayout
-
-    static final String TAG = "CompteActivity";
-
     FirebaseAuth mAuth;
     String typeCompte;
-
-    FirebaseFirestore db;
 
     @Override
     @SuppressLint({"MissingInflatedId", "ResourceAsColor"})
@@ -37,7 +30,8 @@ public class NavbarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navbar);
 
         Intent i = getIntent();
-        typeCompte = i.getStringExtra("typeCompte");
+        //typeCompte = i.getStringExtra("typeCompte");
+        typeCompte = "Entreprise";
 
         Bundle args = new Bundle();
         args.putString("typeCompte", typeCompte);
@@ -54,6 +48,7 @@ public class NavbarActivity extends AppCompatActivity {
         ImageView compteImage = findViewById(R.id.image_compte);
         ImageView offresImage = findViewById(R.id.image_offres);
         ImageView candidatureImage = findViewById(R.id.image_candidature);
+        ImageView ajoutImage = findViewById(R.id.image_ajout);
 
         offresImage.setImageResource(R.drawable.icon_fichier_bleu);
 
@@ -69,6 +64,7 @@ public class NavbarActivity extends AppCompatActivity {
 
                 // Remettre tout en noir
                 compteImage.setImageResource(R.drawable.icon_compte_black);
+                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
                 candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
                 offresImage.setImageResource(R.drawable.icon_fichier_black);
                 messagerieImage.setImageResource(R.drawable.icon_message_black);
@@ -91,6 +87,7 @@ public class NavbarActivity extends AppCompatActivity {
 
                 // Remettre tout en noir
                 favorieImage.setImageResource(R.drawable.icon_favori_black);
+                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
                 compteImage.setImageResource(R.drawable.icon_compte_black);
                 candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
                 messagerieImage.setImageResource(R.drawable.icon_message_black);
@@ -119,6 +116,7 @@ public class NavbarActivity extends AppCompatActivity {
 
                 // Remettre tout en noir
                 favorieImage.setImageResource(R.drawable.icon_favori_black);
+                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
                 offresImage.setImageResource(R.drawable.icon_fichier_black);
                 candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
                 messagerieImage.setImageResource(R.drawable.icon_message_black);
@@ -143,6 +141,7 @@ public class NavbarActivity extends AppCompatActivity {
 
                 // Remettre tout en noir
                 favorieImage.setImageResource(R.drawable.icon_favori_black);
+                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
                 compteImage.setImageResource(R.drawable.icon_compte_black);
                 offresImage.setImageResource(R.drawable.icon_fichier_black);
                 candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
@@ -168,6 +167,7 @@ public class NavbarActivity extends AppCompatActivity {
 
                 // Remettre tout en noir
                 favorieImage.setImageResource(R.drawable.icon_favori_black);
+                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
                 offresImage.setImageResource(R.drawable.icon_fichier_black);
                 compteImage.setImageResource(R.drawable.icon_compte_black);
                 messagerieImage.setImageResource(R.drawable.icon_message_black);
@@ -180,15 +180,37 @@ public class NavbarActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout ajoutButton = findViewById(R.id.layout_ajout);
+        ajoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Modification de la messagerie en couleur
+                ajoutImage.setImageResource(R.drawable.icon_ajouter_bleu);
+
+                // Remettre tout en noir
+                compteImage.setImageResource(R.drawable.icon_compte_black);
+                favorieImage.setImageResource(R.drawable.icon_favori_black);
+                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
+                offresImage.setImageResource(R.drawable.icon_fichier_black);
+                messagerieImage.setImageResource(R.drawable.icon_message_black);
+
+                Intent i = new Intent(NavbarActivity.this, CreationOffre1Activity.class);
+                startActivity(i);
+            }
+        });
+
 
         // Mettre à jour la barre de navigation en fonction du type de compte de l'utilisateur
         if (typeCompte.contains("Candidat")) {
             favorieButton.setVisibility(View.VISIBLE);
             candidatureButton.setVisibility(View.VISIBLE);
+            ajoutButton.setVisibility(View.GONE);
         }
         else if (typeCompte.contains("Entreprise") || typeCompte.contains("Agence")){
             favorieButton.setVisibility(View.GONE);
             candidatureButton.setVisibility(View.GONE);
+            ajoutButton.setVisibility(View.VISIBLE);
         }
 
 

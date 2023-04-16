@@ -33,7 +33,7 @@ public class FragPageOffres extends Fragment {
         }
 
         //aparait que si c'ets une entreprise
-        Button candidatureButton = view.findViewById(R.id.boutton_candidature);
+        Button candidatureButton = view.findViewById(R.id.boutton_candidature_1);
         candidatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,8 +43,32 @@ public class FragPageOffres extends Fragment {
         });
 
         //aparait que si c'ets une entreprise
-        LinearLayout offreLayout = view.findViewById(R.id.layout_abo);
-        offreLayout.setOnClickListener(new View.OnClickListener() {
+        LinearLayout offreLayout1 = view.findViewById(R.id.layout_offre_1);
+        offreLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), AfficherDetailsOffreActivity.class);
+                startActivity(i);
+            }
+        });
+        LinearLayout offreLayout2 = view.findViewById(R.id.layout_offre_2);
+        offreLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), AfficherDetailsOffreActivity.class);
+                startActivity(i);
+            }
+        });
+        LinearLayout offreLayout3 = view.findViewById(R.id.layout_offre_3);
+        offreLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), AfficherDetailsOffreActivity.class);
+                startActivity(i);
+            }
+        });
+        LinearLayout offreLayout4 = view.findViewById(R.id.layout_offre_4);
+        offreLayout4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), AfficherDetailsOffreActivity.class);
