@@ -247,15 +247,13 @@ public class InscriptionActivity extends AppCompatActivity {
 
 
     public void displayloadingScreen() {
-        Log.w(TAG, "Champs ok************************************************************************************");
-
-        FragmentLoading loadingFragment = new FragmentLoading();
-        loadingFragment.setTextLoading("Chargement en cours...");
+        FragmentLoading loadingFragment = FragmentLoading.newInstance("Création du compte...");
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, loadingFragment);
         //pour pas le fragment soit restauré lorsque l'utilisateur appuie sur le bouton retour
         transaction.addToBackStack(null);
         transaction.commit();
+        // loadingFragment.setTextLoading("Création du compte...");
     }
 
     public void dismissLoadingScreen() {

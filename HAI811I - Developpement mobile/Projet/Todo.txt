@@ -22,7 +22,7 @@ x Check si l'user à Internet pour pas faire crash Firebase
 	- check si user exist
 	- rediriger vers la NavBar
 	x rediriger si pas fini inscription [signup_step]
-		- 1 : Téléphone
+		- 1 : Confirmation téléphone
 		- 2 : Inscription entreprise
 		- 3 : Abonnement
 		- 4 : Tuto, etc
@@ -62,6 +62,16 @@ x Check si l'user à Internet pour pas faire crash Firebase
 	- Désactivé si pas de second contact
 	- Ajout en BDD [nom2, ...]
 	
+
+** ABONNEMENT
+-> Spinner pour tous les type d'abonnement
+	x Fragment ponctuel
+	x Fragment mensuel
+	x Fragment trimestriel
+	x Fragment semestriel
+	x Fragment annuel
+	x Fragment renouvelable
+
 
 ** TUTO
 

@@ -2,6 +2,7 @@
     <!-- Global-->
     <string name="app_name" translatable="false">GPGH - Interimaire</string>
     <string name="home" translatable="false">GPGH</string>
+    <string name="chargement">Chargement...</string>
 
     <!-- Accueil -->
     <string name="prem_text">L\'application d\'interimaire qui vous correspond</string>
@@ -61,12 +62,16 @@
     <string name="moyen_payer">Moyen de paiement</string>
     <string name="recap_payer">Recapitulation du prix</string>
     <string name="boutton_confirmer">Confirmation</string>
-    <string name="ponctuelle">Offre Ponctuelle</string>
-    <string name="renouvelable">Offre renouvelable</string>
-    <string name="mensuelle">Offre mensuelle</string>
-    <string name="trimestrielle">Offre trimestrielle</string>
-    <string name="annuelle">Offre annuelle</string>
-    <string name="semestrielle">Offre Semestrielle</string>
+        <!-- Offres -->
+        <string name="offre">Offre</string>
+        <string name="type_abonnement">Type d'abonnement</string>
+        <string name="ponctuel">ponctuel</string>
+        <string name="mensuel">mensuel</string>
+        <string name="trimestriel">trimestriel</string>
+        <string name="semestriel">semestriel</string>
+        <string name="annuel">annuel</string>
+        <string name="renouvelable">renouvelable</string>
+
 
     <!-- Tutoriel entreprise -->
     <string name="tuto">Tutoriel</string>

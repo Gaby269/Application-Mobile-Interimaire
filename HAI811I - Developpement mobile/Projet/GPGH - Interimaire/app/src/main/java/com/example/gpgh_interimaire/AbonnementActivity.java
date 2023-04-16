@@ -39,13 +39,13 @@ public class AbonnementActivity extends AppCompatActivity {
         typeAboSpinner = (Spinner) findViewById(R.id.typeAboSpinner);
         //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
         listType = new ArrayList<>();
-        listType.add("Type d'abonnement");
-        listType.add("Ponctuel (un abonnement)");
-        listType.add("Mensuelle");
-        listType.add("Trimestrielle");
-        listType.add("Semestrielle");
-        listType.add("Annuelle");
-        listType.add("Renouvelable");
+        listType.add(getString(R.string.type_abonnement));
+        listType.add(getString(R.string.ponctuel));
+        listType.add(getString(R.string.mensuelle));
+        listType.add(getString(R.string.trimestrielle));
+        listType.add(getString(R.string.semestrielle));
+        listType.add(getString(R.string.annuelle));
+        listType.add(getString(R.string.renouvelable));
 
         // ArrayAdapter pour le spinner
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, R.layout.spinner_item, listType);
@@ -58,46 +58,46 @@ public class AbonnementActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
-                if (selectedItem == "Ponctuel (un abonnement)") {
+                if (selectedItem == "Ponctuel") {
                     Fragment fragment = new FragAboPonctuel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
-                    transaction.addToBackStack(null); // ajouter à la pile de retour
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 else if (selectedItem == "Mensuelle"){
                     Fragment fragment = new FragAboMensuel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
-                    transaction.addToBackStack(null); // ajouter à la pile de retour
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 else if (selectedItem == "Trimestrielle"){
                     Fragment fragment = new FragAboTrimestriel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
-                    transaction.addToBackStack(null); // ajouter à la pile de retour
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 else if (selectedItem == "Annuelle"){
                     Fragment fragment = new FragAboAnnuel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
-                    transaction.addToBackStack(null); // ajouter à la pile de retour
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 else if (selectedItem == "Semestrielle"){
                     Fragment fragment = new FragAboSemestriel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
-                    transaction.addToBackStack(null); // ajouter à la pile de retour
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 else if (selectedItem == "Renouvelable"){
                     Fragment fragment = new FragAboRenouvelable();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
-                    transaction.addToBackStack(null); // ajouter à la pile de retour
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
             }
