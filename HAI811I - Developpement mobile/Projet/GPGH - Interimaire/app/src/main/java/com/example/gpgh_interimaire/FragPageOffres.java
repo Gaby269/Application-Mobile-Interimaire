@@ -44,7 +44,7 @@ public class FragPageOffres extends Fragment {
 
         //aparait que si c'ets une entreprise
         LinearLayout offreLayout = view.findViewById(R.id.layout_abo);
-        candidatureButton.setOnClickListener(new View.OnClickListener() {
+        offreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), AfficherDetailsOffreActivity.class);

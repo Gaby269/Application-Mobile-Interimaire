@@ -162,5 +162,7 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="boutton_valider">Valider</string>
+    <string name="longTexte">Saltu c\'est un texte de details au moins donc c\'est plutot cool, jefjbzjeif jfihfi fnjef fhei hfioahifohaoiefhe jifhf aifhoa F jfof</string>
 
 </resources>

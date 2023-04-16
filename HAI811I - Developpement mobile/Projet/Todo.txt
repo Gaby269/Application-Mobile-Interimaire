@@ -83,8 +83,23 @@ x Check si l'user à Internet pour pas faire crash Firebase
 
 
 ** MON COMPTE
-- Display des infos de l'user
--> Déconnexion
+- Display des infos de l'user 
+-> Déconnexion 
+- bouton modification
+- bouton supprimer uqi demande la deconnexion
+
+
+** MODIFICATION COMPTE
+- Display des infos de l'user dansdes editText (donnée brut)
+-> bouton valider pour changer les informations
+
+** AFICHER DETAILS OFFRES
+- Display le details avec un titre l'entreprise un texte l'adresse et des indications
+- ATTENTION utiliser le fichier dans layout-v26 car fonctionalité qui est ressente et utilise que v26 pour ca
+- ajout d'un logo de localisation pour affichage d'adresse
+- A FAIRE : ajouter logo de l'entreprise , ajout de scrool view
+
+
 
 
 ** MESSAGERIE

@@ -36,6 +36,114 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/layout_compte"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/arrondir_edit_white_bord_bleu"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CompteTextView">
+        <LinearLayout
+            android:id="@+id/layout_compte_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15px">
+            <TextView
+                android:id="@+id/textViewNom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:paddingLeft="30px"
+                android:text="@string/nom_" />
+            <TextView
+                android:id="@+id/textViewPrenom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:textStyle="bold"
+                android:text="@string/prenom_" />
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:text="@string/mail_" />
+            <TextView
+                android:id="@+id/textViewNumero"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:textStyle="bold"
+                android:text="@string/telephone_" />
+            <TextView
+                android:id="@+id/textViewTypeCompte"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="30px"
+                android:textStyle="bold"
+                android:text="@string/typeCompte_" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_compte_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15px">
+            <EditText
+                android:id="@+id/editNom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Toto" />
+            <EditText
+                android:id="@+id/editPrenom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Gaby" />
+            <EditText
+                android:id="@+id/editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="gaby.toto@gmail.com" />
+            <EditText
+                android:id="@+id/editNumero"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="08392837" />
+            <EditText
+                android:id="@+id/editTypeCompte"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Candidat" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_boutton"
@@ -46,16 +154,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CompteTextView">
-
-        <Button
-            android:id="@+id/boutton_retour"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:text="@string/boutton_retour"
-            android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_compte">
 
         <Button
             android:id="@+id/boutton_modifier"
@@ -63,7 +162,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:gravity="center_vertical"
-            android:text="@string/boutton_modifier"
+            android:text="@string/boutton_valider"
             android:background="@drawable/arrondir_edit_bleu"
             android:textSize="15sp" />
 

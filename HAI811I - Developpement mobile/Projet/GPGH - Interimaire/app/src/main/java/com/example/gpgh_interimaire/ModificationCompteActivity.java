@@ -17,14 +17,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_compte);
 
-        Button retourButton = findViewById(R.id.boutton_retour);
-        retourButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(ModificationCompteActivity.this, FragPageCompte.class);
-                startActivity(i);
-            }
-        });
+
         Button modifierButton = findViewById(R.id.boutton_modifier);
         modifierButton.setOnClickListener(new View.OnClickListener() {
             @Override
