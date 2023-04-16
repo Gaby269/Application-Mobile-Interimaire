@@ -1,6 +1,7 @@
 package com.example.gpgh_interimaire;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,15 +9,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ConnexionActivity extends AppCompatActivity {
 
     static final String TAG = "LoginActivity";
     FirebaseAuth mAuth;
+
     EditText mailEditText, mdpEditText;
+
+    String typeCompte;
+
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +53,18 @@ public class ConnexionActivity extends AppCompatActivity {
         fastLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = "gatienhaddad@hotmail.fr";
-                String mdp = "123456";
+                //String email = "gatienhaddad@hotmail.fr";
+                //String mdp = "123456";
+
+                String email = "gaby.toto@gmail.com";
+                String mdp = "gabyToto";
                 if (validateInput(email, mdp)) {
                     signInUser(email, mdp);
                 }
             }
         });
     }
+
 
     private boolean validateInput(String email, String password) {
         if (email.isEmpty()) {
@@ -79,13 +91,23 @@ public class ConnexionActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) { // Connexion réussie
                         FirebaseUser user = mAuth.getCurrentUser();
-
-                        Intent i = new Intent(ConnexionActivity.this, LoadingActivity.class);
-                        startActivity(i);
+                        displayloadingScreen();
                     }
                     else { // Échec de la connexion
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                     }
                 });
+    }
+
+
+    public void displayloadingScreen() {
+
+        FragmentLoading loadingFragment = FragmentLoading.newInstance("Connexion...");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, loadingFragment);
+        //pour pas le fragment soit restauré lorsque l'utilisateur appuie sur le bouton retour
+        transaction.addToBackStack(null);
+        transaction.commit();
+        // loadingFragment.setTextLoading("Création du compte...");
     }
 }
