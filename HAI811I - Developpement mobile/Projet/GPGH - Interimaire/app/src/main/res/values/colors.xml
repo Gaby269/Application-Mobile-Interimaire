@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="rouge">#C10303</color>
+    <color name="gris_clair">#C8C8C8</color>
 
     <color name="nav_button_unselected">#FF000000</color>
     <color name="nav_button_selected">#0001d9</color>

@@ -7,15 +7,36 @@
     android:background="@drawable/background_gradient"
     tools:context=".AfficherDetailsOffreActivity">
 
+    <!-- Toolbar fixe -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_retour"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:background="@color/bleu_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Ajoutez des éléments à la barre d'outils ici -->
+
+        <ImageButton
+            android:id="@+id/bouton_retour"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="start"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_retour_blanc"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_retour">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,12 +47,13 @@
                 android:id="@+id/offreDetailsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="40dp"
                 android:text="@string/detailsOff"
                 android:textSize="30dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold"
                 android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_retour"
                 app:layout_constraintBottom_toTopOf="@+id/ecouteTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -65,25 +87,53 @@
                 app:layout_constraintTop_toBottomOf="@id/ecouteTextView"
                 app:layout_constraintBottom_toTopOf="@id/layout_boutton">
 
-                <TextView
-                    android:id="@+id/titreOffre"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_offre_details"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:text="Titre"
-                    android:textSize="30dp"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"/>
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@drawable/arrondir_toolbar_haut_bleu">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="?attr/actionBarSize"
+                        android:layout_marginEnd="?attr/actionBarSize"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="28dp"
+                        android:text="Titre"
+                        android:textColor="@color/white"
+                        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+
+                    <ImageButton
+                        android:id="@+id/btn_heart"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="end"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/icon_favori_white" />
+
+                </androidx.appcompat.widget.Toolbar>
+
 
                 <TextView
                     android:id="@+id/entrepriseOffre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Entreprise"
-                    android:textSize="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Nom de l'entreprise"
+                    android:textSize="23dp"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                <ImageView
+                    android:id="@+id/image_entreprise"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_localisation_bleu"/>
 
                 <TextView
                     android:id="@+id/descriptionOffre"
@@ -185,8 +235,8 @@
                         android:id="@+id/parking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="9 rue grand-père"
-                        android:textSize="18dp"
+                        android:text="104 places"
+                        android:textSize="16dp"
                         android:gravity="center"
                         android:paddingLeft="10dp"/>
                 </LinearLayout>
@@ -205,8 +255,8 @@
                         android:id="@+id/ticket_resto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Résidence Prout"
-                        android:textSize="18dp"
+                        android:text="Ticket restaurant"
+                        android:textSize="16dp"
                         android:gravity="center"
                         android:paddingLeft="10dp"/>
                 </LinearLayout>

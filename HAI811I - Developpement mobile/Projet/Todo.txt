@@ -98,7 +98,8 @@ x Check si l'user à Internet pour pas faire crash Firebase
 - ATTENTION utiliser le fichier dans layout-v26 car fonctionalité qui est ressente et utilise que v26 pour ca
 - ajout d'un logo de localisation pour affichage d'adresse
 - A FAIRE : ajouter logo de l'entreprise
-- ajout de scrool view
+- ajout de scrool view 
+- ajout du tool barre avec une fleche de retour en bleu mais pas encore sur de la couleur
 
 
 
