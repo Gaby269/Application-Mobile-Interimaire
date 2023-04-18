@@ -185,7 +185,7 @@
                         android:layout_marginBottom="10dp"
                         android:textStyle="bold"
                         android:textSize="26dp"
-                        android:text="Nom Prénom du candidat"
+                        android:text="POINTEAU Gabrielle"
                         android:textColor="@color/white"
                         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -284,7 +284,7 @@
                         android:layout_marginBottom="10dp"
                         android:textStyle="bold"
                         android:textSize="26dp"
-                        android:text="Nom Prénom du candidat"
+                        android:text="Gatient HADDAD"
                         android:textColor="@color/white"
                         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
