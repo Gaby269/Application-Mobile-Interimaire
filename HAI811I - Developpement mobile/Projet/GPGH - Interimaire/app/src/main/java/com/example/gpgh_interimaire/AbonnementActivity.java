@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,25 +20,15 @@ public class AbonnementActivity extends AppCompatActivity {
 
     List<String> listType;
     Spinner typeAboSpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abonnement);
 
-
-        Button inscriptionButton = findViewById(R.id.boutton_choixAbonnement);
-        inscriptionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(AbonnementActivity.this, RecapPaiementActivity.class);
-                startActivity(i);
-            }
-        });
-
-
-        //Récupération du Spinner déclaré dans le fichier activity_inscription.xml
         typeAboSpinner = (Spinner) findViewById(R.id.typeAboSpinner);
-        //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
+        
+        
         listType = new ArrayList<>();
         listType.add(getString(R.string.type_abonnement));
         listType.add(getString(R.string.ponctuel));
@@ -47,17 +38,14 @@ public class AbonnementActivity extends AppCompatActivity {
         listType.add(getString(R.string.annuel));
         listType.add(getString(R.string.renouvelable));
 
-        // ArrayAdapter pour le spinner
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, R.layout.spinner_item, listType);
         // On definit une présentation du spinner quand il est déroulé
         adapterSpinner.setDropDownViewResource(R.layout.spinner_item);
-        typeAboSpinner.setAdapter(adapterSpinner); // on passe l'adapter au Spinner
+        typeAboSpinner.setAdapter(adapterSpinner);
 
         typeAboSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // String selectedItem = parent.getItemAtPosition(position).toString();
-                
                 view.setTag(position);
                 int selectedPosition = (int) view.getTag();
 
@@ -106,12 +94,31 @@ public class AbonnementActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Ne rien faire si aucun élément n'est sélectionné
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        
+        Button inscriptionButton = findViewById(R.id.boutton_choixAbonnement);
+        inscriptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkIfOfferIsSelected()) {
+                    String typeAbo = typeAboSpinner.getSelectedItem().toString();
+                    Intent i = new Intent(AbonnementActivity.this, RecapPaiementActivity.class);
+                    i.putExtra("typeAbo", typeAbo);
+                    startActivity(i);
+                }
             }
         });
-
+        
     }
 
-
+    private boolean checkIfOfferIsSelected() {
+        if (typeAboSpinner.getSelectedItemPosition() == 0) {
+            typeAboSpinner.requestFocus();
+            ((TextView) typeAboSpinner.getSelectedView()).setError(getString(R.string.choix_obligatoire));
+            return false;
+        }
+        return true;
+    }
 }
+        

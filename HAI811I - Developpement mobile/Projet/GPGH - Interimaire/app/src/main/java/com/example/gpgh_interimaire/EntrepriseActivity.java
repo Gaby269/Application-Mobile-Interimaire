@@ -26,7 +26,7 @@ public class EntrepriseActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
 
-    CheckBox secondContactCeckbox;
+    CheckBox secondContactCheckbox;
     EditText nomEntrepriseEditText, numSiretEditText, adresseEditText;
     EditText nomCompletEditText, prenomCompletEditText, mailEditText, telephoneEditText;
     EditText nomComplet2EditText, prenomComplet2EditText, mail2EditText, telephone2EditText;
@@ -68,10 +68,10 @@ public class EntrepriseActivity extends AppCompatActivity {
         mail2EditText = findViewById(R.id.mail2EditText);
         telephone2EditText = findViewById(R.id.telephone2EditText);
 
-        secondContactCeckbox = findViewById(R.id.sliderButton);
+        secondContactCheckbox = findViewById(R.id.sliderButton);
         LinearLayout secondContactFields = findViewById(R.id.contactSecLayout);
 
-        secondContactCeckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        secondContactCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 secondContactFields.setVisibility(View.VISIBLE);
             } else {
@@ -81,6 +81,25 @@ public class EntrepriseActivity extends AppCompatActivity {
 
         Button inscriptionButton = findViewById(R.id.boutton_creationCompte);
         inscriptionButton.setOnClickListener(view -> {
+            addUserToFirestore(userId);
+        });
+
+        Button TMPButton = findViewById(R.id.boutton_tmp);
+        TMPButton.setOnClickListener(view -> {
+            //modification des champs avec des valeurs par défaut
+            nomEntrepriseEditText.setText("nomEntreprise");
+            numSiretEditText.setText("numSiret");
+            adresseEditText.setText("adresse");
+            
+            nomCompletEditText.setText("nomComplet");
+            prenomCompletEditText.setText("prenomComplet");
+            mailEditText.setText("mail");
+            telephoneEditText.setText("telephone");
+
+            nomComplet2EditText.setText("nomComplet2");
+            prenomComplet2EditText.setText("prenomComplet2");
+            mail2EditText.setText("mail2");
+            telephone2EditText.setText("telephone2");
             addUserToFirestore(userId);
         });
 
@@ -112,7 +131,7 @@ public class EntrepriseActivity extends AppCompatActivity {
             entreprise.put("mail1", mail);
             entreprise.put("telephone1", telephone);
 
-            if (secondContactCeckbox.isChecked()) {
+            if (secondContactCheckbox.isChecked()) {
                 entreprise.put("nom2", nomComplet2);
                 entreprise.put("prenom2", prenomComplet2);
                 entreprise.put("mail2", mail2);
@@ -175,7 +194,7 @@ public class EntrepriseActivity extends AppCompatActivity {
             check = false;
         }
 
-        if (secondContactCeckbox.isChecked()) {
+        if (secondContactCheckbox.isChecked()) {
             if (nomComplet2.isEmpty()) {
                 nomComplet2EditText.setError(getString(R.string.erreurChamp));
                 check = false;

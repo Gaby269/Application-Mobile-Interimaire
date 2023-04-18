@@ -23,15 +23,15 @@
     <string name="creaCompte_text">Créez un compte avec votre adresse email</string>
     <string name="connexion_text">Connectez-vous avec votre adresse email</string>
     <string name="typeSpinner">Type de compte</string>
-    <!-- Erreurs -->
-    <string name="code_incorrect">Code incorrect</string>
-    <string name="nom_vide">Entrez un nom</string>
-    <string name="prenom_vide">Entrez un prenom</string>
-    <string name="email_vide">L\'email ne peut pas être vide</string>
-    <string name="mdp_vide">Le mot de passe ne peut pas être vide</string>
-    <string name="tel_vide">Entrez un numéro de téléphone valide</string>
-    <string name="mdp_court">Le mot de passe doit contenir au moins 6 caractères</string>
-    <string name="choisir_compte">Choissisez un type de compte</string>
+        <!-- Erreurs -->
+        <string name="code_incorrect">Code incorrect</string>
+        <string name="nom_vide">Entrez un nom</string>
+        <string name="prenom_vide">Entrez un prenom</string>
+        <string name="email_vide">L\'email ne peut pas être vide</string>
+        <string name="mdp_vide">Le mot de passe ne peut pas être vide</string>
+        <string name="tel_vide">Entrez un numéro de téléphone valide</string>
+        <string name="mdp_court">Le mot de passe doit contenir au moins 6 caractères</string>
+        <string name="choisir_compte">Choissisez un type de compte</string>
 
     <!--    Confirmation téléphone -->
     <string name="hello_user">Bonjour USER</string>
@@ -39,7 +39,7 @@
     <string name="confTel_text">Confirmations de votre téléphone</string>
     <string name="codeNonRecu_text">Non reçu ? Renvoyer le code ></string>
     <string name="boutton_confTel">Confirmer</string>
-    <string name="codeTel">  Code à 4 chiffres</string>
+    <string name="codeTel">Code à 4 chiffres</string>
     <string name="codeRecu_text">Code reçu au 06XXXXXX10</string>
 
     <!--  Inscription Entreprise  -->
@@ -51,17 +51,32 @@
     <string name="AjoutercontactSec_text">Ajouter un contact secondaire</string>
     <string name="contactSec_text">Contact Secondaire</string>
     <string name="nomComplet">Nom Complet</string>
-    <!-- Erreurs -->
-    <string name="erreurChamp">Ce champ ne peut pas être vide</string>
+        <!-- Erreurs -->
+        <string name="erreurChamp">Ce champ ne peut pas être vide</string>
+        <string name="choix_obligatoire">Choisissez une offre</string>
 
     <!--  Abonnement -->
     <string name="service_text">Notre expertise à votre service</string>
-    <string name="boutton_choixAbo">Cet abonnement</string>
+    <string name="boutton_choixAbo">Choisir</string>
     <string name="abonnement">Abonnement</string>
     <string name="boutton_payer">Payer</string>
     <string name="moyen_payer">Moyen de paiement</string>
     <string name="recap_payer">Recapitulation du prix</string>
-    <string name="boutton_confirmer">Confirmation</string>
+    <string name="boutton_confirmer">Confirmer l\'abonnement</string>
+        <!-- Carte bancaire -->
+        <string name="nom_carte">Nom sur la carte</string>
+        <string name="numero_carte">Numéro de carte</string>
+        <string name="date_carte">Date d\'expiration</string>
+        <string name="code_carte">Code CVV</string>
+        <string name="save_carte">Enregistrer votre carte</string>
+        <string name="ou">ou</string>
+        <string name="payer_paypal">Payer avec Paypal :</string>
+        <string name="erreur_vide">Ce champ ne peut pas être vide</string>
+        <string name="erreur_nom">Entrez un nom</string>
+        <string name="erreur_carte">Entrez un numéro de carte valide</string>
+        <string name="erreur_date">Entrez une date d\'expiration valide</string>
+        <string name="erreur_code">Entrez un code CVV valide</string>
+
     <!-- Type abonnement -->
     <string name="type_abonnement">Type d\'abonnement</string>
     <string name="ponctuel">ponctuel</string>
@@ -70,6 +85,7 @@
     <string name="semestriel">semestriel</string>
     <string name="annuel">annuel</string>
     <string name="renouvelable">renouvelable</string>
+
     <!-- Offres -->
     <string name="offre">Offre</string>
     <string name="ponctuelle">Offre ponctuelle</string>

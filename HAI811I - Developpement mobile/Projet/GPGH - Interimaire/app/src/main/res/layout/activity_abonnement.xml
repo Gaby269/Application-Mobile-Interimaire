@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:text="@string/boutton_choixAbo"
+            android:text="@string/boutton_valider"
             android:background="@drawable/arrondir_edit_bleu"
             android:textSize="15sp" />
 

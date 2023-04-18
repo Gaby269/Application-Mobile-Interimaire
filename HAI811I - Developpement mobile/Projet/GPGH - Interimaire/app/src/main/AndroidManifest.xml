@@ -11,12 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GPGHInterimaire"
         tools:targetApi="31">
-        <activity
-            android:name=".LoadingNavbarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NavbarActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -39,6 +33,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".LoadingNavbarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NavbarActivity"
+            android:exported="false" />
+        <activity
             android:name=".ModificationCandidatureActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -54,27 +54,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".MesCandidaturesActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".PostulerActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".FragPageMessagerie"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".FragPageCompte"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".FragPageFavoris"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
@@ -135,11 +115,6 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".TutoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".FragPageOffres"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
