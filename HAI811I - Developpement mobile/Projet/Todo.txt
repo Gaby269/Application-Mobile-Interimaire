@@ -71,15 +71,23 @@ x Check si l'user à Internet pour pas faire crash Firebase
 	x Fragment semestriel
 	x Fragment annuel
 	x Fragment renouvelable
+- Champs carte bancaire/Paypal
+-> Fake validation
+~ Récapitulatif du paiement
 
 
 ** TUTO
+x Pour la première utilisation, l’application présente des slides d’explication des services offerts par l’application pour les employeurs.
+-> Bouton next : change les card
+-> Fin, redirige vers la navbar
+x Mettre des trucs dans les cards
 
 
 ** NAVBAR
 -> Loading page
 	- ça charge la BDD et ça lance la NavBar avec les infos dans l'intent
 ~ Display des pages en fonction du role
+x 
 
 
 ** MON COMPTE
@@ -105,6 +113,7 @@ x Check si l'user à Internet pour pas faire crash Firebase
 - A FAIRE : changer d'image avec remplissage si le candidat met en favorie
 - A FAIRE : gerer le bouton retour avec le type de compte (actuellement ok pcq typecompte est en dure dans navbar)
 
+
 ** AFFICHER DETAILS CANDIDATURES
 - display des bouton version logo
 - ajout d'une image en bouton de modification et de suppression pour le candidat
@@ -118,6 +127,7 @@ x Check si l'user à Internet pour pas faire crash Firebase
 - ajout d'une barre de visuel pour montrer ce que l'entreprise voit
 - plus le details de la candidature (je sais pas encore quoi mettre)
 
+
 ** OFFRES
 - affichage de chaque offres
 - ajout du bouton voir candidature
@@ -129,11 +139,11 @@ x Check si l'user à Internet pour pas faire crash Firebase
 - A FAIRE : ajuster la barre d'en haut avec le filtre etc
 
 
-
 ** CANDIDATURE DE L'OFFRE
 - affichage de chaque candidature du offre par un scroll view
 - A FAIRE : arrivé a garder la barre de recherche come tool barre mais pas encore sur
 - A FAIRE : rediriger les bouton retour vers le bon endroit
+
 
 ** AJOUT OFFRE : que pour lentreprise
 - affichage du bouton dans lanavbar
@@ -141,10 +151,8 @@ x Check si l'user à Internet pour pas faire crash Firebase
 
 
 
-
 ** A FAIRE  :  ajouter pour chaue activity des intent pour faire circuler le type de compte pour les affichages
 ** A FAIRE : gerer le fait que quand on appuie sur le bouton de retour du telephone on change longlet aussi sur la nav bar et pas que le fragment
-
 
 
 ** MESSAGERIE
