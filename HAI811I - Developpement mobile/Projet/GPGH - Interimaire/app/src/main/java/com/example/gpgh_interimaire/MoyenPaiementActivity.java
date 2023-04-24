@@ -60,13 +60,11 @@ public class MoyenPaiementActivity extends AppCompatActivity {
 
         Button inscriptionButton = findViewById(R.id.boutton_payer);
         inscriptionButton.setOnClickListener(view -> {
-            displayloadingScreen();
             addPaymentToFirestore();
         });
 
         Button TMPButton = findViewById(R.id.boutton_tmp);
         TMPButton.setOnClickListener(view -> {
-            displayloadingScreen();
             nomEditText.setText("TARTAMPION");
             carteEditText.setText("4111111111111111");
             dateEditText.setText("05/25");
@@ -90,6 +88,8 @@ public class MoyenPaiementActivity extends AppCompatActivity {
     private void addPaymentToFirestore() {
 
         if (validateInput()) {
+            
+            displayloadingScreen();
 
             if (saveCardCheckbox.isChecked()) {
                 Map<String, Object> payment = new HashMap<>();
@@ -109,7 +109,9 @@ public class MoyenPaiementActivity extends AppCompatActivity {
             carteEditText.setError(null);
             dateEditText.setError(null);
             codeEditText.setError(null);
+            
             dismissLoadingScreen();
+
             Intent i = new Intent(MoyenPaiementActivity.this, TutoActivity.class);
             startActivity(i);
         }
@@ -156,6 +158,9 @@ public class MoyenPaiementActivity extends AppCompatActivity {
     }
 
     private static boolean isCardNumberValid(String cardNumber) {
+        if (!cardNumber.matches("[0-9]{16}")) {
+            return false;
+        }
         int sum = 0;
         boolean alternate = false;
         for (int i = cardNumber.length() - 1; i >= 0; i--) {
@@ -183,7 +188,7 @@ public class MoyenPaiementActivity extends AppCompatActivity {
     
 
     public static boolean isCvvValid(String cvv) {
-        return cvv.matches("\\d{3,4}");
+        return cvv.matches("[0-9]{3,4}");
     }
 
 

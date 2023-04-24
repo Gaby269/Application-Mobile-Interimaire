@@ -28,6 +28,7 @@
         <string name="nom_vide">Entrez un nom</string>
         <string name="prenom_vide">Entrez un prenom</string>
         <string name="email_vide">L\'email ne peut pas être vide</string>
+        <string name="email_invalide">Entrez un email valide</string>
         <string name="mdp_vide">Le mot de passe ne peut pas être vide</string>
         <string name="tel_vide">Entrez un numéro de téléphone valide</string>
         <string name="mdp_court">Le mot de passe doit contenir au moins 6 caractères</string>
@@ -61,7 +62,7 @@
     <string name="abonnement">Abonnement</string>
     <string name="boutton_payer">Payer</string>
     <string name="moyen_payer">Moyen de paiement</string>
-    <string name="recap_payer">Recapitulation du prix</string>
+    <string name="recap_payer">Recapitulatif du prix</string>
     <string name="boutton_confirmer">Confirmer l\'abonnement</string>
         <!-- Carte bancaire -->
         <string name="nom_carte">Nom sur la carte</string>

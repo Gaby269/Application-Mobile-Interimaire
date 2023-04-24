@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.example.gpgh_interimaire.FragmentLoading;
 
@@ -178,6 +180,10 @@ public class InscriptionActivity extends AppCompatActivity {
             mailEditText.setError(getString(R.string.email_vide));
             check = false;
         }
+        else if (!isEmailValid(email)) {
+            mailEditText.setError(getString(R.string.email_invalide));
+            check = false;
+        }
 
         if (nom.isEmpty()) {
             nomEditText.setError(getString(R.string.nom_vide));
@@ -210,6 +216,13 @@ public class InscriptionActivity extends AppCompatActivity {
 
         return check;
     }
+
+    public static boolean isEmailValid(String email) {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }    
 
 
     private void redirect() {

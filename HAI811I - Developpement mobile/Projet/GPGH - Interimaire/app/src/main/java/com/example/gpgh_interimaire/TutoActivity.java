@@ -21,7 +21,7 @@ public class TutoActivity extends AppCompatActivity {
         passerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(TutoActivity.this, FragPageOffres.class);
+                Intent i = new Intent(TutoActivity.this, LoadingNavbarActivity.class);
                 startActivity(i);
             }
         });

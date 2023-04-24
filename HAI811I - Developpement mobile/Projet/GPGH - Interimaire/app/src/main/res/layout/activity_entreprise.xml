@@ -140,7 +140,7 @@
                         android:background="@drawable/arrondir_edit_white"
                         android:gravity="center_vertical"
                         android:hint="@string/nom"
-                        android:inputType="phone"
+                        android:inputType="text"
                         android:paddingStart="10dp"
                         android:textSize="15sp" />
 
@@ -154,7 +154,7 @@
                         android:background="@drawable/arrondir_edit_white"
                         android:gravity="center_vertical"
                         android:hint="@string/prenom"
-                        android:inputType="phone"
+                        android:inputType="text"
                         android:paddingStart="10dp"
                         android:textSize="15sp" />
 
@@ -246,7 +246,7 @@
                             android:background="@drawable/arrondir_edit_white"
                             android:gravity="center_vertical"
                             android:hint="@string/nom"
-                            android:inputType="phone"
+                            android:inputType="text"
                             android:paddingStart="10dp"
                             android:textSize="15sp" />
 
@@ -260,7 +260,7 @@
                             android:background="@drawable/arrondir_edit_white"
                             android:gravity="center_vertical"
                             android:hint="@string/prenom"
-                            android:inputType="phone"
+                            android:inputType="text"
                             android:paddingStart="10dp"
                             android:textSize="15sp" />
 

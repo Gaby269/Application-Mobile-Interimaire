@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="@string/recap_payer"
-        android:textSize="35dp"
+        android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:gravity="center"
@@ -34,7 +34,7 @@
 
         <LinearLayout
             android:id="@+id/layout_abo"
-            android:layout_width="338dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:background="@drawable/bord_bleu_fond_white"
             android:gravity="center_vertical"
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Total"
+                android:text="Total : 25€"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 

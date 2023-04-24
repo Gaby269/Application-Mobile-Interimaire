@@ -45,8 +45,8 @@ public class MyAdapterListView extends BaseAdapter {
         // récupérer l'élément de données correspondant à la position
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) mFragment.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.listview_offre, null);
+//            LayoutInflater inflater = (LayoutInflater) mFragment.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            view = inflater.inflate(R.layout.listview_offre, null);
         }
 
         // remplir la vue avec les données de l'élément
@@ -70,5 +70,3 @@ public class MyAdapterListView extends BaseAdapter {
         return convertView;
     }
 }
-
-

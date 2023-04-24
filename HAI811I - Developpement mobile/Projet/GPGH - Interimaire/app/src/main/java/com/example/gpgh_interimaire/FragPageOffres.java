@@ -36,9 +36,9 @@ public class FragPageOffres extends Fragment {
         listeOffres.add(new class_offre("Titre offre 1", "Petite description offre 1", "Grande description offre 1", R.drawable.youtube, "Nom entreprise 1", "Adresse entreprise 1", "Complément adresse entreprise 1", "Code postal entreprise 1", "Ville entreprise 1"));
         listeOffres.add(new class_offre("Titre offre 2", "Petite description offre 2", "Grande description offre 2", R.drawable.facebook, "Nom entreprise 2", "Adresse entreprise 2", "Complément adresse entreprise 2", "Code postal entreprise 2", "Ville entreprise 2"));
         // Ajouter d'autres offres si nécessaire
-        MyAdapterListView adapter = new MyAdapterListView(this, listeOffres);
+        /*MyAdapterListView adapter = new MyAdapterListView(this, listeOffres);
         ListView listView = view.findViewById(R.id.list_view_offres);
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter);*/
 
 
 

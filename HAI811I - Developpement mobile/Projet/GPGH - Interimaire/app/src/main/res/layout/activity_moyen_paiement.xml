@@ -58,9 +58,9 @@
             android:id="@+id/nomEditText"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/arrondir_edit_white"
             android:gravity="center_vertical"
             android:hint="@string/nom_carte"
@@ -71,9 +71,9 @@
             android:id="@+id/carteEditText"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/arrondir_edit_white"
             android:gravity="center_vertical"
             android:hint="@string/numero_carte"
@@ -83,9 +83,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="40dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -93,7 +93,7 @@
                 android:id="@+id/dateEditText"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:background="@drawable/arrondir_edit_white"
                 android:gravity="center_vertical"
                 android:hint="@string/date_carte"
@@ -107,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
-                android:layout_weight="1"
+                android:layout_weight="4"
                 android:background="@drawable/arrondir_edit_white"
                 android:gravity="center_vertical"
                 android:hint="@string/code_carte"
@@ -202,6 +202,12 @@
             android:layout_marginStart="20dp" />
 
     </LinearLayout>
+
+    <!-- Pour placer le fragment de chargement -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
