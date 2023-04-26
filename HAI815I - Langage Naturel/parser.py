@@ -16,6 +16,16 @@ def tri_cle(cle):
         return 3
 
 
+
+# Formatage du mot pour les fichiers
+def motFormater(mot) :
+    mot = mot.replace(" ","-")
+    mot = mot.replace(">","-")
+    mot = mot.replace("/","-")
+
+    return mot
+
+
 # Fonction qui cherche dans reseauDUMP en fonctions des infos données
 #depart sert à savoir si c'est la premiere fois quon le demande comme dans le main ou on veut les relations
 def rechercheDUMP(mots,
@@ -24,7 +34,7 @@ def rechercheDUMP(mots,
 
     for mot in mots:
         # Si le mot a pas deja été trouvé
-        if (not os.path.exists(f"dump_files/selected_{mot}.txt") or (overwrite == True)):
+        if (not os.path.exists(f"dump_files/selected_{motFormater(mot)}.txt") or (overwrite == True)):
             id = ""
             if (id_relation != -1):
                 id = str(id_relation)
@@ -82,18 +92,18 @@ def rechercheDUMP(mots,
             body1 = selected1[:-7]
             
             # Ecriture des relations sortantes
-            with open(f"./dump_files/selected_{mot}.txt", "w") as f:
+            with open(os.path.join("dump_files", f"selected_{motFormater(mot)}.txt"), "w", encoding="utf-8", errors="surrogateescape") as f:
                 f.write(body1)
     
             body2 = selected2[selected2.find("// les relations entrantes"):]
     
             # Ecriture des relations entrantes
-            with open(f"./dump_files/selected_{mot}.txt", "a") as file:
+            with open(os.path.join("dump_files", f"selected_{motFormater(mot)}.txt"), "a", encoding="utf-8", errors="surrogateescape") as file:
                 file.write(body2)
                     
             print(f"\n   Les données du mot {mot} ont été récupérées.\n")
         else :
-            print(f"   Le fichier dump_files/selected_{mot}.txt existe déjà\n")
+            print(f"   Le fichier dump_files/selected_{motFormater(mot)}.txt existe déjà\n")
 
 
 def rechercheFilterDUMP(mot,
@@ -103,7 +113,7 @@ def rechercheFilterDUMP(mot,
                   with_entrante=True):
 
     # Si le mot a pas deja été trouvé
-    if (not os.path.exists(f"filter_files/filter_{mot}_{id_relation}_{with_sortante}_{with_entrante}.txt") or (overwrite == True)):
+    if (not os.path.exists(f"filter_files/filter_{motFormater(mot)}_{id_relation}_{with_sortante}_{with_entrante}.txt") or (overwrite == True)):
         id = ""
         if (id_relation != -1):
             id = str(id_relation)
@@ -154,12 +164,12 @@ def rechercheFilterDUMP(mot,
         body = selected[:-7]
         
         # Ecriture des relations sortantes
-        with open(f"./filter_files/filter_{mot}_{id_relation}_{with_sortante}_{with_entrante}.txt", "w") as f:
+        with open(os.path.join("filter_files", f"filter_{motFormater(mot)}_{id_relation}_{with_sortante}_{with_entrante}.txt"), "w", encoding="utf-8", errors="surrogateescape") as f:
             f.write(body)
                 
         print(f"\n\n   Les données du mot {mot} ont été récupérées.\n\n")
     else :
-        print(f"\n   Le fichier filter_files/filter_{mot}_{id_relation}_{with_sortante}_{with_entrante}.txt existe déjà")
+        print(f"\n   Le fichier filter_files/filter_{motFormater(mot)}_{id_relation}_{with_sortante}_{with_entrante}.txt existe déjà")
 
 
 #Fonction qui forme le texte en dico
@@ -179,11 +189,13 @@ def formaterDico(phr, filter=False, id_relation=-1, with_sortante=True, with_ent
         # Choix du fichier a utiliser
         fichier = ""
         if filter :
-            fichier = f"./filter_files/filter_{p}_{str(id_relation)}_{str(with_sortante)}_{str(with_entrante)}.txt"
+            path = "filter_files"
+            name = f"filter_{motFormater(p)}_{str(id_relation)}_{str(with_sortante)}_{str(with_entrante)}.txt"
         else : 
-            fichier = f"./dump_files/selected_{p}.txt"
+            path = "dump_files"
+            name = f"selected_{motFormater(p)}.txt"
             
-        with open(fichier, 'r') as file:
+        with open(os.path.join(path, name), 'r', encoding="utf-8", errors="surrogateescape") as file:
 
             categorie_actuelle = "None"  # dans quelle categorie on est
             num_categorie = 0  # id de la categorie
@@ -320,70 +332,7 @@ def parserDico(dico,
                         # Si le type aparait dans une des entites il faut le garder
                         if e[3] == tab[1] and tab not in tab_typeEntit:
                             tab_typeEntit.append(tab)
-    """ PAS SUP
-    elif type_trie == "entite":
 
-        #entite // typeentite // relations // type de realtion
-        # Tri du dictionnaire selon les clés en utilisant la fonction de tri personnalisée
-        cle = sorted(cle, key=tri_cle)
-        # cle = [
-        #           "2;e;eid;'name';type;w;'formated name'",
-        #           "1;nt;ntid;'ntname'",
-        #           "4;r;rid;node1;node2;type;w",
-        #           "5;r;rid;node1;node2;type;w",
-        #           "3;rt;rtid;'trname';'trgpname';'rthelp'"
-        #       ]
-        # Parcours du dictionnaire
-        cpt = 0
-        for key in cle:
-            #print(key)
-            # Parcours des tableaux
-            for tab in dico_formater[key]:
-                
-                #cpt += 1
-                #if cpt % 100 == 0:
-                    #print(cpt)
-                # Choix les entités
-                if tab[0] == 'e':
-                    # Parcours des entites données
-                    for ent in valeur_trie:
-                        # Si l'entite trouvé est dedans on garde
-                        if tab == ent and tab not in tab_Entites:
-                            tab_Entites.append(tab)
-                # Choix des types d'entités
-                if tab[0] == 'nt':
-                    # Parcours du tableau des entités
-                    for e in tab_Entites:
-                        # Si le type aparait dans une des entites il faut le garder
-                        if e[3] == tab[1] and tab not in tab_typeEntit:
-                            tab_typeEntit.append(tab)
-
-                # Choix des relations
-                if tab[0] == 'r':
-                    # Parcours du tableau des entités
-                    for e in tab_Entites:
-                        # Si on choisis les relation sortantes + Si c'est bien la clé pour les relations sortantes (4)
-                        if is_sortante and key[0] == '4' and tab not in tab_sortantes and (
-                          tab[2] == e[1] or tab[3] == e[1]) and int(tab[5]) > 0:
-                            tab_sortantes.append(tab)
-                        # Si c'est une relation et que la relation est de type relation + Si c'est bien la clé pour les relations entrantes (5)
-                        if is_entrante and key[0] == '5' and tab not in tab_entrantes and (
-                          tab[2] == e[1] or tab[3] == e[1]) and int(tab[5]) > 0:
-                            tab_entrantes.append(tab)
-                #  Choix du type de relation
-                if tab[0] == 'rt':
-                    # Parcours du tableau des relations
-                    if is_sortante:
-                        for s in tab_sortantes:
-                            #  Si le type existe dans la relation on garde
-                            if tab[1] == s[4] and tab not in tab_typeRelat:
-                                tab_typeRelat.append(tab)
-                    if is_entrante:
-                        for e in tab_entrantes:
-                            #  Si le type existe dans la relation on garde
-                            if tab[1] == s[4] and tab not in tab_typeRelat:
-                                tab_typeRelat.append(tab)
-    """
     # Reconstruction du dictionnaire a partir des données de maintenant
     dico_formater["1;nt;ntid;'ntname'"] = tab_typeEntit
     #print(tab_Entites,tab_sortantes, tab_entrantes)
@@ -397,7 +346,7 @@ def parserDico(dico,
 
 #get.id
 def getId(mot):
-    f = open(f"./selected_filed/selected_{mot}.txt", "r")
+    f = open(os.path.join("selected_filed", f"selected_{motFormater(mot)}.txt"), "r", encoding="utf-8", errors="surrogateescape")
     id_line = f[1]
     id_string = id_line.split("=")
     id = id_string[-1].strip(")")
@@ -408,9 +357,10 @@ def getId(mot):
 
 def rechercheASK(mot1, relation, mot2) :
 
-    path = f"ask_files/{mot1}_{relation}_{mot2}"
-    if os.path.exists(path):
-        r, w, anot = [line.strip() for line in open(path, "r")]
+    path = "ask_files"
+    name = f"{motFormater(mot1)}_{relation}_{motFormater(mot2)}.txt"
+    if os.path.exists(os.path.join(path, name)):
+        r, w, anot = [line.strip() for line in open(os.path.join(path, name), "r", encoding="utf-8", errors="surrogateescape")]
         return r, w, anot
         
 	# URL pour chercher si la relation 
@@ -489,8 +439,9 @@ def rechercheASK(mot1, relation, mot2) :
     if anot.strip() == '':
         anot = "VIDE"
     
-    # écrire dans la BDD
-    with open(f"ask_files/{mot1}_{relation}_{mot2}", "w") as f:
+    # Ecrire dans la BDD
+    # remplacement pour éviter les problèmes
+    with open(os.path.join(path, name), "w", encoding="utf-8", errors="surrogateescape") as f:
         f.write(f"{r}\n{w}\n{anot}")
 
     return r, w, anot
