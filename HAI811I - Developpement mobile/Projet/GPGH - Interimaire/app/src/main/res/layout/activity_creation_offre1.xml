@@ -32,43 +32,35 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="false"
+        app:layout_constraintBottom_toTopOf="@+id/layout_boutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_retour">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/creationOffreTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="@string/creationOffre"
-                android:textSize="30dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
+                android:text="@string/creationOffre"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="30dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/employeurTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                android:id="@+id/employeurTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/entrepriseDonnee_text"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@+id/creationOffreTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/layout_entreprise"
@@ -86,111 +78,225 @@
                     android:id="@+id/titreOffreTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginStart="70dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="left"
-                    android:hint="@string/titreOffre"
+                    android:text="@string/titreOffre"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/titreOffreEditText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginStart="70dp"
-                    android:gravity="center_vertical"
+                    android:layout_marginEnd="70dp"
                     android:background="@drawable/arrondir_edit_white"
+                    android:gravity="center_vertical"
                     android:hint="@string/exTitre"
-                    android:textSize="15sp"
+                    android:inputType="text"
                     android:paddingStart="10dp"
-                    android:inputType="text" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/typePosteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginStart="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="left"
-                    android:hint="@string/typePoste"
+                    android:text="@string/typePoste"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/typePosteEditText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginStart="70dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="70dp"
+                    android:background="@drawable/arrondir_edit_white"
                     android:gravity="center_vertical"
                     android:hint="@string/exTypePoste"
-                    android:background="@drawable/arrondir_edit_white"
-                    android:textSize="15sp"
-                    android:paddingStart="10dp"/>
+                    android:paddingStart="10dp"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/descriptionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginStart="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="left"
-                    android:hint="@string/descriptionOffre"
+                    android:text="@string/descriptionOffre"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/descriptionOffreEditText"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginStart="70dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left"
-                    android:hint="..."
-                    android:textSize="15sp"
-                    android:paddingTop="10dp"
-                    android:paddingStart="10dp"
+                    android:layout_marginEnd="70dp"
                     android:background="@drawable/arrondir_edit_white"
-                    android:inputType="textLongMessage" />
+                    android:gravity="left"
+                    android:inputType="textMultiLine"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:textSize="15sp" />
 
+                <TextView
+                    android:id="@+id/periodeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="left"
+                    android:text="@string/periodeOffre"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_boutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/layout_entreprise"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_entreprise">
-
-                <Button
-                    android:id="@+id/boutton_creationOffre"
-                    android:layout_width="wrap_content"
+                <!--<EditText
+                    android:id="@+id/periodeEditText"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="70dp"
+                    android:background="@drawable/arrondir_edit_white"
                     android:gravity="center_vertical"
-                    android:text="@string/boutton_suivant"
-                    android:background="@drawable/arrondir_edit_bleu"
+                    android:hint="@string/exPeriode"
+                    android:inputType="text"
+                    android:paddingStart="10dp"
+                    android:textSize="15sp" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="70dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/dateDebEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/arrondir_edit_white"
+                        android:gravity="center_vertical"
+                        android:hint="@string/date_debut"
+                        android:inputType="text"
+                        android:maxLength="8"
+                        android:paddingStart="10dp"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/dateFinEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/arrondir_edit_white"
+                        android:gravity="center_vertical"
+                        android:hint="@string/date_fin"
+                        android:inputType="text"
+                        android:maxLength="8"
+                        android:paddingStart="10dp"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lieuTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="left"
+                    android:text="@string/lieu"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/lieuEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="70dp"
+                    android:background="@drawable/arrondir_edit_white"
+                    android:gravity="center_vertical"
+                    android:hint="@string/exLieu"
+                    android:paddingStart="10dp"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/remunerationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="left"
+                    android:text="@string/remuneration"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/remunerationEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginEnd="70dp"
+                    android:background="@drawable/arrondir_edit_white"
+                    android:gravity="center_vertical"
+                    android:hint="@string/exRemuneration"
+                    android:paddingStart="10dp"
                     android:textSize="15sp" />
 
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+
+
+    <LinearLayout
+        android:id="@+id/layout_boutton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/boutton_creationOffre"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/arrondir_edit_bleu"
+            android:gravity="center_vertical"
+            android:text="@string/boutton_suivant"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
