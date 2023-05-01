@@ -117,8 +117,9 @@
     <string name="exTypePoste">ex : Stage</string>
     <string name="exTitre">ex : Stagiaire RH</string>
     <string name="boutton_suivant">Suivant ></string>
-    <string name="periodeOffre">Periode de l\'emploi</string>
-    <string name="exPeriode">ex : 3 jours</string>
+    <string name="periodeOffre">Date de l\'emploi</string>
+    <string name="date_debut">Date début</string>
+    <string name="date_fin">Date fin</string>
     <string name="lieu">Lieu</string>
     <string name="exLieu">ex : 9 rue de la Vignette, 34090 Montpellier</string>
     <string name="remuneration">Remuneration</string>
@@ -129,11 +130,11 @@
     <string name="messagerie">Messagerie (à modifier)</string>
     <string name="modifOffre">Modification de l\'offre</string>
     <string name="offreModif">Offre modifié</string>
-    <string name="offreCree">Creation de l\'offre</string>
+    <string name="offreCree">Offre créée !</string>
     <string name="rechercher">Rechercher</string>
     <string name="filter">Filter</string>
 
-    <!-- Gesion du compte -->
+    <!-- Gestion du compte -->
     <string name="compte">Votre compte</string>
     <string name="titreCompte">"Le compte : "</string>
     <string name="modifCompte">Modification de votre compte</string>
@@ -159,6 +160,16 @@
     <string name="Candidatures">Candidatures de l\'offre</string>
     <string name="boutton_refuser">Refuser</string>
     <string name="boutton_accepter">Accepter</string>
+
+    <!-- Creation offres -->
+        <!-- Erreurs -->
+        <string name="erreur_titre_offre">Entrez un titre</string>
+        <string name="erreur_type_offre">Entrez un type</string>
+        <string name="erreur_description_offre">Entrez une description</string>
+        <string name="erreur_date_deb_offre">Entrez une date valide</string>
+        <string name="erreur_date_fin_offre">Entrez une date valide</string>
+        <string name="erreur_lieu_offre">Entrez une adresse</string>
+        <string name="erreur_remuneration_offre">Entrez une rémunération</string>
 
     <!-- Spinners -->
     <string-array name="typeCompte">
