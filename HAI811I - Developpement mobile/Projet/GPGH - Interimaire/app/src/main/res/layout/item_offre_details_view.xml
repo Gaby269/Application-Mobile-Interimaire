@@ -62,17 +62,62 @@
         android:layout_centerVertical="true"
         android:contentDescription="TODO" />
 
-    <TextView
-        android:id="@+id/descriptionOffre"
+    <LinearLayout
+        android:id="@+id/layout_type_prix"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_below="@id/image_entreprise"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
-        android:text="petite description"
-        android:textSize="16dp"
-        android:gravity="center"/>
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/typeOffre"
+            android:layout_width="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bord_bleu_fond_white"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Type"
+            android:textSize="25dp" />
+
+
+        <LinearLayout
+            android:id="@+id/layout_prix"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/bord_bleu_fond_white">
+            <TextView
+                android:id="@+id/prixOffre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Prix"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+            <ImageView
+                android:id="@+id/image_prix"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/icon_argent_black"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -82,7 +127,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
-        android:layout_below="@id/descriptionOffre"
+        android:layout_below="@id/layout_type_prix"
         android:orientation="horizontal"
         android:background="@drawable/bord_bleu_fond_white">
 
@@ -218,7 +263,7 @@
             android:layout_marginStart="80dp"
             android:textColor="@color/white"
             android:background="@drawable/arrondir_edit_bleu"
-            android:text="@string/boutton_candidature"
+            android:text="@string/boutton_candidater"
             android:textSize="15sp" />
     </LinearLayout>
 

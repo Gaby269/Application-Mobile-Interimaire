@@ -79,30 +79,22 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-            <!--Faudrait mettre une listeView de layout avec cette decription-->
-
-            <ListView
-                android:id="@+id/list_view_offres"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:clipToPadding="false"
-                android:padding="16dp"
-                android:scrollbars="none"
-                android:layout_marginTop="?attr/actionBarSize"
-                tools:listitem="@layout/listview_offre" />
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/recycleview"/>
 
-            <ImageView
-                android:id="@+id/boutton_ajout"
-                android:layout_width="60dp"
-                android:layout_height="0dp"
-                android:src="@drawable/icon_ajouter_bleu"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"
-                android:layout_weight="1" />
+    <ImageView
+        android:id="@+id/boutton_ajout"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:src="@drawable/icon_ajouter_bleu"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_weight="1" />
 
 
 </LinearLayout>

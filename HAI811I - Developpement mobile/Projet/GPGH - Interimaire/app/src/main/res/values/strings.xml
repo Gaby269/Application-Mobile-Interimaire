@@ -147,6 +147,7 @@
 
     <!-- Candidatures -->
     <string name="boutton_candidature">Voir Candidatures</string>
+    <string name="boutton_candidater">Candidater</string>
     <string name="mesCandidatures">Mes Candidatures</string>
     <string name="modifCandidature">Modification de votre candidature</string>
     <string name="detailsCand">Details de votre candidature</string>

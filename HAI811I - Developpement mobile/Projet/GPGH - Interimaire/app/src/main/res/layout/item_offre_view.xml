@@ -41,38 +41,102 @@
             android:contentDescription="TODO" />
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/entrepriseOffre"
+    <RelativeLayout
+        android:id="@+id/layout_entreprise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_below="@id/toolbar_offre"
-        android:text="YouTube"
-        android:textSize="23dp"
-        android:gravity="center"/>
-
-    <ImageView
-        android:id="@+id/image_entreprise"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/entrepriseOffre"
-        android:src="@drawable/youtube"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="TODO" />
-
-    <TextView
-        android:id="@+id/descriptionOffre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/image_entreprise"
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
-        android:text="petite description"
-        android:textSize="16dp"
-        android:gravity="center"/>
+        android:layout_marginBottom="5dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/image_entreprise"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="60dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/youtube"
+            android:contentDescription="TODO"/>
+
+        <TextView
+            android:id="@+id/entrepriseOffre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/image_entreprise"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="YouTube"
+            android:textSize="23dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/layout_type_prix"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_entreprise"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/typeOffre"
+            android:layout_width="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bord_bleu_fond_white"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Type"
+            android:textSize="25dp" />
+
+
+        <LinearLayout
+            android:id="@+id/layout_teletravail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/bord_bleu_fond_white">
+            <TextView
+                android:id="@+id/prixOffre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Prix"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+            <ImageView
+                android:id="@+id/image_teletravail"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/icon_argent_black"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 
     <LinearLayout
@@ -82,7 +146,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
-        android:layout_below="@id/descriptionOffre"
+        android:layout_below="@id/layout_type_prix"
         android:orientation="horizontal"
         android:background="@drawable/bord_bleu_fond_white">
 
@@ -135,79 +199,14 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_parking"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_offre_adresse"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/image_parking"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/icon_parking_black"/>
-        <TextView
-            android:id="@+id/parking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="104 places"
-            android:textSize="16dp"
-            android:gravity="center"
-            android:paddingStart="10dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/layout_ticket"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@id/layout_parking"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/image_ticket"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/icon_ticket_black"/>
-        <TextView
-            android:id="@+id/ticket_resto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ticket restaurant"
-            android:textSize="16dp"
-            android:gravity="center"
-            android:paddingStart="10dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/layout_teletravail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_ticket"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/image_teletravail"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/icon_teletravail_black"/>
-        <TextView
-            android:id="@+id/teletravail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Télétravail"
-            android:textSize="18dp"
-            android:gravity="center"
-            android:paddingLeft="10dp"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_bouton_candidature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_below="@id/layout_teletravail"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/layout_offre_adresse"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
         <Button
@@ -218,7 +217,7 @@
             android:layout_marginStart="80dp"
             android:textColor="@color/white"
             android:background="@drawable/arrondir_edit_bleu"
-            android:text="@string/boutton_candidature"
+            android:text="@string/boutton_candidater"
             android:textSize="15sp" />
     </LinearLayout>
 
