@@ -10,12 +10,11 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/toolbar_offre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/arrondir_toolbar_haut_bleu"
-        android:orientation="horizontal">
+        android:background="@drawable/arrondir_toolbar_haut_bleu">
 
         <TextView
             android:id="@+id/titre_offre"
@@ -23,24 +22,26 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
-            android:gravity="center"
-            android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:textSize="28dp"
             android:text="Titre"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:gravity="center"/>
 
-
-        <ImageView
+        <ImageButton
             android:id="@+id/btn_heart"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/icon_favori_white_vide"
-            android:contentDescription="TODO" />
+            android:background="@drawable/arrondir_toolbar_haut_bleu" />
 
-    </LinearLayout>
+    </RelativeLayout>
     <TextView
         android:id="@+id/entrepriseOffre"
         android:layout_width="match_parent"
@@ -120,6 +121,19 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/descriptionOffre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_below="@id/layout_type_prix"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="Description de l'offrefjjefjevfeffef fhiuefhoiezghfigeifef faejhfjaefjauefhiefj eahifhaeohfuagefugae aeifhiaefhehf efaihiaohfioahe aefhoaeugfuaefaeufjjaef aehfiaheofuaofauoe aefhioaehofuaeuof afkakehfoa"
+        android:textSize="16dp" />
+
+
     <LinearLayout
         android:id="@+id/layout_offre_adresse"
         android:layout_width="match_parent"
@@ -127,7 +141,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
-        android:layout_below="@id/layout_type_prix"
+        android:layout_below="@id/descriptionOffre"
         android:orientation="horizontal"
         android:background="@drawable/bord_bleu_fond_white">
 

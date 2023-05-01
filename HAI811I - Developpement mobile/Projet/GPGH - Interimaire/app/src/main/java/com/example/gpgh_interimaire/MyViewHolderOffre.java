@@ -1,8 +1,6 @@
 package com.example.gpgh_interimaire;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,13 +8,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class MyViewHolderOffre extends RecyclerView.ViewHolder {
 
     ImageView imageView;
     TextView titreView, nameEntrepriseView, prixView, typeView, rueView, complementRueView, codePostalView, parkingView, ticketView, teletravailView;
 
     TextView descriptionView;
-    public MyViewHolder(@NonNull View itemView) {
+    public MyViewHolderOffre(@NonNull View itemView) {
         super(itemView);
         titreView = itemView.findViewById(R.id.titre_offre);
         imageView = itemView.findViewById(R.id.image_entreprise);

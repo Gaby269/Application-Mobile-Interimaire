@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
 
     Context context;
     List<ItemOffre> itemsOffres;
     List<ItemOffreDetails> itemsOffresDetails;
 
-    public MyAdapter(Context context, List<ItemOffre> itemsOffres, List<ItemOffreDetails> itemsOffresDetails) {
+    public MyAdapterOffre(Context context, List<ItemOffre> itemsOffres, List<ItemOffreDetails> itemsOffresDetails) {
         this.context = context;
         if (itemsOffres != null) {
 
@@ -31,20 +31,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolderOffre onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (itemsOffres != null) {
             View itemView = LayoutInflater.from(context).inflate(R.layout.item_offre_view, parent, false);
-            return new MyViewHolder(itemView);
+            return new MyViewHolderOffre(itemView);
         }
         else{
             View itemView = LayoutInflater.from(context).inflate(R.layout.item_offre_details_view, parent, false);
-            return new MyViewHolder(itemView);
+            return new MyViewHolderOffre(itemView);
         }
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolderOffre holder, int position) {
         // Si c'est l'offre dans le deffilement
         if (itemsOffres != null) {
             holder.titreView.setText(itemsOffres.get(position).getTitre());

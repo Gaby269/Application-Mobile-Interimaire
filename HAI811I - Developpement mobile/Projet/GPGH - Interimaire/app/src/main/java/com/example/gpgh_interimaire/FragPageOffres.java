@@ -46,7 +46,7 @@ public class FragPageOffres extends Fragment {
         items.add(new ItemOffre("Titre1", "CDD", "30","Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new MyAdapter(getActivity(), items, null));
+        recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, null));
 
 
 

@@ -141,6 +141,7 @@ x
 
 ** CANDIDATURE DE L'OFFRE
 - affichage de chaque candidature du offre par un scroll view
+- affichage des candidature en dur par un recycleView
 - A FAIRE : arrivé a garder la barre de recherche come tool barre mais pas encore sur
 - A FAIRE : rediriger les bouton retour vers le bon endroit
 

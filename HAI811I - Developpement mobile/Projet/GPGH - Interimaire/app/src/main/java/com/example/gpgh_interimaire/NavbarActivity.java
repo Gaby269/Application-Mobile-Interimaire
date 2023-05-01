@@ -31,7 +31,7 @@ public class NavbarActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         //typeCompte = i.getStringExtra("typeCompte");
-        typeCompte = "Entreprise";
+        typeCompte = "Candidat";
 
         Bundle args = new Bundle();
         args.putString("typeCompte", typeCompte);

@@ -9,8 +9,6 @@
     tools:context="com.example.gpgh_interimaire.FragPageFavoris">
 
 
-    <!--Faudrait mettre une listeView de layout avec cette decription-->
-
     <TextView
         android:id="@+id/favorieTextView"
         android:layout_width="match_parent"
@@ -98,35 +96,12 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_favorie"
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:orientation="vertical"
-        android:background="@drawable/bord_bleu_fond_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_recherche"
-        android:padding="150dp"/>
-
-    <LinearLayout
-        android:id="@+id/layout_favorie2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:orientation="vertical"
-        android:background="@drawable/bord_bleu_fond_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_favorie"
-        android:padding="150dp">
-
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="60dp"
+        android:id="@+id/recycleview"/>
 
 </LinearLayout>
