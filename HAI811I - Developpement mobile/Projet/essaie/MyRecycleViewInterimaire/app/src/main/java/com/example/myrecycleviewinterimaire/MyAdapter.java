@@ -1,4 +1,4 @@
-package com.example.myrecycleviewdemo;
+package com.example.myrecycleviewinterimaire;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -30,22 +30,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.titreView.setText(items.get(position).getTitre());
-        holder.imageEntreprise.setImageResource(items.get(position).getImage());
-        holder.entrepriseOffreView.setText(items.get(position).getEntreprise());
-        holder.descriptionOffreView.setText(items.get(position).getPetiteDescription());
-        holder.adresseOffreView.setText(items.get(position).getRue());
-        holder.complementAdresseOffreView.setText(items.get(position).getComplementRue());
-        holder.codeOffreView.setText(items.get(position).getCodePostal());
-        holder.parkingView.setText(""+items.get(position).getParking()+ " places");
-        if (items.get(position).getTicket()){
-            holder.ticket_restoView.setText("Ticket restau okkk");
+        holder.imageView.setImageResource(items.get(position).getImage());
+        holder.nameEntrepriseView.setText(items.get(position).getNameEntreprise());
+        holder.petiteDescriptionView.setText(items.get(position).getPetiteDescription());
+        holder.rueView.setText(items.get(position).getRue());
+        holder.complementRueView.setText(items.get(position).getComplementRue());
+        holder.codePostalView.setText(items.get(position).getCodePostal());
+        holder.parkingView.setText(""+items.get(position).getParking()+" places");
+        if (items.get(position).isTicket()) {
+            holder.ticketView.setText("Ticket Restaurant");
         }
-        if (items.get(position).getTeletravail()){
-            holder.teleTravailView.setText("Télétravail2");
+        if (items.get(position).isTeletravail()) {
+            holder.teletravailView.setText("Télétravail possible");
         }
-
     }
-
     @Override
     public int getItemCount() {
         return items.size();

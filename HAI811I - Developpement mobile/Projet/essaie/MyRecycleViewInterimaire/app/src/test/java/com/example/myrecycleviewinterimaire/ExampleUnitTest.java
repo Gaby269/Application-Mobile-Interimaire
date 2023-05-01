@@ -1,4 +1,4 @@
-package com.example.myrecycleviewdemo;
+package com.example.myrecycleviewinterimaire;
 
 import org.junit.Test;
 

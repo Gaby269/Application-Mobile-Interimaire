@@ -1,27 +1,24 @@
-package com.example.myrecycleviewdemo;
+package com.example.myrecycleviewinterimaire;
 
-import java.util.List;
 
 public class Item {
     String titre;
-    String entreprise;
-    int image;
-    String petiteDescription;
-    String rue, complementRue, codePostal;
+    String nameEntreprise,  petiteDescription, rue, complementRue, codePostal;
     int parking;
-    boolean teletravail,ticket;
+    boolean ticket, teletravail;
+    int image;
 
-    public Item(String titre, String entreprise, int image, String petiteDescription, String rue, String complementRue, String codePostal, int parking, boolean teletravail, boolean ticket) {
+    public Item(String titre, String nameEntreprise, int image, String petiteDescription, String rue, String complementRue, String codePostal, int parking, boolean ticket, boolean teletravail) {
         this.titre = titre;
-        this.entreprise = entreprise;
+        this.nameEntreprise = nameEntreprise;
         this.image = image;
         this.petiteDescription = petiteDescription;
         this.rue = rue;
         this.complementRue = complementRue;
         this.codePostal = codePostal;
         this.parking = parking;
-        this.teletravail = teletravail;
         this.ticket = ticket;
+        this.teletravail = teletravail;
     }
 
     public String getTitre() {
@@ -32,20 +29,12 @@ public class Item {
         this.titre = titre;
     }
 
-    public String getEntreprise() {
-        return entreprise;
+    public String getNameEntreprise() {
+        return nameEntreprise;
     }
 
-    public void setEntreprise(String entreprise) {
-        this.entreprise = entreprise;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
+    public void setNameEntreprise(String nameEntreprise) {
+        this.nameEntreprise = nameEntreprise;
     }
 
     public String getPetiteDescription() {
@@ -88,7 +77,15 @@ public class Item {
         this.parking = parking;
     }
 
-    public boolean getTeletravail() {
+    public boolean isTicket() {
+        return ticket;
+    }
+
+    public void setTicket(boolean ticket) {
+        this.ticket = ticket;
+    }
+
+    public boolean isTeletravail() {
         return teletravail;
     }
 
@@ -96,11 +93,12 @@ public class Item {
         this.teletravail = teletravail;
     }
 
-    public boolean getTicket() {
-        return ticket;
+    public int getImage() {
+        return image;
     }
 
-    public void setTicket(boolean ticket) {
-        this.ticket = ticket;
+    public void setImage(int image) {
+        this.image = image;
     }
 }
+
