@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -16,7 +17,7 @@
         android:background="@drawable/bord_bleu_fond_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="NotSibling">
+        tools:ignore="NotSibling,UnknownId">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_offre"
@@ -231,4 +232,4 @@
         android:layout_marginTop="10dp"
         android:background="#DAD8D8"/>
 
-</LinearLayout>
+</RelativeLayout>
