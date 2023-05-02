@@ -32,8 +32,8 @@ public class NavbarActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         pageFragment = i.getStringExtra("fragment"); // Pour savoir quel fragment
-        //typeCompte = i.getStringExtra("typeCompte");
-        typeCompte = "Candidat";
+        typeCompte = i.getStringExtra("typeCompte");
+        // typeCompte = "Candidat";
 
         Bundle args = new Bundle();
         args.putString("typeCompte", typeCompte);
