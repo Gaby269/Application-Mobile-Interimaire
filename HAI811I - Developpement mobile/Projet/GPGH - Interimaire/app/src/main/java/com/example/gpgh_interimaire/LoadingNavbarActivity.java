@@ -43,6 +43,7 @@ public class LoadingNavbarActivity extends AppCompatActivity {
                         Toast.makeText(LoadingNavbarActivity.this, typeCompte,Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(LoadingNavbarActivity.this, NavbarActivity.class);
                         i.putExtra("typeCompte", getTypeInString(typeCompte));
+                        i.putExtra("fragment", "Offre");
                         startActivity(i);
                     }
                     else {

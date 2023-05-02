@@ -31,6 +31,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AfficherDetailsCandidatureActivity.this, NavbarActivity.class);
+                i.putExtra("fragment", "Candidature");
                 startActivity(i);
             }
         });

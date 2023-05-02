@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AfficherDetailsOffreActivity.this, PostulerActivity.class);
+
                 startActivity(i);
             }
         });
@@ -30,7 +32,16 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
+                i.putExtra("fragment", "Offre");
                 startActivity(i);
+            }
+        });
+        ImageButton favorieButton = findViewById(R.id.btn_heart);
+        retourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageButton favorieImage = findViewById(R.id.btn_heart);
+                favorieImage.setImageResource(R.drawable.icon_favori_bleu);
             }
         });
 

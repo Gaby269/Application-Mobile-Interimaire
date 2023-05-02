@@ -18,11 +18,22 @@ public class ModificationCompteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modification_compte);
 
 
+        Button retourButton = findViewById(R.id.boutton_retour);
+        retourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ModificationCompteActivity.this, NavbarActivity.class);
+                i.putExtra("fragment", "Compte");
+                startActivity(i);
+            }
+        });
+
         Button modifierButton = findViewById(R.id.boutton_modifier);
         modifierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ModificationCompteActivity.this, FragPageCompte.class);
+                Intent i = new Intent(ModificationCompteActivity.this, NavbarActivity.class);
+                i.putExtra("fragment", "Compte");
                 startActivity(i);
                 Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
             }

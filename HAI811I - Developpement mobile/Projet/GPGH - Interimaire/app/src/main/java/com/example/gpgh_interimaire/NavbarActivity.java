@@ -21,7 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class NavbarActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    String typeCompte;
+    String typeCompte, pageFragment = "";
+    Fragment fragment;
 
     @Override
     @SuppressLint({"MissingInflatedId", "ResourceAsColor"})
@@ -30,18 +31,12 @@ public class NavbarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navbar);
 
         Intent i = getIntent();
+        pageFragment = i.getStringExtra("fragment"); // Pour savoir quel fragment
         //typeCompte = i.getStringExtra("typeCompte");
         typeCompte = "Candidat";
 
         Bundle args = new Bundle();
         args.putString("typeCompte", typeCompte);
-
-        Fragment fragment = new FragPageOffres();
-        fragment.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container_layout, fragment);
-        transaction.addToBackStack(null); // ajouter à la pile de retour
-        transaction.commit();
 
         ImageView messagerieImage = findViewById(R.id.image_message);
         ImageView favorieImage = findViewById(R.id.image_favoris);
@@ -50,7 +45,31 @@ public class NavbarActivity extends AppCompatActivity {
         ImageView candidatureImage = findViewById(R.id.image_candidature);
         ImageView ajoutImage = findViewById(R.id.image_ajout);
 
-        offresImage.setImageResource(R.drawable.icon_fichier_bleu);
+        if (pageFragment.contains("Compte")) {
+            fragment = new FragPageCompte();
+            compteImage.setImageResource(R.drawable.icon_compte_bleu);
+        }
+        else if (pageFragment.contains("Candidature")) {
+            fragment = new FragPageMesCandidatures();
+            candidatureImage.setImageResource(R.drawable.icon_fichier_bleu);
+        }
+        else if (pageFragment.contains("Message")){
+            fragment = new FragPageMessagerie();
+            messagerieImage.setImageResource(R.drawable.icon_message_bleu);
+        }
+        else if (pageFragment.contains("Favorie")){
+            fragment = new FragPageFavoris();
+            favorieImage.setImageResource(R.drawable.icon_favori_bleu);
+        }
+        else {
+            fragment = new FragPageOffres();
+            offresImage.setImageResource(R.drawable.icon_fichier_bleu);
+        }
+        fragment.setArguments(args);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container_layout, fragment);
+        transaction.addToBackStack(null); // ajouter à la pile de retour
+        transaction.commit();
 
 
         // Gérer la nav bar
