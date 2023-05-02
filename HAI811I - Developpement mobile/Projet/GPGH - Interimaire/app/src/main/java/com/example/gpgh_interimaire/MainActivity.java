@@ -71,7 +71,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
         Button decoButton = findViewById(R.id.buttonDeco);
+        decoButton.setOnClickListener(view -> {
+            Toast.makeText(MainActivity.this, "Déconnecté",Toast.LENGTH_SHORT).show();
+            logoutUser();
+        });
+
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
@@ -82,11 +88,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-        decoButton.setOnClickListener(view -> {
-            Toast.makeText(MainActivity.this, "Déconnecté",Toast.LENGTH_SHORT).show();
-            logoutUser();
-        });
 
 
     }

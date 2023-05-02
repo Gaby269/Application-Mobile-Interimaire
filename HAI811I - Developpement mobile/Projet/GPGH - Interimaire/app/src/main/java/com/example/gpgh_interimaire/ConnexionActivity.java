@@ -24,8 +24,6 @@ public class ConnexionActivity extends AppCompatActivity {
 
     String typeCompte;
 
-    FirebaseFirestore db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
