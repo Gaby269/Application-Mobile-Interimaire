@@ -16,6 +16,7 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
 
     Context context;
     List<ItemCandidature> itemsCandidature;
+    boolean is_favori = false;
 
     public MyAdapterCandidature(Context context, List<ItemCandidature> itemsCandidature) {
         this.context = context;
@@ -46,6 +47,22 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
                 Intent intent = new Intent(context, AfficherDetailsCandidatureActivity.class);
                 // passer la possiblité de garder ce quil est
                 context.startActivity(intent);
+            }
+        });
+
+        // Bouton favorie
+        holder.bouton_favori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (is_favori){
+                    is_favori = false;
+                    holder.bouton_favori.setImageResource(R.drawable.icon_favori_white_vide);
+                }
+                else{
+                    is_favori = true;
+                    holder.bouton_favori.setImageResource(R.drawable.icon_favori_white);
+                }
+
             }
         });
     }

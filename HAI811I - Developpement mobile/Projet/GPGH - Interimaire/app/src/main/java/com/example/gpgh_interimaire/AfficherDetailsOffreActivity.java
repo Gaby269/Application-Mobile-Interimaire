@@ -10,11 +10,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class AfficherDetailsOffreActivity extends AppCompatActivity {
-
+    boolean is_favori;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afficher_details_offre);
+
+        is_favori = false;
 
 
         Button postulerButton = findViewById(R.id.boutton_postuler);
@@ -37,11 +39,17 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             }
         });
         ImageButton favorieButton = findViewById(R.id.btn_heart);
-        retourButton.setOnClickListener(new View.OnClickListener() {
+        favorieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageButton favorieImage = findViewById(R.id.btn_heart);
-                favorieImage.setImageResource(R.drawable.icon_favori_bleu);
+                if (is_favori){
+                    is_favori = false;
+                    favorieButton.setImageResource(R.drawable.icon_favori_white_vide);
+                }
+                else{
+                    is_favori = true;
+                    favorieButton.setImageResource(R.drawable.icon_favori_white);
+                }
             }
         });
 

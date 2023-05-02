@@ -14,11 +14,14 @@ import android.widget.Toast;
 
 public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
 
+    boolean is_favori;
     @Override
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afficher_details_candidature);
+
+        is_favori = false;
 
         TextView candidatureText = findViewById(R.id.candidatureDetailsTextView);
         // si c'est une entreprise : details de la candidature (modifie le texte)
@@ -79,6 +82,21 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                 Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureReff,Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(AfficherDetailsCandidatureActivity.this, CandidaturesOffreActivity.class);
                 startActivity(i);
+            }
+        });
+
+        ImageButton favorieButton = findViewById(R.id.btn_heart);
+        favorieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (is_favori){
+                    is_favori = false;
+                    favorieButton.setImageResource(R.drawable.icon_favori_white_vide);
+                }
+                else{
+                    is_favori = true;
+                    favorieButton.setImageResource(R.drawable.icon_favori_white);
+                }
             }
         });
 

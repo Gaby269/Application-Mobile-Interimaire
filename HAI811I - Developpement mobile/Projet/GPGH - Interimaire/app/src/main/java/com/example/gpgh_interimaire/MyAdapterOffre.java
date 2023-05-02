@@ -17,6 +17,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
     Context context;
     List<ItemOffre> itemsOffres;
     List<ItemOffreDetails> itemsOffresDetails;
+    boolean is_favori = false;
 
     public MyAdapterOffre(Context context, List<ItemOffre> itemsOffres, List<ItemOffreDetails> itemsOffresDetails) {
         this.context = context;
@@ -82,6 +83,31 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             public void onClick(View v) {
                 // Créer une intention pour lancer l'Activity2
                 Intent intent = new Intent(context, AfficherDetailsOffreActivity.class);
+                // passer la possiblité de garder ce quil est
+                context.startActivity(intent);
+            }
+        });
+        // Bouton favorie
+        holder.bouton_favori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (is_favori){
+                    is_favori = false;
+                    holder.bouton_favori.setImageResource(R.drawable.icon_favori_white_vide);
+                }
+                else{
+                    is_favori = true;
+                    holder.bouton_favori.setImageResource(R.drawable.icon_favori_white);
+                }
+
+            }
+        });
+        // Bouton candidature
+        holder.bouton_candidater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Créer une intention pour lancer l'Activity2
+                Intent intent = new Intent(context, PostulerActivity.class);
                 // passer la possiblité de garder ce quil est
                 context.startActivity(intent);
             }
