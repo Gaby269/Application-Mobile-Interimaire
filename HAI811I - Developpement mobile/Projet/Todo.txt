@@ -14,7 +14,7 @@ A FAIRE : fonctionnalité à faire
 -> Connexion
 -> Inscription
 -> (tmp) bouton de déco
-- Redirection si l'user à pas Internet
+A FAIRE Check si l'user à Internet pour pas faire crash Firebase
 
 
 ** CONNEXION
@@ -65,15 +65,15 @@ A FAIRE : fonctionnalité à faire
 
 ** ABONNEMENT
 -> Spinner pour tous les type d'abonnement
-	A FAIRE Fragment ponctuel
-	A FAIRE Fragment mensuel
-	A FAIRE Fragment trimestriel
-	A FAIRE Fragment semestriel
-	A FAIRE Fragment annuel
-	A FAIRE Fragment renouvelable
+	Fragment ponctuel
+	Fragment mensuel
+	Fragment trimestriel
+	Fragment semestriel
+	Fragment annuel
+	Fragment renouvelable
 - Champs carte bancaire/Paypal
 -> Fake validation
-~ Récapitulatif du paiement
+A FAIRE : Récapitulatif du paiement
 
 
 ** TUTO
@@ -109,7 +109,7 @@ A FAIRE Mettre des trucs dans les cards
 - ajout de scrool view 
 - ajout du tool barre avec une fleche de retour en bleu mais pas encore sur de la couleur
 - bouton retour est un imagebouton
-- A FAIRE : changer d'image avec remplissage si le candidat met en favorie
+- changer d'image avec remplissage si le candidat met en favorie
 - A FAIRE : gerer le bouton retour avec le type de compte (actuellement ok pcq typecompte est en dure dans navbar)
 
 
@@ -117,10 +117,10 @@ A FAIRE Mettre des trucs dans les cards
 - display des bouton version logo
 - ajout d'une image en bouton de modification et de suppression pour le candidat
 - ajout d'une image en bouton d'accepte et refuser pour l'entreprise
-- A FAIRE : faire disparaitre les bouton modif et supp pour une entreprise
-- A FAIRE : faire disparaitre les bouton accepter et refuser pour candidat
+- faire disparaitre les bouton modif et supp pour une entreprise
+- faire disparaitre les bouton accepter et refuser pour candidat
 - A FAIRE : faire disparaitre le bouton favorie pour le candidat
-- A FAIRE : changer dimage avec remplissage si l'entreprise met en favorie
+- changer dimage avec remplissage si l'entreprise met en favorie
 - A FAIRE : gerer le bouton retour avec le type de compte (actuellement retour navBar mais des offres et pas de candidatures pcq typecompte est en dure dans navbar et que faudrait mettr un intent pour dire ou on est)
 - A FAIRE : gerer le bouton de supression en demandant si on veut vmt le faire avec boite de dialogue
 - ajout d'une barre de visuel pour montrer ce que l'entreprise voit
@@ -130,9 +130,10 @@ A FAIRE Mettre des trucs dans les cards
 ** OFFRES
 - affichage de chaque offres
 - ajout du bouton voir candidature
-- A FAIRE : afficher le bouton que pour l'entreprise
+- afficher le bouton que pour l'entreprise
 - A FAIRE : laisse la recherche avec le filtre en etant fixé meme quand on scroll
-- A FAIRE : changer le bouton de favorie pour qu'il soit remplis si on lajoute et lajouter a la liste des favorie
+- changer le bouton de favorie pour qu'il soit remplis si on lajoute et lajouter a la liste des favorie
+- Lier le fait dappuyer sur le bouton favorie au fait de lajotuer au favorie reelement
 - A FAIRE : connecter les offres avec la base quand les gens cree une offre
 - ajout du bouton ajouter dans la nav bar pour l'entreprise
 - A FAIRE : ajuster la barre d'en haut avec le filtre etc
@@ -142,7 +143,7 @@ A FAIRE Mettre des trucs dans les cards
 - affichage de chaque candidature du offre par un scroll view
 - affichage des candidature en dur par un recycleView
 - A FAIRE : arrivé a garder la barre de recherche come tool barre mais pas encore sur
-- A FAIRE : rediriger les bouton retour vers le bon endroit
+- rediriger les bouton retour vers le bon endroit
 
 
 ** AJOUT OFFRE : que pour lentreprise
@@ -152,7 +153,7 @@ A FAIRE Mettre des trucs dans les cards
 
 
 ** A FAIRE  :  ajouter pour chaue activity des intent pour faire circuler le type de compte pour les affichages
-** A FAIRE : gerer le fait que quand on appuie sur le bouton de retour du telephone on change longlet aussi sur la nav bar et pas que le fragment
+- FAIT : gerer le fait que quand on appuie sur le bouton de retour du telephone on change longlet aussi sur la nav bar et pas que le fragment
 
 
 ** MESSAGERIE
