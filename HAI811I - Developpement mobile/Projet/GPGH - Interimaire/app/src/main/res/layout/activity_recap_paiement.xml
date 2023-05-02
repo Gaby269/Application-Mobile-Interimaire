@@ -24,7 +24,7 @@
     <LinearLayout
         android:id="@+id/layout_recap"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -38,16 +38,22 @@
             android:layout_height="match_parent"
             android:background="@drawable/bord_bleu_fond_white"
             android:gravity="center_vertical"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recapAboTextView">
 
             <TextView
+                android:id="@+id/typeAboTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total : 25€"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+            <TextView
                 android:id="@+id/prixTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="Total : 25€"
                 android:textSize="15dp"
                 android:textStyle="bold" />

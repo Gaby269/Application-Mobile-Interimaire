@@ -20,6 +20,7 @@ public class AbonnementActivity extends AppCompatActivity {
 
     List<String> listType;
     Spinner typeAboSpinner;
+    int prix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class AbonnementActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container_abonnement, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+        prix = 5;
 
 
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, R.layout.spinner_item, listType);
@@ -61,6 +63,7 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
+                    prix = 5;
                 }
                 else if (selectedPosition == 1) {
                     Fragment fragment = new FragAboMensuel();
@@ -68,6 +71,7 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
+                    prix = 99;
                 }
                 else if (selectedPosition == 2) {
                     Fragment fragment = new FragAboTrimestriel();
@@ -75,6 +79,7 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
+                    prix = 300;
                 }
                 else if (selectedPosition == 3) {
                     Fragment fragment = new FragAboSemestriel();
@@ -82,6 +87,7 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
+                    prix = 500;
                 }
                 else if (selectedPosition == 4) {
                     Fragment fragment = new FragAboAnnuel();
@@ -89,6 +95,7 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
+                    prix = 1200;
                 }
                 else if (selectedPosition == 5) {
                     Fragment fragment = new FragAboRenouvelable();
@@ -96,6 +103,7 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
+                    prix = 1400;
                 }
             }
 
@@ -107,24 +115,26 @@ public class AbonnementActivity extends AppCompatActivity {
         inscriptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkIfOfferIsSelected()) {
-                    String typeAbo = typeAboSpinner.getSelectedItem().toString();
-                    Intent i = new Intent(AbonnementActivity.this, RecapPaiementActivity.class);
-                    i.putExtra("typeAbo", typeAbo);
-                    startActivity(i);
-                }
+                //if (checkIfOfferIsSelected()) {
+                String typeAbo = typeAboSpinner.getSelectedItem().toString();
+                Intent i = new Intent(AbonnementActivity.this, RecapPaiementActivity.class);
+                i.putExtra("typeAbo", typeAbo);
+                i.putExtra("prix", prix);
+                startActivity(i);
+                //}
             }
         });
         
     }
 
-    private boolean checkIfOfferIsSelected() {
+    // plus besoin
+    /*private boolean checkIfOfferIsSelected() {
         if (typeAboSpinner.getSelectedItemPosition() == 0) {
             typeAboSpinner.requestFocus();
             ((TextView) typeAboSpinner.getSelectedView()).setError(getString(R.string.choix_obligatoire));
             return false;
         }
         return true;
-    }
+    }*/
 }
         

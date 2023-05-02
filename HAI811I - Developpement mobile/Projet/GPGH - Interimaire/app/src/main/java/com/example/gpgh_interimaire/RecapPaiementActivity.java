@@ -11,20 +11,25 @@ import android.widget.TextView;
 
 public class RecapPaiementActivity extends AppCompatActivity {
 
-    TextView prixTextView;
+    TextView typeAboTextView, prixTextView;
+    String typeAbo;
 
     @Override
-    @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+    @SuppressLint({"MissingInflatedId", "LocalSuppress", "SetTextI18n"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recap_paiement);
 
         Intent intent = getIntent();
         String typeAbo = intent.getStringExtra("typeAbo");
+        int prix = intent.getIntExtra("prix", 0);
 
-        //modif du texte du paiment de la PrixTextView
+
+        //modif du texte du paiment de la typeAboTextView et prixTextView
+        typeAboTextView = findViewById(R.id.typeAboTextView);
+        typeAboTextView.setText("Abonnement " + typeAbo + " : ");
         prixTextView = findViewById(R.id.prixTextView);
-        prixTextView.setText(typeAbo);
+        prixTextView.setText(prix+" €");
 
         Button inscriptionButton = findViewById(R.id.boutton_confirmer);
         inscriptionButton.setOnClickListener(new View.OnClickListener() {

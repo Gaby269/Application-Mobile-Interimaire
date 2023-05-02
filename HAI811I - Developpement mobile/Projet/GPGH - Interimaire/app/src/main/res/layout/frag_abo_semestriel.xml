@@ -60,15 +60,13 @@
             android:layout_gravity="left"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:alpha="0.5"
             tools:ignore="RtlHardcoded">
             <ImageView
                 android:id="@+id/image_box2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:alpha="0.5"
-                android:src="@drawable/icon_not_check_box_remplis_rouge"
+                android:src="@drawable/icon_check_box_rempli_vert"
                 tools:ignore="RtlHardcoded"/>
 
             <TextView
@@ -87,15 +85,13 @@
             android:layout_gravity="left"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:alpha="0.5"
             tools:ignore="RtlHardcoded">
             <ImageView
                 android:id="@+id/image_box3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:alpha="0.5"
-                android:src="@drawable/icon_not_check_box_remplis_rouge"
+                android:src="@drawable/icon_check_box_rempli_vert"
                 tools:ignore="RtlHardcoded"/>
 
             <TextView
@@ -156,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Pas de préavis"
+            android:text="Préavis par mois"
             android:textSize="16dp"
             android:paddingLeft="10dp"/>
     </LinearLayout>
@@ -171,7 +167,7 @@
         android:background="@drawable/bord_bleu_courbe_faible_fond_white"
         android:gravity="center"
         android:textColor="@color/black"
-        android:text="5€/offre"
+        android:text="500€/offre"
         android:textSize="25dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
