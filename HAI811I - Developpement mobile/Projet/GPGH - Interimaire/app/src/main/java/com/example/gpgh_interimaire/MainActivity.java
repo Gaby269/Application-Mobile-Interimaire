@@ -51,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button abonnementButton = findViewById(R.id.buttonAbo);
+        abonnementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, AbonnementActivity.class);
+                startActivity(i);
+            }
+        });
+
         Button inviteButton = findViewById(R.id.boutton_invite);
         inviteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    
 
     private void checkConnection() {
         // Vérification de la connectivité internet
@@ -128,5 +136,4 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
-    
 }

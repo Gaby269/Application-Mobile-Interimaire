@@ -21,6 +21,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <TextView
+        android:id="@+id/choixTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:text="@string/choisir_abonnement"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/abonnementTextView" />
+
     <LinearLayout
         android:id="@+id/layout_abo"
         android:layout_width="match_parent"
@@ -30,7 +44,7 @@
         app:layout_constraintBottom_toTopOf="@id/fragment_container_abonnement"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/abonnementTextView"
+        app:layout_constraintTop_toBottomOf="@id/choixTextView"
         android:padding="5dp">
 
         <Spinner
@@ -41,17 +55,19 @@
             android:layout_marginEnd="30dp"
             android:textSize="14dp"
             android:gravity="center_vertical"
-            android:entries="@array/typeAbonnement"/>
+            android:entries="@array/typeAbonnement"
+            />
+
 
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container_abonnement"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
-        android:background="@drawable/arrondir_edit_white"
+        android:background="@drawable/bord_bleu_fond_white"
         app:layout_constraintBottom_toTopOf="@id/layout_boutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

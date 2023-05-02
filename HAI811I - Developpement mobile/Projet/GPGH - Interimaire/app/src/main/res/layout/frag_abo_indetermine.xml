@@ -5,14 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context="com.example.gpgh_interimaire.FragAboMensuel">
+    tools:context="com.example.gpgh_interimaire.FragAboRenouvelable">
 
     <TextView
-        android:id="@+id/mensuelTextView"
+        android:id="@+id/renouvelableTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/mensuelle"
+        android:text="@string/offre_renouvelable"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Poster des offres (30 offres)"
+                android:text="Poster des offres (illimité)"
                 android:textSize="16dp"
                 android:paddingLeft="10dp"/>
         </LinearLayout>
@@ -60,15 +60,13 @@
             android:layout_gravity="left"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:alpha="0.5"
             tools:ignore="RtlHardcoded">
             <ImageView
                 android:id="@+id/image_box2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:alpha="0.5"
-                android:src="@drawable/icon_not_check_box_remplis_rouge"
+                android:src="@drawable/icon_check_box_rempli_vert"
                 tools:ignore="RtlHardcoded"/>
 
             <TextView
@@ -112,15 +110,13 @@
             android:layout_gravity="left"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:alpha="0.5"
             android:orientation="horizontal">
             <ImageView
                 android:id="@+id/image_box4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:alpha="0.5"
-                android:src="@drawable/icon_not_check_box_remplis_rouge"
+                android:src="@drawable/icon_check_box_rempli_vert"
                 tools:ignore="RtlHardcoded"/>
 
             <TextView
@@ -154,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Préavis d'un mois"
+            android:text="Prévis d'un an"
             android:textSize="16dp"
             android:paddingLeft="10dp"/>
     </LinearLayout>
@@ -169,11 +165,12 @@
         android:background="@drawable/bord_bleu_courbe_faible_fond_white"
         android:gravity="center"
         android:textColor="@color/black"
-        android:text="99€/mois"
+        android:text="1400€/an"
         android:textSize="25dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"/>
+
 
 </LinearLayout>

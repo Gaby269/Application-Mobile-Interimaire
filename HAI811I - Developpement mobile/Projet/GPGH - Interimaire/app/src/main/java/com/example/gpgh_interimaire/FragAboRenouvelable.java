@@ -20,7 +20,7 @@ public class FragAboRenouvelable extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Associé la vue au layout du fragment 1
-        View view = inflater.inflate(R.layout.frag_abo_renouvelable, container, false);
+        View view = inflater.inflate(R.layout.frag_abo_indetermine, container, false);
 
         return view;
     }
