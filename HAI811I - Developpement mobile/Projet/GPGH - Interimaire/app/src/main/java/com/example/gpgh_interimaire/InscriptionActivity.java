@@ -246,7 +246,8 @@ public class InscriptionActivity extends AppCompatActivity {
                             }
                             //suite des else
                             else {
-                                Intent i = new Intent(InscriptionActivity.this, FragPageOffres.class);
+                                Intent i = new Intent(InscriptionActivity.this, NavbarActivity.class);
+                                i.putExtra("fragment", "Offre");
                                 startActivity(i);
                             }
                         }

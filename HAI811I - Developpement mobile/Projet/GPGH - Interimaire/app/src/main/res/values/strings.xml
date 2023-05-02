@@ -81,13 +81,14 @@
     <string name="erreur_code">Entrez un code CVV valide</string>
 
     <!-- Type abonnement -->
+    <string name="choisir_abonnement">Choisir le type d\'abonnement</string>
     <string name="type_abonnement">Type d\'abonnement</string>
-    <string name="ponctuel">ponctuel</string>
-    <string name="mensuel">mensuel</string>
-    <string name="trimestriel">trimestriel</string>
-    <string name="semestriel">semestriel</string>
-    <string name="annuel">annuel</string>
-    <string name="renouvelable">renouvelable</string>
+    <string name="ponctuel">Ponctuel (une annonce)</string>
+    <string name="mensuel">Mensuel</string>
+    <string name="trimestriel">Trimestriel</string>
+    <string name="semestriel">Semestriel</string>
+    <string name="annuel">Annuel</string>
+    <string name="renouvelable">Indétérminé</string>
 
     <!-- Offres -->
     <string name="offre">Offre</string>
@@ -96,7 +97,7 @@
     <string name="trimestrielle">Offre trimestrielle</string>
     <string name="semestrielle">Offre semestrielle</string>
     <string name="annuelle">Offre annuelle</string>
-    <string name="offre_renouvelable">Offre renouvelable</string>
+    <string name="offre_renouvelable">Offre indétéminé</string>
 
 
     <!-- Tutoriel entreprise -->

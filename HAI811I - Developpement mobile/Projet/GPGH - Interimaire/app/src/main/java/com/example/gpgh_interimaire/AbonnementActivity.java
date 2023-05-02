@@ -30,13 +30,19 @@ public class AbonnementActivity extends AppCompatActivity {
         
         
         listType = new ArrayList<>();
-        listType.add(getString(R.string.type_abonnement));
         listType.add(getString(R.string.ponctuel));
         listType.add(getString(R.string.mensuel));
         listType.add(getString(R.string.trimestriel));
         listType.add(getString(R.string.semestriel));
         listType.add(getString(R.string.annuel));
         listType.add(getString(R.string.renouvelable));
+
+        Fragment fragment = new FragAboPonctuel();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container_abonnement, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
 
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, R.layout.spinner_item, listType);
         // On definit une présentation du spinner quand il est déroulé
@@ -49,22 +55,29 @@ public class AbonnementActivity extends AppCompatActivity {
                 view.setTag(position);
                 int selectedPosition = (int) view.getTag();
 
-                if (selectedPosition == 1) {
+                if (selectedPosition == 0) {
                     Fragment fragment = new FragAboPonctuel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-                else if (selectedPosition == 2) {
+                else if (selectedPosition == 1) {
                     Fragment fragment = new FragAboMensuel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-                else if (selectedPosition == 3) {
+                else if (selectedPosition == 2) {
                     Fragment fragment = new FragAboTrimestriel();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container_abonnement, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+                else if (selectedPosition == 3) {
+                    Fragment fragment = new FragAboSemestriel();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
@@ -78,13 +91,6 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.commit();
                 }
                 else if (selectedPosition == 5) {
-                    Fragment fragment = new FragAboSemestriel();
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment_container_abonnement, fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                }
-                else if (selectedPosition == 6) {
                     Fragment fragment = new FragAboRenouvelable();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
