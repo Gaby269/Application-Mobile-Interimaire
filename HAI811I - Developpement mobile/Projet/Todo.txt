@@ -14,7 +14,7 @@ A FAIRE : fonctionnalité à faire
 -> Connexion
 -> Inscription
 -> (tmp) bouton de déco
-A FAIRE Check si l'user à Internet pour pas faire crash Firebase
+- Redirection si l'user à pas Internet
 
 
 ** CONNEXION
