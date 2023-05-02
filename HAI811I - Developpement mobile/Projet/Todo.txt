@@ -2,7 +2,7 @@ Légende :
 ** : Titre activité
 -> : Bouton
 - : fonctionnalité finie
-x : fonctionnalité à faire
+A FAIRE : fonctionnalité à faire
 ~ : En cours
 (tmp) : Temporaire, on le vire à la fin
 (off) : fait mais désactiver pour gagner du temps/tester
@@ -14,14 +14,14 @@ x : fonctionnalité à faire
 -> Connexion
 -> Inscription
 -> (tmp) bouton de déco
-x Check si l'user à Internet pour pas faire crash Firebase
+A FAIRE Check si l'user à Internet pour pas faire crash Firebase
 
 
 ** CONNEXION
 -> login
 	- check si user exist
 	- rediriger vers la NavBar
-	x rediriger si pas fini inscription [signup_step]
+	A FAIRE rediriger si pas fini inscription [signup_step]
 		- 1 : Confirmation téléphone
 		- 2 : Inscription entreprise
 		- 3 : Abonnement
@@ -56,7 +56,7 @@ x Check si l'user à Internet pour pas faire crash Firebase
 	- Check des champs
 	- Enregistrement des contacts dans la BDD [CONTACT]
 	- Enregistrement des données dans entreprise [ENTREPRISE]
-	x Merge contact et entreprise [contact1, ...]
+	A FAIRE Merge contact et entreprise [contact1, ...]
 -> Second contact
 	- Champs suplémentaires
 	- Désactivé si pas de second contact
@@ -65,29 +65,28 @@ x Check si l'user à Internet pour pas faire crash Firebase
 
 ** ABONNEMENT
 -> Spinner pour tous les type d'abonnement
-	x Fragment ponctuel
-	x Fragment mensuel
-	x Fragment trimestriel
-	x Fragment semestriel
-	x Fragment annuel
-	x Fragment renouvelable
+	A FAIRE Fragment ponctuel
+	A FAIRE Fragment mensuel
+	A FAIRE Fragment trimestriel
+	A FAIRE Fragment semestriel
+	A FAIRE Fragment annuel
+	A FAIRE Fragment renouvelable
 - Champs carte bancaire/Paypal
 -> Fake validation
 ~ Récapitulatif du paiement
 
 
 ** TUTO
-x Pour la première utilisation, l’application présente des slides d’explication des services offerts par l’application pour les employeurs.
+A FAIRE Pour la première utilisation, l’application présente des slides d’explication des services offerts par l’application pour les employeurs.
 -> Bouton next : change les card
 -> Fin, redirige vers la navbar
-x Mettre des trucs dans les cards
+A FAIRE Mettre des trucs dans les cards
 
 
 ** NAVBAR
 -> Loading page
 	- ça charge la BDD et ça lance la NavBar avec les infos dans l'intent
 ~ Display des pages en fonction du role
-x 
 
 
 ** MON COMPTE
@@ -131,7 +130,7 @@ x
 ** OFFRES
 - affichage de chaque offres
 - ajout du bouton voir candidature
-- A FAIRE : afficher le outon que pour lentreprise
+- A FAIRE : afficher le bouton que pour l'entreprise
 - A FAIRE : laisse la recherche avec le filtre en etant fixé meme quand on scroll
 - A FAIRE : changer le bouton de favorie pour qu'il soit remplis si on lajoute et lajouter a la liste des favorie
 - A FAIRE : connecter les offres avec la base quand les gens cree une offre
