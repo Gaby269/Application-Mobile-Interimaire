@@ -11,52 +11,52 @@
         android:id="@+id/abonnementTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/abonnement"
-        android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
+        android:layout_marginTop="36dp"
         android:gravity="center"
+        android:text="@string/abonnement"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/choixTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:paddingStart="10dp"
         android:text="@string/choisir_abonnement"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/abonnementTextView" />
 
     <LinearLayout
         android:id="@+id/layout_abo"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        android:background="@drawable/spinner_background"
         app:layout_constraintBottom_toTopOf="@id/fragment_container_abonnement"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choixTextView"
-        android:padding="5dp">
+        app:layout_constraintTop_toBottomOf="@id/choixTextView" >
 
         <Spinner
             android:id="@+id/typeAboSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:textSize="14dp"
             android:gravity="center_vertical"
             android:entries="@array/typeAbonnement"
-            />
+            android:spinnerStyle="@style/SpinnerStyle" />
 
 
     </LinearLayout>
