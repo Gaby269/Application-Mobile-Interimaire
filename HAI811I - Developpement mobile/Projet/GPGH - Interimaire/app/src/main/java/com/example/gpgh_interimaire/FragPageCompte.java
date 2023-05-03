@@ -1,11 +1,16 @@
 package com.example.gpgh_interimaire;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +21,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 
 public class FragPageCompte extends Fragment {
@@ -27,8 +39,11 @@ public class FragPageCompte extends Fragment {
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
+    ActivityResultLauncher<String> mGetContent;
+
     TextView textViewNom, textViewPrenom, textViewEmail, textViewNumero, textViewTypeCompte;
     String firstName, lastName, phoneNumber, email, typeCompte;
+    ImageView profilePictureImageView;
 
     // Constructeur
     public FragPageCompte() {}
@@ -50,6 +65,8 @@ public class FragPageCompte extends Fragment {
         textViewNumero = view.findViewById(R.id.editNumero);
         textViewTypeCompte = view.findViewById(R.id.editTypeCompte);
 
+        profilePictureImageView = view.findViewById(R.id.profilePicture);
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String userId = currentUser.getUid();
 
@@ -58,23 +75,29 @@ public class FragPageCompte extends Fragment {
             fetchUserInfo(userId);
         }
 
+        Button upload_photo = view.findViewById(R.id.upload_photo);
+        upload_photo.setOnClickListener(view1 -> {
+            mGetContent.launch("image/*");
+        });
+
+        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                uri -> {
+                    // Le résultat de l'activité de sélection d'image est renvoyé ici
+                    // Vous pouvez utiliser l'URI de l'image sélectionnée pour télécharger l'image sur Firebase Storage
+                    uploadPictureFromGalery(uri);
+                });
+
         ImageView modifierButton = view.findViewById(R.id.image_modif);
-        modifierButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ModificationCompteActivity.class);
-                startActivity(i);
-            }
+        modifierButton.setOnClickListener(view12 -> {
+            Intent i = new Intent(getActivity(), ModificationCompteActivity.class);
+            startActivity(i);
         });
 
         ImageView supprimerButton = view.findViewById(R.id.image_delete);
-        supprimerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), R.string.boutton_supprimer,Toast.LENGTH_SHORT).show();
-                // affichage d'une boite de dialogue pour confirmer
-                logoutUser();
-            }
+        supprimerButton.setOnClickListener(view13 -> {
+            Toast.makeText(getActivity(), R.string.boutton_supprimer,Toast.LENGTH_SHORT).show();
+            // affichage d'une boite de dialogue pour confirmer
+            logoutUser();
         });
 
         return view;
@@ -123,6 +146,14 @@ public class FragPageCompte extends Fragment {
                         textViewNumero.setText(phoneNumber);
                         textViewTypeCompte.setText(typeCompte);
 
+                        /*
+                         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                         StorageReference imagesRef = storageRef.child("profils/" + UserId + ".jpg");
+                         // Récupérer l'URL de la photo de profil depuis la base de données Firebase
+                         String profilePictureURL = documentSnapshot.getString("profilePictureURL");
+                         Picasso.get().load(profilePictureURL).into(profilePictureImageView);
+                         */
+
                     }
                     else {
                         Log.w(TAG, "DB Non trouvée");
@@ -130,6 +161,45 @@ public class FragPageCompte extends Fragment {
                 })
                 .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));
     }
+
+
+    private void uploadPictureFromGalery(Uri imageUri) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imagesRef = storageRef.child("profils/" + imageUri.getLastPathSegment());
+
+        UploadTask uploadTask = imagesRef.putFile(imageUri);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Gérer l'échec de l'upload de l'image
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Récupérer l'URL de l'image téléchargée
+                imagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        // Mettre à jour la photo de profil de l'utilisateur dans la base de données Firebase Firestore avec l'URL de l'image téléchargée
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            DocumentReference userRef = db.collection("users").document(user.getUid());
+                            userRef.update("profilePictureUrl", uri.toString())
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Mettre à jour l'UI pour afficher la nouvelle photo de profil de l'utilisateur
+                                        }
+                                    });
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
 
 
 }

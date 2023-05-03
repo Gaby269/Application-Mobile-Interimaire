@@ -45,6 +45,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="15px">
+
             <TextView
                 android:id="@+id/textViewNom"
                 android:layout_width="match_parent"
@@ -179,6 +180,22 @@
             android:src="@drawable/icon_modifier_black"/>
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/arrondir_edit_white"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/upload_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_profile_picture" />
 
 
 </LinearLayout>

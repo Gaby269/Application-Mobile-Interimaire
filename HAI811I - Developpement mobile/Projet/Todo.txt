@@ -94,7 +94,11 @@ A FAIRE Mettre des trucs dans les cards
 -> Déconnexion 
 - bouton modification
 - bouton supprimer uqi demande la deconnexion
-
+~ Photo de profil
+   A FAIRE : Pouvoir uploader une photo de profil depuis l'application
+   A FAIRE : Afficher l'image de la BDD
+   A FAIRE : Si pas d'image : image par défaut 
+   
 
 ** MODIFICATION COMPTE
 - Display des infos de l'user dansdes editText (donnée brut)

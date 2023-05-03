@@ -148,6 +148,7 @@
     <string name="telephone_">Téléphone :</string>
     <string name="typeCompte_">Type de compte :</string>
     <string name="mdp_">Mot de passe :</string>
+    <string name="add_profile_picture">Ajouter une photo de profil</string>
 
     <!-- Candidatures -->
     <string name="boutton_candidature">Voir Candidatures</string>
