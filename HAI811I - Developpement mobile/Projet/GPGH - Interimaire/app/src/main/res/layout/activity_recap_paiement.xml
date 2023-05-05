@@ -48,12 +48,13 @@
                 android:layout_weight="2"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="50dp"
-                android:gravity="center"
+                android:gravity="left"
+                android:paddingStart="20dp"
                 android:textColor="@color/black"
                 android:text="Abonnement mensuel"
                 android:textSize="15dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
 
             <TextView
                 android:id="@+id/prixTextView"
@@ -62,17 +63,100 @@
                 android:layout_weight="1"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:gravity="center"
+                android:gravity="right"
+                android:paddingEnd="10dp"
                 android:textColor="@color/black"
                 android:text="Total : 25€"
                 android:textSize="15dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_text_reduction30"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_text">
+            <TextView
+                android:id="@+id/reductionAboTextView30"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:gravity="left"
+                android:paddingStart="20dp"
+                android:textColor="@color/black"
+                android:text="Réduction de 30% : "
+                android:textSize="15dp"
+                android:textStyle="bold"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/reductionTextView30"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="right"
+                android:paddingEnd="10dp"
+                android:textColor="@color/black"
+                android:text="- 1,5€"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_text_reduction10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_text">
+            <TextView
+                android:id="@+id/reduction10AboTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:gravity="left"
+                android:paddingStart="20dp"
+                android:textColor="@color/black"
+                android:text="Réduction de 30% : "
+                android:textSize="15dp"
+                android:textStyle="bold"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/reductionTextView10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="right"
+                android:paddingEnd="10dp"
+                android:textColor="@color/black"
+                android:text="- 1,5€"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -115,8 +199,9 @@
             android:hint="Code promo"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="20dp" />
+            android:paddingStart="10dp"
+            android:paddingEnd="30dp"
+            android:autofillHints="" />
 
         <ImageView
             android:id="@+id/bouton_codePromo"
