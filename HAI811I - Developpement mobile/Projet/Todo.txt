@@ -98,11 +98,14 @@ A FAIRE Mettre des trucs dans les cards
    A FAIRE : Pouvoir uploader une photo de profil depuis l'application
    A FAIRE : Afficher l'image de la BDD
    A FAIRE : Si pas d'image : image par défaut 
+
+	- Changement de place du code pour modif la photo pour la mettre dans modification
    
 
 ** MODIFICATION COMPTE
 - Display des infos de l'user dansdes editText (donnée brut)
 -> bouton valider pour changer les informations
+- Ajout d'un bouton modification dans modification du profil
 
 
 ** AFICHER DETAILS OFFRES 
@@ -115,7 +118,7 @@ A FAIRE Mettre des trucs dans les cards
 - bouton retour est un imagebouton
 - changer d'image avec remplissage si le candidat met en favorie
 - A FAIRE : gerer le bouton retour avec le type de compte (actuellement ok pcq typecompte est en dure dans navbar)
-
+- A FAIRE : Ajouter les info retrouver dans la base mais dans le details de loffre
 
 ** AFFICHER DETAILS CANDIDATURES
 - display des bouton version logo
