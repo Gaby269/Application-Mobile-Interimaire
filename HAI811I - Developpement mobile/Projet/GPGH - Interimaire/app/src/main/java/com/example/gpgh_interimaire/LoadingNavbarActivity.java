@@ -40,7 +40,7 @@ public class LoadingNavbarActivity extends AppCompatActivity {
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         String typeCompte = documentSnapshot.getString("typeCompte");
-                        Toast.makeText(LoadingNavbarActivity.this, typeCompte,Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(LoadingNavbarActivity.this, typeCompte,Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(LoadingNavbarActivity.this, NavbarActivity.class);
                         i.putExtra("typeCompte", typeCompte);
                         i.putExtra("fragment", "Offre");

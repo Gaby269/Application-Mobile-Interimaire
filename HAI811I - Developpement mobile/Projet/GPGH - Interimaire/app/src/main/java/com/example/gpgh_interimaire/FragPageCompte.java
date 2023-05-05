@@ -27,10 +27,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class FragPageCompte extends Fragment {
@@ -81,11 +85,8 @@ public class FragPageCompte extends Fragment {
         });
 
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-                uri -> {
-                    // Le résultat de l'activité de sélection d'image est renvoyé ici
-                    // Vous pouvez utiliser l'URI de l'image sélectionnée pour télécharger l'image sur Firebase Storage
-                    uploadPictureFromGalery(uri);
-                });
+                uri -> uploadPictureFromGalery(uri)
+        );
 
         ImageView modifierButton = view.findViewById(R.id.image_modif);
         modifierButton.setOnClickListener(view12 -> {
@@ -127,8 +128,6 @@ public class FragPageCompte extends Fragment {
     }
 
 
-
-
     private void fetchUserInfo(String userId) {
         db.collection("users")
                 .document(userId)
@@ -146,14 +145,7 @@ public class FragPageCompte extends Fragment {
                         textViewNumero.setText(phoneNumber);
                         textViewTypeCompte.setText(typeCompte);
 
-                        /*
-                         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                         StorageReference imagesRef = storageRef.child("profils/" + UserId + ".jpg");
-                         // Récupérer l'URL de la photo de profil depuis la base de données Firebase
-                         String profilePictureURL = documentSnapshot.getString("profilePictureURL");
-                         Picasso.get().load(profilePictureURL).into(profilePictureImageView);
-                         */
-
+                        setProfileImage();
                     }
                     else {
                         Log.w(TAG, "DB Non trouvée");
@@ -165,40 +157,50 @@ public class FragPageCompte extends Fragment {
 
     private void uploadPictureFromGalery(Uri imageUri) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imagesRef = storageRef.child("profils/" + imageUri.getLastPathSegment());
+        StorageReference imagesRef = storageRef.child("profils/" + mAuth.getCurrentUser().getUid() + ".jpg");
 
         UploadTask uploadTask = imagesRef.putFile(imageUri);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Gérer l'échec de l'upload de l'image
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // Récupérer l'URL de l'image téléchargée
-                imagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        // Mettre à jour la photo de profil de l'utilisateur dans la base de données Firebase Firestore avec l'URL de l'image téléchargée
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        if (user != null) {
-                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            DocumentReference userRef = db.collection("users").document(user.getUid());
-                            userRef.update("profilePictureUrl", uri.toString())
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // Mettre à jour l'UI pour afficher la nouvelle photo de profil de l'utilisateur
-                                        }
-                                    });
-                        }
-                    }
-                });
-            }
+        uploadTask.addOnFailureListener(exception -> {
+            Toast.makeText(getActivity(), R.string.echec_upload,Toast.LENGTH_SHORT).show();
+        }).addOnSuccessListener(taskSnapshot -> {
+            Toast.makeText(getActivity(), R.string.success_upload,Toast.LENGTH_SHORT).show();
+            setProfileImage();
         });
 
     }
+
+
+    private void setProfileImage() {
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imagesRef = storageRef.child("profils/" + mAuth.getCurrentUser().getUid() + ".jpg");
+
+
+        final File localFile;
+        try {
+            localFile = File.createTempFile("profilePic", "jpg");
+            localFile.delete(); // à enlever après les tests
+            if (localFile.exists()) {
+                // Si le fichier existe déjà localement, on charge l'image
+                Uri fileUri = Uri.fromFile(localFile);
+                String imageUrl = fileUri.toString();
+                Picasso.get().load(imageUrl).fit().centerCrop().into(profilePictureImageView);
+                Toast.makeText(getActivity(), imageUrl,Toast.LENGTH_SHORT).show();
+            } else {
+                // Si le fichier n'existe pas localement, on le download de Firebase Storage
+                imagesRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                    Uri fileUri = Uri.fromFile(localFile);
+                    String imageUrl = fileUri.toString();
+                    Picasso.get().load(imageUrl).fit().centerCrop().into(profilePictureImageView);
+                    Toast.makeText(getActivity(), "Image téléchargée",Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(e -> {
+                });
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 
