@@ -23,7 +23,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!--Faudrait mettre une listeView de layout avec cette decription-->
+    <ImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:src="@drawable/default_profile_picture"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:id="@+id/layout_compte"
@@ -31,7 +38,7 @@
         android:layout_height="300dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bord_bleu_fond_white"
         android:orientation="horizontal"
@@ -181,18 +188,9 @@
     </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/profilePicture"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/default_profile_picture"
-        android:scaleType="centerCrop" />
 
-    <Button
-        android:id="@+id/upload_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_profile_picture" />
+
+
 
 
 </LinearLayout>

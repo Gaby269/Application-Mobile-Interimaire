@@ -27,7 +27,8 @@
             android:layout_gravity="start"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/icon_retour_blanc"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            android:contentDescription="TODO" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -61,19 +62,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+
+    <ImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:src="@drawable/default_profile_picture"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/CompteTextView"
+        app:layout_constraintBottom_toTopOf="@+id/layout_compte"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <LinearLayout
         android:id="@+id/layout_compte"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bord_bleu_fond_white"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CompteTextView">
+        app:layout_constraintTop_toBottomOf="@+id/profilePicture">
         <LinearLayout
             android:id="@+id/layout_compte_text"
             android:layout_width="wrap_content"

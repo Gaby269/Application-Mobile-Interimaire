@@ -79,14 +79,14 @@ public class FragPageCompte extends Fragment {
             fetchUserInfo(userId);
         }
 
-        Button upload_photo = view.findViewById(R.id.upload_photo);
+        /*Button upload_photo = view.findViewById(R.id.upload_photo);
         upload_photo.setOnClickListener(view1 -> {
             mGetContent.launch("image/*");
         });
 
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 uri -> uploadPictureFromGalery(uri)
-        );
+        );*/
 
         ImageView modifierButton = view.findViewById(R.id.image_modif);
         modifierButton.setOnClickListener(view12 -> {
@@ -155,7 +155,7 @@ public class FragPageCompte extends Fragment {
     }
 
 
-    private void uploadPictureFromGalery(Uri imageUri) {
+    /*private void uploadPictureFromGalery(Uri imageUri) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference imagesRef = storageRef.child("profils/" + mAuth.getCurrentUser().getUid() + ".jpg");
 
@@ -167,7 +167,7 @@ public class FragPageCompte extends Fragment {
             setProfileImage();
         });
 
-    }
+    }*/
 
 
     private void setProfileImage() {
