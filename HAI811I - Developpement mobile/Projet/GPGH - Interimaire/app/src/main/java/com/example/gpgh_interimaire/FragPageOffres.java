@@ -105,15 +105,6 @@ public class FragPageOffres extends Fragment {
             typeCompte = args.getString("typeCompte");
         }
 
-        /*Button postulerButton = view.findViewById(R.id.boutton_candidature);
-        postulerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), PostulerActivity.class);
-                startActivity(i);
-            }
-        });*/
-
 
 
         //aparait que si c'ets une entreprise
