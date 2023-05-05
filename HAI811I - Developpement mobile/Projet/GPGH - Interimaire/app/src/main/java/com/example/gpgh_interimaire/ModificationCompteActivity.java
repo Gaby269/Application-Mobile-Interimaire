@@ -57,7 +57,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
         // Récuperation de la photo
         profilePictureImageView = findViewById(R.id.profilePicture);
         // SI on appuie dessus
-        ImageView upload_photo = findViewById(R.id.profilePicture);
+        ImageView upload_photo = findViewById(R.id.editButtonPhoto);
         upload_photo.setOnClickListener(view1 -> {
             mGetContent.launch("image/*");
         });
