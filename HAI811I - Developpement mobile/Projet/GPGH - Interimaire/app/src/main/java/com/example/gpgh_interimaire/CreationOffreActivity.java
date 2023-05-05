@@ -12,29 +12,30 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreationOffre1Activity extends AppCompatActivity {
+public class CreationOffreActivity extends AppCompatActivity {
 
     static final String TAG = "CreationOffre1Activity";
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     
     EditText titreOffreEditText, typePosteEditText, descriptionOffreEditText, dateDebEditText, dateFinEditText, lieuEditText, remunerationEditText;
-    String titre, type, description, dateDeb, dateFin, lieu, remuneration;
+    String titre, type, description, dateDeb, dateFin, lieu, remuneration, typeCompte;
 
 
     @Override
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_creation_offre1);
+        setContentView(R.layout.activity_creation_offre);
+
+        Intent i = getIntent();
+        typeCompte = i.getStringExtra("typeCompte");
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -60,7 +61,9 @@ public class CreationOffre1Activity extends AppCompatActivity {
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(CreationOffre1Activity.this, NavbarActivity.class);
+                Intent i = new Intent(CreationOffreActivity.this, NavbarActivity.class);
+                i.putExtra("typeCompte", typeCompte);
+                i.putExtra("fragment", "Offre");
                 startActivity(i);
             }
         });
@@ -93,8 +96,10 @@ public class CreationOffre1Activity extends AppCompatActivity {
                 .add(offre)
                 .addOnSuccessListener(documentReference -> {
                     Log.d(TAG, "Offre ajoutée à la BDD");
-                    Toast.makeText(CreationOffre1Activity.this,R.string.offreCree,Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(CreationOffre1Activity.this, NavbarActivity.class);
+                    Toast.makeText(CreationOffreActivity.this,R.string.offreCree,Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(CreationOffreActivity.this, NavbarActivity.class);
+                    i.putExtra("typeCompte", typeCompte);
+                    i.putExtra("fragment", "Offre");
                     startActivity(i);
                 })
                 .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de l'ajout de l'offre dans la BDD", e));

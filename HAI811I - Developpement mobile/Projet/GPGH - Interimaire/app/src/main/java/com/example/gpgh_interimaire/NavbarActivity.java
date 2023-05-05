@@ -8,15 +8,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class NavbarActivity extends AppCompatActivity {
 
@@ -35,6 +31,7 @@ public class NavbarActivity extends AppCompatActivity {
         typeCompte = i.getStringExtra("typeCompte");
         // typeCompte = "Candidat";
 
+        // Transmettre le type de compte
         Bundle args = new Bundle();
         args.putString("typeCompte", typeCompte);
 
@@ -45,6 +42,7 @@ public class NavbarActivity extends AppCompatActivity {
         ImageView candidatureImage = findViewById(R.id.image_candidature);
         ImageView ajoutImage = findViewById(R.id.image_ajout);
 
+        // Gérer les fragmentpour savoir lequel afficher
         if (pageFragment.contains("Compte")) {
             fragment = new FragPageCompte();
             compteImage.setImageResource(R.drawable.icon_compte_bleu);
@@ -214,7 +212,8 @@ public class NavbarActivity extends AppCompatActivity {
                 offresImage.setImageResource(R.drawable.icon_fichier_black);
                 messagerieImage.setImageResource(R.drawable.icon_message_black);
 
-                Intent i = new Intent(NavbarActivity.this, CreationOffre1Activity.class);
+                Intent i = new Intent(NavbarActivity.this, CreationOffreActivity.class);
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });

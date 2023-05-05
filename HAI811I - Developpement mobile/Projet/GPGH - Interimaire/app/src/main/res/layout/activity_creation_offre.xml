@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".CreationOffre1Activity">
+    tools:context=".CreationOffreActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_retour"
@@ -270,6 +270,33 @@
                     android:paddingStart="10dp"
                     android:textSize="15sp" />
 
+                <TextView
+                    android:id="@+id/detailsTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="left"
+                    android:text="@string/detailsOffres"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/detailsEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginEnd="70dp"
+                    android:background="@drawable/arrondir_edit_white"
+                    android:gravity="center_vertical"
+                    android:hint="@string/exDetails"
+                    android:paddingStart="10dp"
+                    android:textSize="15sp" />
+
 
             </LinearLayout>
         </LinearLayout>
@@ -293,7 +320,7 @@
             android:layout_height="40dp"
             android:background="@drawable/arrondir_edit_bleu"
             android:gravity="center_vertical"
-            android:text="@string/boutton_suivant"
+            android:text="@string/boutton_valider"
             android:textSize="15sp" />
 
     </LinearLayout>

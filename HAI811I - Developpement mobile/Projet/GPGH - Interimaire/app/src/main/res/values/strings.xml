@@ -127,6 +127,7 @@
     <string name="exLieu">ex : 9 rue de la Vignette, 34090 Montpellier</string>
     <string name="remuneration">Remuneration</string>
     <string name="exRemuneration">ex : 25€ - 30€</string>
+    <string name="exDetails">ex : Avoir le permis</string>
     <string name="detailsOffre">Details suplémentaire (facultatif)</string>
     <string name="boutton_terminer">Terminer</string>
     <string name="boutton_envoyer">Envoyer</string>

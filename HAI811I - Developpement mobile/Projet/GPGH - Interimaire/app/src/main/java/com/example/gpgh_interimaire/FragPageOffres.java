@@ -1,6 +1,5 @@
 package com.example.gpgh_interimaire;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -10,9 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,8 +17,6 @@ import java.util.ArrayList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -118,7 +113,7 @@ public class FragPageOffres extends Fragment {
         ajoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), CreationOffre1Activity.class);
+                Intent i = new Intent(getActivity(), CreationOffreActivity.class);
                 startActivity(i);
             }
         });
