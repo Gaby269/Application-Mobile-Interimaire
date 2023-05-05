@@ -25,60 +25,129 @@
         android:id="@+id/layout_recap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/bord_bleu_fond_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recapAboTextView">
 
         <LinearLayout
-            android:id="@+id/layout_abo"
-            android:layout_width="300dp"
+            android:id="@+id/layout_text"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bord_bleu_fond_white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recapAboTextView">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/typeAboTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Total : 25€"
+                android:layout_weight="2"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="50dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="Abonnement mensuel"
                 android:textSize="15dp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/prixTextView"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:textColor="@color/black"
                 android:text="Total : 25€"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bord_bleu_fond_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_text" />
+
+        <TextView
+            android:id="@+id/totalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="left"
+            android:paddingLeft="30dp"
+            android:text="Total : 5€"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_codePromo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/layout_boutton"
+        app:layout_constraintTop_toBottomOf="@id/layout_recap">
+
+        <EditText
+            android:id="@+id/codePromo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bord_bleu_fond_white"
+            android:hint="Code promo"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="20dp" />
+
+        <ImageView
+            android:id="@+id/bouton_codePromo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/icon_check_white"
+            android:background="@drawable/bouton_rond_bleu"
+            android:padding="8dp"/>
+
+
+    </LinearLayout>
+
+
+
 
     <LinearLayout
         android:id="@+id/layout_boutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
-        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_codePromo">
 
         <Button
             android:id="@+id/boutton_confirmer"
             android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:text="@string/boutton_confirmer"
             android:background="@drawable/arrondir_edit_bleu"
             android:textSize="17sp" />
