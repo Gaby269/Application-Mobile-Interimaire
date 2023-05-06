@@ -43,9 +43,9 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "RecyclerView"})
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolderOffre holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolderOffre holder,  int position) {
         // Si c'est l'offre dans le deffilement
         if (itemsOffres != null) {
             holder.titreView.setText(itemsOffres.get(position).getTitre());
@@ -83,7 +83,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             public void onClick(View v) {
                 // Créer une intention pour lancer l'Activity2
                 Intent intent = new Intent(context, AfficherDetailsOffreActivity.class);
-                // passer la possiblité de garder ce quil est
+                intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
                 context.startActivity(intent);
             }
         });
@@ -108,7 +108,8 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             public void onClick(View v) {
                 // Créer une intention pour lancer l'Activity2
                 Intent intent = new Intent(context, PostulerActivity.class);
-                // passer la possiblité de garder ce quil est
+                intent.putExtra("is_details", "false");
+                intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
                 context.startActivity(intent);
             }
         });

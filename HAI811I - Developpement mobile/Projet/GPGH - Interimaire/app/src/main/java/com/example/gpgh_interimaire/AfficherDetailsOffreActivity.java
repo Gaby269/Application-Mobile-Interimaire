@@ -18,13 +18,17 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
         is_favori = false;
 
+        Intent i = getIntent();
+        String typeCompte = i.getStringExtra("typeCompte");
+
 
         Button postulerButton = findViewById(R.id.boutton_postuler);
         postulerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AfficherDetailsOffreActivity.this, PostulerActivity.class);
-
+                i.putExtra("is_details", "true");
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });
@@ -35,6 +39,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
                 i.putExtra("fragment", "Offre");
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });

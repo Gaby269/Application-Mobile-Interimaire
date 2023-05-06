@@ -159,7 +159,7 @@
     <string name="mesCandidatures">Mes Candidatures</string>
     <string name="modifCandidature">Modification de votre candidature</string>
     <string name="detailsCand">Details de votre candidature</string>
-    <string name="postuler">Complétez votre candidature</string>
+    <string name="postuler">Postuler pour l\'offre :</string>
     <string name="ajoutCandidatOffre">Complément à votre candidature</string>
     <string name="candidatureReff">Candidature refusée</string>
     <string name="candidatureAcc">Candidature Acceptée</string>
