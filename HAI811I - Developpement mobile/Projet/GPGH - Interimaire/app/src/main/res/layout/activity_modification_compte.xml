@@ -72,27 +72,27 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="NotSibling" >
 
-        <ImageView
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilePicture"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginTop="10dp"
-            android:padding="5dp"
             android:layout_gravity="center"
             android:src="@drawable/default_profile_picture"
             android:scaleType="centerCrop"
-            android:contentDescription="TODO" />
+            app:civ_border_width="1dp"
+            app:civ_border_color="#0001d9" />
 
 
         <ImageView
             android:id="@+id/editButtonPhoto"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/icon_modifier_bleu"
+            android:src="@drawable/icon_importer_bleu"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            tools:ignore="MissingConstraints"
-            android:contentDescription="TODO" />
+            tools:ignore="MissingConstraints" />
     </RelativeLayout>
 
 
@@ -173,35 +173,35 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Toto" />
+                android:text="" />
             <EditText
                 android:id="@+id/editPrenom"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Gaby" />
+                android:text="" />
             <EditText
                 android:id="@+id/editEmail"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="gaby.toto@gmail.com" />
+                android:text="" />
             <EditText
                 android:id="@+id/editNumero"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="08392837" />
+                android:text="" />
             <EditText
                 android:id="@+id/editTypeCompte"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Candidat" />
+                android:text="" />
         </LinearLayout>
     </LinearLayout>
 
@@ -220,9 +220,8 @@
             android:id="@+id/boutton_modifier"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginStart="20dp"
             android:gravity="center_vertical"
-            android:text="@string/boutton_valider"
+            android:text="@string/enregistrer"
             android:background="@drawable/arrondir_edit_bleu"
             android:textSize="15sp" />
 

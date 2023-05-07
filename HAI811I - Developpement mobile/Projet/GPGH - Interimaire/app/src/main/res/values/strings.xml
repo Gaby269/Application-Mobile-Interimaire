@@ -150,6 +150,7 @@
     <string name="typeCompte_">Type de compte :</string>
     <string name="mdp_">Mot de passe :</string>
     <string name="add_profile_picture">Ajouter une photo de profil</string>
+    <string name="enregistrer">Enregistrer</string>
     <string name="echec_upload">Echec de téléchargement</string>
     <string name="success_upload">Image téléchargée</string>
 
