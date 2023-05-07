@@ -260,6 +260,10 @@ public class NavbarActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 
 
 

@@ -6,7 +6,7 @@ A FAIRE : fonctionnalité à faire
 ~ : En cours
 (tmp) : Temporaire, on le vire à la fin
 (off) : fait mais désactiver pour gagner du temps/tester
-[blablabla] : Réfénrence à la BDD (TABLE ou colonne)
+[blablabla] : Référence à la BDD (TABLE ou colonne)
 
 
 
@@ -25,12 +25,7 @@ A FAIRE Check si l'user à Internet pour pas faire crash Firebase
 		- 1 : Confirmation téléphone
 		- 2 : Inscription entreprise
 		- 3 : Abonnement
-		- 4 : Tuto, etc
-		- 5 : ???
-		- 6 : ???
-		- 7 : ???
-		- 8 : ???
-		- 9 : ???
+		- 4 : Tuto
 		- 10 : fini -> Navbar (l'user arrive direct ici)
 -> (tmp) fast login gatienhaddad@hotmail.fr
 - (off) Skip connexion si déja connecté

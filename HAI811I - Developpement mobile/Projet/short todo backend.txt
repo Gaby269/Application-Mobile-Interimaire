@@ -1,0 +1,37 @@
+** CONNEXION
+- check si user exist
+
+
+** INSCRIPTION
+~ Valider le numéro
+	
+
+** ABONNEMENT
+A FAIRE : Récapitulatif du paiement
+- Ajouter le paiement dans la BDD (si pas paiment, pas de offres)
+
+
+** MODIFICATION COMPTE
+- Display des infos de l'user dans des editText (donnée brut)
+
+
+** AFICHER DETAILS OFFRES 
+- A FAIRE : gerer le bouton retour avec le type de compte (actuellement ok pcq typecompte est en dure dans navbar)
+- A FAIRE : Ajouter les info retrouver dans la base mais dans le details de loffre
+
+
+** AFFICHER DETAILS CANDIDATURES
+- Ajout d'une candidature pour un candidat
+
+
+** OFFRES
+- A FAIRE : laisse la recherche avec le filtre en etant fixé meme quand on scroll
+- A FAIRE : ajuster la barre d'en haut avec le filtre etc
+
+
+** CANDIDATURE DE L'OFFRE
+- A FAIRE : arrivé a garder la barre de recherche come tool barre mais pas encore sur
+
+
+** A FAIRE  :  ajouter pour chaque activity des intent pour faire circuler le type de compte pour les affichages
+- FAIT : gerer le fait que quand on appuie sur le bouton de retour du telephone on change longlet aussi sur la nav bar et pas que le fragment
