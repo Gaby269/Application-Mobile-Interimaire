@@ -82,6 +82,10 @@ public class CreationOffreActivity extends AppCompatActivity {
         lieu = lieuEditText.getText().toString();
         remuneration = remunerationEditText.getText().toString();
 
+        if (remuneration.contains("€")){
+            remuneration = remuneration.replace("€", "");
+        }
+
         Map<String, Object> offre = new HashMap<>();
         offre.put("titre", titre);
         offre.put("type", type);

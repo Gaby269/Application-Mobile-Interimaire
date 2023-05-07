@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,6 +73,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 holder.teletravailView.setText("Télétravail possible");
             }
         }
+
         // Ajouter le OnClickListener à itemView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +85,42 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 context.startActivity(intent);
             }
         });
+
+        // Bouton modification btn_modif
+        holder.bouton_modif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ModificationOffresActivity.class);
+                intent.putExtra("typeCompte", typeCompte);
+                intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
+                intent.putExtra("is_details", "false");
+                context.startActivity(intent);
+            }
+        });
+        // Visibilité du bouton favorie des offres
+        if (typeCompte.equals("Candidat")){
+            holder.bouton_modif.setVisibility(View.GONE);
+        }
+        else{
+            holder.bouton_modif.setVisibility(View.VISIBLE);
+        }
+
+        // Bouton supperieur btn_supp
+        holder.bouton_supp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Modification pour supprimer l'offre
+                Toast.makeText(context,R.string.offreSupp,Toast.LENGTH_SHORT).show();
+            }
+        });
+        // Visibilité du bouton favorie des offres
+        if (typeCompte.equals("Candidat")){
+            holder.bouton_supp.setVisibility(View.INVISIBLE);
+        }
+        else{
+            holder.bouton_supp.setVisibility(View.VISIBLE);
+        }
+
         // Bouton favorie
         holder.bouton_favori.setOnClickListener(new View.OnClickListener() {
             @Override

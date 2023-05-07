@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class AfficherDetailsOffreActivity extends AppCompatActivity {
     boolean is_favori;
@@ -69,11 +70,13 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             favorieButton.setVisibility(View.GONE);
         }
 
+        // Modification de l'offre
         ImageButton modificationButton = findViewById(R.id.btn_modif);
         modificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AfficherDetailsOffreActivity.this, ModificationOffresActivity.class);
+                i.putExtra("is_details", "true");
                 i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
@@ -84,6 +87,26 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         }
         else{
             modificationButton.setVisibility(View.VISIBLE);
+        }
+
+        // Suppresion de l'offre
+        ImageButton suppressionButton = findViewById(R.id.btn_supp);
+        suppressionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(AfficherDetailsOffreActivity.this,R.string.offreSupp,Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
+                i.putExtra("fragment", "Offre");
+                i.putExtra("typeCompte", typeCompte);
+                startActivity(i);
+            }
+        });
+        // Visibilité du bouton favorie
+        if (typeCompte.equals("Candidat")){
+            suppressionButton.setVisibility(View.INVISIBLE);
+        }
+        else{
+            suppressionButton.setVisibility(View.VISIBLE);
         }
 
     }

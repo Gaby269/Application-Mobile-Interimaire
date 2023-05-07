@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyViewHolderOffre extends RecyclerView.ViewHolder {
 
     ImageView imageView;
-    ImageButton bouton_favori;
+    ImageButton bouton_favori, bouton_modif, bouton_supp;
     Button bouton_candidater;
     TextView titreView, nameEntrepriseView, prixView, typeView, rueView, complementRueView, codePostalView, parkingView, ticketView, teletravailView;
 
@@ -35,6 +35,8 @@ public class MyViewHolderOffre extends RecyclerView.ViewHolder {
         teletravailView = itemView.findViewById(R.id.teletravail);
         bouton_favori = itemView.findViewById(R.id.btn_heart);
         bouton_candidater = itemView.findViewById(R.id.boutton_candidature);
+        bouton_modif = itemView.findViewById(R.id.btn_modif);
+        bouton_supp = itemView.findViewById(R.id.btn_supp);
     }
 
 

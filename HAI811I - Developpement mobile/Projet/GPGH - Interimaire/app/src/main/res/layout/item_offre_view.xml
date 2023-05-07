@@ -10,38 +10,50 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/toolbar_offre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="@drawable/arrondir_toolbar_haut_bleu">
+
+        <ImageButton
+            android:id="@+id/btn_supp"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="start|center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_supprimer_white" />
 
         <TextView
             android:id="@+id/titre_offre"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Titre"
+            android:layout_weight="1"
+            android:layout_gravity="center"
             android:textColor="@color/white"
-            android:textSize="28dp"
+            android:textSize="26dp"
+            android:text="Titre"
             android:textStyle="bold"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <ImageButton
+            android:id="@+id/btn_modif"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end|center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_modifier_blanc" />
 
         <ImageButton
             android:id="@+id/btn_heart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/icon_favori_white_vide"
-            android:background="@drawable/arrondir_toolbar_haut_bleu" />
-
-    </RelativeLayout>
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end|center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_favori_white_vide" />
+    </LinearLayout>
 
 
     <RelativeLayout
@@ -96,7 +108,7 @@
         <TextView
             android:id="@+id/typeOffre"
             android:layout_width="0dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             android:layout_marginEnd="10dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bord_bleu_fond_white"
@@ -105,7 +117,8 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Type"
-            android:textSize="25dp" />
+            android:padding="2dp"
+            android:textSize="23dp" />
 
 
         <LinearLayout
@@ -114,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="15dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:background="@drawable/bord_bleu_fond_white">
