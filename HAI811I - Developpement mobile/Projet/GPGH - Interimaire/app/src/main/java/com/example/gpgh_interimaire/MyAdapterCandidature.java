@@ -68,6 +68,14 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
 
             }
         });
+
+        // Visibilité du bouton favorie des offres
+        if (typeCompte.equals("Candidat")){
+            holder.bouton_favori.setVisibility(View.GONE);
+        }
+        else{
+            holder.bouton_favori.setVisibility(View.VISIBLE);
+        }
     }
     @Override
     public int getItemCount() {

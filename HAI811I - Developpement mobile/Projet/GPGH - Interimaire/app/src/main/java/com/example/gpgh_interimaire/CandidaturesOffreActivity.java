@@ -25,10 +25,11 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidatures_offre);
 
-        // Affichage du titre
+        // Récupération de l'intent
         Intent i = getIntent();
         String titreOffre = i.getStringExtra("titreOffre");
         String descriptionOffre = i.getStringExtra("description");
+        // Affichage du titre et de la description
         TextView titreOffreTextView = findViewById(R.id.titreTextView);
         TextView descriptionOffreTextView = findViewById(R.id.descriptionTextView);
         titreOffreTextView.setText(titreOffre);
