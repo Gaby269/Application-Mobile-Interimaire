@@ -8,11 +8,29 @@
     android:background="@drawable/background_gradient"
     tools:context="com.example.gpgh_interimaire.FragPageCompte">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_logout"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/icon_logout_black"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true" />
+
+        <!-- Ajoutez le reste de votre code ici -->
+
+    </RelativeLayout>
+
+
     <TextView
         android:id="@+id/compteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="@string/compte"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -162,40 +180,33 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout_boutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_offre_details">
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/layout_offre_details">
 
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="à la place de l'icone poubelle, tu peux mettre une image genre 'logout' ?" />
         <ImageView
             android:id="@+id/image_delete"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/icon_supprimer_black"/>
 
         <ImageView
             android:id="@+id/image_modif"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/icon_modifier_black"/>
 
-    </LinearLayout>
+    </RelativeLayout>
+
 
 
 

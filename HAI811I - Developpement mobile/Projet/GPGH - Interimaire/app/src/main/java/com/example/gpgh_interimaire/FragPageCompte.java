@@ -87,10 +87,16 @@ public class FragPageCompte extends Fragment {
 
         ImageView supprimerButton = view.findViewById(R.id.image_delete);
         supprimerButton.setOnClickListener(view13 -> {
-            Toast.makeText(getActivity(), R.string.boutton_supprimer,Toast.LENGTH_SHORT).show();
-            // affichage d'une boite de dialogue pour confirmer
+            // affichage d'une boite de dialogue pour confirmer + suppression du compte
+            deleteUser();
+        });
+
+        ImageView logoutButton = view.findViewById(R.id.image_logout);
+        logoutButton.setOnClickListener(view13 -> {
             logoutUser();
         });
+
+
 
         return view;
     }
@@ -102,7 +108,31 @@ public class FragPageCompte extends Fragment {
         builder.setMessage("Êtes-vous sûr de vouloir vous déconnecter ?")
                 .setTitle("Confirmation")
                 .setPositiveButton("Oui", (dialog, id) -> {
+                    Toast.makeText(getActivity(), R.string.deconexion,Toast.LENGTH_SHORT).show();
                     // Si l'user confirme, déco
+                    mAuth.signOut();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    //finish();
+                })
+                .setNegativeButton("Annuler", (dialog, id) -> {
+                    // Si l'user annule
+                    dialog.dismiss();
+                });
+
+        // Affichez l'AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void deleteUser() {
+        // Créez un AlertDialog pour demander confirmation
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Êtes-vous sûr de vouloir supprimer votre compte ?")
+                .setTitle("Confirmation")
+                .setPositiveButton("Oui", (dialog, id) -> {
+                    Toast.makeText(getActivity(), R.string.boutton_supprimer,Toast.LENGTH_SHORT).show();
+                    // Si l'user confirme, déco + suppression
                     mAuth.signOut();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
