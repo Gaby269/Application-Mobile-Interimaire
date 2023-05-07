@@ -202,5 +202,7 @@
     <string name="boutton_valider">Valider</string>
     <string name="longTexte">Saltu c\'est un texte de details au moins donc c\'est plutot cool, jefjbzjeif jfihfi fnjef fhei hfioahifohaoiefhe jifhf aifhoa F jfofddddddjeajvfjefjfejlfbkaefiaefiaefiicbjdbdfkdfesssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssseghfuegfiaeiofgaiefgiafiaeifoaeofjakvgjkavjaefaiogioagiohgariohviphvihrvoihevozrvoizrvjzrbvpzrvibzribrgvklelvbeklbfvioevbiaperioegegipe</string>
     <string name="complementOffre">Complément de l\'offre</string>
+    <string name="offreSupp">Offre supprimé</string>
+    <string name="deconexion">Déconnexion</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,13 +69,47 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
 
             }
         });
-
         // Visibilité du bouton favorie des offres
         if (typeCompte.equals("Candidat")){
             holder.bouton_favori.setVisibility(View.GONE);
         }
         else{
             holder.bouton_favori.setVisibility(View.VISIBLE);
+        }
+
+        // Bouton modification btn_modif
+        holder.bouton_modif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ModificationCandidatureActivity.class);
+                intent.putExtra("typeCompte", typeCompte);
+                intent.putExtra("titreOffre", holder.nameView.getText());
+                intent.putExtra("is_details", "false");
+                context.startActivity(intent);
+            }
+        });
+        // Visibilité du bouton modification des offres
+        if (typeCompte.equals("Candidat")){
+            holder.bouton_modif.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.bouton_modif.setVisibility(View.GONE);
+        }
+
+        // Bouton Suppression btn_supp
+        holder.bouton_supp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Modification pour supprimer la candidature
+                Toast.makeText(context,R.string.offreSupp,Toast.LENGTH_SHORT).show();
+            }
+        });
+        // Visibilité du bouton suppresion des offres
+        if (typeCompte.equals("Candidat")){
+            holder.bouton_supp.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.bouton_supp.setVisibility(View.INVISIBLE);
         }
     }
     @Override

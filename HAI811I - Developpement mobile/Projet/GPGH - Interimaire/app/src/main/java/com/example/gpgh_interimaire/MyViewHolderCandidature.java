@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyViewHolderCandidature extends RecyclerView.ViewHolder {
 
     TextView cvView, nameView, descriptionCandidatureView, complementCandidatureView;
-    ImageButton bouton_favori;
+    ImageButton bouton_favori, bouton_modif, bouton_supp;
 
     public MyViewHolderCandidature(@NonNull View itemView) {
         super(itemView);
@@ -21,6 +21,8 @@ public class MyViewHolderCandidature extends RecyclerView.ViewHolder {
         descriptionCandidatureView = itemView.findViewById(R.id.descriptionCandidature);
         complementCandidatureView = itemView.findViewById(R.id.complementCandidature);
         bouton_favori = itemView.findViewById(R.id.btn_heart);
+        bouton_modif = itemView.findViewById(R.id.btn_modif);
+        bouton_supp = itemView.findViewById(R.id.btn_supp);
 
     }
 

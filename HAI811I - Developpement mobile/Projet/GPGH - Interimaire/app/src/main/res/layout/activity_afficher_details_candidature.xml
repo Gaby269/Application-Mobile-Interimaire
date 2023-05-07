@@ -89,45 +89,58 @@
             app:layout_constraintTop_toBottomOf="@+id/EcouteTextView"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
+
+            <LinearLayout
                 android:id="@+id/toolbar_offre_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:background="@drawable/arrondir_toolbar_haut_bleu">
+
+                <ImageButton
+                    android:id="@+id/btn_supp"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="center|start"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/icon_supprimer_white" />
 
                 <TextView
                     android:id="@+id/titre_candidature"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="?attr/actionBarSize"
-                    android:layout_marginEnd="?attr/actionBarSize"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textSize="26dp"
                     android:text="Nom Prénom du candidat"
                     android:textColor="@color/white"
                     android:textAppearance="?android:attr/textAppearanceLarge"/>
 
+                <ImageButton
+                    android:id="@+id/btn_modif"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="end|center"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/icon_modifier_blanc" />
 
                 <ImageButton
                     android:id="@+id/btn_heart"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="end"
+                    android:layout_gravity="end|center"
+                    android:gravity="center"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/icon_favori_white_vide" />
 
-                <ImageButton
-                    android:id="@+id/btn_modif"
-                    android:layout_width="?attr/actionBarSize"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="end"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/icon_modifier_blanc" />
+            </LinearLayout>
 
-            </androidx.appcompat.widget.Toolbar>
+
+
 
             <TextView
                 android:id="@+id/entrepriseOffre"
@@ -219,12 +232,7 @@
                 android:src="@drawable/icon_nonvalide_white"
                 android:background="@drawable/rond_fond_rouge"/>
 
-            <ImageView
-                android:id="@+id/bouton_supprimer"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/icon_supprimer_black"/>
+
         </LinearLayout>
 
 

@@ -48,15 +48,17 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                 if (typeCompte.equals("Candidat")) {
                     i = new Intent(AfficherDetailsCandidatureActivity.this, NavbarActivity.class);
                     i.putExtra("fragment", "Candidature");
+                    i.putExtra("typeCompte", typeCompte);
                 }
                 else{
                     i = new Intent(AfficherDetailsCandidatureActivity.this, CandidaturesOffreActivity.class);
+                    i.putExtra("typeCompte", typeCompte);
                 }
                 startActivity(i);
             }
         });
 
-        ImageView supprimerButton = findViewById(R.id.bouton_supprimer);
+        ImageButton supprimerButton = findViewById(R.id.btn_supp);
         supprimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,10 +119,12 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(AfficherDetailsCandidatureActivity.this, ModificationCandidatureActivity.class);
                 i.putExtra("typeCompte", typeCompte);
+                i.putExtra("is_details", "true");
                 startActivity(i);
             }
         });
 
+        // Visilité des boutons
         if (typeCompte.contains("Candidat")) {
             refuserButton.setVisibility(View.GONE);
             accepterButton.setVisibility(View.GONE);
@@ -131,7 +135,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
         else if (typeCompte.contains("Entreprise") || typeCompte.contains("Agence")){
             refuserButton.setVisibility(View.VISIBLE);
             accepterButton.setVisibility(View.VISIBLE);
-            supprimerButton.setVisibility(View.GONE);
+            supprimerButton.setVisibility(View.INVISIBLE);
             modificationButton.setVisibility(View.GONE);
             favorieButton.setVisibility(View.VISIBLE);
         }

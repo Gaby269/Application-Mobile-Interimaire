@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class ModificationCandidatureActivity extends AppCompatActivity {
@@ -17,11 +18,22 @@ public class ModificationCandidatureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_candidature);
 
-        Button retourButton = findViewById(R.id.boutton_retour);
+        Intent i = getIntent();
+        String is_details = i.getStringExtra("is_details");
+
+        ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ModificationCandidatureActivity.this, AfficherDetailsCandidatureActivity.class);
+                Intent i;
+                if (is_details.equals("true")) {
+                    i = new Intent(ModificationCandidatureActivity.this, AfficherDetailsCandidatureActivity.class);
+                }
+                else{
+                    i = new Intent(ModificationCandidatureActivity.this, NavbarActivity.class);
+                    i.putExtra("fragment", "Candidature");
+                }
+                i.putExtra("typeCompte", "Candidat");
                 startActivity(i);
             }
         });
@@ -30,6 +42,7 @@ public class ModificationCandidatureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ModificationCandidatureActivity.this, AfficherDetailsCandidatureActivity.class);
+                i.putExtra("typeCompte", "Candidat");
                 startActivity(i);
                 Toast.makeText(ModificationCandidatureActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
             }

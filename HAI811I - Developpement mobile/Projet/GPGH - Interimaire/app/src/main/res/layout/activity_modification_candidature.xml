@@ -7,6 +7,30 @@
     android:background="@drawable/background_gradient"
     tools:context=".ModificationCandidatureActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_retour"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:background="@color/bleu_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Ajoutez des éléments à la barre d'outils ici -->
+
+        <ImageButton
+            android:id="@+id/bouton_retour"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="start"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_retour_blanc"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <TextView
         android:id="@+id/modifCandidatureTextView"
         android:layout_width="match_parent"
@@ -17,10 +41,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/CandidatureTextView"
+        app:layout_constraintBottom_toTopOf="@id/CandidatureTextView"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_retour"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/CandidatureTextView"
@@ -48,14 +72,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CandidatureTextView">
 
-        <Button
-            android:id="@+id/boutton_retour"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:text="@string/boutton_retour"
-            android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
 
         <Button
             android:id="@+id/boutton_modifier"

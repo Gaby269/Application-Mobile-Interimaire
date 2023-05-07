@@ -11,38 +11,51 @@
     app:layout_constraintStart_toStartOf="parent">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/toolbar_Candidature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="@drawable/arrondir_toolbar_haut_bleu">
+
+        <ImageButton
+            android:id="@+id/btn_supp"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="start|center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_supprimer_white" />
 
         <TextView
             android:id="@+id/name_Candidature"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="26dp"
             android:text="POINTEAU Gabrielle"
             android:textStyle="bold"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <ImageButton
+            android:id="@+id/btn_modif"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end|center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_modifier_blanc" />
 
         <ImageButton
             android:id="@+id/btn_heart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/icon_favori_white_vide"
-            android:background="@drawable/arrondir_toolbar_haut_bleu" />
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end|center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_favori_white_vide" />
 
-    </RelativeLayout>
+    </LinearLayout>
     <TextView
         android:id="@+id/descriptionCandidature"
         android:layout_width="match_parent"
