@@ -21,6 +21,8 @@ public class PostulerActivity extends AppCompatActivity {
         Intent i = getIntent();
         String is_details = i.getStringExtra("is_details");
         String titreOffre = i.getStringExtra("titreOffre");
+        String typeCompte = i.getStringExtra("typeCompte");
+        String descriptionOffre = i.getStringExtra("description");
 
         TextView titreOffreTextView = findViewById(R.id.offreTextView);
         titreOffreTextView.setText(titreOffre);
@@ -32,10 +34,14 @@ public class PostulerActivity extends AppCompatActivity {
                 Intent i;
                 if (is_details.equals("true")){
                     i = new Intent(PostulerActivity.this, AfficherDetailsOffreActivity.class);
+                    i.putExtra("typeCompte", typeCompte);
+                    i.putExtra("description", descriptionOffre);
+                    i.putExtra("titreOffre", titreOffre);
                 }
                 else{
                     i = new Intent(PostulerActivity.this, NavbarActivity.class);
                     i.putExtra("fragment", "Offre");
+                    i.putExtra("typeCompte", typeCompte);
                 }
                 startActivity(i);
             }
@@ -47,6 +53,7 @@ public class PostulerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(PostulerActivity.this, NavbarActivity.class);
                 i.putExtra("fragment", "Offre");
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });

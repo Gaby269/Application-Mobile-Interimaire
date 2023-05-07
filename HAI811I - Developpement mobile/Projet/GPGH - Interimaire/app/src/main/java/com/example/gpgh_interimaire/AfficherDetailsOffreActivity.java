@@ -20,6 +20,8 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         String typeCompte = i.getStringExtra("typeCompte");
+        String titreOffre = i.getStringExtra("titreOffre");
+        String descriptionOffre = i.getStringExtra("descriptionOffre");
 
 
         Button postulerButton = findViewById(R.id.boutton_postuler);
