@@ -141,7 +141,7 @@
     <!-- Gestion du compte -->
     <string name="compte">Votre compte</string>
     <string name="titreCompte">"Le compte : "</string>
-    <string name="modifCompte">Modification de votre compte</string>
+    <string name="modifCompte">Modification du compte</string>
     <string name="compteModif">Compte modifié</string>
     <string name="nom_">Nom :</string>
     <string name="prenom_">Prénom :</string>

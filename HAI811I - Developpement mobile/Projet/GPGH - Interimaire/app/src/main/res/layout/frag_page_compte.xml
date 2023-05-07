@@ -176,6 +176,12 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_offre_details">
 
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="à la place de l'icone poubelle, tu peux mettre une image genre 'logout' ?" />
         <ImageView
             android:id="@+id/image_delete"
             android:layout_width="40dp"
@@ -188,6 +194,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/icon_modifier_black"/>
+
     </LinearLayout>
 
 

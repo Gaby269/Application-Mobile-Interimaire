@@ -2,19 +2,25 @@ package com.example.gpgh_interimaire;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -26,11 +32,13 @@ import java.io.IOException;
 
 public class ModificationCompteActivity extends AppCompatActivity {
 
+    String TAG = "ModificationCompteActivity";
 
     ActivityResultLauncher<String> mGetContent;
-    ImageView profilePictureImageView;
-    FirebaseAuth mAuth;
+    FirebaseUser user;
     FirebaseFirestore db;
+    ImageView profilePictureImageView;
+    EditText editNom, editPrenom, editEmail, editNumero, editTypeCompte;
 
     @Override
     @SuppressLint({"MissingInflatedId", "WrongViewCast", "CutPasteId"})
@@ -38,25 +46,17 @@ public class ModificationCompteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_compte);
 
-        mAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
-
-        ImageButton retourButton = findViewById(R.id.bouton_retour);
-        retourButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(ModificationCompteActivity.this, NavbarActivity.class);
-                i.putExtra("fragment", "Compte");
-                startActivity(i);
-            }
-        });
-
-        // Ajouter laphotode profil dans la modification
-        setProfileImage();
-        // Récuperation de la photo
+        editNom = findViewById(R.id.editNom);
+        editPrenom = findViewById(R.id.editPrenom);
+        editEmail = findViewById(R.id.editEmail);
+        editNumero = findViewById(R.id.editNumero);
+        editTypeCompte = findViewById(R.id.editTypeCompte);
         profilePictureImageView = findViewById(R.id.profilePicture);
-        // SI on appuie dessus
+        fetchUserInfo();
+
         ImageView upload_photo = findViewById(R.id.editButtonPhoto);
         upload_photo.setOnClickListener(view1 -> {
             mGetContent.launch("image/*");
@@ -65,7 +65,6 @@ public class ModificationCompteActivity extends AppCompatActivity {
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 uri -> uploadPictureFromGalery(uri)
         );
-
 
         Button modifierButton = findViewById(R.id.boutton_modifier);
         modifierButton.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +76,23 @@ public class ModificationCompteActivity extends AppCompatActivity {
                 Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        ImageButton retourButton = findViewById(R.id.bouton_retour);
+        retourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ModificationCompteActivity.this, NavbarActivity.class);
+                i.putExtra("fragment", "Compte");
+                startActivity(i);
+            }
+        });
     }
 
 
     private void uploadPictureFromGalery(Uri imageUri) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imagesRef = storageRef.child("profils/" + mAuth.getCurrentUser().getUid() + ".jpg");
+        StorageReference imagesRef = storageRef.child("profils/" + user.getUid() + ".jpg");
 
         UploadTask uploadTask = imagesRef.putFile(imageUri);
         uploadTask.addOnFailureListener(exception -> {
@@ -97,7 +107,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
     private void setProfileImage() {
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imagesRef = storageRef.child("profils/" + mAuth.getCurrentUser().getUid() + ".jpg");
+        StorageReference imagesRef = storageRef.child("profils/" + user.getUid() + ".jpg");
 
         final File localFile;
         try {
@@ -115,13 +125,77 @@ public class ModificationCompteActivity extends AppCompatActivity {
                     Uri fileUri = Uri.fromFile(localFile);
                     String imageUrl = fileUri.toString();
                     Picasso.get().load(imageUrl).fit().centerCrop().into(profilePictureImageView);
-                    Toast.makeText(this, "Image téléchargée",Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(e -> {
                 });
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    
+
+    private void fetchUserInfo() {
+
+        if (user != null) {
+            String email = user.getEmail();
+            editEmail.setText(email);
+        }
+
+        db.collection("users")
+                .document(user.getUid())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String firstName = documentSnapshot.getString("prenom");
+                        String lastName = documentSnapshot.getString("nom");
+                        String phoneNumber = documentSnapshot.getString("telephone");
+                        String typeCompte = documentSnapshot.getString("typeCompte");
+
+                        editNom.setText(firstName);
+                        editPrenom.setText(lastName);
+                        editNumero.setText(phoneNumber);
+                        editTypeCompte.setText(typeCompte);
+
+                        setProfileImage();
+                    }
+                    else {
+                        Log.w(TAG, "DB Non trouvée");
+                    }
+                })
+                .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));
+    }
+
+
+    private void updateAccountInfo() {
+        String firstName = editNom.getText().toString();
+        String lastName = editPrenom.getText().toString();
+        String phoneNumber = editNumero.getText().toString();
+        String email = editEmail.getText().toString();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.updateEmail(email)
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "Adresse e-mail mise à jour !");
+                } else {
+                    Log.e(TAG, "Erreur lors de la mise à jour de l'adresse e-mail.", task.getException());
+                }
+            });
+
+
+        db.collection("users")
+                .document(user.getUid())
+                .update("prenom", firstName,
+                        "nom", lastName,
+                        "telephone", phoneNumber)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Informations mises à jour", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(ModificationCompteActivity.this, NavbarActivity.class);
+                    i.putExtra("fragment", "Compte");
+                    startActivity(i);
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Erreur lors de la mise à jour des informations", Toast.LENGTH_SHORT).show());
     }
 
 }
