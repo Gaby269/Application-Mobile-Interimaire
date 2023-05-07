@@ -56,16 +56,6 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             }
         });
 
-        ImageView modifierButton = findViewById(R.id.bouton_modifier);
-        modifierButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // modifier que si c'est candidat
-                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, ModificationCandidatureActivity.class);
-                startActivity(i);
-            }
-        });
-
         ImageView supprimerButton = findViewById(R.id.bouton_supprimer);
         supprimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +64,8 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                 // boite de dialogue + affichage
                 Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureSupp,Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(AfficherDetailsCandidatureActivity.this, NavbarActivity.class);
+                i.putExtra("fragment", "Candidature");
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });
@@ -86,6 +78,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                 // accepter que si c'est entreprise
                 Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureAcc,Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(AfficherDetailsCandidatureActivity.this, CandidaturesOffreActivity.class);
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });
@@ -98,6 +91,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                 // boite de dialogue + affichage
                 Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureReff,Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(AfficherDetailsCandidatureActivity.this, CandidaturesOffreActivity.class);
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });
@@ -117,17 +111,29 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton modificationButton = findViewById(R.id.btn_modif);
+        modificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, ModificationCandidatureActivity.class);
+                i.putExtra("typeCompte", typeCompte);
+                startActivity(i);
+            }
+        });
+
         if (typeCompte.contains("Candidat")) {
             refuserButton.setVisibility(View.GONE);
             accepterButton.setVisibility(View.GONE);
             supprimerButton.setVisibility(View.VISIBLE);
-            modifierButton.setVisibility(View.VISIBLE);
+            modificationButton.setVisibility(View.VISIBLE);
+            favorieButton.setVisibility(View.GONE);
         }
         else if (typeCompte.contains("Entreprise") || typeCompte.contains("Agence")){
             refuserButton.setVisibility(View.VISIBLE);
             accepterButton.setVisibility(View.VISIBLE);
             supprimerButton.setVisibility(View.GONE);
-            modifierButton.setVisibility(View.GONE);
+            modificationButton.setVisibility(View.GONE);
+            favorieButton.setVisibility(View.VISIBLE);
         }
     }
 }

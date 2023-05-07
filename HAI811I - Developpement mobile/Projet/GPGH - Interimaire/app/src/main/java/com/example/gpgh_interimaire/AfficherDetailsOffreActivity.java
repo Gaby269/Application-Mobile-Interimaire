@@ -2,6 +2,7 @@ package com.example.gpgh_interimaire;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 public class AfficherDetailsOffreActivity extends AppCompatActivity {
     boolean is_favori;
     @Override
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afficher_details_offre);
@@ -59,6 +61,30 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                 }
             }
         });
+        // Visibilité du bouton favorie
+        if (typeCompte.equals("Candidat")){
+            favorieButton.setVisibility(View.VISIBLE);
+        }
+        else{
+            favorieButton.setVisibility(View.GONE);
+        }
+
+        ImageButton modificationButton = findViewById(R.id.btn_modif);
+        modificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AfficherDetailsOffreActivity.this, ModificationOffresActivity.class);
+                i.putExtra("typeCompte", typeCompte);
+                startActivity(i);
+            }
+        });
+        // Visibilité du bouton favorie
+        if (typeCompte.equals("Candidat")){
+            modificationButton.setVisibility(View.GONE);
+        }
+        else{
+            modificationButton.setVisibility(View.VISIBLE);
+        }
 
     }
 }

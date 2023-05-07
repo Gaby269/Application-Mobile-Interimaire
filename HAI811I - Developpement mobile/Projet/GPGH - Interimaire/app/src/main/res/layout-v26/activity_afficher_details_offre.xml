@@ -116,6 +116,14 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/icon_favori_white_vide" />
 
+                    <ImageButton
+                        android:id="@+id/btn_modif"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="end"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/icon_modifier_blanc" />
+
                 </androidx.appcompat.widget.Toolbar>
 
 
