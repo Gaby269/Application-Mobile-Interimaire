@@ -23,14 +23,19 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         String typeCompte = i.getStringExtra("typeCompte");
+        String titreCandidature = i.getStringExtra("titreCandidature");
         is_favori = false;
+
+        // Modification des éléments de la candidature
+        TextView titreCandidatureTextView = findViewById(R.id.titre_candidature);
+        titreCandidatureTextView.setText(titreCandidature);
 
         TextView candidatureText = findViewById(R.id.candidatureDetailsTextView);
         if (typeCompte.equals("Candidat")) {
             candidatureText.setText("Details de votre candidature");
         }
         else {
-            candidatureText.setText("Details de la candidature");
+            candidatureText.setText("Details de la candidature :");
         }
 
         //String typeCompte = "Candidat";

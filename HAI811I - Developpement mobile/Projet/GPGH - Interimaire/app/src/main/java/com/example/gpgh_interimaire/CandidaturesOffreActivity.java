@@ -48,7 +48,7 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
         items.add(new ItemCandidature("Titre1", "CDD", "30","Youtube", "CV1"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapterCandidature(this, items));
+        recyclerView.setAdapter(new MyAdapterCandidature(this, items, "Entreprise"));
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {

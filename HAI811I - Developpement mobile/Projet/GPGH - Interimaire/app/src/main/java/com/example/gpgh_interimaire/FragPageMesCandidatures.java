@@ -43,7 +43,7 @@ public class FragPageMesCandidatures extends Fragment {
             items.add(new ItemCandidature("Isabelle", "SURT", "Travailleur ou pas","Youtube", "CV1"));
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(new MyAdapterCandidature(getActivity(), items));
+            recyclerView.setAdapter(new MyAdapterCandidature(getActivity(), items, "Candidat"));
 
             return view;
         }

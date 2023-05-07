@@ -96,6 +96,7 @@
                 android:background="@drawable/arrondir_toolbar_haut_bleu">
 
                 <TextView
+                    android:id="@+id/titre_candidature"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="?attr/actionBarSize"

@@ -17,10 +17,12 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
     Context context;
     List<ItemCandidature> itemsCandidature;
     boolean is_favori = false;
+    String typeCompte;
 
-    public MyAdapterCandidature(Context context, List<ItemCandidature> itemsCandidature) {
+    public MyAdapterCandidature(Context context, List<ItemCandidature> itemsCandidature, String typeCompte) {
         this.context = context;
         this.itemsCandidature = itemsCandidature;
+        this.typeCompte = typeCompte;
     }
 
     @NonNull
@@ -45,7 +47,8 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
             public void onClick(View v) {
                 // Créer une intention pour lancer l'Activity2
                 Intent intent = new Intent(context, AfficherDetailsCandidatureActivity.class);
-                // passer la possiblité de garder ce quil est
+                intent.putExtra("titreCandidature", holder.nameView.getText());
+                intent.putExtra("typeCompte", typeCompte);
                 context.startActivity(intent);
             }
         });
