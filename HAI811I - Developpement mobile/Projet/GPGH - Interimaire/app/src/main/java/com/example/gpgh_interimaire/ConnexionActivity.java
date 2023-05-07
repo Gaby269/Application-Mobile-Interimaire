@@ -91,7 +91,6 @@ public class ConnexionActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         
                         Intent i = new Intent(ConnexionActivity.this, LoadingNavbarActivity.class);
-                        i.putExtra("fragment", "Offre"); // Pour savoir quel fragment
                         startActivity(i);
                     }
                     else { // Échec de la connexion

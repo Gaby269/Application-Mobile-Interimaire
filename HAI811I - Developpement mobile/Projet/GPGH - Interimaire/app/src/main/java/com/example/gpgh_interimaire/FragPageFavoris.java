@@ -30,6 +30,10 @@ public class FragPageFavoris extends Fragment {
         // Associé la vue au layout du fragment 1
         View view = inflater.inflate(R.layout.frag_page_favoris, container, false);
 
+        // Récupérer les arguments du bundle
+        assert getArguments() != null;
+        String typeCompte = getArguments().getString("typeCompte");
+
         RecyclerView recyclerView = view.findViewById(R.id.recycleview);
 
         List<ItemOffre> items = new ArrayList<ItemOffre>();
@@ -44,7 +48,7 @@ public class FragPageFavoris extends Fragment {
         items.add(new ItemOffre("Titre1", "CDD", "30","Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, null));
+        recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, typeCompte));
 
         return view;
     }

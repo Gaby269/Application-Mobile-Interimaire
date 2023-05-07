@@ -17,17 +17,13 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
     Context context;
     List<ItemOffre> itemsOffres;
     List<ItemOffreDetails> itemsOffresDetails;
+    String typeCompte;
     boolean is_favori = false;
 
-    public MyAdapterOffre(Context context, List<ItemOffre> itemsOffres, List<ItemOffreDetails> itemsOffresDetails) {
+    public MyAdapterOffre(Context context, List<ItemOffre> itemsOffres, String typeCompte) {
         this.context = context;
-        if (itemsOffres != null) {
-
-            this.itemsOffres = itemsOffres;
-        }
-        if (itemsOffresDetails != null) {
-            this.itemsOffresDetails = itemsOffresDetails;
-        }
+        this.itemsOffres = itemsOffres;
+        this.typeCompte = typeCompte;
     }
 
     @NonNull
@@ -56,7 +52,6 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             holder.rueView.setText(itemsOffres.get(position).getRue());
             holder.complementRueView.setText(itemsOffres.get(position).getComplementRue());
             holder.codePostalView.setText(itemsOffres.get(position).getCodePostal());
-
         }
         // Sic'est l'offre en details
         else {
@@ -84,6 +79,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 // Créer une intention pour lancer l'Activity2
                 Intent intent = new Intent(context, AfficherDetailsOffreActivity.class);
                 intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
+                intent.putExtra("typeCompte", typeCompte);
                 context.startActivity(intent);
             }
         });
@@ -107,12 +103,27 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             @Override
             public void onClick(View v) {
                 // Créer une intention pour lancer l'Activity2
-                Intent intent = new Intent(context, PostulerActivity.class);
-                intent.putExtra("is_details", "false");
+                Intent intent;
+                if (typeCompte.equals("Candidat")) {
+                    intent = new Intent(context, PostulerActivity.class);
+                    intent.putExtra("is_details", "false");
+                }
+                else{
+                    intent = new Intent(context, CandidaturesOffreActivity.class);
+                }
+                intent.putExtra("typeCompte", typeCompte);
                 intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
+                intent.putExtra("description", itemsOffres.get(position).getDescriptionOffre());
                 context.startActivity(intent);
             }
         });
+        if (typeCompte.equals("Candidat")) {
+            holder.bouton_candidater.setText("Postuler");
+        }
+        else {
+            holder.bouton_candidater.setText("Voir les candidatures");
+        }
+
     }
     @Override
     public int getItemCount() {

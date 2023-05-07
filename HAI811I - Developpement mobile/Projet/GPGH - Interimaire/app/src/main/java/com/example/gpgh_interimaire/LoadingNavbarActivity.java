@@ -39,8 +39,10 @@ public class LoadingNavbarActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
+                        // Récupération du type de compte
                         String typeCompte = documentSnapshot.getString("typeCompte");
                         // Toast.makeText(LoadingNavbarActivity.this, typeCompte,Toast.LENGTH_SHORT).show();
+                        // Intent pour transmettre le type de compte et le fragment vers lequel on va
                         Intent i = new Intent(LoadingNavbarActivity.this, NavbarActivity.class);
                         i.putExtra("typeCompte", typeCompte);
                         i.putExtra("fragment", "Offre");

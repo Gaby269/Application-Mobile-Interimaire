@@ -26,15 +26,17 @@ public class NavbarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navbar);
 
+        // Récupération de l'intent
         Intent i = getIntent();
         pageFragment = i.getStringExtra("fragment"); // Pour savoir quel fragment
         typeCompte = i.getStringExtra("typeCompte");
         // typeCompte = "Candidat";
 
-        // Transmettre le type de compte
+        // Transmettre le type de compte aux fragments
         Bundle args = new Bundle();
         args.putString("typeCompte", typeCompte);
 
+        // Récupération des éléments de layout
         ImageView messagerieImage = findViewById(R.id.image_message);
         ImageView favorieImage = findViewById(R.id.image_favoris);
         ImageView compteImage = findViewById(R.id.image_compte);
@@ -42,20 +44,20 @@ public class NavbarActivity extends AppCompatActivity {
         ImageView candidatureImage = findViewById(R.id.image_candidature);
         ImageView ajoutImage = findViewById(R.id.image_ajout);
 
-        // Gérer les fragmentpour savoir lequel afficher
-        if (pageFragment.contains("Compte")) {
+        // Gérer les fragment pour savoir lequel afficher
+        if (pageFragment.equals("Compte")) {
             fragment = new FragPageCompte();
             compteImage.setImageResource(R.drawable.icon_compte_bleu);
         }
-        else if (pageFragment.contains("Candidature")) {
+        else if (pageFragment.equals("Candidature")) {
             fragment = new FragPageMesCandidatures();
             candidatureImage.setImageResource(R.drawable.icon_fichier_bleu);
         }
-        else if (pageFragment.contains("Message")){
+        else if (pageFragment.equals("Message")){
             fragment = new FragPageMessagerie();
             messagerieImage.setImageResource(R.drawable.icon_message_bleu);
         }
-        else if (pageFragment.contains("Favorie")){
+        else if (pageFragment.equals("Favorie")){
             fragment = new FragPageFavoris();
             favorieImage.setImageResource(R.drawable.icon_favori_bleu);
         }
@@ -70,7 +72,7 @@ public class NavbarActivity extends AppCompatActivity {
         transaction.commit();
 
 
-        // Gérer la nav bar
+        // Bouton favorie
         LinearLayout favorieButton = findViewById(R.id.layout_favoris);
         favorieButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +89,7 @@ public class NavbarActivity extends AppCompatActivity {
                 messagerieImage.setImageResource(R.drawable.icon_message_black);
 
                 Fragment fragment = new FragPageFavoris();
+                fragment.setArguments(args);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_layout, fragment);
                 transaction.addToBackStack(null); // ajouter à la pile de retour
@@ -94,6 +97,7 @@ public class NavbarActivity extends AppCompatActivity {
             }
         });
 
+        // Bouton offres
         LinearLayout offresButton = findViewById(R.id.layout_offres);
         offresButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,10 +113,6 @@ public class NavbarActivity extends AppCompatActivity {
                 candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
                 messagerieImage.setImageResource(R.drawable.icon_message_black);
 
-
-                Bundle args = new Bundle();
-                args.putString("typeCompte", typeCompte);
-
                 Fragment fragment = new FragPageOffres();
                 fragment.setArguments(args);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -122,6 +122,7 @@ public class NavbarActivity extends AppCompatActivity {
             }
         });
 
+        // Bouton compte
         LinearLayout compteButton = findViewById(R.id.layout_compte);
         compteButton.setOnClickListener(new View.OnClickListener() {
 
@@ -146,7 +147,7 @@ public class NavbarActivity extends AppCompatActivity {
             }
         });
 
-        // Pour tout le monde
+        // Bouton messagerie
         LinearLayout messagerieButton = findViewById(R.id.layout_message);
         messagerieButton.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
@@ -165,6 +166,7 @@ public class NavbarActivity extends AppCompatActivity {
 
                 // Mettre le fragement correspondant
                 Fragment fragment = new FragPageMessagerie();
+                fragment.setArguments(args);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_layout, fragment);
                 transaction.addToBackStack(null); // ajouter à la pile de retour
@@ -172,15 +174,13 @@ public class NavbarActivity extends AppCompatActivity {
             }
         });
 
-        // Bouton candidater dans le linear layout
+        // Bouton candidature (Mes candidatures pour un candidat)
         LinearLayout candidatureButton = findViewById(R.id.layout_candidature);
         candidatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mesCandidatures si tu est un candidat
-                //liste des offres et la candidature a voir si entreprise
-                // Modification de la compte en couleur
-                candidatureImage.setImageResource(R.drawable.icon_formulaire_recherche_bleu);
+                // Modification de l'image en couleur
+                candidatureImage.setImageResource(R.drawable.icon_formulaire_bleu);
 
                 // Remettre tout en noir
                 favorieImage.setImageResource(R.drawable.icon_favori_black);
@@ -197,6 +197,7 @@ public class NavbarActivity extends AppCompatActivity {
             }
         });
 
+        // Bouton ajout d'une offre
         LinearLayout ajoutButton = findViewById(R.id.layout_ajout);
         ajoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

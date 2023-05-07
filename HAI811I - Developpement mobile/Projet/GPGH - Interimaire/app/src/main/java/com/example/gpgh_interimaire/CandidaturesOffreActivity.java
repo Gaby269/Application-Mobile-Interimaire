@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,16 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidatures_offre);
 
-        RecyclerView recyclerView = findViewById(R.id.recycleview);
+        // Affichage du titre
+        Intent i = getIntent();
+        String titreOffre = i.getStringExtra("titreOffre");
+        String descriptionOffre = i.getStringExtra("description");
+        TextView titreOffreTextView = findViewById(R.id.titreTextView);
+        TextView descriptionOffreTextView = findViewById(R.id.descriptionTextView);
+        titreOffreTextView.setText(titreOffre);
+        descriptionOffreTextView.setText(descriptionOffre);
+
+        RecyclerView recyclerView = findViewById(R.id.recycleviewEntreprise);
 
         List<ItemCandidature> items = new ArrayList<ItemCandidature>();
         items.add(new ItemCandidature("POINTEAU", "Gabrielle", "30", "Youtube", "CV1"));
@@ -45,15 +55,8 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(CandidaturesOffreActivity.this, NavbarActivity.class);
-                startActivity(i);
-            }
-        });
-
-        LinearLayout candidatureButton = findViewById(R.id.layout_candidature);
-        candidatureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(CandidaturesOffreActivity.this, AfficherDetailsCandidatureActivity.class);
+                i.putExtra("fragment", "Offre");
+                i.putExtra("typeCompte", "Entreprise");
                 startActivity(i);
             }
         });

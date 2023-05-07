@@ -21,20 +21,32 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afficher_details_candidature);
 
+        Intent i = getIntent();
+        String typeCompte = i.getStringExtra("typeCompte");
         is_favori = false;
 
         TextView candidatureText = findViewById(R.id.candidatureDetailsTextView);
-        // si c'est une entreprise : details de la candidature (modifie le texte)
-        // si c'est un candidat on laisse votre candidature
+        if (typeCompte.equals("Candidat")) {
+            candidatureText.setText("Details de votre candidature");
+        }
+        else {
+            candidatureText.setText("Details de la candidature");
+        }
 
-        String typeCompte = "Candidat";
+        //String typeCompte = "Candidat";
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AfficherDetailsCandidatureActivity.this, NavbarActivity.class);
-                i.putExtra("fragment", "Candidature");
+                Intent i;
+                if (typeCompte.equals("Candidat")) {
+                    i = new Intent(AfficherDetailsCandidatureActivity.this, NavbarActivity.class);
+                    i.putExtra("fragment", "Candidature");
+                }
+                else{
+                    i = new Intent(AfficherDetailsCandidatureActivity.this, CandidaturesOffreActivity.class);
+                }
                 startActivity(i);
             }
         });

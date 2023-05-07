@@ -37,6 +37,10 @@ public class FragPageOffres extends Fragment {
         
         db = FirebaseFirestore.getInstance();
 
+        // Récupérer les arguments du bundle
+        assert getArguments() != null;
+        String typeCompte = getArguments().getString("typeCompte");
+
         // Associé la vue au layout du fragment 1
         View view = inflater.inflate(R.layout.frag_page_offres, container, false);
 
@@ -84,39 +88,9 @@ public class FragPageOffres extends Fragment {
                     items.add(new ItemOffre("Super offre", "CDD", "30", "Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, null));
+                recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, typeCompte));
             });
 
-
-
-
-
-
-
-        // Récuperer les arguments éventuels
-        Bundle args = getArguments();
-        String typeCompte = "";
-        if (args != null) {
-            typeCompte = args.getString("typeCompte");
-        }
-
-
-
-        //aparait que si c'ets une entreprise
-        ImageView ajoutButton = view.findViewById(R.id.boutton_ajout);
-        if (typeCompte.contains("Candidat")){
-            ajoutButton.setVisibility(View.GONE);
-        }
-        else{
-            ajoutButton.setVisibility(View.VISIBLE);
-        }
-        ajoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), CreationOffreActivity.class);
-                startActivity(i);
-            }
-        });
 
         return view;
     }
