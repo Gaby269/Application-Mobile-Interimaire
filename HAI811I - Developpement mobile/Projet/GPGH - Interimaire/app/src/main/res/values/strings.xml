@@ -5,7 +5,7 @@
     <string name="chargement">Chargement...</string>
     <string name="no_internet">Pas de connexion internet</string>
     <string name="retry">Réessayer</string>
-
+    <string name="error_unknown">Une erreur est survenue, veuillez réessayer</string>
     <!-- Accueil -->
     <string name="prem_text">L\'application d\'interimaire qui vous correspond</string>
     <string name="boutton_inscription">S\'inscrire</string>
@@ -34,7 +34,10 @@
     <string name="mdp_vide">Le mot de passe ne peut pas être vide</string>
     <string name="tel_vide">Entrez un numéro de téléphone valide</string>
     <string name="mdp_court">Le mot de passe doit contenir au moins 6 caractères</string>
+    <string name="mdp_incorrect">Le mot de passe est incorrect</string>
     <string name="choisir_compte">Choissisez un type de compte</string>
+    <string name="email_deja_utilise">Cette adresse email est déjà utilisée</string>
+    <string name="compte_inexistant">Ce compte n\'existe pas</string>
 
     <!--    Confirmation téléphone -->
     <string name="hello_user">Bonjour USER</string>

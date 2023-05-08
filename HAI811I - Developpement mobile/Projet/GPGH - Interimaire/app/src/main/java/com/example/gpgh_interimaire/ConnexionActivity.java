@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -93,9 +94,39 @@ public class ConnexionActivity extends AppCompatActivity {
                         Intent i = new Intent(ConnexionActivity.this, LoadingNavbarActivity.class);
                         startActivity(i);
                     }
-                    else { // Échec de la connexion
-                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                    else {
+                        Exception e = task.getException();
+                        // Log.w(TAG, "createUserWithEmail:failure", e);
+                        if (e instanceof FirebaseAuthException) {
+                            gererExceptionsFirebase((FirebaseAuthException) e);
+                        } else { // Erreur inconnue
+                            Toast.makeText(ConnexionActivity.this, R.string.error_unknown, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
+    }
+
+
+    private void gererExceptionsFirebase(FirebaseAuthException e) {
+        String errorCode = e.getErrorCode();
+        String errorMessage = e.getMessage();
+    
+        switch (errorCode) {
+            case "ERROR_INVALID_EMAIL":
+                // l'email est mal formé
+                mailEditText.setError(getString(R.string.email_invalide));
+                break;
+            case "ERROR_WRONG_PASSWORD":
+                // le mot de passe n'est pas bon
+                mdpEditText.setError(getString(R.string.mdp_incorrect));
+                break;
+            case "ERROR_USER_NOT_FOUND":
+                // l'utilisateur n'existe pas
+                mailEditText.setError(getString(R.string.compte_inexistant));
+                break;
+            default:
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

@@ -19,7 +19,7 @@ A FAIRE Check si l'user à Internet pour pas faire crash Firebase
 
 ** CONNEXION
 -> login
-	- check si user exist
+	- check si user exist et autres exceptions
 	- rediriger vers la NavBar
 	A FAIRE rediriger si pas fini inscription [signup_step]
 		- 1 : Confirmation téléphone

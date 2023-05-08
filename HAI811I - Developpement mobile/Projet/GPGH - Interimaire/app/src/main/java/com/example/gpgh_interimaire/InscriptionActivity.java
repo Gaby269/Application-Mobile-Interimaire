@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -77,16 +78,9 @@ public class InscriptionActivity extends AppCompatActivity {
         creaCompteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = mailEditText.getText().toString();
-                String mdp = mdpEditText.getText().toString();
-                String tel = telephoneEditText.getText().toString();
-                String nom = nomEditText.getText().toString();
-                String prenom = prenomEditText.getText().toString();
-                if (validateInput(email, mdp, tel, nom, prenom)) {
-                    displayloadingScreen();
-                    Log.w(TAG, "Champs ok");
-                    String type = selectedTypeCompte;
-                    createUser(nom, prenom, tel, email, mdp, type);
+                if (validateInput()) {
+                    displayLoadingScreen();
+                    createUser();
                 }
             }
         });
@@ -109,19 +103,17 @@ public class InscriptionActivity extends AppCompatActivity {
         Button tmpSignup = findViewById(R.id.button);
         tmpSignup.setOnClickListener(view -> {
             Random rand = new Random();
-            String randInt = Integer.toString(rand.nextInt(10000)); //entre 0 et 9999
+            String randInt = Integer.toString(rand.nextInt(9000)+1000); //entre 1000 et 9999
+            mailEditText.setText(randInt+"@gmail.com");
+            mdpEditText.setText("123456");
+            telephoneEditText.setText("0782235495");
+            nomEditText.setText("Jean"+randInt);
+            prenomEditText.setText("Test"+randInt);
 
             Log.w(TAG, "Creation du compte "+randInt);
-            String email = randInt+"@gmail.com";
-            String mdp = "123456";
-            String tel = "0782235495";
-            String nom = "Jean"+randInt;
-            String prenom = "Test"+randInt;
-            if (validateInput(email, mdp, tel, nom, prenom)) {
-                displayloadingScreen();
-                Log.w(TAG, "Champs ok");
-                String type = selectedTypeCompte;
-                createUser(nom, prenom, tel, email, mdp, type);
+            if (validateInput()) {
+                displayLoadingScreen();
+                createUser();
             }
         });
 
@@ -136,7 +128,13 @@ public class InscriptionActivity extends AppCompatActivity {
     }
 
 
-    private void createUser(String prenom, String nom, String tel, String email, String password, String type) {
+    private void createUser() {
+        String prenom = prenomEditText.getText().toString();
+        String nom = nomEditText.getText().toString();
+        String tel = telephoneEditText.getText().toString();
+        String email = mailEditText.getText().toString();
+        String password = mdpEditText.getText().toString();
+        String type = selectedTypeCompte;
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
@@ -149,10 +147,17 @@ public class InscriptionActivity extends AppCompatActivity {
                         Intent i = new Intent(InscriptionActivity.this, ConfirmationTelephoneActivity.class);
                         i.putExtra("phoneNumber", tel);
                         startActivity(i);
+                        finish();
                     }
                     else {
-                        // Échec de l'inscription
-                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        dismissLoadingScreen();
+                        Exception e = task.getException();
+                        // Log.w(TAG, "createUserWithEmail:failure", e);
+                        if (e instanceof FirebaseAuthException) {
+                            gererExceptionsFirebase((FirebaseAuthException) e);
+                        } else { // Erreur inconnue
+                            Toast.makeText(InscriptionActivity.this, R.string.error_unknown, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
@@ -174,7 +179,12 @@ public class InscriptionActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateInput(String email, String password, String tel, String nom, String prenom) {
+    private boolean validateInput() {
+        String email = mailEditText.getText().toString();
+        String password = mdpEditText.getText().toString();
+        String tel = telephoneEditText.getText().toString();
+        String nom = nomEditText.getText().toString();
+        String prenom = prenomEditText.getText().toString();
         boolean check = true;
         if (email.isEmpty()) {
             mailEditText.setError(getString(R.string.email_vide));
@@ -260,19 +270,49 @@ public class InscriptionActivity extends AppCompatActivity {
     }
 
 
-    public void displayloadingScreen() {
-        FragmentLoading loadingFragment = FragmentLoading.newInstance("Création du compte...");
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, loadingFragment);
-        //pour pas le fragment soit restauré lorsque l'utilisateur appuie sur le bouton retour
-        transaction.addToBackStack(null);
+    private void gererExceptionsFirebase(FirebaseAuthException e) {
+        String errorCode = e.getErrorCode();
+        String errorMessage = e.getMessage();
+    
+        switch (errorCode) {
+            case "ERROR_INVALID_EMAIL":
+                // l'email est mal formé
+                mailEditText.setError(getString(R.string.email_invalide));
+                break;
+            case "ERROR_WEAK_PASSWORD":
+                // le mot de passe est trop faible
+                mdpEditText.setError(getString(R.string.mdp_court));
+                break;
+            case "ERROR_EMAIL_ALREADY_IN_USE":
+                // l'email est déjà utilisé par un autre utilisateur
+                mailEditText.setError(getString(R.string.email_deja_utilise));
+                break;
+            default:
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+
+
+    public void displayLoadingScreen() {
+        FragmentLoading loadingFragment = FragmentLoading.newInstance("Chargement...");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_container, loadingFragment, "loading_fragment");
         transaction.commit();
-        // loadingFragment.setTextLoading("Création du compte...");
     }
 
     public void dismissLoadingScreen() {
-        getSupportFragmentManager().popBackStack();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentLoading loadingFragment = (FragmentLoading) fragmentManager.findFragmentByTag("loading_fragment");
+
+        if (loadingFragment != null) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.remove(loadingFragment);
+            transaction.commit();
+        }
     }
+
 
 
 
