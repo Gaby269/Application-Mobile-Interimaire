@@ -8,7 +8,6 @@
 
 ** ABONNEMENT
 - A FAIRE : Récapitulatif du paiement
-- A FAIRE : Ajouter le paiement dans la BDD (si pas paiment, pas de offres)
 
 
 ** AFICHER DETAILS OFFRES 
@@ -23,6 +22,7 @@
 ** OFFRES
 - A FAIRE : laisse la recherche avec le filtre en etant fixé meme quand on scroll
 - A FAIRE : ajuster la barre d'en haut avec le filtre etc
+- A FAIRE : si pas paiment, pas de offres
 
 
 ** CANDIDATURE DE L'OFFRE

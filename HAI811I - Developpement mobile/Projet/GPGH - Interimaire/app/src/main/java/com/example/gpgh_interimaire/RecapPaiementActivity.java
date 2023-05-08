@@ -1,10 +1,12 @@
 package com.example.gpgh_interimaire;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,12 +14,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
 
 public class RecapPaiementActivity extends AppCompatActivity {
 
+    String TAG = "RecapPaiementActivity";
+
+    FirebaseUser user;
+    FirebaseFirestore db;
+
     TextView typeAboTextView, prixTextView, totalTextView;
     boolean is_use = false;
+    DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     @Override
     @SuppressLint({"MissingInflatedId", "LocalSuppress", "SetTextI18n", "WrongViewCast"})
@@ -29,6 +46,9 @@ public class RecapPaiementActivity extends AppCompatActivity {
         String typeAbo = intent.getStringExtra("typeAbo");
         int prix = intent.getIntExtra("prix", 0);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
         // Rendre invisible les code promo
         LinearLayout code10 = findViewById(R.id.layout_text_reduction10);
         code10.setVisibility(View.GONE);
@@ -38,16 +58,14 @@ public class RecapPaiementActivity extends AppCompatActivity {
 
         //modif du texte du paiment de la typeAboTextView et prixTextView
         typeAboTextView = findViewById(R.id.typeAboTextView);
-        if (typeAbo.contains("Ponctuel")){
-            typeAboTextView.setText("Abonnement Ponctuel : ");
-        }
-        else{
-            typeAboTextView.setText("Abonnement " + typeAbo + " : ");
-        }
+        if (typeAbo.contains("Ponctuel")) { typeAbo = "Ponctuel"; }
+
+        typeAboTextView.setText("Abonnement " + typeAbo + " : ");
+
         prixTextView = findViewById(R.id.prixTextView);
-        prixTextView.setText(prix+" €");
+        prixTextView.setText(decimalFormat.format(prix) + " €");
         totalTextView = findViewById(R.id.totalTextView);
-        totalTextView.setText("Total : "+prix+" €");
+        totalTextView.setText("Total : " + decimalFormat.format(prix) + " €");
 
 
         EditText codePromo = findViewById(R.id.codePromo);
@@ -55,60 +73,66 @@ public class RecapPaiementActivity extends AppCompatActivity {
         boutonCodePromo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (codePromo.length() == 0){
-                    codePromo.setError("Veuillez remplir le champ");
+                if (codePromo.length() == 0) {
+                    codePromo.setError(getString(R.string.erreur_vide));
                 }
-                else if (codePromo.getText().toString().equals("CODE202310")){
-                    // Changement du texte du prix total
-                    double prix10 = prix-prix*0.1;
-                    totalTextView.setText("Total : "+prix10+" €");
+                // Verfication code pas cumulable
+                else if (is_use && codePromo.length() != 0) {
+                    codePromo.setError(getString(R.string.code_promo_non_cumulabe));
+                }
+                else if (codePromo.getText().toString().equals("GPGH10")) {
+                    double nouveau_prix = prix*0.9;
+                    totalTextView.setText("Total : " + decimalFormat.format(nouveau_prix) + " €");
+
                     // Changement de visibilité du layout
                     LinearLayout code10 = findViewById(R.id.layout_text_reduction10);
                     code10.setVisibility(View.VISIBLE);
-                    // Changement de prix
+                    
                     TextView prixReduit10 = findViewById(R.id.reductionTextView10);
-                    prixReduit10.setText("- "+prix*0.1+" €");
-                    // Remise à 0 le code promo
+                    prixReduit10.setText("- "+ decimalFormat.format(prix*0.1) +" €");
+                    
                     codePromo.setText("");
                     is_use = true;
 
                 }
-                else if (codePromo.getText().toString().equals("CODE202330")){
-                    // Changement du texte du prix total
-                    double prix30 = prix-prix*0.3;
-                    totalTextView.setText("Total : "+prix30+" €");
+                else if (codePromo.getText().toString().equals("GPGH30")) {
+                    double nouveau_prix = prix*0.7;
+                    totalTextView.setText("Total : " + decimalFormat.format(nouveau_prix) + " €");
+
                     // Changement de visibilité du layout
                     LinearLayout code30 = findViewById(R.id.layout_text_reduction30);
                     code30.setVisibility(View.VISIBLE);
-                    // Changement de prix
+            
                     TextView prixReduit30 = findViewById(R.id.reductionTextView30);
-                    prixReduit30.setText("- "+prix*0.3+" €");
-                    // Remise à 0 le code promo
+                    prixReduit30.setText("- "+ decimalFormat.format(prix*0.3) +" €");
+
                     codePromo.setText("");
-                    // Dit qu'on est passé par la
                     is_use = true;
                 }
-                // Verfication pas de cumulable
-                else if (is_use && (codePromo.getText().toString().equals("CODE202330") || codePromo.getText().toString().equals("CODE202310") || codePromo.length() != 0)){
-                    codePromo.setError("Les code promo ne sont pas cumulable");
-                }
                 else {
-                    codePromo.setError("Ce code n'est pas reconnu !");
+                    codePromo.setError(getString(R.string.code_promo_incorrect));
                 }
-                // Ajouter au prix le code promo
-                // le fait que ya - quelque chose
-                // reclacul du total
             }
         });
 
 
         Button inscriptionButton = findViewById(R.id.boutton_confirmer);
-        inscriptionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        String finalTypeAbo = typeAbo;
+        inscriptionButton.setOnClickListener(view -> addPaymentToFirestore(finalTypeAbo));
+    }
+
+
+    private void addPaymentToFirestore(String type_abonnement) {
+        String userId = user.getUid();
+        DocumentReference userRef = db.collection("users").document(userId);
+
+        userRef.update("abonnement", type_abonnement)
+            .addOnSuccessListener(aVoid -> {
+                Log.d(TAG, "Champ de paiement mis à jour");
                 Intent i = new Intent(RecapPaiementActivity.this, MoyenPaiementActivity.class);
                 startActivity(i);
-            }
-        });
+            })
+            .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de la mise à jour du paiement", e));
+
     }
 }

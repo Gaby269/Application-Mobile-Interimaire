@@ -169,6 +169,7 @@ public class InscriptionActivity extends AppCompatActivity {
         user.put("telephone", tel);
         user.put("email", email);
         user.put("typeCompte", type);
+        user.put("typeAbo", "0");
         user.put("signup_step", "1");
 
         db.collection("users")

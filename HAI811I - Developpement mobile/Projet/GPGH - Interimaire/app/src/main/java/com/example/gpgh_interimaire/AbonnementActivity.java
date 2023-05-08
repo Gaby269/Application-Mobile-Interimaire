@@ -115,26 +115,14 @@ public class AbonnementActivity extends AppCompatActivity {
         inscriptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if (checkIfOfferIsSelected()) {
                 String typeAbo = typeAboSpinner.getSelectedItem().toString();
                 Intent i = new Intent(AbonnementActivity.this, RecapPaiementActivity.class);
                 i.putExtra("typeAbo", typeAbo);
                 i.putExtra("prix", prix);
                 startActivity(i);
-                //}
             }
         });
         
     }
-
-    // plus besoin
-    /*private boolean checkIfOfferIsSelected() {
-        if (typeAboSpinner.getSelectedItemPosition() == 0) {
-            typeAboSpinner.requestFocus();
-            ((TextView) typeAboSpinner.getSelectedView()).setError(getString(R.string.choix_obligatoire));
-            return false;
-        }
-        return true;
-    }*/
 }
         

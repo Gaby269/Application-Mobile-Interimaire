@@ -60,9 +60,9 @@
     <string name="AjoutercontactSec_text">Ajouter un contact secondaire</string>
     <string name="contactSec_text">Contact Secondaire</string>
     <string name="nomComplet">Nom Complet</string>
-    <!-- Erreurs -->
-    <string name="erreurChamp">Ce champ ne peut pas être vide</string>
-    <string name="choix_obligatoire">Choisissez une offre</string>
+        <!-- Erreurs -->
+        <string name="erreurChamp">Ce champ ne peut pas être vide</string>
+        <string name="choix_obligatoire">Choisissez une offre</string>
 
     <!--  Abonnement -->
     <string name="service_text">Notre expertise à votre service</string>
@@ -72,6 +72,10 @@
     <string name="moyen_payer">Moyen de paiement</string>
     <string name="recap_payer">Recapitulatif du prix</string>
     <string name="boutton_confirmer">Confirmer l\'abonnement</string>
+    <string name="code_promo_non_cumulabe">Les codes promos ne sont pas cumulables</string>
+    <string name="code_promo_incorrect">Le code promo est incorrect</string>
+    <string name="code_promo_10">Réduction de 10% :</string>
+    <string name="code_promo_30">Réduction de 30% :</string>
     <!-- Carte bancaire -->
     <string name="nom_carte">Nom sur la carte</string>
     <string name="numero_carte">Numéro de carte</string>

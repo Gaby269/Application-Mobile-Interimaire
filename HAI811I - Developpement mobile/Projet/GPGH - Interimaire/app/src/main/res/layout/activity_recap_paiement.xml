@@ -80,6 +80,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_text">
+
             <TextView
                 android:id="@+id/reductionAboTextView30"
                 android:layout_width="0dp"
@@ -90,7 +91,7 @@
                 android:gravity="left"
                 android:paddingStart="20dp"
                 android:textColor="@color/black"
-                android:text="Réduction de 30% : "
+                android:text="@string/code_promo_30"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
@@ -131,7 +132,7 @@
                 android:gravity="left"
                 android:paddingStart="20dp"
                 android:textColor="@color/black"
-                android:text="Réduction de 30% : "
+                android:text="@string/code_promo_10"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />

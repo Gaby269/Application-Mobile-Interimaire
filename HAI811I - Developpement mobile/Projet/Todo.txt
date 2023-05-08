@@ -68,6 +68,7 @@ A FAIRE Check si l'user à Internet pour pas faire crash Firebase
 	Fragment renouvelable
 - Champs carte bancaire/Paypal
 -> Fake validation
+- Ajout du paiement dans la BDD (si pas paiment, pas de offres)
 A FAIRE : Récapitulatif du paiement
 
 
@@ -81,15 +82,14 @@ A FAIRE Mettre des trucs dans les cards
 ** NAVBAR
 -> Loading page
 	- ça charge la BDD et ça lance la NavBar avec les infos dans l'intent
-~ Display des pages en fonction du role
+- Display des pages en fonction du role
 
 
 ** MON COMPTE
 - Display des infos de l'user 
 -> Déconnexion 
-- A FAIRE : Suppression du compte
-- bouton modification
-- bouton supprimer uqi demande la deconnexion
+-> Suppression du compte
+-> modification du compte
 - Photo de profil
    - Pouvoir uploader une photo de profil depuis l'application
    - Afficher l'image de la BDD
