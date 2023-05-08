@@ -21,8 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -86,66 +88,14 @@ public class FragPageCompte extends Fragment {
         });
 
         ImageView supprimerButton = view.findViewById(R.id.image_delete);
-        supprimerButton.setOnClickListener(view13 -> {
-            // affichage d'une boite de dialogue pour confirmer + suppression du compte
-            deleteUser();
-        });
+        supprimerButton.setOnClickListener(view13 -> { deleteAccount(); });
 
         ImageView logoutButton = view.findViewById(R.id.image_logout);
-        logoutButton.setOnClickListener(view13 -> {
-            logoutUser();
-        });
+        logoutButton.setOnClickListener(view14 -> logoutUser());
 
 
 
         return view;
-    }
-
-
-    private void logoutUser() {
-        // Créez un AlertDialog pour demander confirmation
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Êtes-vous sûr de vouloir vous déconnecter ?")
-                .setTitle("Confirmation")
-                .setPositiveButton("Oui", (dialog, id) -> {
-                    Toast.makeText(getActivity(), R.string.deconexion,Toast.LENGTH_SHORT).show();
-                    // Si l'user confirme, déco
-                    mAuth.signOut();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                    //finish();
-                })
-                .setNegativeButton("Annuler", (dialog, id) -> {
-                    // Si l'user annule
-                    dialog.dismiss();
-                });
-
-        // Affichez l'AlertDialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private void deleteUser() {
-        // Créez un AlertDialog pour demander confirmation
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Êtes-vous sûr de vouloir supprimer votre compte ?")
-                .setTitle("Confirmation")
-                .setPositiveButton("Oui", (dialog, id) -> {
-                    Toast.makeText(getActivity(), R.string.boutton_supprimer,Toast.LENGTH_SHORT).show();
-                    // Si l'user confirme, déco + suppression
-                    mAuth.signOut();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                    //finish();
-                })
-                .setNegativeButton("Annuler", (dialog, id) -> {
-                    // Si l'user annule
-                    dialog.dismiss();
-                });
-
-        // Affichez l'AlertDialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
 
@@ -181,7 +131,6 @@ public class FragPageCompte extends Fragment {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference imagesRef = storageRef.child("profils/" + mAuth.getCurrentUser().getUid() + ".jpg");
 
-
         final File localFile;
         try {
             localFile = File.createTempFile("profilePic", "jpg");
@@ -206,7 +155,48 @@ public class FragPageCompte extends Fragment {
         }
     }
 
+    private void logoutUser() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.deconnexion_message)
+                .setTitle(R.string.deconnexion_titre)
+                .setPositiveButton(R.string.oui, (dialog, id) -> {
+                    Toast.makeText(getActivity(), R.string.deconnexion_succes, Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                })
+                .setNegativeButton(R.string.annuler, (dialog, id) -> { dialog.dismiss(); });
 
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+    private void deleteAccount() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.suppression_message)
+                .setTitle(R.string.suppression_titre)
+                .setPositiveButton(R.string.oui, (dialog, id) -> {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        user.delete()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), R.string.compte_supprime_succes, Toast.LENGTH_SHORT).show();
+                                    FirebaseAuth.getInstance().signOut();
+                                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                                    startActivity(intent);
+                                }
+                                else { Toast.makeText(getActivity(), R.string.compte_supprime_echec, Toast.LENGTH_SHORT).show(); }
+                            });
+                    }
+                })
+                .setNegativeButton(R.string.annuler, (dialog, id) -> { dialog.dismiss(); });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    
 
 
 }

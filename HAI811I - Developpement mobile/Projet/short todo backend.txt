@@ -7,12 +7,8 @@
 	
 
 ** ABONNEMENT
-A FAIRE : Récapitulatif du paiement
-- Ajouter le paiement dans la BDD (si pas paiment, pas de offres)
-
-
-** MODIFICATION COMPTE
-- Display des infos de l'user dans des editText (donnée brut)
+- A FAIRE : Récapitulatif du paiement
+- A FAIRE : Ajouter le paiement dans la BDD (si pas paiment, pas de offres)
 
 
 ** AFICHER DETAILS OFFRES 

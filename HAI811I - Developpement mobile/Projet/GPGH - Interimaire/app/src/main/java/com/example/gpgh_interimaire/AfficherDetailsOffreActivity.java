@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class AfficherDetailsOffreActivity extends AppCompatActivity {
+
     boolean is_favori;
+    
     @Override
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         ImageButton favorieButton = findViewById(R.id.btn_heart);
         favorieButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +65,6 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                 }
             }
         });
-        // Visibilité du bouton favorie
-        if (typeCompte.equals("Candidat")){
-            favorieButton.setVisibility(View.VISIBLE);
-        }
-        else{
-            favorieButton.setVisibility(View.GONE);
-        }
 
         // Modification de l'offre
         ImageButton modificationButton = findViewById(R.id.btn_modif);
@@ -81,13 +77,6 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        // Visibilité du bouton favorie
-        if (typeCompte.equals("Candidat")){
-            modificationButton.setVisibility(View.GONE);
-        }
-        else{
-            modificationButton.setVisibility(View.VISIBLE);
-        }
 
         // Suppresion de l'offre
         ImageButton suppressionButton = findViewById(R.id.btn_supp);
@@ -101,13 +90,18 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        // Visibilité du bouton favorie
-        if (typeCompte.equals("Candidat")){
-            suppressionButton.setVisibility(View.INVISIBLE);
-        }
-        else{
-            suppressionButton.setVisibility(View.VISIBLE);
-        }
+
+        // Visibilité du bouton favori
+        if (typeCompte.equals("Candidat")) { favorieButton.setVisibility(View.VISIBLE); }
+        else { favorieButton.setVisibility(View.GONE); }
+
+        // Visibilité du bouton modification
+        if (typeCompte.equals("Candidat")) { modificationButton.setVisibility(View.GONE); }
+        else { modificationButton.setVisibility(View.VISIBLE); }
+
+        // Visibilité du bouton suppression
+        if (typeCompte.equals("Candidat")) { suppressionButton.setVisibility(View.INVISIBLE); }
+        else { suppressionButton.setVisibility(View.VISIBLE); }
 
     }
 }

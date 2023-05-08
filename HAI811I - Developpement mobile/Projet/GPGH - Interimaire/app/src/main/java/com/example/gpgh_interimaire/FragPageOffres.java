@@ -47,16 +47,16 @@ public class FragPageOffres extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycleview);
 
         List<ItemOffre> items = new ArrayList<ItemOffre>();
-        // items.add(new ItemOffre("Titre1", "CDD", "30", "Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-        // items.add(new ItemOffre("Titre2", "Stage","200","Youtube", R.drawable.facebook, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-        // items.add(new ItemOffre("Titre3", "CDD", "30","Youtube", R.drawable.facebook, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-        // items.add(new ItemOffre("Titre4", "CDD", "30","Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-        // items.add(new ItemOffre("Titre5", "Stage","1000","Youtube", R.drawable.facebook, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-        // items.add(new ItemOffre("Titre1", "Stage","30","Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-        // items.add(new ItemOffre("Titre1", "CDD", "30","Youtube", R.drawable.facebook, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-        // items.add(new ItemOffre("Titre1", "Stage","50","Youtube", R.drawable.facebook, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-        // items.add(new ItemOffre("Titre1", "CDD", "30","Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
-
+        items.add(new ItemOffre("Développeur Java Junior", "CDI", "30K€-35K€", "Acme Corp", R.drawable.youtube, "Nous cherchons un développeur Java Junior pour rejoindre notre équipe de développement.", "12 Rue des Lilas", "", "75010 Paris"));
+        items.add(new ItemOffre("Chef de Projet IT", "CDI", "40K€-45K€", "Beta Inc.", R.drawable.youtube, "Nous recrutons un Chef de Projet IT pour notre équipe de développement.", "35 Rue de la Pompe", "", "75016 Paris"));
+        items.add(new ItemOffre("Ingénieur Systèmes et Réseaux", "CDI", "45K€-50K€", "Gamma SA", R.drawable.youtube, "Nous recherchons un ingénieur systèmes et réseaux pour rejoindre notre équipe d'infrastructure.", "8 Avenue de la Grande Armée", "", "75116 Paris"));
+        items.add(new ItemOffre("Développeur Full-Stack", "CDI", "35K€-40K€", "Delta Corp", R.drawable.youtube, "Nous sommes à la recherche d'un développeur Full-Stack pour rejoindre notre équipe de développement.", "4 Rue de la Paix", "", "75002 Paris"));
+        items.add(new ItemOffre("Responsable Marketing Digital", "CDI", "50K€-55K€", "Epsilon SAS", R.drawable.youtube, "Nous cherchons un responsable marketing digital pour développer nos activités en ligne.", "17 Avenue des Champs-Élysées", "", "75008 Paris"));
+        items.add(new ItemOffre("Administrateur Systèmes Linux", "CDI", "40K€-45K€", "Zeta SA", R.drawable.youtube, "Nous recherchons un administrateur systèmes Linux pour notre équipe d'infrastructure.", "7 Rue des Francs Bourgeois", "", "75004 Paris"));
+        items.add(new ItemOffre("Développeur Mobile", "CDI", "35K€-40K€", "Iota Corp", R.drawable.youtube, "Nous cherchons un développeur mobile pour notre équipe de développement.", "42 Rue du Faubourg Saint-Antoine", "", "75012 Paris"));
+        items.add(new ItemOffre("Chef de Projet Digital", "CDI", "50K€-55K€", "Kappa Inc.", R.drawable.youtube, "Nous recrutons un Chef de Projet Digital pour notre équipe de développement web.", "23 Rue Saint-Augustin", "", "75002 Paris"));
+        items.add(new ItemOffre("Développeur Front-End", "CDI", "35K€-40K€", "Lambda Corp", R.drawable.youtube, "Nous sommes à la recherche d'un développeur Front-End pour rejoindre notre équipe de développement web.", "15 Rue de la Roquette", "", "75011 Paris"));
+        
         //Récupérer les offres de la base de données
         db.collection("offres")
             .get()
