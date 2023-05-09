@@ -213,7 +213,7 @@
         android:background="@drawable/bord_bleu_courbe_faible_fond_white"
         android:gravity="center"
         android:textColor="@color/black"
-        android:text="5€/offre"
+        android:text="10€/offre"
         android:textSize="25dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"

@@ -21,6 +21,7 @@ public class AbonnementActivity extends AppCompatActivity {
     List<String> listType;
     Spinner typeAboSpinner;
     int prix;
+    int multiplicateur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,8 @@ public class AbonnementActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container_abonnement, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        prix = 5;
+        prix = 10;
+        multiplicateur = 1;
 
 
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, R.layout.spinner_item, listType);
@@ -63,7 +65,8 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
-                    prix = 5;
+                    prix = 10;
+                    multiplicateur = 1;
                 }
                 else if (selectedPosition == 1) {
                     Fragment fragment = new FragAboMensuel();
@@ -71,7 +74,8 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
-                    prix = 99;
+                    prix = 200;
+                    multiplicateur = 1;
                 }
                 else if (selectedPosition == 2) {
                     Fragment fragment = new FragAboTrimestriel();
@@ -79,7 +83,8 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
-                    prix = 300;
+                    prix = 150;
+                    multiplicateur = 3;
                 }
                 else if (selectedPosition == 3) {
                     Fragment fragment = new FragAboSemestriel();
@@ -87,7 +92,8 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
-                    prix = 500;
+                    prix = 120;
+                    multiplicateur = 6;
                 }
                 else if (selectedPosition == 4) {
                     Fragment fragment = new FragAboAnnuel();
@@ -96,6 +102,7 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.addToBackStack(null);
                     transaction.commit();
                     prix = 1200;
+                    multiplicateur = 1;
                 }
                 else if (selectedPosition == 5) {
                     Fragment fragment = new FragAboRenouvelable();
@@ -103,7 +110,8 @@ public class AbonnementActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_container_abonnement, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
-                    prix = 1400;
+                    prix = 1000;
+                    multiplicateur = 1;
                 }
             }
 
@@ -119,6 +127,7 @@ public class AbonnementActivity extends AppCompatActivity {
                 Intent i = new Intent(AbonnementActivity.this, RecapPaiementActivity.class);
                 i.putExtra("typeAbo", typeAbo);
                 i.putExtra("prix", prix);
+                i.putExtra("multiplicateur", multiplicateur);
                 startActivity(i);
             }
         });

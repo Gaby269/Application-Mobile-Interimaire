@@ -32,7 +32,7 @@ public class RecapPaiementActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseFirestore db;
 
-    TextView typeAboTextView, prixTextView, totalTextView;
+    TextView typeAboTextView, multiplicateurTextViewTextView, totalTextView;
     boolean is_use = false;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
@@ -45,6 +45,7 @@ public class RecapPaiementActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String typeAbo = intent.getStringExtra("typeAbo");
         int prix = intent.getIntExtra("prix", 0);
+        int multiplicateur = intent.getIntExtra("multiplicateur", 1);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -62,56 +63,55 @@ public class RecapPaiementActivity extends AppCompatActivity {
 
         typeAboTextView.setText("Abonnement " + typeAbo + " : ");
 
-        prixTextView = findViewById(R.id.prixTextView);
-        prixTextView.setText(decimalFormat.format(prix) + " €");
+        multiplicateurTextViewTextView = findViewById(R.id.multiplicateurTextView);
+        multiplicateurTextViewTextView.setText(decimalFormat.format(prix) + "€ x" + multiplicateur);
         totalTextView = findViewById(R.id.totalTextView);
+        prix *= multiplicateur;
         totalTextView.setText("Total : " + decimalFormat.format(prix) + " €");
 
 
         EditText codePromo = findViewById(R.id.codePromo);
         ImageView boutonCodePromo = findViewById(R.id.bouton_codePromo);
-        boutonCodePromo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (codePromo.length() == 0) {
-                    codePromo.setError(getString(R.string.erreur_vide));
-                }
-                // Verfication code pas cumulable
-                else if (is_use && codePromo.length() != 0) {
-                    codePromo.setError(getString(R.string.code_promo_non_cumulabe));
-                }
-                else if (codePromo.getText().toString().equals("GPGH10")) {
-                    double nouveau_prix = prix*0.9;
-                    totalTextView.setText("Total : " + decimalFormat.format(nouveau_prix) + " €");
+        int finalPrix = prix;
+        boutonCodePromo.setOnClickListener(view -> {
+            if (codePromo.length() == 0) {
+                codePromo.setError(getString(R.string.erreur_vide));
+            }
+            // Verfication code pas cumulable
+            else if (is_use && codePromo.length() != 0) {
+                codePromo.setError(getString(R.string.code_promo_non_cumulabe));
+            }
+            else if (codePromo.getText().toString().equals("GPGH10")) {
+                double nouveau_prix = finalPrix *0.9;
+                totalTextView.setText("Total : " + decimalFormat.format(nouveau_prix) + " €");
 
-                    // Changement de visibilité du layout
-                    LinearLayout code10 = findViewById(R.id.layout_text_reduction10);
-                    code10.setVisibility(View.VISIBLE);
-                    
-                    TextView prixReduit10 = findViewById(R.id.reductionTextView10);
-                    prixReduit10.setText("- "+ decimalFormat.format(prix*0.1) +" €");
-                    
-                    codePromo.setText("");
-                    is_use = true;
+                // Changement de visibilité du layout
+                LinearLayout code101 = findViewById(R.id.layout_text_reduction10);
+                code101.setVisibility(View.VISIBLE);
 
-                }
-                else if (codePromo.getText().toString().equals("GPGH30")) {
-                    double nouveau_prix = prix*0.7;
-                    totalTextView.setText("Total : " + decimalFormat.format(nouveau_prix) + " €");
+                TextView prixReduit10 = findViewById(R.id.reductionTextView10);
+                prixReduit10.setText("- "+ decimalFormat.format(finalPrix *0.1) +" €");
 
-                    // Changement de visibilité du layout
-                    LinearLayout code30 = findViewById(R.id.layout_text_reduction30);
-                    code30.setVisibility(View.VISIBLE);
-            
-                    TextView prixReduit30 = findViewById(R.id.reductionTextView30);
-                    prixReduit30.setText("- "+ decimalFormat.format(prix*0.3) +" €");
+                codePromo.setText("");
+                is_use = true;
 
-                    codePromo.setText("");
-                    is_use = true;
-                }
-                else {
-                    codePromo.setError(getString(R.string.code_promo_incorrect));
-                }
+            }
+            else if (codePromo.getText().toString().equals("GPGH30")) {
+                double nouveau_prix = finalPrix *0.7;
+                totalTextView.setText("Total : " + decimalFormat.format(nouveau_prix) + " €");
+
+                // Changement de visibilité du layout
+                LinearLayout code301 = findViewById(R.id.layout_text_reduction30);
+                code301.setVisibility(View.VISIBLE);
+
+                TextView prixReduit30 = findViewById(R.id.reductionTextView30);
+                prixReduit30.setText("- "+ decimalFormat.format(finalPrix *0.3) +" €");
+
+                codePromo.setText("");
+                is_use = true;
+            }
+            else {
+                codePromo.setError(getString(R.string.code_promo_incorrect));
             }
         });
 

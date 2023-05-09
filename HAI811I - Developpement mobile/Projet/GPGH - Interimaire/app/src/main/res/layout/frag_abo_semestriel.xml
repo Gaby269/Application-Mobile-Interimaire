@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Poster une offre (1)"
+                android:text="Poster des offres"
                 android:textSize="16dp"
                 android:paddingLeft="10dp"/>
         </LinearLayout>
@@ -152,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Préavis par mois"
+            android:text="Préavis de 3 mois"
             android:textSize="16dp"
             android:paddingLeft="10dp"/>
     </LinearLayout>
@@ -167,7 +167,7 @@
         android:background="@drawable/bord_bleu_courbe_faible_fond_white"
         android:gravity="center"
         android:textColor="@color/black"
-        android:text="500€/offre"
+        android:text="120€/mois"
         android:textSize="25dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"

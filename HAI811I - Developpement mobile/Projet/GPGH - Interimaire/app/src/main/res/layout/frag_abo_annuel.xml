@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Poster des offres (illimité)"
+                android:text="Poster des offres"
                 android:textSize="16dp"
                 android:paddingLeft="10dp"/>
         </LinearLayout>
@@ -152,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Préavis d'un an"
+            android:text="Préavis de 6 mois"
             android:textSize="16dp"
             android:paddingLeft="10dp"/>
     </LinearLayout>

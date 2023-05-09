@@ -154,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Pas de préavis"
+            android:text="Préavis d'un mois"
             android:textSize="16dp"
             android:paddingLeft="10dp"/>
     </LinearLayout>
@@ -169,7 +169,7 @@
         android:background="@drawable/bord_bleu_courbe_faible_fond_white"
         android:gravity="center"
         android:textColor="@color/black"
-        android:text="300€/trimestre"
+        android:text="150€/mois"
         android:textSize="25dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"

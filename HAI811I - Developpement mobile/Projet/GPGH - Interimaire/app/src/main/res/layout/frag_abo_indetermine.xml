@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Poster des offres (illimité)"
+                android:text="Poster des offres"
                 android:textSize="16dp"
                 android:paddingLeft="10dp"/>
         </LinearLayout>
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Offre prioritaire"
+                android:text="Offres prioritaires"
                 android:textSize="16dp"
                 android:paddingLeft="10dp"/>
         </LinearLayout>
@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Prévis d'un an"
+            android:text="Préavis d'un an"
             android:textSize="16dp"
             android:paddingLeft="10dp"/>
     </LinearLayout>
@@ -165,7 +165,7 @@
         android:background="@drawable/bord_bleu_courbe_faible_fond_white"
         android:gravity="center"
         android:textColor="@color/black"
-        android:text="1400€/an"
+        android:text="1000€/an"
         android:textSize="25dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
