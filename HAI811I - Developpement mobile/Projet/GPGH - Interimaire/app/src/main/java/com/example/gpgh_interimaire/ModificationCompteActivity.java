@@ -67,14 +67,8 @@ public class ModificationCompteActivity extends AppCompatActivity {
         );
 
         Button modifierButton = findViewById(R.id.boutton_modifier);
-        modifierButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(ModificationCompteActivity.this, NavbarActivity.class);
-                i.putExtra("fragment", "Compte");
-                startActivity(i);
-                Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
-            }
+        modifierButton.setOnClickListener(view -> {
+            updateAccountInfo();
         });
 
 
@@ -151,8 +145,8 @@ public class ModificationCompteActivity extends AppCompatActivity {
                         String phoneNumber = documentSnapshot.getString("telephone");
                         String typeCompte = documentSnapshot.getString("typeCompte");
 
-                        editNom.setText(firstName);
-                        editPrenom.setText(lastName);
+                        editNom.setText(lastName);
+                        editPrenom.setText(firstName);
                         editNumero.setText(phoneNumber);
                         editTypeCompte.setText(typeCompte);
 
@@ -178,7 +172,8 @@ public class ModificationCompteActivity extends AppCompatActivity {
             .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "Adresse e-mail mise à jour !");
-                } else {
+                }
+                else {
                     Log.e(TAG, "Erreur lors de la mise à jour de l'adresse e-mail.", task.getException());
                 }
             });
@@ -190,8 +185,8 @@ public class ModificationCompteActivity extends AppCompatActivity {
                         "nom", lastName,
                         "telephone", phoneNumber)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Informations mises à jour", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(ModificationCompteActivity.this, NavbarActivity.class);
+                    Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(ModificationCompteActivity.this, LoadingNavbarActivity.class);
                     i.putExtra("fragment", "Compte");
                     startActivity(i);
                 })
