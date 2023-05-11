@@ -60,9 +60,9 @@
     <string name="AjoutercontactSec_text">Ajouter un contact secondaire</string>
     <string name="contactSec_text">Contact Secondaire</string>
     <string name="nomComplet">Nom Complet</string>
-        <!-- Erreurs -->
-        <string name="erreurChamp">Ce champ ne peut pas être vide</string>
-        <string name="choix_obligatoire">Choisissez une offre</string>
+    <!-- Erreurs -->
+    <string name="erreurChamp">Ce champ ne peut pas être vide</string>
+    <string name="choix_obligatoire">Choisissez une offre</string>
 
     <!--  Abonnement -->
     <string name="service_text">Notre expertise à votre service</string>

@@ -3,6 +3,7 @@ package com.example.gpgh_interimaire;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,7 @@ public class LoadingNavbarActivity extends AppCompatActivity {
             i.putExtra("typeCompte", "invite");
             i.putExtra("fragment", "Offre");
             startActivity(i);
+            finish();
         }
     }
 
@@ -45,9 +47,10 @@ public class LoadingNavbarActivity extends AppCompatActivity {
                         i.putExtra("typeCompte", typeCompte);
                         i.putExtra("fragment", "Offre");
                         startActivity(i);
+                        finish();
                     }
                     else {
-                        Log.w(TAG, "DB Non trouvée");
+                        Toast.makeText(LoadingNavbarActivity.this, "Les informations de ce compte ont été supprimées en BDD", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));

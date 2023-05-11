@@ -28,9 +28,12 @@ public class NavbarActivity extends AppCompatActivity {
 
         // Récupération de l'intent
         Intent i = getIntent();
-        pageFragment = i.getStringExtra("fragment"); // Pour savoir quel fragment
+        if (!(i.hasExtra("typeCompte") && i.hasExtra("fragment"))) {
+            Intent IgoToLoading = new Intent(NavbarActivity.this, LoadingNavbarActivity.class);
+            startActivity(IgoToLoading);
+        }
+        pageFragment = i.getStringExtra("fragment"); // Pour savoir sur quel fragment
         typeCompte = i.getStringExtra("typeCompte");
-        // typeCompte = "Candidat";
 
         // Transmettre le type de compte aux fragments
         Bundle args = new Bundle();
@@ -38,33 +41,36 @@ public class NavbarActivity extends AppCompatActivity {
 
         // Récupération des éléments de layout
         ImageView messagerieImage = findViewById(R.id.image_message);
-        ImageView favorieImage = findViewById(R.id.image_favoris);
+        ImageView favoriImage = findViewById(R.id.image_favoris);
         ImageView compteImage = findViewById(R.id.image_compte);
         ImageView offresImage = findViewById(R.id.image_offres);
         ImageView candidatureImage = findViewById(R.id.image_candidature);
         ImageView ajoutImage = findViewById(R.id.image_ajout);
 
         // Gérer les fragment pour savoir lequel afficher
-        if (pageFragment.equals("Compte")) {
-            fragment = new FragPageCompte();
-            compteImage.setImageResource(R.drawable.icon_compte_bleu);
+        switch (pageFragment) {
+            case "Compte":
+                fragment = new FragPageCompte();
+                compteImage.setImageResource(R.drawable.icon_compte_bleu);
+                break;
+            case "Candidature":
+                fragment = new FragPageMesCandidatures();
+                candidatureImage.setImageResource(R.drawable.icon_fichier_bleu);
+                break;
+            case "Message":
+                fragment = new FragPageMessagerie();
+                messagerieImage.setImageResource(R.drawable.icon_message_bleu);
+                break;
+            case "Favoris":
+                fragment = new FragPageFavoris();
+                favoriImage.setImageResource(R.drawable.icon_favori_bleu);
+                break;
+            default:
+                fragment = new FragPageOffres();
+                offresImage.setImageResource(R.drawable.icon_fichier_bleu);
+                break;
         }
-        else if (pageFragment.equals("Candidature")) {
-            fragment = new FragPageMesCandidatures();
-            candidatureImage.setImageResource(R.drawable.icon_fichier_bleu);
-        }
-        else if (pageFragment.equals("Message")){
-            fragment = new FragPageMessagerie();
-            messagerieImage.setImageResource(R.drawable.icon_message_bleu);
-        }
-        else if (pageFragment.equals("Favorie")){
-            fragment = new FragPageFavoris();
-            favorieImage.setImageResource(R.drawable.icon_favori_bleu);
-        }
-        else {
-            fragment = new FragPageOffres();
-            offresImage.setImageResource(R.drawable.icon_fichier_bleu);
-        }
+
         fragment.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container_layout, fragment);
@@ -72,214 +78,110 @@ public class NavbarActivity extends AppCompatActivity {
         transaction.commit();
 
 
-        // Bouton favorie
-        LinearLayout favorieButton = findViewById(R.id.layout_favoris);
-        favorieButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Modification de la messagerie en couleur
-                favorieImage.setImageResource(R.drawable.icon_favori_bleu);
-
-                // Remettre tout en noir
-                compteImage.setImageResource(R.drawable.icon_compte_black);
-                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
-                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
-                offresImage.setImageResource(R.drawable.icon_fichier_black);
-                messagerieImage.setImageResource(R.drawable.icon_message_black);
-
-                Fragment fragment = new FragPageFavoris();
-                fragment.setArguments(args);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container_layout, fragment);
-                transaction.addToBackStack(null); // ajouter à la pile de retour
-                transaction.commit();
-            }
+        // Bouton favoris
+        LinearLayout favoriButton = findViewById(R.id.layout_favoris);
+        favoriButton.setOnClickListener(view -> {
+            Fragment fragment = new FragPageFavoris();
+            ImageView[] otherImages = {compteImage, ajoutImage, candidatureImage, offresImage, messagerieImage};
+            int[] otherImagesResources = {R.drawable.icon_compte_black, R.drawable.icon_ajouter_black, R.drawable.icon_formulaire_black, R.drawable.icon_fichier_black, R.drawable.icon_message_black};
+            updateUI(args, fragment, favoriImage, R.drawable.icon_favori_bleu, otherImages, otherImagesResources);
         });
 
         // Bouton offres
         LinearLayout offresButton = findViewById(R.id.layout_offres);
-        offresButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Modification de la messagerie en couleur
-                offresImage.setImageResource(R.drawable.icon_fichier_bleu);
-
-                // Remettre tout en noir
-                favorieImage.setImageResource(R.drawable.icon_favori_black);
-                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
-                compteImage.setImageResource(R.drawable.icon_compte_black);
-                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
-                messagerieImage.setImageResource(R.drawable.icon_message_black);
-
-                Fragment fragment = new FragPageOffres();
-                fragment.setArguments(args);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container_layout, fragment);
-                transaction.addToBackStack(null); // ajouter à la pile de retour
-                transaction.commit();
-            }
+        offresButton.setOnClickListener(view -> {
+            Fragment fragment = new FragPageOffres();
+            ImageView[] otherImages = {favoriImage, ajoutImage, compteImage, candidatureImage, messagerieImage};
+            int[] otherImagesResources = {R.drawable.icon_favori_black, R.drawable.icon_ajouter_black, R.drawable.icon_compte_black, R.drawable.icon_formulaire_black, R.drawable.icon_message_black};
+            updateUI(args, fragment, offresImage, R.drawable.icon_fichier_bleu, otherImages, otherImagesResources);
         });
 
         // Bouton compte
         LinearLayout compteButton = findViewById(R.id.layout_compte);
-        compteButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                // Modification de la compte en couleur
-                compteImage.setImageResource(R.drawable.icon_compte_bleu);
-
-                // Remettre tout en noir
-                favorieImage.setImageResource(R.drawable.icon_favori_black);
-                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
-                offresImage.setImageResource(R.drawable.icon_fichier_black);
-                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
-                messagerieImage.setImageResource(R.drawable.icon_message_black);
-
-                Fragment fragment = new FragPageCompte();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container_layout, fragment);
-                transaction.addToBackStack(null); // ajouter à la pile de retour
-                transaction.commit();
-            }
+        compteButton.setOnClickListener(view -> {
+            Fragment fragment = new FragPageCompte();
+            ImageView[] otherImages = {favoriImage, ajoutImage, offresImage, candidatureImage, messagerieImage};
+            int[] otherImagesResources = {R.drawable.icon_favori_black, R.drawable.icon_ajouter_black, R.drawable.icon_fichier_black, R.drawable.icon_formulaire_black, R.drawable.icon_message_black};
+            updateUI(args, fragment, compteImage, R.drawable.icon_compte_bleu, otherImages, otherImagesResources);
         });
 
         // Bouton messagerie
         LinearLayout messagerieButton = findViewById(R.id.layout_message);
-        messagerieButton.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View view) {
-
-                // Modification de la messagerie en couleur
-                messagerieImage.setImageResource(R.drawable.icon_message_bleu);
-
-                // Remettre tout en noir
-                favorieImage.setImageResource(R.drawable.icon_favori_black);
-                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
-                compteImage.setImageResource(R.drawable.icon_compte_black);
-                offresImage.setImageResource(R.drawable.icon_fichier_black);
-                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
-
-                // Mettre le fragement correspondant
-                Fragment fragment = new FragPageMessagerie();
-                fragment.setArguments(args);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container_layout, fragment);
-                transaction.addToBackStack(null); // ajouter à la pile de retour
-                transaction.commit();
-            }
+        messagerieButton.setOnClickListener(view -> {
+            Fragment fragment = new FragPageMessagerie();
+            ImageView[] otherImages = {favoriImage, ajoutImage, offresImage, candidatureImage, compteImage};
+            int[] otherImagesResources = {R.drawable.icon_favori_black, R.drawable.icon_ajouter_black, R.drawable.icon_fichier_black, R.drawable.icon_formulaire_black, R.drawable.icon_compte_black};
+            updateUI(args, fragment, messagerieImage, R.drawable.icon_message_bleu, otherImages, otherImagesResources);
         });
 
         // Bouton candidature (Mes candidatures pour un candidat)
         LinearLayout candidatureButton = findViewById(R.id.layout_candidature);
-        candidatureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Modification de l'image en couleur
-                candidatureImage.setImageResource(R.drawable.icon_formulaire_bleu);
-
-                // Remettre tout en noir
-                favorieImage.setImageResource(R.drawable.icon_favori_black);
-                ajoutImage.setImageResource(R.drawable.icon_ajouter_black);
-                offresImage.setImageResource(R.drawable.icon_fichier_black);
-                compteImage.setImageResource(R.drawable.icon_compte_black);
-                messagerieImage.setImageResource(R.drawable.icon_message_black);
-
-                Fragment fragment = new FragPageMesCandidatures();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container_layout, fragment);
-                transaction.addToBackStack(null); // ajouter à la pile de retour
-                transaction.commit();
-            }
+        candidatureButton.setOnClickListener(view -> {
+            Fragment fragment = new FragPageMesCandidatures();
+            ImageView[] otherImages = {favoriImage, ajoutImage, offresImage, compteImage, messagerieImage};
+            int[] otherImagesResources = {R.drawable.icon_favori_black, R.drawable.icon_ajouter_black, R.drawable.icon_fichier_black, R.drawable.icon_compte_black, R.drawable.icon_message_black};
+            updateUI(args, fragment, candidatureImage, R.drawable.icon_formulaire_bleu, otherImages, otherImagesResources);
         });
 
         // Bouton ajout d'une offre
         LinearLayout ajoutButton = findViewById(R.id.layout_ajout);
-        ajoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        ajoutButton.setOnClickListener(view -> {
+            ajoutImage.setImageResource(R.drawable.icon_ajouter_bleu);
+            compteImage.setImageResource(R.drawable.icon_compte_black);
+            favoriImage.setImageResource(R.drawable.icon_favori_black);
+            candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
+            offresImage.setImageResource(R.drawable.icon_fichier_black);
+            messagerieImage.setImageResource(R.drawable.icon_message_black);
 
-                // Modification de la messagerie en couleur
-                ajoutImage.setImageResource(R.drawable.icon_ajouter_bleu);
-
-                // Remettre tout en noir
-                compteImage.setImageResource(R.drawable.icon_compte_black);
-                favorieImage.setImageResource(R.drawable.icon_favori_black);
-                candidatureImage.setImageResource(R.drawable.icon_formulaire_black);
-                offresImage.setImageResource(R.drawable.icon_fichier_black);
-                messagerieImage.setImageResource(R.drawable.icon_message_black);
-
-                Intent i = new Intent(NavbarActivity.this, CreationOffreActivity.class);
-                i.putExtra("typeCompte", typeCompte);
-                startActivity(i);
-            }
+            Intent i1 = new Intent(NavbarActivity.this, CreationOffreActivity.class);
+            i1.putExtra("typeCompte", typeCompte);
+            startActivity(i1);
         });
 
+        //bouttons tous en gone par défaut (utilisateur invité)
+        ajoutButton.setVisibility(View.GONE);
+        favoriButton.setVisibility(View.GONE);
+        candidatureButton.setVisibility(View.GONE);
 
         // Mettre à jour la barre de navigation en fonction du type de compte de l'utilisateur
         if (typeCompte.contains("Candidat")) {
-            favorieButton.setVisibility(View.VISIBLE);
+            favoriButton.setVisibility(View.VISIBLE);
             candidatureButton.setVisibility(View.VISIBLE);
-            ajoutButton.setVisibility(View.GONE);
         }
-        else if (typeCompte.contains("Entreprise") || typeCompte.contains("Agence")){
-            favorieButton.setVisibility(View.GONE);
-            candidatureButton.setVisibility(View.GONE);
+        else if (typeCompte.contains("Entreprise") || typeCompte.contains("Agence")) {
             ajoutButton.setVisibility(View.VISIBLE);
+        }
+        else if (typeCompte.contains("Admin")) {
+            ajoutButton.setVisibility(View.VISIBLE);
+            // statistiqueButton.setVisibility(View.VISIBLE);
+        }
+        else { // invité 
+            // connexionButton.setVisibility(View.VISIBLE);
         }
 
 
     }
 
 
-
-    // Deconnection
-    private void logoutUser() {
-        // Créez un AlertDialog pour demander confirmation
-        AlertDialog.Builder builder = new AlertDialog.Builder(NavbarActivity.this);
-        builder.setMessage("Êtes-vous sûr de vouloir vous déconnecter ?")
-                .setTitle("Confirmation")
-                .setPositiveButton("Oui", (dialog, id) -> {
-                    // Si l'user confirme, déco
-                    mAuth.signOut();
-                    Intent intent = new Intent(NavbarActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    //finish();
-                })
-                .setNegativeButton("Annuler", (dialog, id) -> {
-                    // Si l'user annule
-                    dialog.dismiss();
-                });
-
-        // Affichez l'AlertDialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    private void updateUI(Bundle args, Fragment fragment, ImageView activeImage, int activeImageResource, ImageView[] otherImages, int[] otherImagesResources) {
+        // Mettre l'image active en couleur
+        activeImage.setImageResource(activeImageResource);
+    
+        // Remettre les autres images en noir
+        for (int i = 0; i < otherImages.length; i++) {
+            otherImages[i].setImageResource(otherImagesResources[i]);
+        }
+    
+        // Afficher le fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        fragment.setArguments(args);
+        transaction.replace(R.id.fragment_container_layout, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
     public void onBackPressed() {
         finishAffinity();
     }
-
-
-
-/*
-    private void checkIfConnected() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            // Utilisateur pas connecté, redirect sur la page de connexion
-            Intent i = new Intent(NavbarActivity.this, ConnexionActivity.class);
-            startActivity(i);
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        checkIfConnected();
-    }*/
 }

@@ -94,17 +94,5 @@ public class FragPageOffres extends Fragment {
 
         return view;
     }
-/*
-    public Object getSystemService(String service) {
-        if (service.equals(Context.LAYOUT_INFLATER_SERVICE)) {
-            return LayoutInflater.from(mContext);
-        } else if (service.equals(Context.CONNECTIVITY_SERVICE)) {
-            return mConnectivityManager;
-        } else if (service.equals(Context.LOCATION_SERVICE)) {
-            return mLocationManager;
-        } else {
-            return null;
-        }
-    }*/
 
 }
