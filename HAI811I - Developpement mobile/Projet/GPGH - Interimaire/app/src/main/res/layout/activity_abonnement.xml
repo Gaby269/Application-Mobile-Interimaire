@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@drawable/spinner_background"
+        android:background="@drawable/fond_bleu"
         app:layout_constraintBottom_toTopOf="@id/fragment_container_abonnement"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,8 +55,7 @@
             android:layout_height="wrap_content"
             android:textSize="14dp"
             android:gravity="center_vertical"
-            android:entries="@array/typeAbonnement"
-            android:spinnerStyle="@style/SpinnerStyle" />
+            android:entries="@array/typeAbonnement"/>
 
 
     </LinearLayout>
