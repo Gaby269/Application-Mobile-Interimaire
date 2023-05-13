@@ -42,7 +42,7 @@
     <string name="email_deja_utilise">Cette adresse email est déjà utilisée</string>
     <string name="compte_inexistant">Ce compte n\'existe pas</string>
 
-    <!--    Confirmation téléphone -->
+    <!--  Confirmation téléphone -->
     <string name="hello_user">Bonjour USER</string>
     <string name="telephone">Téléphone</string>
     <string name="confTel_text">Confirmations de votre téléphone</string>
@@ -141,7 +141,6 @@
     <string name="detailsOffre">Details suplémentaire (facultatif)</string>
     <string name="boutton_terminer">Terminer</string>
     <string name="boutton_envoyer">Envoyer</string>
-    <string name="messagerie">Messagerie (à modifier)</string>
     <string name="modifOffre">Modification de l\'offre</string>
     <string name="offreModif">Offre modifié</string>
     <string name="offreCree">Offre créée !</string>
@@ -197,6 +196,14 @@
     <string name="erreur_lieu_offre">Entrez une adresse</string>
     <string name="erreur_remuneration_offre">Entrez une rémunération</string>
 
+    <!-- Messagerie -->
+    <string name="messagerie">Mes messages</string>
+    <string name="nouveau_message">Nouveau message...</string>
+    <string name="envoyer_message">Envoyer</string>
+    <string name="no_auto_chat">Vous ne pouvez pas démarrer une conversation avec vous-même</string>
+
+
+
     <!-- Spinners -->
     <string-array name="typeCompte">
         <item>Entreprise</item>
@@ -214,7 +221,8 @@
         <item>Filter</item>
         <item>Plus grand</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="boutton_valider">Valider</string>
     <string name="longTexte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae nibh auctor, tempor tortor ac, semper leo. Phasellus euismod tortor sit amet faucibus auctor. Pellentesque magna mauris, hendrerit aliquam libero consequat, iaculis auctor urna. Maecenas vitae sagittis metus. Pellentesque fringilla velit ac facilisis luctus. Nulla ac nunc sit amet eros posuere efficitur. Sed consequat imperdiet tempor. Sed volutpat consequat nisl, aliquam vestibulum felis porttitor quis. In tincidunt finibus lacinia. Nullam bibendum orci in est viverra consectetur. Proin sed mattis tellus. Sed eu est lacinia, cursus urna et, accumsan orci. Nam magna risus, consequat mollis odio quis, imperdiet tristique enim. Mauris nibh diam, eleifend sed euismod vel, semper eu nibh. Duis fringilla vulputate elementum. Proin tincidunt semper posuere. Maecenas non tempus odio, ac pretium justo. Sed vehicula urna sed neque sollicitudin, in vulputate neque dignissim. Sed suscipit consequat metus quis lobortis. Integer facilisis efficitur est, a tincidunt nulla eleifend id. Aliquam dignissim mollis quam, ut gravida nisl ornare nec. Quisque id rutrum felis, sit amet vestibulum odio. Fusce turpis leo, tristique vel finibus ut, ullamcorper eu magna. Phasellus scelerisque vitae velit eget posuere. Nunc dictum dui a maximus dignissim. Integer id sagittis mi, ac elementum diam. Duis maximus iaculis ultricies. Vivamus quis ex magna. Suspendisse accumsan mi eget tellus aliquam, nec ullamcorper nibh porttitor. Phasellus vitae euismod felis. Maecenas justo arcu, cursus vel lorem at, consequat semper leo. Quisque eleifend sagittis dignissim.</string>
