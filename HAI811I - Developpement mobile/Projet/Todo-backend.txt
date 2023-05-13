@@ -1,9 +1,5 @@
 ** INSCRIPTION
 ~ Valider le numéro
-	
-
-** ABONNEMENT
-- A FAIRE : Récapitulatif du paiement
 
 
 ** AFICHER DETAILS OFFRES 
@@ -27,3 +23,6 @@
 
 ** NAVBAR
 A FAIRE  :  ajouter pour chaque activity des intent pour faire circuler le type de compte pour les affichages
+
+
+** MESSAGERIE
