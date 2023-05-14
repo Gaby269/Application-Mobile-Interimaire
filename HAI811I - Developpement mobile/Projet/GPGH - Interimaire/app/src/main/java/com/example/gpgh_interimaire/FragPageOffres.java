@@ -47,16 +47,14 @@ public class FragPageOffres extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycleview);
 
         List<ItemOffre> items = new ArrayList<ItemOffre>();
-        items.add(new ItemOffre("Développeur Java Junior", "CDI", "30K€-35K€", "Acme Corp", R.drawable.youtube, "Nous cherchons un développeur Java Junior pour rejoindre notre équipe de développement.", "12 Rue des Lilas", "", "75010 Paris"));
-        items.add(new ItemOffre("Chef de Projet IT", "CDI", "40K€-45K€", "Beta Inc.", R.drawable.youtube, "Nous recrutons un Chef de Projet IT pour notre équipe de développement.", "35 Rue de la Pompe", "", "75016 Paris"));
-        items.add(new ItemOffre("Ingénieur Systèmes et Réseaux", "CDI", "45K€-50K€", "Gamma SA", R.drawable.youtube, "Nous recherchons un ingénieur systèmes et réseaux pour rejoindre notre équipe d'infrastructure.", "8 Avenue de la Grande Armée", "", "75116 Paris"));
-        items.add(new ItemOffre("Développeur Full-Stack", "CDI", "35K€-40K€", "Delta Corp", R.drawable.youtube, "Nous sommes à la recherche d'un développeur Full-Stack pour rejoindre notre équipe de développement.", "4 Rue de la Paix", "", "75002 Paris"));
-        items.add(new ItemOffre("Responsable Marketing Digital", "CDI", "50K€-55K€", "Epsilon SAS", R.drawable.youtube, "Nous cherchons un responsable marketing digital pour développer nos activités en ligne.", "17 Avenue des Champs-Élysées", "", "75008 Paris"));
-        items.add(new ItemOffre("Administrateur Systèmes Linux", "CDI", "40K€-45K€", "Zeta SA", R.drawable.youtube, "Nous recherchons un administrateur systèmes Linux pour notre équipe d'infrastructure.", "7 Rue des Francs Bourgeois", "", "75004 Paris"));
-        items.add(new ItemOffre("Développeur Mobile", "CDI", "35K€-40K€", "Iota Corp", R.drawable.youtube, "Nous cherchons un développeur mobile pour notre équipe de développement.", "42 Rue du Faubourg Saint-Antoine", "", "75012 Paris"));
-        items.add(new ItemOffre("Chef de Projet Digital", "CDI", "50K€-55K€", "Kappa Inc.", R.drawable.youtube, "Nous recrutons un Chef de Projet Digital pour notre équipe de développement web.", "23 Rue Saint-Augustin", "", "75002 Paris"));
-        items.add(new ItemOffre("Développeur Front-End", "CDI", "35K€-40K€", "Lambda Corp", R.drawable.youtube, "Nous sommes à la recherche d'un développeur Front-End pour rejoindre notre équipe de développement web.", "15 Rue de la Roquette", "", "75011 Paris"));
-        
+
+        items.add(new ItemOffre("0", "[TEST] Développeur Java", "Temps plein", "25 €/heure", "ABC Entreprise", "01/06/2023", "31/08/2023", "75000 Paris"));
+        items.add(new ItemOffre("0", "[TEST] Assistant administratif", "Temps partiel", "15 €/heure", "XYZ Entreprise", "15/07/2023", "30/09/2023", "69000 Lyon"));
+        items.add(new ItemOffre("0", "[TEST] Manutentionnaire", "CDD", "10 €/heure", "123 Entreprise", "01/06/2023", "30/06/2023", "33000 Bordeaux"));
+        items.add(new ItemOffre("0", "[TEST] Infirmier(e)", "CDI", "30 €/heure", "456 Entreprise", "01/07/2023", "31/12/2023", "13000 Marseille"));
+        items.add(new ItemOffre("0", "[TEST] Commercial", "Freelance", "20 €/heure", "789 Entreprise", "01/06/2023", "31/12/2023", "59000 Lille"));
+
+
         //Récupérer les offres de la base de données
         db.collection("offres")
             .get()
@@ -65,27 +63,28 @@ public class FragPageOffres extends Fragment {
                     QuerySnapshot querySnapshot = task.getResult();
                     if (querySnapshot != null) { // Vérifier si le QuerySnapshot n'est pas nul
                         for (QueryDocumentSnapshot document : querySnapshot) {
+                            String documentId = document.getId();
                             //Récupérer les données de l'offre
                             String dateDeb = document.getString("dateDeb");
                             String dateFin = document.getString("dateFin");
-                            String description = document.getString("description");
-                            String lieu = document.getString("lieu");
+                            String nameEntreprise = document.getString("nomEntreprise");
+                            String codePostal = document.getString("codePostal");
                             String remuneration = document.getString("remuneration");
                             String titre = document.getString("titre");
                             String type = document.getString("type");
                             //Ajouter l'offre à la liste des offres
-                            items.add(new ItemOffre(titre, type, remuneration, "Entreprise", R.drawable.youtube, description, lieu, "ville", "codePostal"));
+                            items.add(new ItemOffre(documentId, titre, type, remuneration, nameEntreprise, dateDeb, dateFin, codePostal));
                             Log.d(TAG, "offre récupérée");
                         }
                     }
                     else { // Le QuerySnapshot est nul
                         Log.d(TAG, "La collection est vide");
-                        items.add(new ItemOffre("Offre cool", "CDD", "30", "Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
+                        items.add(new ItemOffre("0", "Pas d'offres disponibles", "", "", "Désolé", "", "", "Rééssayez plus tard"));
                     }
                 }
                 else {
                     Log.d(TAG, "Erreur lors de la récupération des offres : ", task.getException());
-                    items.add(new ItemOffre("Super offre", "CDD", "30", "Youtube", R.drawable.youtube, "petite description", "1 rue du Bidon", "Résidence chaud", "24000  Rouge"));
+                    items.add(new ItemOffre("0", "Pas d'offres disponibles", "", "", "Désolé", "", "", "Rééssayez plus tard"));
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, typeCompte));

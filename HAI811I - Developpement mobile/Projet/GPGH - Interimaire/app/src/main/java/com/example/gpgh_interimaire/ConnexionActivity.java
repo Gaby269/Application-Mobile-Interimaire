@@ -56,7 +56,7 @@ public class ConnexionActivity extends AppCompatActivity {
                 //String mdp = "123456";
 
                 String email = "gaby.toto@gmail.com";
-                String mdp = "gabyToto";
+                String mdp = "123456";
                 if (validateInput(email, mdp)) {
                     signInUser(email, mdp);
                 }

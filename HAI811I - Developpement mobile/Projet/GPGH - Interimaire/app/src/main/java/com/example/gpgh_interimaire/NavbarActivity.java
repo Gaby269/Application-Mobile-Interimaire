@@ -153,10 +153,10 @@ public class NavbarActivity extends AppCompatActivity {
         }
         else if (typeCompte.contains("Admin")) {
             ajoutButton.setVisibility(View.VISIBLE);
-            // statistiqueButton.setVisibility(View.VISIBLE);
+            // TODO statistiqueButton.setVisibility(View.VISIBLE);
         }
         else { // invité 
-            // connexionButton.setVisibility(View.VISIBLE);
+            // TODO connexionButton.setVisibility(View.VISIBLE);
         }
 
 

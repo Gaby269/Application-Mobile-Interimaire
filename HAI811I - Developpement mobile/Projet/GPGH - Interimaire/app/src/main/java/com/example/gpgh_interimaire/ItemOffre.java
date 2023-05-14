@@ -1,23 +1,30 @@
 package com.example.gpgh_interimaire;
 
 public class ItemOffre {
-    String titre, type, nameEntreprise,  descriptionOffre, rue, complementRue, codePostal, prix;
+    String id_offre, titre, type, nameEntreprise,  date_debut, date_fin, codePostal, prix;
     int image;
 
-    public ItemOffre(String titre, String type, String prix, String nameEntreprise, int image, String descriptionOffre, String rue, String complementRue, String codePostal) {
+    public ItemOffre(String id_offre, String titre, String type, String prix, String nameEntreprise, String date_debut, String date_fin, String codePostal) {
+        this.id_offre = id_offre;
         this.titre = titre;
         this.nameEntreprise = nameEntreprise;
         this.type = type;
         this.prix = prix;
-        this.image = image;
-        this.descriptionOffre = descriptionOffre;
-        this.rue = rue;
-        this.complementRue = complementRue;
+        this.date_debut = date_debut;
+        this.date_fin = date_fin;
         this.codePostal = codePostal;
     }
 
     // ajouter des fonctionnalités supplémentaires ici, si nécessaire
 
+
+    public String getId_offre() {
+        return id_offre;
+    }
+
+    public void setId_offre(String id_offre) {
+        this.id_offre = id_offre;
+    }
 
     public String getTitre() {
         return titre;
@@ -51,30 +58,6 @@ public class ItemOffre {
         this.prix = prix;
     }
 
-    public String getDescriptionOffre() {
-        return descriptionOffre;
-    }
-
-    public void setDescriptionOffre(String descriptionOffre) {
-        this.descriptionOffre = descriptionOffre;
-    }
-
-    public String getRue() {
-        return rue;
-    }
-
-    public void setRue(String rue) {
-        this.rue = rue;
-    }
-
-    public String getComplementRue() {
-        return complementRue;
-    }
-
-    public void setComplementRue(String complementRue) {
-        this.complementRue = complementRue;
-    }
-
     public String getCodePostal() {
         return codePostal;
     }
@@ -83,6 +66,21 @@ public class ItemOffre {
         this.codePostal = codePostal;
     }
 
+    public String getDate_debut() {
+        return date_debut;
+    }
+
+    public String getDate_fin() {
+        return date_fin;
+    }
+
+    public void setDate_fin(String date_fin) {
+        this.date_fin = date_fin;
+    }
+
+    public void setDate_debut(String date_debut) {
+        this.date_debut = date_debut;
+    }
 
     public int getImage() {
         return image;
