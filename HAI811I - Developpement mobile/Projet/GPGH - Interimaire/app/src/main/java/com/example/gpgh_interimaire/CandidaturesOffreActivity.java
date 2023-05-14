@@ -38,15 +38,12 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycleviewEntreprise);
 
         List<ItemCandidature> items = new ArrayList<ItemCandidature>();
-        items.add(new ItemCandidature("POINTEAU", "Gabrielle", "30", "Youtube", "CV1"));
-        items.add(new ItemCandidature("Gatien", "HADDAD","200","Youtube", "CV1"));
-        items.add(new ItemCandidature("Titre3", "CDD", "30","Youtube", "CV1"));
-        items.add(new ItemCandidature("Titre4", "CDD", "30","Youtube", "CV1"));
-        items.add(new ItemCandidature("Titre5", "Stage","1000","Youtube", "CV1"));
-        items.add(new ItemCandidature("Titre1", "Stage","30","Youtube", "CV1"));
-        items.add(new ItemCandidature("Titre1", "CDD", "30","Youtube", "CV1"));
-        items.add(new ItemCandidature("Titre1", "Stage","50","Youtube", "CV1"));
-        items.add(new ItemCandidature("Titre1", "CDD", "30","Youtube", "CV1"));
+        items.add(new ItemCandidature("0", "1", "John", "Doe", "Expérience en tant que magasinier", "Disponible immédiatement", "cv_john_doe.pdf"));
+        items.add(new ItemCandidature("0", "2", "Jane", "Smith", "Compétences en secrétariat et gestion administrative", "Bilingue français-anglais", "cv_jane_smith.pdf"));
+        items.add(new ItemCandidature("0", "3", "Michael", "Johnson", "Expérience en tant que chauffeur-livreur", "Permis de conduire valide", "cv_michael_johnson.pdf"));
+        items.add(new ItemCandidature("0", "4", "Emily", "Brown", "Compétences en marketing digital", "Maîtrise des réseaux sociaux", "cv_emily_brown.pdf"));
+        items.add(new ItemCandidature("0", "5", "Daniel", "Davis", "Expérience en tant que technicien informatique", "Certification Cisco CCNA", "cv_daniel_davis.pdf"));
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MyAdapterCandidature(this, items, "Entreprise"));

@@ -32,15 +32,11 @@ public class FragPageMesCandidatures extends Fragment {
             RecyclerView recyclerView = view.findViewById(R.id.recycleview);
 
             List<ItemCandidature> items = new ArrayList<ItemCandidature>();
-            items.add(new ItemCandidature("POINTEAU", "Gabrielle", "Travailleur ou pas", "Chouette", "CV1"));
-            items.add(new ItemCandidature("Gatien", "HADDAD","Travailleur ou pas","Youtube", "CV1"));
-            items.add(new ItemCandidature("Rototo", "CHOCOLAT", "Travailleur ou pas","Youtube", "CV1"));
-            items.add(new ItemCandidature("Lily", "GIRON", "Travailleur ou pas","Youtube", "CV1"));
-            items.add(new ItemCandidature("Martin", "ROLOTIN","Travailleur ou pas","Youtube", "CV1"));
-            items.add(new ItemCandidature("Rolin", "ZOLU","Travailleur ou pas","Youtube", "CV1"));
-            items.add(new ItemCandidature("Rudy", "ABON", "Travailleur ou pas","Youtube", "CV1"));
-            items.add(new ItemCandidature("Marguerite", "POLIN","Travailleur ou pas","Youtube", "CV1"));
-            items.add(new ItemCandidature("Isabelle", "SURT", "Travailleur ou pas","Youtube", "CV1"));
+            items.add(new ItemCandidature("0", "1", "John", "Doe", "Expérience en tant que magasinier", "Disponible immédiatement", "cv_john_doe.pdf"));
+            items.add(new ItemCandidature("0", "2", "Jane", "Smith", "Compétences en secrétariat et gestion administrative", "Bilingue français-anglais", "cv_jane_smith.pdf"));
+            items.add(new ItemCandidature("0", "3", "Michael", "Johnson", "Expérience en tant que chauffeur-livreur", "Permis de conduire valide", "cv_michael_johnson.pdf"));
+            items.add(new ItemCandidature("0", "4", "Emily", "Brown", "Compétences en marketing digital", "Maîtrise des réseaux sociaux", "cv_emily_brown.pdf"));
+            items.add(new ItemCandidature("0", "5", "Daniel", "Davis", "Expérience en tant que technicien informatique", "Certification Cisco CCNA", "cv_daniel_davis.pdf"));
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setAdapter(new MyAdapterCandidature(getActivity(), items, "Candidat"));

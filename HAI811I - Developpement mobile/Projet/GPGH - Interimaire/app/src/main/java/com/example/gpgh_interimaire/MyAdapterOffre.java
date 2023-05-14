@@ -50,11 +50,9 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             holder.nameEntrepriseView.setText(itemsOffres.get(position).getNameEntreprise());
             holder.prixView.setText(itemsOffres.get(position).getPrix());
             holder.typeView.setText(itemsOffres.get(position).getType());
-            holder.rueView.setText(itemsOffres.get(position).getRue());
-            holder.complementRueView.setText(itemsOffres.get(position).getComplementRue());
             holder.codePostalView.setText(itemsOffres.get(position).getCodePostal());
         }
-        // Sic'est l'offre en details
+        // Si c'est l'offre en details
         else {
             holder.titreView.setText(itemsOffresDetails.get(position).getTitre());
             holder.imageView.setImageResource(itemsOffresDetails.get(position).getImage());
@@ -97,7 +95,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 context.startActivity(intent);
             }
         });
-        // Visibilité du bouton favorie des offres
+        // Visibilité du bouton favori des offres
         if (typeCompte.equals("Candidat")){
             holder.bouton_modif.setVisibility(View.GONE);
         }
@@ -106,12 +104,9 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
         }
 
         // Bouton supperieur btn_supp
-        holder.bouton_supp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Modification pour supprimer l'offre
-                Toast.makeText(context,R.string.offreSupp,Toast.LENGTH_SHORT).show();
-            }
+        holder.bouton_supp.setOnClickListener(v -> {
+            // Modification pour supprimer l'offre
+            Toast.makeText(context,R.string.offreSupp,Toast.LENGTH_SHORT).show();
         });
         // Visibilité du bouton favorie des offres
         if (typeCompte.equals("Candidat")){
@@ -122,19 +117,16 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
         }
 
         // Bouton favorie
-        holder.bouton_favori.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (is_favori){
-                    is_favori = false;
-                    holder.bouton_favori.setImageResource(R.drawable.icon_favori_white_vide);
-                }
-                else{
-                    is_favori = true;
-                    holder.bouton_favori.setImageResource(R.drawable.icon_favori_white);
-                }
-
+        holder.bouton_favori.setOnClickListener(v -> {
+            if (is_favori){
+                is_favori = false;
+                holder.bouton_favori.setImageResource(R.drawable.icon_favori_white_vide);
             }
+            else{
+                is_favori = true;
+                holder.bouton_favori.setImageResource(R.drawable.icon_favori_white);
+            }
+
         });
         // Visibilité du bouton favorie des offres
         if (typeCompte.equals("Candidat")){
@@ -158,7 +150,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 }
                 intent.putExtra("typeCompte", typeCompte);
                 intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
-                intent.putExtra("description", itemsOffres.get(position).getDescriptionOffre());
+                intent.putExtra("description", itemsOffres.get(position).getId_offre());
                 context.startActivity(intent);
             }
         });
