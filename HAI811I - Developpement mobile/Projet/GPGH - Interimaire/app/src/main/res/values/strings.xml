@@ -230,7 +230,7 @@
     <string name="offreSupp">Offre supprimé</string>
     <string name="deconexion">Déconnexion</string>
     <string name="informations">Informations :</string>
-    <string name="adresseTotal">Adresse de l'entreprise : </string>
+    <string name="adresseTotal">Adresse de l\'entreprise : </string>
     <string name="infoPlus">Caracteristiques :</string>
 
 </resources>

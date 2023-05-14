@@ -43,15 +43,19 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
     @SuppressLint({"SetTextI18n", "RecyclerView"})
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderOffre holder,  int position) {
-        // Si c'est l'offre dans le deffilement
         if (itemsOffres != null) {
             holder.titreView.setText(itemsOffres.get(position).getTitre());
-            holder.imageView.setImageResource(itemsOffres.get(position).getImage());
             holder.nameEntrepriseView.setText(itemsOffres.get(position).getNameEntreprise());
-            holder.prixView.setText(itemsOffres.get(position).getPrix());
-            holder.typeView.setText(itemsOffres.get(position).getType());
             holder.codePostalView.setText(itemsOffres.get(position).getCodePostal());
+            holder.typeView.setText(itemsOffres.get(position).getType());
+            holder.prixView.setText(itemsOffres.get(position).getPrix());
+
+            String date_debut = itemsOffres.get(position).getDate_debut();
+            String date_fin = itemsOffres.get(position).getDate_fin();
+            String date_debut_fin = date_debut + " - " + date_fin;
+            holder.dateOffreView.setText(date_debut_fin);
         }
+        /*
         // Si c'est l'offre en details
         else {
             holder.titreView.setText(itemsOffresDetails.get(position).getTitre());
@@ -71,12 +75,13 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 holder.teletravailView.setText("Télétravail possible");
             }
         }
+        */
 
         // Ajouter le OnClickListener à itemView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Créer une intention pour lancer l'Activity2
+                // Créer une intention pour lancer l'ActivityDetailsOffre
                 Intent intent = new Intent(context, AfficherDetailsOffreActivity.class);
                 intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
                 intent.putExtra("typeCompte", typeCompte);
@@ -95,26 +100,24 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 context.startActivity(intent);
             }
         });
-        // Visibilité du bouton favori des offres
-        if (typeCompte.equals("Candidat")){
-            holder.bouton_modif.setVisibility(View.GONE);
-        }
-        else{
-            holder.bouton_modif.setVisibility(View.VISIBLE);
-        }
+        // Visibilité du bouton modifier
+        if (typeCompte.equals("Candidat")) {holder.bouton_modif.setVisibility(View.GONE);}
+        else {holder.bouton_modif.setVisibility(View.VISIBLE);}
+        // Visibilité du bouton supprimer
+        if (typeCompte.equals("Candidat")) {holder.bouton_supp.setVisibility(View.INVISIBLE);}
+        else {holder.bouton_supp.setVisibility(View.VISIBLE);}
+        // Visibilité du bouton favori
+        if (typeCompte.equals("Candidat")) {holder.bouton_favori.setVisibility(View.VISIBLE);}
+        else {holder.bouton_favori.setVisibility(View.GONE);}
+        // Visibilité du bouton postuler
+        if (typeCompte.equals("Candidat")) {holder.bouton_candidater.setText("Postuler");}
+        else {holder.bouton_candidater.setText("Voir les candidatures");}
 
         // Bouton supperieur btn_supp
         holder.bouton_supp.setOnClickListener(v -> {
-            // Modification pour supprimer l'offre
-            Toast.makeText(context,R.string.offreSupp,Toast.LENGTH_SHORT).show();
+            // TODO Modification pour supprimer l'offre
+            Toast.makeText(context, R.string.offreSupp,Toast.LENGTH_SHORT).show();
         });
-        // Visibilité du bouton favorie des offres
-        if (typeCompte.equals("Candidat")){
-            holder.bouton_supp.setVisibility(View.INVISIBLE);
-        }
-        else{
-            holder.bouton_supp.setVisibility(View.VISIBLE);
-        }
 
         // Bouton favorie
         holder.bouton_favori.setOnClickListener(v -> {
@@ -128,13 +131,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             }
 
         });
-        // Visibilité du bouton favorie des offres
-        if (typeCompte.equals("Candidat")){
-            holder.bouton_favori.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.bouton_favori.setVisibility(View.GONE);
-        }
+        
         // Bouton candidature
         holder.bouton_candidater.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,12 +151,6 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 context.startActivity(intent);
             }
         });
-        if (typeCompte.equals("Candidat")) {
-            holder.bouton_candidater.setText("Postuler");
-        }
-        else {
-            holder.bouton_candidater.setText("Voir les candidatures");
-        }
 
     }
     @Override
