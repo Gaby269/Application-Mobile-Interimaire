@@ -48,11 +48,11 @@ public class FragPageOffres extends Fragment {
 
         List<ItemOffre> items = new ArrayList<ItemOffre>();
 
-        items.add(new ItemOffre("0", "[TEST] Développeur Java", "Temps plein", "25 €/heure", "ABC Entreprise", "01/06/2023", "31/08/2023", "75000 Paris"));
-        items.add(new ItemOffre("0", "[TEST] Assistant administratif", "Temps partiel", "15 €/heure", "XYZ Entreprise", "15/07/2023", "30/09/2023", "69000 Lyon"));
-        items.add(new ItemOffre("0", "[TEST] Manutentionnaire", "CDD", "10 €/heure", "123 Entreprise", "01/06/2023", "30/06/2023", "33000 Bordeaux"));
-        items.add(new ItemOffre("0", "[TEST] Infirmier(e)", "CDI", "30 €/heure", "456 Entreprise", "01/07/2023", "31/12/2023", "13000 Marseille"));
-        items.add(new ItemOffre("0", "[TEST] Commercial", "Freelance", "20 €/heure", "789 Entreprise", "01/06/2023", "31/12/2023", "59000 Lille"));
+        items.add(new ItemOffre("0", "[TEST] Développeur Java", "Temps plein", "25", "ABC Entreprise", "01/06/2023", "31/08/2023", "75000 Paris"));
+        items.add(new ItemOffre("1", "[TEST] Assistant administratif", "Temps partiel", "15", "XYZ Entreprise", "15/07/2023", "30/09/2023", "69000 Lyon"));
+        items.add(new ItemOffre("2", "[TEST] Manutentionnaire", "CDD", "10", "123 Entreprise", "01/06/2023", "30/06/2023", "33000 Bordeaux"));
+        items.add(new ItemOffre("3", "[TEST] Infirmier(e)", "CDI", "30", "456 Entreprise", "01/07/2023", "31/12/2023", "13000 Marseille"));
+        items.add(new ItemOffre("4", "[TEST] Commercial", "Freelance", "20", "789 Entreprise", "01/06/2023", "31/12/2023", "59000 Lille"));
 
 
         //Récupérer les offres de la base de données
