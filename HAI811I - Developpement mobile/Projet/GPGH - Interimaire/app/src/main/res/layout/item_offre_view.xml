@@ -75,7 +75,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
-            android:text="YouTube"
+            android:text="Entreprise"
             android:textSize="23dp"/>
 
         <TextView
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/entrepriseOffre"
             android:layout_marginStart="10dp"
-            android:text="18090 Chocolat"
+            android:text="code_postal ville"
             android:textColor="@color/black"
             android:textSize="16dp"
             android:gravity="center"/>
@@ -116,7 +116,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
-            android:text="10/09/2020 - 12/12/2021"
+            android:text="date/debut - date/fin"
             android:textSize="17dp"/>
 
         <ImageView
@@ -155,7 +155,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="Type"
+            android:text="Type job"
             android:padding="2dp"
             android:textSize="22dp" />
 
