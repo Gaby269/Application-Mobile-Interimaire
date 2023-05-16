@@ -14,7 +14,6 @@ public class MyViewHolderOffre extends RecyclerView.ViewHolder {
 
     ImageView imageView;
     ImageButton bouton_favori, bouton_modif, bouton_supp;
-    Button bouton_candidater;
     TextView titreView, nameEntrepriseView, prixView, dateOffreView, typeView, codePostalView;
 
     TextView descriptionView;

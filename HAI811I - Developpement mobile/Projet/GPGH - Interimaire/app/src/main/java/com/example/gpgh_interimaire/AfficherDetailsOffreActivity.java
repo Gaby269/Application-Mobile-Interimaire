@@ -33,10 +33,19 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         postulerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AfficherDetailsOffreActivity.this, PostulerActivity.class);
-                i.putExtra("is_details", "true");
-                i.putExtra("typeCompte", typeCompte);
-                startActivity(i);
+                if (typeCompte.equals("Candidat")) {
+                    Intent i = new Intent(AfficherDetailsOffreActivity.this, PostulerActivity.class);
+                    i.putExtra("typeCompte", typeCompte);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(AfficherDetailsOffreActivity.this, CandidaturesOffreActivity.class);
+                    i.putExtra("typeCompte", typeCompte);
+                    i.putExtra("titreOffre", titreOffre);
+                    i.putExtra("description", descriptionOffre);
+                    startActivity(i);
+                }
+
             }
         });
 
@@ -102,6 +111,10 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         // Visibilité du bouton suppression
         if (typeCompte.equals("Candidat")) { suppressionButton.setVisibility(View.INVISIBLE); }
         else { suppressionButton.setVisibility(View.VISIBLE); }
+
+        // Visibilité du bouton postuler
+        if (typeCompte.equals("Candidat")) {postulerButton.setText("Postuler");}
+        else {postulerButton.setText("Voir les candidatures");}
 
     }
 }

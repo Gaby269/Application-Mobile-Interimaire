@@ -27,8 +27,10 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
 
         // Récupération de l'intent
         Intent i = getIntent();
+        String typeCompte = i.getStringExtra("typeCompte");
         String titreOffre = i.getStringExtra("titreOffre");
         String descriptionOffre = i.getStringExtra("description");
+
         // Affichage du titre et de la description
         TextView titreOffreTextView = findViewById(R.id.titreTextView);
         TextView descriptionOffreTextView = findViewById(R.id.descriptionTextView);
@@ -46,7 +48,7 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapterCandidature(this, items, "Entreprise"));
+        recyclerView.setAdapter(new MyAdapterCandidature(this, items, typeCompte));
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +56,7 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(CandidaturesOffreActivity.this, NavbarActivity.class);
                 i.putExtra("fragment", "Offre");
-                i.putExtra("typeCompte", "Entreprise");
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });

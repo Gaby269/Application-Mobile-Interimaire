@@ -109,9 +109,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
         // Visibilité du bouton favori
         if (typeCompte.equals("Candidat")) {holder.bouton_favori.setVisibility(View.VISIBLE);}
         else {holder.bouton_favori.setVisibility(View.GONE);}
-        // Visibilité du bouton postuler
-        if (typeCompte.equals("Candidat")) {holder.bouton_candidater.setText("Postuler");}
-        else {holder.bouton_candidater.setText("Voir les candidatures");}
+
 
         // Bouton supperieur btn_supp
         holder.bouton_supp.setOnClickListener(v -> {
@@ -130,26 +128,6 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 holder.bouton_favori.setImageResource(R.drawable.icon_favori_white);
             }
 
-        });
-        
-        // Bouton candidature
-        holder.bouton_candidater.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Créer une intention pour lancer l'Activity2
-                Intent intent;
-                if (typeCompte.equals("Candidat")) {
-                    intent = new Intent(context, PostulerActivity.class);
-                    intent.putExtra("is_details", "false");
-                }
-                else{
-                    intent = new Intent(context, CandidaturesOffreActivity.class);
-                }
-                intent.putExtra("typeCompte", typeCompte);
-                intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
-                intent.putExtra("description", itemsOffres.get(position).getId_offre());
-                context.startActivity(intent);
-            }
         });
 
     }
