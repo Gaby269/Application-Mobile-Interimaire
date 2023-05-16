@@ -26,10 +26,12 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
         String titreCandidature = i.getStringExtra("titreCandidature");
         is_favori = false;
 
+        // TODO Prendre l'id de la candidature est afficher de la base la candidature en entier
         // Modification des éléments de la candidature
         TextView titreCandidatureTextView = findViewById(R.id.titre_candidature);
         titreCandidatureTextView.setText(titreCandidature);
 
+        // Changement du titre de
         TextView candidatureText = findViewById(R.id.candidatureDetailsTextView);
         if (typeCompte.equals("Candidat")) {
             candidatureText.setText("Details de votre candidature");
@@ -38,7 +40,6 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             candidatureText.setText("Details de la candidature :");
         }
 
-        //String typeCompte = "Candidat";
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +65,8 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // supprimer que si c'est candidat
                 // boite de dialogue + affichage
+                // TODO boite de dialogue pour être sur que on veut supprimer
+                // TODO supprimer dna sla base la candidature
                 Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureSupp,Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(AfficherDetailsCandidatureActivity.this, NavbarActivity.class);
                 i.putExtra("fragment", "Candidature");
@@ -105,10 +108,12 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                 if (is_favori){
                     is_favori = false;
                     favorieButton.setImageResource(R.drawable.icon_favori_white_vide);
+                    // TODO enlever la candidature des favories
                 }
                 else{
                     is_favori = true;
                     favorieButton.setImageResource(R.drawable.icon_favori_white);
+                    // TODO ajouter la candidature des favories
                 }
             }
         });
