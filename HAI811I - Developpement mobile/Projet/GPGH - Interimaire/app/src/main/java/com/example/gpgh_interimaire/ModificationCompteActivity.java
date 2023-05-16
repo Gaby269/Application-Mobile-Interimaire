@@ -46,6 +46,9 @@ public class ModificationCompteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modification_compte);
 
+        Intent i = getIntent();
+        String typeCompte = i.getStringExtra("typeCompte");
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
@@ -78,6 +81,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(ModificationCompteActivity.this, NavbarActivity.class);
                 i.putExtra("fragment", "Compte");
+                i.putExtra("typeCompte", typeCompte);
                 startActivity(i);
             }
         });

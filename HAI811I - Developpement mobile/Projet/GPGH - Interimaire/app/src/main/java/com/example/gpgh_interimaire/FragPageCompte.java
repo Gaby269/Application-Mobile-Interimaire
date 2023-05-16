@@ -62,6 +62,10 @@ public class FragPageCompte extends Fragment {
         // Associé la vue au layout du fragment 1
         View view = inflater.inflate(R.layout.frag_page_compte, container, false);
 
+        // Récupérer les arguments du bundle
+        assert getArguments() != null;
+        String typeCompte = getArguments().getString("typeCompte");
+
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -84,6 +88,7 @@ public class FragPageCompte extends Fragment {
         ImageView modifierButton = view.findViewById(R.id.image_modif);
         modifierButton.setOnClickListener(view12 -> {
             Intent i = new Intent(getActivity(), ModificationCompteActivity.class);
+            i.putExtra("typeCompte", typeCompte);
             startActivity(i);
         });
 
