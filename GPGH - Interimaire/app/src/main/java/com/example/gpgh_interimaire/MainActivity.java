@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, NavbarActivity.class);
+                i.putExtra("fragment", "Offre");
+                i.putExtra("typeCompte", "Invite");
                 i.putExtra("showLinearLayout", false);
                 i.putExtra("invite", true);
                 startActivity(i);

@@ -70,7 +70,7 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
             }
         });
         // Visibilité du bouton favorie des offres
-        if (typeCompte.equals("Candidat")){
+        if (typeCompte.equals("Candidat") || typeCompte.equals("Admin")){
             holder.bouton_favori.setVisibility(View.GONE);
         }
         else{
@@ -89,7 +89,7 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
             }
         });
         // Visibilité du bouton modification des offres
-        if (typeCompte.equals("Candidat")){
+        if (typeCompte.equals("Candidat") || typeCompte.equals("Admin")){
             holder.bouton_modif.setVisibility(View.VISIBLE);
         }
         else{

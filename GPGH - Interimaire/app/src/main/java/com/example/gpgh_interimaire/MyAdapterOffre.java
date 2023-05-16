@@ -17,7 +17,6 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
 
     Context context;
     List<ItemOffre> itemsOffres;
-    List<ItemOffreDetails> itemsOffresDetails;
     String typeCompte;
     boolean is_favori = false;
 
@@ -101,7 +100,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             }
         });
         // Visibilité du bouton modifier
-        if (typeCompte.equals("Candidat")) {holder.bouton_modif.setVisibility(View.GONE);}
+        if (typeCompte.equals("Candidat") || typeCompte.equals("Admin")) {holder.bouton_modif.setVisibility(View.GONE);}
         else {holder.bouton_modif.setVisibility(View.VISIBLE);}
         // Visibilité du bouton supprimer
         if (typeCompte.equals("Candidat")) {holder.bouton_supp.setVisibility(View.INVISIBLE);}
