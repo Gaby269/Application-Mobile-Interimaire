@@ -33,10 +33,16 @@
             android:id="@+id/editTextTextEmailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:background="@color/cardview_light_background"
-            android:hint="Adresse du destinataire"
-            android:inputType="textEmailAddress" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1125"
+            android:background="@drawable/bord_bleu_fond_white"
+            android:hint="Adresse mail du destinataire"
+            android:inputType="textEmailAddress"
+            android:paddingStart="10dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            />
 
         <Button
             android:id="@+id/button_add"
@@ -48,45 +54,17 @@
 
     </LinearLayout>
 
-    <LinearLayout
+
+
+
+
+    <!-- RecyclerView pour afficher les messages -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMessages"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/black">
-
-
-        <TextView
-            android:id="@+id/contactName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nom"
-            android:textColor="@color/white"
-            android:layout_weight="5" />
-
-        <Button
-            android:id="@+id/bouton_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Discuter"
-            android:layout_weight="1" />
-
-
-        <TextView
-            android:id="@+id/non_lu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lu/non lu"
-            android:textColor="@color/white"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-
-    <!--    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewConversations"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-     -->
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:padding="8dp" />
 
 
 </LinearLayout>

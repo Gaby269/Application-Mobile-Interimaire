@@ -37,6 +37,7 @@ public class FragPageMessagerie extends Fragment {
 
     private EditText editTextTextEmailAddress;
     private Button button_add;
+    String typeCompte;
 
     // Constructeur
     public FragPageMessagerie() {}
@@ -48,6 +49,10 @@ public class FragPageMessagerie extends Fragment {
 
         // Associé la vue au layout du fragment 1
         View view = inflater.inflate(R.layout.frag_page_messagerie, container, false);
+
+        // Récupérer les arguments du bundle
+        assert getArguments() != null;
+        typeCompte = getArguments().getString("typeCompte");
     
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -68,7 +73,7 @@ public class FragPageMessagerie extends Fragment {
         return view;
     }
 
-    // mettre la recyclerview pour fetch toutes les conversaitons
+    //TODO mettre la recyclerview pour fetch toutes les conversaitons
 
 
     private void createConversation(String email) {
@@ -117,6 +122,7 @@ public class FragPageMessagerie extends Fragment {
                                                             editTextTextEmailAddress.setText("");
                                                             Intent intent = new Intent(getActivity(), MessagesActivity.class);
                                                             intent.putExtra("conversationId", conversationId);
+                                                            intent.putExtra("typeCompte", typeCompte);
                                                             startActivity(intent);
                                                         })
                                                         .addOnFailureListener(e -> {
