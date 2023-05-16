@@ -1,0 +1,28 @@
+** INSCRIPTION
+~ Valider le numéro
+
+
+** AFICHER DETAILS OFFRES 
+- A FAIRE : gerer le bouton retour avec le type de compte (actuellement ok pcq typecompte est en dure dans navbar)
+- A FAIRE : Ajouter les info retrouver dans la base mais dans le details de loffre
+
+
+** AFFICHER DETAILS CANDIDATURES
+- Ajout d'une candidature pour un candidat
+
+
+** OFFRES
+- A FAIRE : laisse la recherche avec le filtre en etant fixé meme quand on scroll
+- A FAIRE : ajuster la barre d'en haut avec le filtre etc
+- A FAIRE : si pas paiment, pas de offres
+
+
+** CANDIDATURE DE L'OFFRE
+- A FAIRE : arrivé a garder la barre de recherche comme toolbar mais pas encore sur
+
+
+** NAVBAR
+A FAIRE  :  ajouter pour chaque activity des intent pour faire circuler le type de compte pour les affichages
+
+
+** MESSAGERIE

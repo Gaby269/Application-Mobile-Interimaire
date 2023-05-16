@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".MoyenPaiementActivity">
+
+    <TextView
+        android:id="@+id/moyenPaiementTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/moyen_payer"
+        android:textSize="30dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <LinearLayout
+        android:id="@+id/layout_paiement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moyenPaiementTextView"
+        tools:ignore="ExtraText">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageCartes"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/cartes_de_credit"
+                tools:layout_editor_absoluteX="27dp"
+                tools:layout_editor_absoluteY="124dp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/nomEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/arrondir_edit_white"
+            android:gravity="center_vertical"
+            android:hint="@string/nom_carte"
+            android:paddingStart="10dp"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/carteEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/arrondir_edit_white"
+            android:gravity="center_vertical"
+            android:hint="@string/numero_carte"
+            android:paddingStart="10dp"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/dateEditText"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="5"
+                android:background="@drawable/arrondir_edit_white"
+                android:gravity="center_vertical"
+                android:hint="@string/date_carte"
+                android:inputType="text"
+                android:maxLength="5"
+                android:paddingStart="10dp"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/codeEditText"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="4"
+                android:background="@drawable/arrondir_edit_white"
+                android:gravity="center_vertical"
+                android:hint="@string/code_carte"
+                android:inputType="text"
+                android:maxLength="3"
+                android:paddingStart="10dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textSaveCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save_carte"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/sliderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:checked="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textPayerPaypal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/payer_paypal"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imagePaypal"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/bouton_paypal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/layout_boutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_paiement">
+
+        <Button
+            android:id="@+id/boutton_payer"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            android:text="@string/boutton_payer"
+            android:background="@drawable/arrondir_edit_bleu"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/boutton_tmp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="carte_TMP"
+            android:background="@drawable/arrondir_edit_rouge"
+            android:textSize="17sp"
+            android:layout_marginStart="20dp" />
+
+    </LinearLayout>
+
+    <!-- Pour placer le fragment de chargement -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

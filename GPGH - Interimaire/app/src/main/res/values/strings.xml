@@ -1,0 +1,236 @@
+<resources>
+    <!-- Global-->
+    <string name="app_name" translatable="false">GPGH - Interimaire</string>
+    <string name="home" translatable="false">GPGH</string>
+    <string name="chargement">Chargement...</string>
+    <string name="no_internet">Pas de connexion internet</string>
+    <string name="retry">Réessayer</string>
+    <string name="error_unknown">Une erreur est survenue, veuillez réessayer</string>
+    <string name="oui">Oui</string>
+    <string name="non">Non</string>
+    <string name="annuler">Annuler</string>
+    <!-- Accueil -->
+    <string name="prem_text">L\'application d\'interimaire qui vous correspond</string>
+    <string name="boutton_inscription">S\'inscrire</string>
+    <string name="boutton_connexion">Se connecter</string>
+    <string name="sec_text">Déjà inscrit ? Se connecter ></string>
+    <string name="boutton_invite">Invite</string>
+
+    <!-- Inscription -->
+    <string name="inscription">Inscription</string>
+    <string name="connexion">Connexion</string>
+    <string name="ecoute_text">Des professionnels à votre écoute</string>
+    <string name="boutton_creaCompte">Créer votre compte</string>
+    <string name="mdp">Mot de passe</string>
+    <string name="mail">Email</string>
+    <string name="nom">Nom</string>
+    <string name="prenom">Prénom</string>
+    <string name="creaCompte_text">Créez un compte avec votre adresse email</string>
+    <string name="connexion_text">Connectez-vous avec votre adresse email</string>
+    <string name="typeSpinner">Type de compte</string>
+    <!-- Erreurs -->
+    <string name="code_incorrect">Code incorrect</string>
+    <string name="nom_vide">Entrez un nom</string>
+    <string name="prenom_vide">Entrez un prenom</string>
+    <string name="email_vide">L\'email ne peut pas être vide</string>
+    <string name="email_invalide">Entrez un email valide</string>
+    <string name="mdp_vide">Le mot de passe ne peut pas être vide</string>
+    <string name="tel_vide">Entrez un numéro de téléphone valide</string>
+    <string name="mdp_court">Le mot de passe doit contenir au moins 6 caractères</string>
+    <string name="mdp_incorrect">Le mot de passe est incorrect</string>
+    <string name="choisir_compte">Choissisez un type de compte</string>
+    <string name="email_deja_utilise">Cette adresse email est déjà utilisée</string>
+    <string name="compte_inexistant">Ce compte n\'existe pas</string>
+
+    <!--  Confirmation téléphone -->
+    <string name="hello_user">Bonjour USER</string>
+    <string name="telephone">Téléphone</string>
+    <string name="confTel_text">Confirmations de votre téléphone</string>
+    <string name="codeNonRecu_text">Non reçu ? Renvoyer le code ></string>
+    <string name="boutton_confTel">Confirmer</string>
+    <string name="codeTel">Code à 4 chiffres</string>
+    <string name="codeRecu_text">Code reçu au 06XXXXXX10</string>
+
+    <!--  Inscription Entreprise  -->
+    <string name="entrepriseDonnee_text">Vous êtes un employeur</string>
+    <string name="nomEntreprise">  Nom de l\'entreprise</string>
+    <string name="siret">Numéro SIRET</string>
+    <string name="adresse">Adresse Postale</string>
+    <string name="contactPrin_text">Contact princial</string>
+    <string name="AjoutercontactSec_text">Ajouter un contact secondaire</string>
+    <string name="contactSec_text">Contact Secondaire</string>
+    <string name="nomComplet">Nom Complet</string>
+    <!-- Erreurs -->
+    <string name="erreurChamp">Ce champ ne peut pas être vide</string>
+    <string name="choix_obligatoire">Choisissez une offre</string>
+
+    <!--  Abonnement -->
+    <string name="service_text">Notre expertise à votre service</string>
+    <string name="boutton_choixAbo">Choisir</string>
+    <string name="abonnement">Abonnement</string>
+    <string name="boutton_payer">Payer</string>
+    <string name="moyen_payer">Moyen de paiement</string>
+    <string name="recap_payer">Recapitulatif du prix</string>
+    <string name="boutton_confirmer">Confirmer l\'abonnement</string>
+    <string name="code_promo_non_cumulabe">Les codes promos ne sont pas cumulables</string>
+    <string name="code_promo_incorrect">Le code promo est incorrect</string>
+    <string name="code_promo_10">Réduction de 10% :</string>
+    <string name="code_promo_30">Réduction de 30% :</string>
+    <!-- Carte bancaire -->
+    <string name="nom_carte">Nom sur la carte</string>
+    <string name="numero_carte">Numéro de carte</string>
+    <string name="date_carte">Date d\'expiration</string>
+    <string name="code_carte">Code CVV</string>
+    <string name="save_carte">Enregistrer votre carte</string>
+    <string name="ou">ou</string>
+    <string name="payer_paypal">Payer avec Paypal :</string>
+    <string name="erreur_vide">Ce champ ne peut pas être vide</string>
+    <string name="erreur_nom">Entrez un nom</string>
+    <string name="erreur_carte">Entrez un numéro de carte valide</string>
+    <string name="erreur_date">Entrez une date d\'expiration valide</string>
+    <string name="erreur_code">Entrez un code CVV valide</string>
+
+    <!-- Type abonnement -->
+    <string name="choisir_abonnement">Choisir le type d\'abonnement</string>
+    <string name="type_abonnement">Type d\'abonnement</string>
+    <string name="ponctuel">Ponctuel (une annonce)</string>
+    <string name="mensuel">Mensuel</string>
+    <string name="trimestriel">Trimestriel</string>
+    <string name="semestriel">Semestriel</string>
+    <string name="annuel">Annuel</string>
+    <string name="renouvelable">Indétérminé</string>
+
+    <!-- Offres -->
+    <string name="offre">Offre</string>
+    <string name="ponctuelle">Offre ponctuelle</string>
+    <string name="mensuelle">Offre mensuelle</string>
+    <string name="trimestrielle">Offre trimestrielle</string>
+    <string name="semestrielle">Offre semestrielle</string>
+    <string name="annuelle">Offre annuelle</string>
+    <string name="offre_renouvelable">Offre indétéminé</string>
+
+
+    <!-- Tutoriel entreprise -->
+    <string name="tuto">Tutoriel</string>
+    <string name="boutton_passer">Passer</string>
+    <string name="boutton_next">Next</string>
+
+    <!-- Navigation principale -->
+    <string name="filtrer">Filtrer</string>
+    <string name="favoris">Favoris</string>
+    <string name="boutton_retour">Retour</string>
+    <string name="detailsOff">Details de l\'offre</string>
+    <string name="boutton_postuler">Postuler</string>
+    <string name="boutton_supprimer">Supprimer</string>
+    <string name="boutton_modifier">Modifier</string>
+    <string name="creationOffre">Créer votre offre</string>
+    <string name="titreOffre">Titre de l\'offre :</string>
+    <string name="typePoste">Type de poste :</string>
+    <string name="descriptionOffre">Description de l\'offre :</string>
+    <string name="exTypePoste">ex : Stage</string>
+    <string name="exTitre">ex : Stagiaire RH</string>
+    <string name="boutton_suivant">Suivant ></string>
+    <string name="periodeOffre">Date de l\'emploi</string>
+    <string name="date_debut">Date début</string>
+    <string name="date_fin">Date fin</string>
+    <string name="lieu">Lieu</string>
+    <string name="exLieu">ex : 9 rue de la Vignette, 34090 Montpellier</string>
+    <string name="remuneration">Remuneration</string>
+    <string name="exRemuneration">ex : 25€ - 30€</string>
+    <string name="exDetails">ex : Avoir le permis</string>
+    <string name="detailsOffre">Details suplémentaire (facultatif)</string>
+    <string name="boutton_terminer">Terminer</string>
+    <string name="boutton_envoyer">Envoyer</string>
+    <string name="modifOffre">Modification de l\'offre</string>
+    <string name="offreModif">Offre modifié</string>
+    <string name="offreCree">Offre créée !</string>
+    <string name="rechercher">Rechercher</string>
+    <string name="filter">Filter</string>
+
+    <!-- Gestion du compte -->
+    <string name="compte">Votre compte</string>
+    <string name="titreCompte">"Le compte : "</string>
+    <string name="modifCompte">Modification du compte</string>
+    <string name="compteModif">Informations mises à jour</string>
+    <string name="nom_">Nom :</string>
+    <string name="prenom_">Prénom :</string>
+    <string name="mail_">Email :</string>
+    <string name="telephone_">Téléphone :</string>
+    <string name="typeCompte_">Type de compte :</string>
+    <string name="mdp_">Mot de passe :</string>
+    <string name="add_profile_picture">Ajouter une photo de profil</string>
+    <string name="enregistrer">Enregistrer</string>
+    <string name="echec_upload">Echec de téléchargement</string>
+    <string name="success_upload">Image téléchargée</string>
+    <string name="deconnexion_titre">Deconnexion</string>
+    <string name="suppression_titre">Suppression du compte</string>
+    <string name="deconnexion_message">Se deconnecter ?</string>
+    <string name="suppression_message">Voulez-vous vraiment supprimer votre compte ?</string>
+    <string name="compte_supprime_succes">Votre compte a bien été supprimé</string>
+    <string name="compte_supprime_echec">Echec de la suppression du compte</string>
+    <string name="deconnexion_succes">Vous avez été déconnecté</string>
+
+    <!-- Candidatures -->
+    <string name="boutton_candidature">Voir Candidatures</string>
+    <string name="boutton_candidater">Candidater</string>
+    <string name="mesCandidatures">Mes Candidatures</string>
+    <string name="modifCandidature">Modification de votre candidature</string>
+    <string name="detailsCand">Details de votre candidature</string>
+    <string name="postuler">Postuler pour l\'offre :</string>
+    <string name="ajoutCandidatOffre">Complément à votre candidature</string>
+    <string name="candidatureReff">Candidature refusée</string>
+    <string name="candidatureAcc">Candidature Acceptée</string>
+    <string name="candidatureModif">Candidature modifiée</string>
+    <string name="candidatureSupp">Candidature supprimée</string>
+    <string name="Candidatures">Candidatures de l\'offre</string>
+    <string name="boutton_refuser">Refuser</string>
+    <string name="boutton_accepter">Accepter</string>
+
+    <!-- Creation offres -->
+    <!-- Erreurs -->
+    <string name="erreur_titre_offre">Entrez un titre</string>
+    <string name="erreur_type_offre">Entrez un type</string>
+    <string name="erreur_description_offre">Entrez une description</string>
+    <string name="erreur_date_deb_offre">Entrez une date valide</string>
+    <string name="erreur_date_fin_offre">Entrez une date valide</string>
+    <string name="erreur_lieu_offre">Entrez une adresse</string>
+    <string name="erreur_remuneration_offre">Entrez une rémunération</string>
+
+    <!-- Messagerie -->
+    <string name="messagerie">Mes messages</string>
+    <string name="nouveau_message">Nouveau message...</string>
+    <string name="envoyer_message">Envoyer</string>
+    <string name="no_auto_chat">Vous ne pouvez pas démarrer une conversation avec vous-même</string>
+
+
+
+    <!-- Spinners -->
+    <string-array name="typeCompte">
+        <item>Entreprise</item>
+        <item>Candidat</item>
+    </string-array>
+    <string-array name="typeAbonnement">
+        <item>Ponctuelle (un abonnement)</item>
+        <item>Mensuelle</item>
+        <item>Trimestrielle</item>
+        <item>Semestrielle</item>
+        <item>Annuelle</item>
+        <item>Renouvelable</item>
+    </string-array>
+    <string-array name="filtreRecherche">
+        <item>Filter</item>
+        <item>Plus grand</item>
+    </string-array>
+
+    <!-- placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="boutton_valider">Valider</string>
+    <string name="longTexte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae nibh auctor, tempor tortor ac, semper leo. Phasellus euismod tortor sit amet faucibus auctor. Pellentesque magna mauris, hendrerit aliquam libero consequat, iaculis auctor urna. Maecenas vitae sagittis metus. Pellentesque fringilla velit ac facilisis luctus. Nulla ac nunc sit amet eros posuere efficitur. Sed consequat imperdiet tempor. Sed volutpat consequat nisl, aliquam vestibulum felis porttitor quis. In tincidunt finibus lacinia. Nullam bibendum orci in est viverra consectetur. Proin sed mattis tellus. Sed eu est lacinia, cursus urna et, accumsan orci. Nam magna risus, consequat mollis odio quis, imperdiet tristique enim. Mauris nibh diam, eleifend sed euismod vel, semper eu nibh. Duis fringilla vulputate elementum. Proin tincidunt semper posuere. Maecenas non tempus odio, ac pretium justo. Sed vehicula urna sed neque sollicitudin, in vulputate neque dignissim. Sed suscipit consequat metus quis lobortis. Integer facilisis efficitur est, a tincidunt nulla eleifend id. Aliquam dignissim mollis quam, ut gravida nisl ornare nec. Quisque id rutrum felis, sit amet vestibulum odio. Fusce turpis leo, tristique vel finibus ut, ullamcorper eu magna. Phasellus scelerisque vitae velit eget posuere. Nunc dictum dui a maximus dignissim. Integer id sagittis mi, ac elementum diam. Duis maximus iaculis ultricies. Vivamus quis ex magna. Suspendisse accumsan mi eget tellus aliquam, nec ullamcorper nibh porttitor. Phasellus vitae euismod felis. Maecenas justo arcu, cursus vel lorem at, consequat semper leo. Quisque eleifend sagittis dignissim.</string>
+    <string name="complementOffre">Complément de l\'offre</string>
+    <string name="offreSupp">Offre supprimé</string>
+    <string name="deconexion">Déconnexion</string>
+    <string name="informations">Informations :</string>
+    <string name="adresseTotal">Adresse de l\'entreprise : </string>
+    <string name="infoPlus">Caracteristiques :</string>
+
+</resources>
