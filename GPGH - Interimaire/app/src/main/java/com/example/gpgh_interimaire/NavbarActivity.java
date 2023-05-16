@@ -46,6 +46,8 @@ public class NavbarActivity extends AppCompatActivity {
         ImageView offresImage = findViewById(R.id.image_offres);
         ImageView candidatureImage = findViewById(R.id.image_candidature);
         ImageView ajoutImage = findViewById(R.id.image_ajout);
+        ImageView connexionImage = findViewById(R.id.image_connexion);
+
 
         // Gérer les fragment pour savoir lequel afficher
         switch (pageFragment) {

@@ -232,5 +232,14 @@
     <string name="informations">Informations :</string>
     <string name="adresseTotal">Adresse de l\'entreprise : </string>
     <string name="infoPlus">Caracteristiques :</string>
+    <string name="description_">Description :</string>
+    <string name="titre_">Titre :</string>
+    <string name="type_">Type :</string>
+    <string name="date_">Date :</string>
+    <string name="lieu_">Lieu :</string>
+    <string name="prix_">Rémunération :</string>
+    <string name="details_">Détails :</string>
+    <string name="dateDebut_">Date de début :</string>
+    <string name="dateFin_">Date de fin :</string>
 
 </resources>

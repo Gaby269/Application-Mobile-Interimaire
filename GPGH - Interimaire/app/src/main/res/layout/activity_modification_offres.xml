@@ -31,61 +31,231 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/modifOffreTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/modifOffre"
-        android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/offreTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_retour"/>
 
-    <TextView
-        android:id="@+id/offreTextView"
+    <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/titreOffre"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/modifOffreTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <LinearLayout
-        android:id="@+id/layout_boutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/offreTextView">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_retour">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/modifOffreTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
+                android:text="@string/modifOffre"
+                android:textSize="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@id/offreTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_retour"/>
+
+            <TextView
+                android:id="@+id/offreTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/titreOffre"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/modifOffreTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
-        <Button
-            android:id="@+id/boutton_modifier"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/boutton_modifier"
-            android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
+            <LinearLayout
+                android:id="@+id/layout_Offre"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bord_bleu_fond_white"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/offreTextView">
+                <LinearLayout
+                    android:id="@+id/layout_Offre_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15px">
+                    <TextView
+                        android:id="@+id/textViewTitre"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:paddingLeft="20px"
+                        android:text="@string/titre_" />
+                    <TextView
+                        android:id="@+id/textViewType"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:textStyle="bold"
+                        android:text="@string/type_" />
+                    <TextView
+                        android:id="@+id/textViewDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:textStyle="bold"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:text="@string/description_" />
+                    <TextView
+                        android:id="@+id/textViewDateDebut"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:textStyle="bold"
+                        android:text="@string/dateDebut_" />
+                    <TextView
+                        android:id="@+id/textViewDateFin"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:textStyle="bold"
+                        android:text="@string/dateFin_" />
+                    <TextView
+                        android:id="@+id/textViewLieu"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:textStyle="bold"
+                        android:text="@string/lieu_" />
+                    <TextView
+                        android:id="@+id/textViewPrix"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:textStyle="bold"
+                        android:text="@string/prix_" />
+                    <TextView
+                        android:id="@+id/textViewDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:textStyle="bold"
+                        android:text="@string/details_" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_Offre_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15px">
+                    <EditText
+                        android:id="@+id/editTitre"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
+                    <EditText
+                        android:id="@+id/editType"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="" />
+                    <EditText
+                        android:id="@+id/editDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:inputType="textLongMessage"/>
+                    <EditText
+                        android:id="@+id/editDateDebut"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
+                    <EditText
+                        android:id="@+id/editDateFin"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
+                    <EditText
+                        android:id="@+id/editLieu"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
+                    <EditText
+                        android:id="@+id/editPrix"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
+                    <EditText
+                        android:id="@+id/editDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_boutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/offreTextView">
 
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/boutton_modifier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/boutton_modifier"
+                    android:background="@drawable/arrondir_edit_bleu"
+                    android:textSize="15sp" />
 
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
