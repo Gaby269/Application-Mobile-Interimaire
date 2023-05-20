@@ -48,15 +48,30 @@ public class ConnexionActivity extends AppCompatActivity {
             }
         });
 
-        Button fastLogin = findViewById(R.id.buttonTmp);
-        fastLogin.setOnClickListener(new View.OnClickListener() {
+        Button loginCandidat = findViewById(R.id.buttonTmp1);
+        loginCandidat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String email = "gatienhaddad@hotmail.fr";
-                //String mdp = "123456";
+                mailEditText.setText("gaby.toto@gmail.com");
+                mdpEditText.setText("123456");
+                String email = mailEditText.getText().toString();
+                String mdp = mdpEditText.getText().toString();
+                if (validateInput(email, mdp)) {
+                    signInUser(email, mdp);
+                }
+            }
+        });
 
-                String email = "gaby.toto@gmail.com";
-                String mdp = "123456";
+        
+
+        Button loginEntreprise = findViewById(R.id.buttonTmp2);
+        loginEntreprise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mailEditText.setText("gatienhaddad@hotmail.fr");
+                mdpEditText.setText("123456");
+                String email = mailEditText.getText().toString();
+                String mdp = mdpEditText.getText().toString();
                 if (validateInput(email, mdp)) {
                     signInUser(email, mdp);
                 }

@@ -1,0 +1,7 @@
+Modif Compte : mettre une scroll view
+
+Connexion : boutton "se connecter" qui remonte mais pas les champs
+
+Afficher Détail Candidature : Essayer de répartir l'espace, mieux que sur la card du menu offre (grouper la ville, grouper les infos importantes, etc...)
+
+Ajouter Offre : Design de la page, ajouter un formatage correct des champs (date, etc)

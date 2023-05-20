@@ -48,13 +48,13 @@ public class FragPageOffres extends Fragment {
 
         List<ItemOffre> items = new ArrayList<ItemOffre>();
 
-        items.add(new ItemOffre("0", "[TEST] Développeur Java", "Temps plein", "25", "ABC Entreprise", "01/06/2023", "31/08/2023", "75000 Paris"));
-        items.add(new ItemOffre("1", "[TEST] Assistant administratif", "Temps partiel", "15", "XYZ Entreprise", "15/07/2023", "30/09/2023", "69000 Lyon"));
-        items.add(new ItemOffre("2", "[TEST] Manutentionnaire", "CDD", "10", "123 Entreprise", "01/06/2023", "30/06/2023", "33000 Bordeaux"));
-        items.add(new ItemOffre("3", "[TEST] Infirmier(e)", "CDI", "30", "456 Entreprise", "01/07/2023", "31/12/2023", "13000 Marseille"));
-        items.add(new ItemOffre("4", "[TEST] Commercial", "Freelance", "20", "789 Entreprise", "01/06/2023", "31/12/2023", "59000 Lille"));
+        // items.add(new ItemOffre("0", "[TEST] Développeur Java", "Temps plein", "25", "ABC Entreprise", "01/06/2023", "31/08/2023", "75000 Paris"));
+        // items.add(new ItemOffre("1", "[TEST] Assistant administratif", "Temps partiel", "15", "XYZ Entreprise", "15/07/2023", "30/09/2023", "69000 Lyon"));
+        // items.add(new ItemOffre("2", "[TEST] Manutentionnaire", "CDD", "10", "123 Entreprise", "01/06/2023", "30/06/2023", "33000 Bordeaux"));
+        // items.add(new ItemOffre("3", "[TEST] Infirmier(e)", "CDI", "30", "456 Entreprise", "01/07/2023", "31/12/2023", "13000 Marseille"));
+        // items.add(new ItemOffre("4", "[TEST] Commercial", "Freelance", "20", "789 Entreprise", "01/06/2023", "31/12/2023", "59000 Lille"));
 
-
+        Log.d(TAG, "Récupération des offres");
         //Récupérer les offres de la base de données
         db.collection("offres")
             .get()
@@ -86,6 +86,14 @@ public class FragPageOffres extends Fragment {
                     Log.d(TAG, "Erreur lors de la récupération des offres : ", task.getException());
                     items.add(new ItemOffre("0", "Pas d'offres disponibles", "", "", "Désolé", "", "", "Rééssayez plus tard"));
                 }
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, typeCompte));
+            })
+            .addOnFailureListener(e -> {
+                // Gérer l'échec de la récupération des données
+                Log.d(TAG, "Erreur lors de la récupération des offres : ", e);
+                items.add(new ItemOffre("0", "Pas d'offres disponibles", "", "", "Désolé", "", "", "Réessayez plus tard"));
+        
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, typeCompte));
             });

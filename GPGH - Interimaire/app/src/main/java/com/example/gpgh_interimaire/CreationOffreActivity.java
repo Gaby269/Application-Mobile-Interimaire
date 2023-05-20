@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -24,8 +25,13 @@ public class CreationOffreActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     
-    EditText titreOffreEditText, typePosteEditText, descriptionOffreEditText, dateDebEditText, dateFinEditText, lieuEditText, remunerationEditText;
-    String titre, type, description, dateDeb, dateFin, lieu, remuneration, typeCompte;
+    EditText titreOffreEditText, typePosteEditText, descriptionOffreEditText, dateDebEditText, dateFinEditText, remunerationEditText;
+    EditText rueEditText, complementEditText, codePostalEditText, villeEditText;
+    CheckBox checkBoxParking, checkBoxTicketResto, checkBoxTeletravail;
+
+    String titre, type, description, dateDeb, dateFin, remuneration, rue, complement, codePostal, ville;
+    boolean parking, ticketResto, teletravail;
+    String typeCompte;
 
 
     @Override
@@ -45,8 +51,16 @@ public class CreationOffreActivity extends AppCompatActivity {
         descriptionOffreEditText = findViewById(R.id.descriptionOffreEditText);
         dateDebEditText = findViewById(R.id.dateDebEditText);
         dateFinEditText = findViewById(R.id.dateFinEditText);
-        lieuEditText = findViewById(R.id.lieuEditText);
         remunerationEditText = findViewById(R.id.remunerationEditText);
+        rueEditText = findViewById(R.id.rueEditText);
+        complementEditText = findViewById(R.id.complementEditText);
+        codePostalEditText = findViewById(R.id.codePostalEditText);
+        villeEditText = findViewById(R.id.villeEditText);
+
+        checkBoxParking = findViewById(R.id.checkBoxParking);
+        checkBoxTicketResto = findViewById(R.id.checkBoxTicketResto);
+        checkBoxTeletravail = findViewById(R.id.checkBoxTeletravail);
+
 
 
        Button creaOffreButton = findViewById(R.id.boutton_creationOffre);
@@ -79,10 +93,20 @@ public class CreationOffreActivity extends AppCompatActivity {
         description = descriptionOffreEditText.getText().toString();
         dateDeb = dateDebEditText.getText().toString();
         dateFin = dateFinEditText.getText().toString();
-        lieu = lieuEditText.getText().toString();
         remuneration = remunerationEditText.getText().toString();
+        rue = rueEditText.getText().toString();
+        complement = complementEditText.getText().toString();
+        codePostal = codePostalEditText.getText().toString();
+        ville = villeEditText.getText().toString();
 
-        if (remuneration.contains("€")){
+        parking = checkBoxParking.isChecked();
+        ticketResto = checkBoxTicketResto.isChecked();
+        teletravail = checkBoxTeletravail.isChecked();
+
+        if (remuneration.contains("€/h")){
+            remuneration = remuneration.replace("€/h", "");
+        }
+        else if (remuneration.contains("€")){
             remuneration = remuneration.replace("€", "");
         }
 
@@ -92,8 +116,16 @@ public class CreationOffreActivity extends AppCompatActivity {
         offre.put("description", description);
         offre.put("dateDeb", dateDeb);
         offre.put("dateFin", dateFin);
-        offre.put("lieu", lieu);
         offre.put("remuneration", remuneration);
+        offre.put("rue", rue);
+        offre.put("complement", complement);
+        offre.put("codePostal", codePostal);
+        offre.put("ville", ville);
+
+        offre.put("parking", parking);
+        offre.put("ticketResto", ticketResto);
+        offre.put("teletravail", teletravail);
+
         offre.put("createur", mAuth.getCurrentUser().getUid());
 
         db.collection("offres")
@@ -118,8 +150,11 @@ public class CreationOffreActivity extends AppCompatActivity {
         description = descriptionOffreEditText.getText().toString();
         dateDeb = dateDebEditText.getText().toString();
         dateFin = dateFinEditText.getText().toString();
-        lieu = lieuEditText.getText().toString();
         remuneration = remunerationEditText.getText().toString();
+        rue = rueEditText.getText().toString();
+        complement = complementEditText.getText().toString();
+        codePostal = codePostalEditText.getText().toString();
+        ville = villeEditText.getText().toString();
 
         boolean check = true;
         if (titre.isEmpty()) {
@@ -142,25 +177,32 @@ public class CreationOffreActivity extends AppCompatActivity {
             dateFinEditText.setError(getString(R.string.erreur_date_fin_offre));
             check = false;
         }
-        if (lieu.isEmpty()) {
-            lieuEditText.setError(getString(R.string.erreur_lieu_offre));
-            check = false;
-        }
         if (remuneration.isEmpty()) {
             remunerationEditText.setError(getString(R.string.erreur_remuneration_offre));
             check = false;
         }
-        // if (remuneration.matches("[0-9]+")) {
-        //     int remun = Integer.parseInt(remuneration);
-        //     if (remun < 0) {
-        //         remunerationEditText.setError(getString(R.string.erreur_remuneration_offre));
-        //         check = false;
-        //     }
-        // }
-        // else {
-        //     remunerationEditText.setError(getString(R.string.erreur_remuneration_offre));
-        //     check = false;
-        // }
+        if (remuneration.matches("[0-9]+")) {
+            int remun = Integer.parseInt(remuneration);
+            if (remun < 0) {
+                remunerationEditText.setError(getString(R.string.erreur_remuneration_offre));
+                check = false;
+            }
+        }
+        else {
+            remunerationEditText.setError(getString(R.string.erreur_remuneration_offre));
+            check = false;
+        }
+
+        if (rue.isEmpty()) {
+            rueEditText.setError(getString(R.string.erreur_rue_offre));
+            check = false;
+        }
+        if (codePostal.isEmpty() || codePostal.length() != 5) {
+            codePostalEditText.setError(getString(R.string.erreur_code_postal_offre));
+            check = false;
+        }
+
+
         return check;
     }
 }

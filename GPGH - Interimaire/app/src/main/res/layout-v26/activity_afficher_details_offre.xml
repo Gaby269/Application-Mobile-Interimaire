@@ -100,7 +100,7 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:textSize="26dp"
-                        android:text="Nom Prénom du candidat"
+                        android:text="Titre"
                         android:textColor="@color/white"
                         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -156,7 +156,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/black"
-                        android:text="YouTube"
+                        android:text="Entreprise"
                         android:textSize="23dp"/>
 
                     <TextView
@@ -165,10 +165,10 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/entrepriseOffre"
                         android:layout_marginStart="10dp"
-                        android:text="18090 Chocolat"
+                        android:gravity="center"
+                        android:text="code-postal ville"
                         android:textColor="@color/black"
-                        android:textSize="16dp"
-                        android:gravity="center"/>
+                        android:textSize="16dp" />
 
                     <ImageView
                         android:id="@+id/image_candidature"
@@ -197,7 +197,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/black"
-                        android:text="10/09/2020 - 12/12/2021"
+                        android:text="date-deb - date-fin"
                         android:textSize="17dp"/>
 
                     <ImageView
@@ -256,7 +256,7 @@
                             android:layout_weight="1"
                             android:gravity="right"
                             android:padding="2dp"
-                            android:text="Prix"
+                            android:text="Salaire"
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             android:textSize="22dp" />
@@ -364,14 +364,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="9 rue grand-père"
+                            android:text="rue"
                             android:textSize="18dp"
                             android:gravity="center"/>
                         <TextView
                             android:id="@+id/complementOffre"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Résidence Prout"
+                            android:text="Résidence"
                             android:textSize="18dp"
                             android:gravity="center"/>
                         <TextView

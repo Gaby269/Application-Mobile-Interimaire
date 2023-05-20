@@ -113,6 +113,7 @@ A FAIRE Mettre des trucs dans les cards
 - changer d'image avec remplissage si le candidat met en favorie
 - A FAIRE : gerer le bouton retour avec le type de compte (actuellement ok pcq typecompte est en dure dans navbar)
 - A FAIRE : Ajouter les info retrouver dans la base mais dans le details de loffre
+- A FAIRE : Ajouter une carte (map) juste pour faire genre (pas vraiment liée à l'adresse)
 
 ** AFFICHER DETAILS CANDIDATURES
 - display des bouton version logo
