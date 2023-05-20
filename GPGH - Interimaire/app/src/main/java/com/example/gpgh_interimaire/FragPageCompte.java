@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -47,8 +48,8 @@ public class FragPageCompte extends Fragment {
     FirebaseFirestore db;
     ActivityResultLauncher<String> mGetContent;
 
-    TextView textViewNom, textViewPrenom, textViewEmail, textViewNumero, textViewTypeCompte;
-    String firstName, lastName, phoneNumber, email, typeCompte;
+    TextView editNom, editPrenom, editEmail, editNumero, editTypeCompte, editCV;
+    String firstName, lastName, phoneNumber, email, typeCompte, nomCV;
     ImageView profilePictureImageView;
 
     // Constructeur
@@ -69,11 +70,12 @@ public class FragPageCompte extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        textViewNom = view.findViewById(R.id.editNom);
-        textViewPrenom = view.findViewById(R.id.editPrenom);
-        textViewEmail = view.findViewById(R.id.editEmail);
-        textViewNumero = view.findViewById(R.id.editNumero);
-        textViewTypeCompte = view.findViewById(R.id.editTypeCompte);
+        editNom = view.findViewById(R.id.editNom);
+        editPrenom = view.findViewById(R.id.editPrenom);
+        editEmail = view.findViewById(R.id.editEmail);
+        editNumero = view.findViewById(R.id.editNumero);
+        editTypeCompte = view.findViewById(R.id.editTypeCompte);
+        editCV = view.findViewById(R.id.editCV);
 
         profilePictureImageView = view.findViewById(R.id.profilePicture);
 
@@ -115,11 +117,11 @@ public class FragPageCompte extends Fragment {
                         phoneNumber = documentSnapshot.getString("telephone");
                         typeCompte = documentSnapshot.getString("typeCompte");
 
-                        textViewPrenom.setText(firstName);
-                        textViewNom.setText(lastName);
-                        textViewEmail.setText(email);
-                        textViewNumero.setText(phoneNumber);
-                        textViewTypeCompte.setText(typeCompte);
+                        editPrenom.setText(firstName);
+                        editNom.setText(lastName);
+                        editEmail.setText(email);
+                        editNumero.setText(phoneNumber);
+                        editTypeCompte.setText(typeCompte);
 
                         setProfileImage();
                     }
@@ -128,7 +130,52 @@ public class FragPageCompte extends Fragment {
                     }
                 })
                 .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));
+
+        // récupération du CV
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference fileRef = storageRef.child("CV/" + userId + "/");
+
+        fileRef.listAll()
+        .addOnSuccessListener(listResult -> {
+            for (StorageReference item : listResult.getItems()) {
+                nomCV = item.getName();
+                editCV.setText(nomCV);
+                editCV.setTextColor(ContextCompat.getColor(getActivity(), R.color.bleu_500));
+                // TODO télécharger le fichier lorsque l'on clique dessus
+                // editCV.setOnClickListener(v -> downloadFile(item));
+                return;
+            }
+            editCV.setText(R.string.no_cv);
+        })
+        .addOnFailureListener(exception -> editCV.setText(R.string.no_cv));
     }
+
+    private void downloadFile(StorageReference fileRef) {
+        File localFile;
+        try {
+            // couper nomCV en 2 pour récupérer l'extension
+            String[] parts = nomCV.split("\\.");
+            String prefixe_cv = parts[0];
+            localFile = File.createTempFile(prefixe_cv, ".pdf");
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    
+        fileRef.getFile(localFile)
+                .addOnSuccessListener(taskSnapshot -> {
+                    Uri fileUri = Uri.fromFile(localFile);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(fileUri, "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                })
+                .addOnFailureListener(exception -> {
+                    Toast.makeText(getActivity(), "Erreur lors du téléchargement du fichier", Toast.LENGTH_SHORT).show();
+                });
+    }
+    
 
 
     private void setProfileImage() {

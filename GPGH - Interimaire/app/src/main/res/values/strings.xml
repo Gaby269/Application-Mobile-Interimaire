@@ -138,6 +138,7 @@
     <string name="mail_">Email :</string>
     <string name="telephone_">Téléphone :</string>
     <string name="typeCompte_">Type de compte :</string>
+    <string name="cv_">CV :</string>
     <string name="mdp_">Mot de passe :</string>
     <string name="add_profile_picture">Ajouter une photo de profil</string>
     <string name="enregistrer">Enregistrer</string>
@@ -167,9 +168,9 @@
     <string name="boutton_refuser">Refuser</string>
     <string name="boutton_accepter">Accepter</string>
     <string name="ajouter_cv">Ajouter un CV</string>
-    <string name="no_cv">pas de CV</string>
+    <string name="no_cv">Pas de CV</string>
     <string name="ajouter_lm">Ajouter une LM</string>
-    <string name="no_lm">pas de LM</string>
+    <string name="no_lm">Pas de LM</string>
     <string name="erreur_pdf">Veuillez choisir un fichier pdf</string>
     <string name="cv_vide">Veuillez ajouter un CV</string>
     <string name="candidature_envoyee">Candidature envoyée !</string>

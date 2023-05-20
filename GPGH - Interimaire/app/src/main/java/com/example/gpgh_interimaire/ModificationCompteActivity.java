@@ -4,17 +4,22 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,12 +38,18 @@ import java.io.IOException;
 public class ModificationCompteActivity extends AppCompatActivity {
 
     String TAG = "ModificationCompteActivity";
+    private static final int PICK_CV_FILE = 2;
 
     ActivityResultLauncher<String> mGetContent;
     FirebaseUser user;
     FirebaseFirestore db;
-    ImageView profilePictureImageView;
+    Uri cvFileUri;
+    String cvFileName;
+
     EditText editNom, editPrenom, editEmail, editNumero, editTypeCompte;
+    TextView editCV;
+    ImageView profilePictureImageView;
+
 
     @Override
     @SuppressLint({"MissingInflatedId", "WrongViewCast", "CutPasteId"})
@@ -57,6 +68,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.editEmail);
         editNumero = findViewById(R.id.editNumero);
         editTypeCompte = findViewById(R.id.editTypeCompte);
+        editCV = findViewById(R.id.editCV);
         profilePictureImageView = findViewById(R.id.profilePicture);
         fetchUserInfo();
 
@@ -74,6 +86,10 @@ public class ModificationCompteActivity extends AppCompatActivity {
             updateAccountInfo();
         });
 
+        editCV.setOnClickListener(view -> {
+            openFilePicker(PICK_CV_FILE);
+        });
+
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +102,63 @@ public class ModificationCompteActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    public void openFilePicker(int fichier) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("application/pdf");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+    
+        try {
+            startActivityForResult(Intent.createChooser(intent, "Sélectionnez un fichier PDF"), fichier);
+        }
+        catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, "Veuillez installer un gestionnaire de fichiers.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case PICK_CV_FILE: // Si CV
+                if (resultCode == RESULT_OK) {
+                    cvFileUri = data.getData();
+                    setPdfName(cvFileUri);
+                }
+                break;
+            default: // si pas un pdf
+                Toast.makeText(this, R.string.erreur_pdf, Toast.LENGTH_SHORT).show();
+        }
+    }
+    @SuppressLint("Range")
+    private void setPdfName(Uri fileUri) {
+        String fileName = null;
+        Cursor cursor = null;
+    
+        try {
+            String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME };
+            cursor = getContentResolver().query(fileUri, projection, null, null, null);
+    
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameIndex = cursor.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME);
+                fileName = cursor.getString(nameIndex);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        if (fileName != null) {
+            cvFileName = fileName;
+            editCV.setText(fileName);
+            editCV.setTypeface(null, Typeface.BOLD);
+            editCV.setTextColor(ContextCompat.getColor(this, R.color.black));
+        }
+    
+    }
+
 
 
     private void uploadPictureFromGalery(Uri imageUri) {
@@ -130,6 +203,25 @@ public class ModificationCompteActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
+
+    private void setCvName() {
+        String userId = user.getUid();
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference fileRef = storageRef.child("CV/" + userId + "/");
+
+        fileRef.listAll()
+        .addOnSuccessListener(listResult -> {
+            for (StorageReference item : listResult.getItems()) {
+                editCV.setText(item.getName());
+                return;
+            }
+            editCV.setText(R.string.no_cv);
+        })
+        .addOnFailureListener(exception -> {
+            editCV.setText(R.string.no_cv);
+        });
+    }
     
 
     private void fetchUserInfo() {
@@ -155,6 +247,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
                         editTypeCompte.setText(typeCompte);
 
                         setProfileImage();
+                        setCvName();
                     }
                     else {
                         Log.w(TAG, "DB Non trouvée");
@@ -171,6 +264,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
         String email = editEmail.getText().toString();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = user.getUid();
 
         user.updateEmail(email)
             .addOnCompleteListener(task -> {
@@ -182,19 +276,48 @@ public class ModificationCompteActivity extends AppCompatActivity {
                 }
             });
 
-
+        // données de l'utilisateur
         db.collection("users")
-                .document(user.getUid())
+                .document(userId)
                 .update("prenom", firstName,
                         "nom", lastName,
                         "telephone", phoneNumber)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(ModificationCompteActivity.this, LoadingNavbarActivity.class);
-                    i.putExtra("fragment", "Compte");
-                    startActivity(i);
+                .addOnSuccessListener(aVoid -> {       
+                    // Stockage du CV
+                    if (cvFileUri != null) {
+                        if (cvFileName == null) {
+                            cvFileName = "MonCV.pdf";
+                        }
+                        String filePath = "CV/" + userId + "/" + cvFileName;
+                        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child(filePath);
+            
+                        fileRef.putFile(cvFileUri)
+                                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl()
+                                        .addOnSuccessListener(bVoid -> {
+                                            Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(ModificationCompteActivity.this, LoadingNavbarActivity.class);
+                                            i.putExtra("fragment", "Compte");
+                                            startActivity(i);
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this, "Erreur lors de la récupération de l'URL de téléchargement.", Toast.LENGTH_SHORT).show();
+                                            Log.e(TAG, "Erreur lors de la récupération de l'URL de téléchargement.", e);
+                                        }))
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(this, "Erreur lors de l'upload du fichier.", Toast.LENGTH_SHORT).show();
+                                    Log.e(TAG, "Erreur lors de l'upload du fichier.", e);
+                                });
+                    }
+                    else {
+                        Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(ModificationCompteActivity.this, LoadingNavbarActivity.class);
+                        i.putExtra("fragment", "Compte");
+                        startActivity(i);
+                    }
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Erreur lors de la mise à jour des informations", Toast.LENGTH_SHORT).show());
+
+
     }
 
 }

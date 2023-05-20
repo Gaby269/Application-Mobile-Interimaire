@@ -160,6 +160,15 @@
                         android:paddingLeft="20px"
                         android:textStyle="bold"
                         android:text="@string/typeCompte_" />
+                    <TextView
+                        android:id="@+id/textViewCV"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:textStyle="bold"
+                        android:text="@string/cv_" />
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layout_compte_edit"
@@ -198,8 +207,15 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:editable="false"
                         android:enabled="false" />
+                    <TextView
+                        android:id="@+id/editCV"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingStart="5dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/bleu_500" />
                 </LinearLayout>
             </LinearLayout>
 

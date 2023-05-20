@@ -69,19 +69,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/descriptionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Description"
-                android:textSize="20dp"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@+id/favorieTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
             <LinearLayout
                 android:id="@+id/layout_recherche"
                 android:layout_width="match_parent"
