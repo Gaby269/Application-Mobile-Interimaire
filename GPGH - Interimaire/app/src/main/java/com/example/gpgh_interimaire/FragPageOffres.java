@@ -28,6 +28,9 @@ public class FragPageOffres extends Fragment {
     static final String TAG = "FragPageOffres";
     FirebaseFirestore db;
 
+    RecyclerView recyclerView;
+    String typeCompte;
+
     public FragPageOffres() {}
 
     // Création de la vue pour le fragment 1
@@ -39,12 +42,12 @@ public class FragPageOffres extends Fragment {
 
         // Récupérer les arguments du bundle
         assert getArguments() != null;
-        String typeCompte = getArguments().getString("typeCompte");
+        typeCompte = getArguments().getString("typeCompte");
 
         // Associé la vue au layout du fragment 1
         View view = inflater.inflate(R.layout.frag_page_offres, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycleview);
+        recyclerView = view.findViewById(R.id.recycleview);
 
         List<ItemOffre> items = new ArrayList<ItemOffre>();
 
@@ -79,27 +82,32 @@ public class FragPageOffres extends Fragment {
                     }
                     else { // Le QuerySnapshot est nul
                         Log.d(TAG, "La collection est vide");
-                        items.add(new ItemOffre("0", "Pas d'offres disponibles", "", "", "Désolé", "", "", "Rééssayez plus tard"));
                     }
                 }
                 else {
                     Log.d(TAG, "Erreur lors de la récupération des offres : ", task.getException());
-                    items.add(new ItemOffre("0", "Pas d'offres disponibles", "", "", "Désolé", "", "", "Rééssayez plus tard"));
                 }
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, typeCompte));
+                setupRecyclerView(items);
             })
             .addOnFailureListener(e -> {
-                // Gérer l'échec de la récupération des données
                 Log.d(TAG, "Erreur lors de la récupération des offres : ", e);
-                items.add(new ItemOffre("0", "Pas d'offres disponibles", "", "", "Désolé", "", "", "Réessayez plus tard"));
-        
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, typeCompte));
+                setupRecyclerView(items);
+            })
+            .addOnCompleteListener(task -> {
+                setupRecyclerView(items);
             });
 
 
         return view;
     }
 
+
+    private void setupRecyclerView(List<ItemOffre> items) {
+        if (items.isEmpty()) {
+            items.add(new ItemOffre("0", "Aucune offre disponible", "-", "-", "Désolé", "", "", "Rééssayez plus tard"));
+        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(new MyAdapterOffre(getActivity(), items, typeCompte));
+    }
+    
 }
