@@ -25,7 +25,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
     boolean is_favori;
-    String typeCompte, id_offre;
+    String id_offre, titre, typeCompte;
     
     @Override
     @SuppressLint("MissingInflatedId")
@@ -49,14 +49,16 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (typeCompte.equals("Candidat")) {
                     Intent i = new Intent(AfficherDetailsOffreActivity.this, PostulerActivity.class);
-                    i.putExtra("typeCompte", typeCompte);
                     i.putExtra("idOffre", id_offre);
+                    i.putExtra("titreOffre", titre);
+                    i.putExtra("typeCompte", typeCompte);
                     startActivity(i);
                 }
                 else{
                     Intent i = new Intent(AfficherDetailsOffreActivity.this, CandidaturesOffreActivity.class);
-                    i.putExtra("typeCompte", typeCompte);
                     i.putExtra("idOffre", id_offre);
+                    i.putExtra("titreOffre", titre);
+                    i.putExtra("typeCompte", typeCompte);
                     startActivity(i);
                 }
 
@@ -152,7 +154,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                     String nomEntreprise = documentSnapshot.getString("nomEntreprise");
                     String remuneration = documentSnapshot.getString("remuneration");
                     String rue = documentSnapshot.getString("rue");
-                    String titre = documentSnapshot.getString("titre");
+                    titre = documentSnapshot.getString("titre");
                     String type = documentSnapshot.getString("type");
                     String ville = documentSnapshot.getString("ville");                    
 
@@ -174,6 +176,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         
     }
 
+    
     private void supprimerOffre() {
         AlertDialog.Builder builder = new AlertDialog.Builder(AfficherDetailsOffreActivity.this);
         builder.setMessage(R.string.suppression_offre_message)
@@ -197,8 +200,5 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
-        
-        
     }
 }

@@ -166,6 +166,13 @@
     <string name="Candidatures">Candidatures de l\'offre</string>
     <string name="boutton_refuser">Refuser</string>
     <string name="boutton_accepter">Accepter</string>
+    <string name="ajouter_cv">Ajouter un CV</string>
+    <string name="no_cv">pas de CV</string>
+    <string name="ajouter_lm">Ajouter une LM</string>
+    <string name="no_lm">pas de LM</string>
+    <string name="erreur_pdf">Veuillez choisir un fichier pdf</string>
+    <string name="cv_vide">Veuillez ajouter un CV</string>
+    <string name="candidature_envoyee">Candidature envoyée !</string>
 
     <!-- Creation offres -->
     <string name="creationOffre">Créer votre offre</string>
