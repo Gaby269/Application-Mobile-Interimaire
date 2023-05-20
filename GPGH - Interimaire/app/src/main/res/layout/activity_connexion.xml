@@ -109,7 +109,16 @@
         android:id="@+id/buttonTmp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tmp_candidat"
+        android:text="candidat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonTmp3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="admin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,7 +126,7 @@
         android:id="@+id/buttonTmp2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tmp_entreprise"
+        android:text="entreprise"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

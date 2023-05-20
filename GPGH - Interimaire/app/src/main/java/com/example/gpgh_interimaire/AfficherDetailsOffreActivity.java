@@ -142,6 +142,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                     Log.d(TAG, "Offre récupérée avec succès : " + id_offre);
 
                     // Récupérer les données de l'offre
+                    DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
                     String codePostal = documentSnapshot.getString("codePostal");
                     String complementAdresse = documentSnapshot.getString("complement"); // Peut être vide !
                     String createur = documentSnapshot.getString("createur"); // ID de l'entreprise

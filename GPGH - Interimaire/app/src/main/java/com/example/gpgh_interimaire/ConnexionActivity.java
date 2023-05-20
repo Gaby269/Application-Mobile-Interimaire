@@ -77,6 +77,22 @@ public class ConnexionActivity extends AppCompatActivity {
                 }
             }
         });
+
+        
+
+        Button loginAdmin = findViewById(R.id.buttonTmp3);
+        loginAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mailEditText.setText("admin@gmail.com");
+                mdpEditText.setText("123456");
+                String email = mailEditText.getText().toString();
+                String mdp = mdpEditText.getText().toString();
+                if (validateInput(email, mdp)) {
+                    signInUser(email, mdp);
+                }
+            }
+        });
     }
 
 
