@@ -5,14 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
 public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
+    String TAG = "AfficherDetailsOffreActivity";
+
+    FirebaseFirestore db;
     boolean is_favori;
     
     @Override
@@ -25,9 +35,11 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         String typeCompte = i.getStringExtra("typeCompte");
-        String titreOffre = i.getStringExtra("titreOffre");
-        String descriptionOffre = i.getStringExtra("descriptionOffre");
+        String id_offre = i.getStringExtra("idOffre");
 
+        // Récupération des données de l'offre depuis la base de données
+        db = FirebaseFirestore.getInstance();
+        getInfoOffre(id_offre);
 
         Button postulerButton = findViewById(R.id.boutton_postuler);
         postulerButton.setOnClickListener(new View.OnClickListener() {
@@ -36,13 +48,13 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                 if (typeCompte.equals("Candidat")) {
                     Intent i = new Intent(AfficherDetailsOffreActivity.this, PostulerActivity.class);
                     i.putExtra("typeCompte", typeCompte);
+                    i.putExtra("idOffre", id_offre);
                     startActivity(i);
                 }
                 else{
                     Intent i = new Intent(AfficherDetailsOffreActivity.this, CandidaturesOffreActivity.class);
                     i.putExtra("typeCompte", typeCompte);
-                    i.putExtra("titreOffre", titreOffre);
-                    i.putExtra("description", descriptionOffre);
+                    i.putExtra("idOffre", id_offre);
                     startActivity(i);
                 }
 
@@ -116,5 +128,49 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         if (typeCompte.equals("Candidat")) {postulerButton.setText("Postuler");}
         else {postulerButton.setText("Voir les candidatures");}
 
+    }
+
+
+    private void getInfoOffre(String id_offre) {
+
+        CollectionReference offresRef = db.collection("offres");
+        Query query = offresRef.whereEqualTo(FieldPath.documentId(), id_offre);
+        
+        query.get()
+            .addOnSuccessListener(queryDocumentSnapshots -> {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    Log.d(TAG, "Offre récupérée avec succès : " + id_offre);
+
+                    // Récupérer les données de l'offre
+                    String codePostal = documentSnapshot.getString("codePostal");
+                    String complementAdresse = documentSnapshot.getString("complement"); // Peut être vide !
+                    String createur = documentSnapshot.getString("createur"); // ID de l'entreprise
+                    String dateDeb = documentSnapshot.getString("dateDeb");
+                    String dateFin = documentSnapshot.getString("dateFin");
+                    String description = documentSnapshot.getString("description");
+                    String nomEntreprise = documentSnapshot.getString("nomEntreprise");
+                    String remuneration = documentSnapshot.getString("remuneration");
+                    String rue = documentSnapshot.getString("rue");
+                    String titre = documentSnapshot.getString("titre");
+                    String type = documentSnapshot.getString("type");
+                    String ville = documentSnapshot.getString("ville");                    
+
+                    // "true" ou "false"
+                    String parking = documentSnapshot.getString("parking");
+                    String teletravail = documentSnapshot.getString("teletravail");
+                    String ticketResto = documentSnapshot.getString("ticketResto");
+
+                    // TODO changer la view selon les données récupérées
+
+        
+                } 
+                else {
+                    Log.d(TAG, "Aucune offre trouvée avec l'ID : " + id_offre);
+                }
+            })
+            .addOnFailureListener(e -> {
+                Log.e(TAG, "Erreur lors de la récupération de l'offre", e);
+            });
+        
     }
 }

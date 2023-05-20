@@ -6,9 +6,11 @@ Connexion :
 
 Afficher Détail Candidature : 
 	- Essayer de répartir l'espace, mieux que sur la card du menu offre (grouper la ville, grouper les infos importantes, etc...)
+	- Mettre les textes aux bons endroit (BDD déjà liée)
 
 Ajouter Offre : 
-	- Design de la page, ajouter un formatage correct des champs (date, etc)
+	- Design de la page, ajouter un formatage correct des champs
+	- Check sur les dates : format, date_début > date_fin, etc (Choix depuis un calendrier si possible)
 
 FragPagesOffres : 
     - si Id de l'offre = 0 (c'est ce qui s'affiche quand y a pas d'offres dispo), désactiver la card (faut pas qu'on puisse cliquer dessus)

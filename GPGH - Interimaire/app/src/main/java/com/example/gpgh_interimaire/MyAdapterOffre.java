@@ -54,27 +54,6 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             String date_debut_fin = date_debut + " - " + date_fin;
             holder.dateOffreView.setText(date_debut_fin);
         }
-        /*
-        // Si c'est l'offre en details
-        else {
-            holder.titreView.setText(itemsOffresDetails.get(position).getTitre());
-            holder.imageView.setImageResource(itemsOffresDetails.get(position).getImage());
-            holder.nameEntrepriseView.setText(itemsOffresDetails.get(position).getNameEntreprise());
-            holder.prixView.setText(itemsOffresDetails.get(position).getPrix());
-            holder.descriptionView.setText(itemsOffresDetails.get(position).getDescriptionOffre());
-            holder.typeView.setText(itemsOffresDetails.get(position).getType());
-            holder.rueView.setText(itemsOffresDetails.get(position).getRue());
-            holder.complementRueView.setText(itemsOffresDetails.get(position).getComplementRue());
-            holder.codePostalView.setText(itemsOffresDetails.get(position).getCodePostal());
-            holder.parkingView.setText("" + itemsOffresDetails.get(position).getParking() + " places");
-            if (itemsOffresDetails.get(position).isTicket()) {
-                holder.ticketView.setText("Ticket Restaurant");
-            }
-            if (itemsOffresDetails.get(position).isTeletravail()) {
-                holder.teletravailView.setText("Télétravail possible");
-            }
-        }
-        */
 
         // Ajouter le OnClickListener à itemView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +61,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             public void onClick(View v) {
                 // Créer une intention pour lancer l'ActivityDetailsOffre
                 Intent intent = new Intent(context, AfficherDetailsOffreActivity.class);
-                intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
+                intent.putExtra("idOffre", itemsOffres.get(position).getId_offre());
                 intent.putExtra("typeCompte", typeCompte);
                 context.startActivity(intent);
             }

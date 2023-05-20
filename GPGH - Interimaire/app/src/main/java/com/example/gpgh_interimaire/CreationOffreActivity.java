@@ -31,7 +31,7 @@ public class CreationOffreActivity extends AppCompatActivity {
 
     String titre, type, description, dateDeb, dateFin, remuneration, rue, complement, codePostal, ville;
     boolean parking, ticketResto, teletravail;
-    String typeCompte;
+    String typeCompte, nomEntreprise;
 
 
     @Override
@@ -61,7 +61,16 @@ public class CreationOffreActivity extends AppCompatActivity {
         checkBoxTicketResto = findViewById(R.id.checkBoxTicketResto);
         checkBoxTeletravail = findViewById(R.id.checkBoxTeletravail);
 
-
+        // récupération du nom de l'entreprise depuis la BDD
+        db.collection("entreprises").document(mAuth.getCurrentUser().getUid()).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        nomEntreprise = documentSnapshot.getString("nom");
+                    } else {
+                        Log.d(TAG, "Pas d'entreprise trouvée avec cet ID");
+                    }
+                })
+                .addOnFailureListener(e -> Log.d(TAG, "Erreur lors de la récupération ", e));
 
        Button creaOffreButton = findViewById(R.id.boutton_creationOffre);
         creaOffreButton.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +121,7 @@ public class CreationOffreActivity extends AppCompatActivity {
 
         Map<String, Object> offre = new HashMap<>();
         offre.put("titre", titre);
+        offre.put("nomEntreprise", nomEntreprise);
         offre.put("type", type);
         offre.put("description", description);
         offre.put("dateDeb", dateDeb);
