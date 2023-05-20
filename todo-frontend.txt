@@ -10,6 +10,7 @@ Afficher Détail Candidature :
 
 Ajouter Offre : 
 	- Design de la page, ajouter un formatage correct des champs
+	- Liste déroulante sur Type_job (ou autocomplétion avec mots prédéfinis comme "CDI", "stage", etc)
 	- Check sur les dates : format, date_début > date_fin, etc (Choix depuis un calendrier si possible)
 
 FragPagesOffres : 

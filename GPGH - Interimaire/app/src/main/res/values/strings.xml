@@ -108,6 +108,8 @@
     <string name="semestrielle">Offre semestrielle</string>
     <string name="annuelle">Offre annuelle</string>
     <string name="offre_renouvelable">Offre indétéminé</string>
+    <string name="suppression_offre_titre">Suppression de l\'offre</string>
+    <string name="suppression_offre_message">Voulez-vous vraiment supprimer votre offre ?</string>
 
 
     <!-- Tutoriel entreprise -->
@@ -166,7 +168,6 @@
     <string name="boutton_accepter">Accepter</string>
 
     <!-- Creation offres -->
-
     <string name="creationOffre">Créer votre offre</string>
     <string name="titreOffre">Titre de l\'offre :</string>
     <string name="typePoste">Type de poste :</string>
@@ -189,35 +190,31 @@
     <string name="exRemuneration">ex : 25</string>
     <string name="exDetails">ex : Avoir le permis</string>
     <string name="detailsOffre">Details suplémentaires</string>
-
     <string name="parking">Parking</string>
     <string name="ticket_resto">Ticket restaurant</string>
     <string name="teletravail">Télétravail</string>
-
     <string name="boutton_terminer">Terminer</string>
     <string name="boutton_envoyer">Envoyer</string>
     <string name="modifOffre">Modification de l\'offre</string>
     <string name="offreModif">Offre modifié</string>
     <string name="offreCree">Offre créée !</string>
-    <!-- Erreurs -->
-    <string name="erreur_titre_offre">Entrez un titre</string>
-    <string name="erreur_type_offre">Entrez un type</string>
-    <string name="erreur_description_offre">Entrez une description</string>
-    <string name="erreur_date_deb_offre">Entrez une date valide</string>
-    <string name="erreur_date_fin_offre">Entrez une date valide</string>
-    <string name="erreur_remuneration_offre">Entrez une rémunération</string>
-    <string name="erreur_rue_offre">Entrez une rue</string>
-    <string name="erreur_code_postal_offre">Entrez un code postal valide</string>
-    <string name="erreur_ville_offre">Entrez une ville</string>
+        <!-- Erreurs -->
+        <string name="erreur_titre_offre">Entrez un titre</string>
+        <string name="erreur_type_offre">Entrez un type</string>
+        <string name="erreur_description_offre">Entrez une description</string>
+        <string name="erreur_date_deb_offre">Entrez une date valide</string>
+        <string name="erreur_date_fin_offre">Entrez une date valide</string>
+        <string name="erreur_remuneration_offre">Entrez une rémunération</string>
+        <string name="erreur_rue_offre">Entrez une rue</string>
+        <string name="erreur_code_postal_offre">Entrez un code postal valide</string>
+        <string name="erreur_ville_offre">Entrez une ville</string>
 
     
-
     <!-- Messagerie -->
     <string name="messagerie">Mes messages</string>
     <string name="nouveau_message">Nouveau message...</string>
     <string name="envoyer_message">Envoyer</string>
     <string name="no_auto_chat">Vous ne pouvez pas démarrer une conversation avec vous-même</string>
-
 
 
     <!-- Spinners -->
@@ -237,6 +234,7 @@
         <item>Filter</item>
         <item>Plus grand</item>
     </string-array>
+
 
     <!-- placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

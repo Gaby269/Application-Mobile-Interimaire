@@ -3,6 +3,7 @@ package com.example.gpgh_interimaire;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
     boolean is_favori;
+    String typeCompte, id_offre;
     
     @Override
     @SuppressLint("MissingInflatedId")
@@ -34,12 +36,12 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         is_favori = false;
 
         Intent i = getIntent();
-        String typeCompte = i.getStringExtra("typeCompte");
-        String id_offre = i.getStringExtra("idOffre");
+        typeCompte = i.getStringExtra("typeCompte");
+        id_offre = i.getStringExtra("idOffre");
 
         // Récupération des données de l'offre depuis la base de données
         db = FirebaseFirestore.getInstance();
-        getInfoOffre(id_offre);
+        getInfoOffre();
 
         Button postulerButton = findViewById(R.id.boutton_postuler);
         postulerButton.setOnClickListener(new View.OnClickListener() {
@@ -92,10 +94,12 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         modificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AfficherDetailsOffreActivity.this, ModificationOffresActivity.class);
-                i.putExtra("is_details", "true");
-                i.putExtra("typeCompte", typeCompte);
-                startActivity(i);
+                // TODO
+                // Intent i = new Intent(AfficherDetailsOffreActivity.this, ModificationOffresActivity.class);
+                // i.putExtra("is_details", "true");
+                // i.putExtra("typeCompte", typeCompte);
+                // startActivity(i);
+                Toast.makeText(AfficherDetailsOffreActivity.this, "Offre modifiée",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -104,11 +108,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         suppressionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AfficherDetailsOffreActivity.this,R.string.offreSupp,Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
-                i.putExtra("fragment", "Offre");
-                i.putExtra("typeCompte", typeCompte);
-                startActivity(i);
+                supprimerOffre();
             }
         });
 
@@ -131,7 +131,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
     }
 
 
-    private void getInfoOffre(String id_offre) {
+    private void getInfoOffre() {
 
         CollectionReference offresRef = db.collection("offres");
         Query query = offresRef.whereEqualTo(FieldPath.documentId(), id_offre);
@@ -156,7 +156,6 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                     String type = documentSnapshot.getString("type");
                     String ville = documentSnapshot.getString("ville");                    
 
-                    // "true" ou "false"
                     Boolean parking = documentSnapshot.getBoolean("parking");
                     Boolean teletravail = documentSnapshot.getBoolean("teletravail");
                     Boolean ticketResto = documentSnapshot.getBoolean("ticketResto");
@@ -172,6 +171,34 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             .addOnFailureListener(e -> {
                 Log.e(TAG, "Erreur lors de la récupération de l'offre", e);
             });
+        
+    }
+
+    private void supprimerOffre() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AfficherDetailsOffreActivity.this);
+        builder.setMessage(R.string.suppression_offre_message)
+                .setTitle(R.string.suppression_offre_titre)
+                .setPositiveButton(R.string.oui, (dialog, id) -> {
+                    db.collection("offres").document(id_offre)
+                        .delete()
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d(TAG, "Offre supprimée avec succès : " + id_offre);
+                            Toast.makeText(AfficherDetailsOffreActivity.this, "Offre supprimée",Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
+                            i.putExtra("fragment", "Offre");
+                            i.putExtra("typeCompte", "Entreprise");
+                            startActivity(i);
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Erreur lors de la suppression de l'offre", e);
+                        });
+                })
+                .setNegativeButton(R.string.annuler, (dialog, id) -> { dialog.dismiss(); });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        
         
     }
 }
