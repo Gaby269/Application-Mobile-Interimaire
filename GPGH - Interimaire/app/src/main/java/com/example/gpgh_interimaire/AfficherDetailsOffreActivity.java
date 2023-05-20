@@ -141,7 +141,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     Log.d(TAG, "Offre récupérée avec succès : " + id_offre);
 
-                    // Récupérer les données de l'offre
+                    // Récupération de toutes les données de l'offre
                     DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
                     String codePostal = documentSnapshot.getString("codePostal");
                     String complementAdresse = documentSnapshot.getString("complement"); // Peut être vide !
@@ -157,9 +157,9 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                     String ville = documentSnapshot.getString("ville");                    
 
                     // "true" ou "false"
-                    String parking = documentSnapshot.getString("parking");
-                    String teletravail = documentSnapshot.getString("teletravail");
-                    String ticketResto = documentSnapshot.getString("ticketResto");
+                    Boolean parking = documentSnapshot.getBoolean("parking");
+                    Boolean teletravail = documentSnapshot.getBoolean("teletravail");
+                    Boolean ticketResto = documentSnapshot.getBoolean("ticketResto");
 
                     // TODO changer la view selon les données récupérées
 
