@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:id="@+id/fragment_container_abonnement"
+        android:id="@+id/fragment_container_tuto"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_marginEnd="40dp"
@@ -46,27 +46,35 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_container_abonnement">
+        app:layout_constraintTop_toBottomOf="@+id/fragment_container_tuto">
 
         <Button
             android:id="@+id/boutton_passer"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="@string/boutton_passer"
             android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
 
-
+        <Button
+            android:id="@+id/boutton_past"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center"
+            android:text="@string/boutton_past"
+            android:background="@drawable/arrondir_edit_bleu"
+            android:textSize="15dp" />
         <Button
             android:id="@+id/boutton_next"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="60dp"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center"
             android:text="@string/boutton_next"
             android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
 
     </LinearLayout>
 

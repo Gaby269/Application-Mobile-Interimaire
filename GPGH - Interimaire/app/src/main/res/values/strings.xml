@@ -115,7 +115,8 @@
     <!-- Tutoriel entreprise -->
     <string name="tuto">Tutoriel</string>
     <string name="boutton_passer">Passer</string>
-    <string name="boutton_next">Next</string>
+    <string name="boutton_next">Suivant</string>
+    <string name="boutton_past">Précédent</string>
 
     <!-- Navigation principale -->
     <string name="filtrer">Filtrer</string>

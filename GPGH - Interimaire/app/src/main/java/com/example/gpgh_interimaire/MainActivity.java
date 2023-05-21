@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button abonnementButton = findViewById(R.id.buttonAbo);
-        abonnementButton.setOnClickListener(new View.OnClickListener() {
+        Button tutoButton = findViewById(R.id.buttonTuto);
+        tutoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, AbonnementActivity.class);
+                Intent i = new Intent(MainActivity.this, TutoActivity.class);
                 startActivity(i);
             }
         });
