@@ -5,6 +5,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -154,7 +156,6 @@ public class ModificationCompteActivity extends AppCompatActivity {
             cvFileName = fileName;
             editCV.setText(fileName);
             editCV.setTypeface(null, Typeface.BOLD);
-            editCV.setTextColor(ContextCompat.getColor(this, R.color.black));
         }
     
     }
@@ -258,6 +259,9 @@ public class ModificationCompteActivity extends AppCompatActivity {
 
 
     private void updateAccountInfo() {
+
+        displayLoadingScreen();
+
         String firstName = editNom.getText().toString();
         String lastName = editPrenom.getText().toString();
         String phoneNumber = editNumero.getText().toString();
@@ -288,25 +292,37 @@ public class ModificationCompteActivity extends AppCompatActivity {
                         if (cvFileName == null) {
                             cvFileName = "MonCV.pdf";
                         }
-                        String filePath = "CV/" + userId + "/" + cvFileName;
-                        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child(filePath);
-            
-                        fileRef.putFile(cvFileUri)
-                                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl()
-                                        .addOnSuccessListener(bVoid -> {
-                                            Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
-                                            Intent i = new Intent(ModificationCompteActivity.this, LoadingNavbarActivity.class);
-                                            i.putExtra("fragment", "Compte");
-                                            startActivity(i);
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            Toast.makeText(this, "Erreur lors de la récupération de l'URL de téléchargement.", Toast.LENGTH_SHORT).show();
-                                            Log.e(TAG, "Erreur lors de la récupération de l'URL de téléchargement.", e);
-                                        }))
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(this, "Erreur lors de l'upload du fichier.", Toast.LENGTH_SHORT).show();
-                                    Log.e(TAG, "Erreur lors de l'upload du fichier.", e);
-                                });
+                        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                        StorageReference cvFolderRef = storageRef.child("CV/" + userId + "/");
+
+                        // supprimer tous les CV déjà existants
+                        cvFolderRef.listAll()
+                        .addOnSuccessListener(listResult -> {
+                            for (StorageReference item : listResult.getItems()) {item.delete();}
+                            
+                            // ajout du cv
+                            StorageReference fileRef = storageRef.child("CV/" + userId + "/" + cvFileName);
+                            fileRef.putFile(cvFileUri)
+                                    .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl()
+                                            .addOnSuccessListener(bVoid -> {
+                                                dismissLoadingScreen();
+                                                Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
+                                                Intent i = new Intent(ModificationCompteActivity.this, LoadingNavbarActivity.class);
+                                                i.putExtra("fragment", "Compte");
+                                                startActivity(i);
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(this, "Erreur lors de la récupération de l'URL de téléchargement.", Toast.LENGTH_SHORT).show();
+                                                Log.e(TAG, "Erreur lors de la récupération de l'URL de téléchargement.", e);
+                                            }))
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(this, "Erreur lors de l'upload du fichier.", Toast.LENGTH_SHORT).show();
+                                        Log.e(TAG, "Erreur lors de l'upload du fichier.", e);
+                                    });
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(this, "Erreur lors de la mise à jour du CV.", Toast.LENGTH_SHORT).show();
+                        });
                     }
                     else {
                         Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
@@ -316,8 +332,27 @@ public class ModificationCompteActivity extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Erreur lors de la mise à jour des informations", Toast.LENGTH_SHORT).show());
+    }
 
 
+
+
+    public void displayLoadingScreen() {
+        FragmentLoading loadingFragment = FragmentLoading.newInstance("Chargement...");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_container, loadingFragment, "loading_fragment");
+        transaction.commit();
+    }
+
+    public void dismissLoadingScreen() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentLoading loadingFragment = (FragmentLoading) fragmentManager.findFragmentByTag("loading_fragment");
+
+        if (loadingFragment != null) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.remove(loadingFragment);
+            transaction.commit();
+        }
     }
 
 }

@@ -39,8 +39,8 @@ public class PostulerActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseFirestore db;
 
-    Uri cvFileUri;
-    Uri lmFileUri;
+    Uri cvFileUri, lmFileUri;
+    String nomCV, nomLM;
 
     String id_offre, titre_offre, typeCompte;
 
@@ -61,6 +61,8 @@ public class PostulerActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         descriptionOffre = findViewById(R.id.descriptionOffreEditText);
+
+        getCV();
 
         TextView titreOffreTextView = findViewById(R.id.offreTextView);
         titreOffreTextView.setText(titre_offre);
@@ -110,6 +112,29 @@ public class PostulerActivity extends AppCompatActivity {
         });
 
     }
+
+    private void getCV() {
+        // récupération du CV
+        String userId = user.getUid();
+        TextView editCV = findViewById(R.id.CVTextView);
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference fileRef = storageRef.child("CV/" + userId + "/");
+
+        fileRef.listAll()
+        .addOnSuccessListener(listResult -> {
+            for (StorageReference item : listResult.getItems()) {
+                nomCV = item.getName();
+                editCV.setText(nomCV);
+                editCV.setTextColor(ContextCompat.getColor(this, R.color.bleu_500));
+                // TODO télécharger le fichier lorsque l'on clique dessus
+                // editCV.setOnClickListener(v -> downloadFile(item));
+                return;
+            }
+            editCV.setText(R.string.no_cv);
+        })
+        .addOnFailureListener(exception -> editCV.setText(R.string.no_cv));
+    }
     
 
     public void openFilePicker(int fichier) {
@@ -132,13 +157,13 @@ public class PostulerActivity extends AppCompatActivity {
             case PICK_CV_FILE:  // Si CV
                 if (resultCode == RESULT_OK) {
                     cvFileUri = data.getData();
-                    setPdfName(cvFileUri, R.id.CVTextView);
+                    setPdfName(cvFileUri, R.id.CVTextView, "CV");
                 }
                 break;
             case PICK_LM_FILE:  // Si lettre de motivation
                 if (resultCode == RESULT_OK) {
                     lmFileUri = data.getData();
-                    setPdfName(lmFileUri, R.id.LMTextView);
+                    setPdfName(lmFileUri, R.id.LMTextView, "LM");
                 }
                 break;
             default: // si pas un pdf
@@ -147,7 +172,7 @@ public class PostulerActivity extends AppCompatActivity {
     }
 
     @SuppressLint("Range")
-    private void setPdfName(Uri fileUri, int textViewId) {
+    private void setPdfName(Uri fileUri, int textViewId, String type) {
         String fileName = null;
         Cursor cursor = null;
     
@@ -166,6 +191,8 @@ public class PostulerActivity extends AppCompatActivity {
         }
 
         if (fileName != null) {
+            if (type.equals("CV")) {nomCV = fileName;}
+            else {nomLM = fileName;}
             TextView textView = findViewById(textViewId);
             textView.setText(fileName);
             textView.setTypeface(null, Typeface.BOLD);
@@ -175,29 +202,35 @@ public class PostulerActivity extends AppCompatActivity {
     }
     
 
-
-    public void uploadCandidatureToFirebase() {
-        String description = descriptionOffre.getText().toString();
-        String currentUserId = user.getUid();
-    
-        uploadFileToFirebaseStorage(cvFileUri, currentUserId, "cv",
-            cvDownloadUrl -> uploadFileToFirebaseStorage(lmFileUri, currentUserId, "lm",
-            lmDownloadUrl -> saveCandidatureToFirestore(currentUserId, description, cvDownloadUrl, lmDownloadUrl)));
-    }
-    
-
-    private void uploadFileToFirebaseStorage(Uri fileUri, String userId, String filePrefix, OnSuccessListener<String> onSuccess) {
+    private void uploadFileToFirebaseStorage(Uri fileUri, String filePrefix) {
         if (fileUri == null) {
-            onSuccess.onSuccess(null);
             return;
         }
+        
+        String userId = user.getUid();
     
-        String filePath = "candidatures/" + id_offre + "/" + userId + "/" + filePrefix + ".pdf";
+        String filePath = "candidatures/" + id_offre + "/" + userId + "/" + nomLM;
+
+        if (filePrefix.equals("CV")) {
+            filePath = "CV/" + userId + "/" + nomCV;
+
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference cvFolderRef = storageRef.child("CV/" + userId + "/");
+
+            // supprimer tous les CV déjà existants
+            cvFolderRef.listAll()
+            .addOnSuccessListener(listResult -> {
+                for (StorageReference item : listResult.getItems()) {item.delete();}
+            })
+            .addOnFailureListener(e -> {
+                Toast.makeText(this, "Erreur lors de la mise à jour du CV.", Toast.LENGTH_SHORT).show();
+            });
+        }
         StorageReference fileRef = FirebaseStorage.getInstance().getReference().child(filePath);
 
         fileRef.putFile(fileUri)
                 .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl()
-                        .addOnSuccessListener(uri -> onSuccess.onSuccess(uri.toString()))
+                        .addOnSuccessListener(uri -> {return;})
                         .addOnFailureListener(e -> {
                             Toast.makeText(this, "Erreur lors de la récupération de l'URL de téléchargement.", Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "Erreur lors de la récupération de l'URL de téléchargement.", e);
@@ -209,13 +242,18 @@ public class PostulerActivity extends AppCompatActivity {
     }
     
 
-    private void saveCandidatureToFirestore(String userId, String description, String cvDownloadUrl, String lmDownloadUrl) {
+    private void uploadCandidatureToFirebase() {
+        
+        String userId = user.getUid();
+        String description = descriptionOffre.getText().toString();
     
+        uploadFileToFirebaseStorage(cvFileUri, "CV");
+        uploadFileToFirebaseStorage(lmFileUri, "LM");
+
         Map<String, Object> candidature = new HashMap<>();
+        candidature.put("id_offre", id_offre);
         candidature.put("userId", userId);
         candidature.put("description", description);
-        candidature.put("cvDownloadUrl", cvDownloadUrl);
-        candidature.put("lmDownloadUrl", lmDownloadUrl);
 
         db.collection("candidatures")
             .add(candidature)
