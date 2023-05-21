@@ -6,8 +6,8 @@ Connexion :
 	- boutton "se connecter" qui remonte mais pas les champs
 
 Afficher Détail Offre : 
-	- Essayer de répartir l'espace, mieux que sur la card du menu offre (grouper la ville, grouper les infos importantes, etc...)
-	- Mettre les textes aux bons endroit (BDD déjà liée)
+	- FAIT Essayer de répartir l'espace, mieux que sur la card du menu offre (grouper la ville, grouper les infos importantes, etc...)
+	- FAIT Mettre les textes aux bons endroit (BDD déjà liée)
 
 Ajouter Offre : 
 	- Design de la page, ajouter un formatage correct des champs

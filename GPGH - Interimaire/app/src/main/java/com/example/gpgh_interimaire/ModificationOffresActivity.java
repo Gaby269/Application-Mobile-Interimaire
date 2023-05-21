@@ -15,6 +15,8 @@ public class ModificationOffresActivity extends AppCompatActivity {
 
     EditText editTitre,editType,editDescription,editDateDebut,editDateFin,editDateLieu,editDatePrix,editDateDetails;
 
+    String id_offre, is_details;
+
     @Override
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,8 @@ public class ModificationOffresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modification_offres);
 
         Intent i = getIntent();
-        String is_details = i.getStringExtra("is_details");
+        is_details = i.getStringExtra("is_details");
+        id_offre = i.getStringExtra("idOffre");
 
         // TODO récuperer les informations de l'offres d'après son id
         // TODO Changer les edit pour que ce soit associé
@@ -43,6 +46,7 @@ public class ModificationOffresActivity extends AppCompatActivity {
                 Intent i;
                 if (is_details.equals("true")) {
                     i = new Intent(ModificationOffresActivity.this, AfficherDetailsOffreActivity.class);
+                    i.putExtra("idOffre", id_offre);
                 }
                 else{
                     i = new Intent(ModificationOffresActivity.this, NavbarActivity.class);

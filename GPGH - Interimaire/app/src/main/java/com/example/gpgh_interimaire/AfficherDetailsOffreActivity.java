@@ -100,11 +100,12 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO
-                // Intent i = new Intent(AfficherDetailsOffreActivity.this, ModificationOffresActivity.class);
-                // i.putExtra("is_details", "true");
-                // i.putExtra("typeCompte", typeCompte);
-                // startActivity(i);
-                Toast.makeText(AfficherDetailsOffreActivity.this, "Offre modifiée",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(AfficherDetailsOffreActivity.this, ModificationOffresActivity.class);
+                i.putExtra("is_details", "true");
+                i.putExtra("typeCompte", typeCompte);
+                i.putExtra("idOffre", id_offre);
+                startActivity(i);
+                //Toast.makeText(AfficherDetailsOffreActivity.this, "Offre modifiée",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -176,7 +177,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                     String type = documentSnapshot.getString("type");
                     String ville = documentSnapshot.getString("ville");                    
 
-                    Boolean parking = documentSnapshot.getBoolean("parking");
+                    String parking = documentSnapshot.getString("parking");
                     Boolean teletravail = documentSnapshot.getBoolean("teletravail");
                     Boolean ticketResto = documentSnapshot.getBoolean("ticketResto");
 
@@ -195,11 +196,11 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                         complementAdresseText.setVisibility(View.GONE);
                     }
                     codePostalText.setText(codePostal+" "+ville);
-                    if (parking.equals(true)){
-                        parkingText.setText("Parking disponible");
+                    if (!parking.equals("0")){
+                        parkingText.setText("Parking non disponible");
                     }
                     else{
-                        parkingText.setText("Pas de place de parking");
+                        parkingText.setText(parking+" places");
                     }
                     if (ticketResto.equals(true)){
                         ticketText.setText("Ticket restaurant possible");

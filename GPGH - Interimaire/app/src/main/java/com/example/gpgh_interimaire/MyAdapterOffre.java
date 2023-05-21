@@ -74,6 +74,7 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 Intent intent = new Intent(context, ModificationOffresActivity.class);
                 intent.putExtra("typeCompte", typeCompte);
                 intent.putExtra("titreOffre", itemsOffres.get(position).getTitre());
+                intent.putExtra("idOffre", itemsOffres.get(position).getId_offre());
                 intent.putExtra("is_details", "false");
                 context.startActivity(intent);
             }
