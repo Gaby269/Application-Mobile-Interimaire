@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -26,9 +27,11 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
     FirebaseFirestore db;
     boolean is_favori;
     String id_offre, titre, typeCompte;
-    
+
+    TextView titreText, nomEntrepriseText, dateText, typeText, salaireText, descriptionText, rueText, complementAdresseText, codePostalText, villeText, parkingText, ticketText, teletravailText;
+
     @Override
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afficher_details_offre);
@@ -130,9 +133,24 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         if (typeCompte.equals("Candidat")) {postulerButton.setText("Postuler");}
         else {postulerButton.setText("Voir les candidatures");}
 
+
+        titreText = findViewById(R.id.titre_offre);
+        nomEntrepriseText = findViewById(R.id.entrepriseOffre);
+        dateText = findViewById(R.id.dateOffre);
+        typeText = findViewById(R.id.typeOffre);
+        salaireText = findViewById(R.id.prixOffre);
+        descriptionText = findViewById(R.id.detailsOffre);
+        rueText = findViewById(R.id.adresseOffre);
+        complementAdresseText = findViewById(R.id.complementOffre);
+        codePostalText = findViewById(R.id.codePostaleOffre);
+        parkingText = findViewById(R.id.parking);
+        ticketText = findViewById(R.id.ticket_resto);
+        teletravailText = findViewById(R.id.teletravail);
+
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void getInfoOffre() {
 
         CollectionReference offresRef = db.collection("offres");
@@ -163,8 +181,38 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                     Boolean ticketResto = documentSnapshot.getBoolean("ticketResto");
 
                     // TODO changer la view selon les données récupérées
-
-        
+                    titreText.setText(titre);
+                    nomEntrepriseText.setText(nomEntreprise);
+                    dateText.setText(dateDeb+" - "+dateFin);
+                    typeText.setText(type);
+                    salaireText.setText(remuneration);
+                    descriptionText.setText(description);
+                    rueText.setText(rue);
+                    if (complementAdresse != "") { // Si le complement d'adresse est vide alors on ne l'affiche aps
+                        complementAdresseText.setText(complementAdresse);
+                    }
+                    else{
+                        complementAdresseText.setVisibility(View.GONE);
+                    }
+                    codePostalText.setText(codePostal+" "+ville);
+                    if (parking.equals(true)){
+                        parkingText.setText("Parking disponible");
+                    }
+                    else{
+                        parkingText.setText("Pas de place de parking");
+                    }
+                    if (ticketResto.equals(true)){
+                        ticketText.setText("Ticket restaurant possible");
+                    }
+                    else{
+                        ticketText.setText("Pas ticket restaurant");
+                    }
+                    if (teletravail.equals(true)){
+                        teletravailText.setText("Télétravail possible");
+                    }
+                    else{
+                        teletravailText.setText("Pas de télétravail");
+                    }
                 } 
                 else {
                     Log.d(TAG, "Aucune offre trouvée avec l'ID : " + id_offre);

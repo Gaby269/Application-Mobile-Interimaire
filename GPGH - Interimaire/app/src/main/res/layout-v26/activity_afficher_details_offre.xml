@@ -90,7 +90,7 @@
                         android:src="@drawable/icon_supprimer_white" />
 
                     <TextView
-                        android:id="@+id/titre_candidature"
+                        android:id="@+id/titre_offre"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -155,9 +155,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/black"
                         android:text="Entreprise"
-                        android:textSize="23dp"/>
+                        android:textColor="@color/black"
+                        android:textSize="23dp" />
 
                 </RelativeLayout>
 
@@ -176,17 +176,17 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/black"
                         android:text="date-deb - date-fin"
-                        android:textSize="17dp"/>
+                        android:textColor="@color/black"
+                        android:textSize="17dp" />
 
                     <ImageView
                         android:id="@+id/image_date"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_gravity="center"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="10dp"
-                        android:layout_centerVertical="true"
                         android:src="@drawable/icon_calendrier_bleu"/>
 
                 </RelativeLayout>
@@ -442,7 +442,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Télétravail"
-                        android:textSize="18dp"
+                        android:textSize="16dp"
                         android:gravity="center"
                         android:paddingLeft="10dp"/>
                 </LinearLayout>
