@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -193,7 +192,7 @@ public class MoyenPaiementActivity extends AppCompatActivity {
 
 
     public void displayloadingScreen() {
-        FragmentLoading loadingFragment = FragmentLoading.newInstance("Validation du paiement...");
+        FragLoading loadingFragment = FragLoading.newInstance("Validation du paiement...");
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, loadingFragment);
         //pour pas le fragment soit restauré lorsque l'utilisateur appuie sur le bouton retour
