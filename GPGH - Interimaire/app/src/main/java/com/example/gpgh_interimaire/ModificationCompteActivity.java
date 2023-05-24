@@ -2,9 +2,7 @@ package com.example.gpgh_interimaire;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -24,8 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -338,7 +334,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
 
 
     public void displayLoadingScreen() {
-        FragmentLoading loadingFragment = FragmentLoading.newInstance("Chargement...");
+        FragLoading loadingFragment = FragLoading.newInstance("Chargement...");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, loadingFragment, "loading_fragment");
         transaction.commit();
@@ -346,7 +342,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
 
     public void dismissLoadingScreen() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentLoading loadingFragment = (FragmentLoading) fragmentManager.findFragmentByTag("loading_fragment");
+        FragLoading loadingFragment = (FragLoading) fragmentManager.findFragmentByTag("loading_fragment");
 
         if (loadingFragment != null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();

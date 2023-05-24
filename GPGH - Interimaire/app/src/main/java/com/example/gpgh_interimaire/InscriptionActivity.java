@@ -1,6 +1,5 @@
 package com.example.gpgh_interimaire;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,8 +29,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.example.gpgh_interimaire.FragmentLoading;
 
 public class InscriptionActivity extends AppCompatActivity {
 
@@ -297,7 +294,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
 
     public void displayLoadingScreen() {
-        FragmentLoading loadingFragment = FragmentLoading.newInstance("Chargement...");
+        FragLoading loadingFragment = FragLoading.newInstance("Chargement...");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, loadingFragment, "loading_fragment");
         transaction.commit();
@@ -305,7 +302,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
     public void dismissLoadingScreen() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentLoading loadingFragment = (FragmentLoading) fragmentManager.findFragmentByTag("loading_fragment");
+        FragLoading loadingFragment = (FragLoading) fragmentManager.findFragmentByTag("loading_fragment");
 
         if (loadingFragment != null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
