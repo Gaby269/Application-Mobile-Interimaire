@@ -124,7 +124,6 @@
                     android:layout_marginEnd="60dp"
                     android:background="@drawable/arrondir_edit_white"
                     android:gravity="center_vertical"
-                    android:paddingStart="10dp"
                     android:textSize="15sp"
                     android:text="@string/typeOffreSpinner" />;
 
@@ -475,6 +474,15 @@
             android:background="@drawable/arrondir_edit_bleu"
             android:gravity="center_vertical"
             android:text="@string/boutton_valider"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/boutton_tmp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/arrondir_edit_bleu"
+            android:gravity="center_vertical"
+            android:text="tmp_creer"
             android:textSize="15sp" />
 
     </LinearLayout>

@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 public class CreationOffreActivity extends AppCompatActivity {
 
@@ -122,6 +123,7 @@ public class CreationOffreActivity extends AppCompatActivity {
         List<String> listType = new ArrayList<>();
         listType.add("Sélectionez un type ...");
         listType.add("Stage");
+        listType.add("Mission");
         listType.add("CDD");
         // ArrayAdapter pour le spinner
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,listType);
@@ -131,15 +133,49 @@ public class CreationOffreActivity extends AppCompatActivity {
 
 
 
+        // Bouton TMP à retirer
+        Button tmpButton = findViewById(R.id.boutton_tmp);
+        tmpButton.setOnClickListener(view -> {
+            // On met des données random dans les champs
+            String randTitre = Integer.toString(new Random().nextInt(9000)+1000); //entre 1000 et 9999
+            String randSalaire = Integer.toString(new Random().nextInt(30)+10); //entre 10 et 40
+            String randJour = Integer.toString(new Random().nextInt(19)+10); //entre 10 et 28
+            Integer intRandMois = new Random().nextInt(6)+6; //entre 6 et 11
+            String randMois1 = Integer.toString(intRandMois);
+            String randMois2 = Integer.toString(intRandMois+1);
+            // ajouter un 0 avant si mois < 10
+            randMois1 = (intRandMois < 10) ? "0"+randMois1 : randMois1;
+            randMois2 = (intRandMois+1 < 10) ? "0"+randMois2 : randMois2;
+
+
+            titreOffreEditText.setText("Offre "+randTitre);
+            descriptionOffreEditText.setText("Description Offre");
+            remunerationEditText.setText(randSalaire);
+            rueEditText.setText("Rue de la rue");
+            complementEditText.setText("Complément");
+            codePostalEditText.setText("75000");
+            villeEditText.setText("Paris");
+            dateDebEditText.setText(randJour+"/"+randMois1+"/2023");
+            dateFinEditText.setText(randJour+"/"+randMois2+"/2023");
+            placeParkingEditText.setText(randTitre);
+            //cocher au hasard les checkbox
+            checkBoxTicketResto.setChecked(new Random().nextBoolean());
+            checkBoxTeletravail.setChecked(new Random().nextBoolean());
+
+            try {
+                addOffreToFirestore();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
         Button creaOffreButton = findViewById(R.id.boutton_creationOffre);
-        creaOffreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    addOffreToFirestore();
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
+        creaOffreButton.setOnClickListener(view -> {
+            try {
+                addOffreToFirestore();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
         });
 
