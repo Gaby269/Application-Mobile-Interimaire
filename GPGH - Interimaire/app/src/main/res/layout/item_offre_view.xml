@@ -17,6 +17,7 @@
         android:orientation="horizontal"
         android:background="@drawable/arrondir_toolbar_haut_bleu">
 
+        <!--
         <ImageButton
             android:id="@+id/btn_supp"
             android:layout_width="?attr/actionBarSize"
@@ -24,6 +25,7 @@
             android:layout_gravity="start|center"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/icon_supprimer_white" />
+        -->
 
         <TextView
             android:id="@+id/titre_offre"
