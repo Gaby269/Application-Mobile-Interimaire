@@ -3,7 +3,7 @@ Modif Compte :
 	- Ajouter un petit indicateur comme quoi on a modifié le champ (ou juste le PDF), ou alors un bouton "uploader" pour le PDF
 
 Connexion : 
-	- boutton "se connecter" qui remonte mais pas les champs
+	- FAIT boutton "se connecter" qui remonte mais pas les champs
 
 Afficher Détail Offre : 
 	- FAIT Essayer de répartir l'espace, mieux que sur la card du menu offre (grouper la ville, grouper les infos importantes, etc...)

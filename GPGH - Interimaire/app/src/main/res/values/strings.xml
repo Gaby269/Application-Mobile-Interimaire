@@ -26,7 +26,7 @@
     <string name="nom">Nom</string>
     <string name="prenom">Prénom</string>
     <string name="creaCompte_text">Créez un compte avec votre adresse email</string>
-    <string name="connexion_text">Connectez-vous avec votre adresse email</string>
+    <string name="connexion_text">Entrez vos informations</string>
     <string name="typeSpinner">Type de compte</string>
     <!-- Erreurs -->
     <string name="code_incorrect">Code incorrect</string>
