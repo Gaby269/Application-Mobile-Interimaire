@@ -46,6 +46,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
 
     EditText editNom, editPrenom, editEmail, editNumero, editTypeCompte;
     TextView editCV;
+    ImageView uploadCV;
     ImageView profilePictureImageView;
 
 
@@ -67,6 +68,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
         editNumero = findViewById(R.id.editNumero);
         editTypeCompte = findViewById(R.id.editTypeCompte);
         editCV = findViewById(R.id.editCV);
+        uploadCV = findViewById(R.id.editButtonCV);
         profilePictureImageView = findViewById(R.id.profilePicture);
         fetchUserInfo();
 
@@ -84,7 +86,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
             updateAccountInfo();
         });
 
-        editCV.setOnClickListener(view -> {
+        uploadCV.setOnClickListener(view -> {
             openFilePicker(PICK_CV_FILE);
         });
 

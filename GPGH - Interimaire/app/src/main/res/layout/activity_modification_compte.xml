@@ -208,14 +208,32 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:enabled="false" />
-                    <TextView
-                        android:id="@+id/editCV"
+
+                    <LinearLayout
+                        android:id="@+id/layout_cv_edit"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:paddingStart="5dp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/bleu_500" />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/editCV"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:paddingStart="5dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/bleu_500"
+                            tools:ignore="NestedWeights,RtlSymmetry,Suspicious0dp" />
+
+                        <ImageView
+                            android:id="@+id/editButtonCV"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="9"
+                            android:padding="10dp"
+                            android:src="@drawable/icon_importer_bleu"
+                            tools:ignore="MissingConstraints,Suspicious0dp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

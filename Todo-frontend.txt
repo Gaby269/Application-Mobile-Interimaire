@@ -1,6 +1,6 @@
 Modif Compte : 
 	- FAIT mettre une scroll view
-	- Ajouter un petit indicateur comme quoi on a modifié le champ (ou juste le PDF), ou alors un bouton "uploader" pour le PDF
+	- FAIT Ajouter un petit indicateur comme quoi on a modifié le champ (ou juste le PDF), ou alors un bouton "uploader" pour le PDF
 
 Connexion : 
 	- FAIT boutton "se connecter" qui remonte mais pas les champs
