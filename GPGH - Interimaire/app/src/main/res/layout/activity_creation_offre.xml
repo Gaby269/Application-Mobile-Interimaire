@@ -36,6 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="false"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/layout_boutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,9 +79,9 @@
                     android:id="@+id/titreOffreTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="left"
                     android:text="@string/titreOffre"
@@ -92,8 +93,8 @@
                     android:id="@+id/titreOffreEditText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:background="@drawable/arrondir_edit_white"
                     android:gravity="center_vertical"
                     android:hint="@string/exTitre"
@@ -106,35 +107,34 @@
                     android:id="@+id/typePosteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="left"
                     android:text="@string/typePoste"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/typePosteEditText"
+                <Spinner
+                    android:id="@+id/typeOffreSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:background="@drawable/arrondir_edit_white"
                     android:gravity="center_vertical"
-                    android:hint="@string/exTypePoste"
                     android:paddingStart="10dp"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:text="@string/typeOffreSpinner" />;
 
                 <TextView
                     android:id="@+id/descriptionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="left"
                     android:text="@string/descriptionOffre"
@@ -146,8 +146,8 @@
                     android:id="@+id/descriptionOffreEditText"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:background="@drawable/arrondir_edit_white"
                     android:gravity="left"
                     android:inputType="textMultiLine"
@@ -159,9 +159,9 @@
                     android:id="@+id/periodeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="left"
                     android:text="@string/periodeOffre"
@@ -172,8 +172,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -185,10 +185,13 @@
                         android:background="@drawable/arrondir_edit_white"
                         android:gravity="center_vertical"
                         android:hint="@string/date_debut"
-                        android:inputType="text"
-                        android:digits="0123456789/"
+                        android:inputType="none"
+                        android:focusable="false"
                         android:paddingStart="10dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:onClick="showDebDatePickerDialog" />
+
+
 
                     <EditText
                         android:id="@+id/dateFinEditText"
@@ -199,10 +202,11 @@
                         android:background="@drawable/arrondir_edit_white"
                         android:gravity="center_vertical"
                         android:hint="@string/date_fin"
-                        android:inputType="text"
-                        android:digits="0123456789/"
+                        android:inputType="none"
+                        android:focusable="false"
                         android:paddingStart="10dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:onClick="showFinDatePickerDialog" />
 
                 </LinearLayout>
 
@@ -211,9 +215,9 @@
                     android:id="@+id/remunerationTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="left"
                     android:text="@string/remuneration"
@@ -225,8 +229,8 @@
                     android:id="@+id/remunerationEditText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:paddingStart="10dp"
                     android:background="@drawable/arrondir_edit_white"
                     android:gravity="center_vertical"
@@ -238,9 +242,9 @@
                     android:id="@+id/lieuTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="left"
                     android:text="@string/lieu"
@@ -252,8 +256,8 @@
                     android:id="@+id/rueEditText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:background="@drawable/arrondir_edit_white"
                     android:gravity="center_vertical"
                     android:hint="@string/ex_rue"
@@ -264,8 +268,8 @@
                     android:id="@+id/complementEditText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/arrondir_edit_white"
                     android:gravity="center_vertical"
@@ -276,8 +280,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
@@ -350,9 +354,9 @@
                     android:id="@+id/detailsTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="70dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="left"
                     android:text="@string/detailsOffre"
@@ -363,8 +367,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:orientation="vertical">
 
                     <!-- Télétravail -->
@@ -418,18 +422,27 @@
                         android:orientation="horizontal"
                         android:gravity="center_vertical">
 
-                        <CheckBox
-                            android:id="@+id/checkBoxParking"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/parking"
+                            android:layout_weight="1"
+                            android:layout_marginStart="20dp"
                             android:textColor="@color/black"
                             android:textSize="15sp"
                             android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/parkingEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="8"
+                            android:paddingStart="10dp"
+                            android:background="@drawable/arrondir_edit_white"
+                            android:gravity="center_vertical"
+                            android:inputType="number"
+                            android:hint="@string/ex_parking"
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -449,6 +462,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

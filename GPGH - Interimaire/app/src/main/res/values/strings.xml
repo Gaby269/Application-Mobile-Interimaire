@@ -27,7 +27,7 @@
     <string name="prenom">Prénom</string>
     <string name="creaCompte_text">Créez un compte avec votre adresse email</string>
     <string name="connexion_text">Entrez vos informations</string>
-    <string name="typeSpinner">Type de compte</string>
+    <string name="typeCompteSpinner">Type de compte</string>
     <!-- Erreurs -->
     <string name="code_incorrect">Code incorrect</string>
     <string name="nom_vide">Entrez un nom</string>
@@ -89,6 +89,7 @@
     <string name="erreur_carte">Entrez un numéro de carte valide</string>
     <string name="erreur_date">Entrez une date d\'expiration valide</string>
     <string name="erreur_code">Entrez un code CVV valide</string>
+    <string name="erreur_parking">Entrez un nombre de place de parking</string>
 
     <!-- Type abonnement -->
     <string name="choisir_abonnement">Choisir le type d\'abonnement</string>
@@ -194,7 +195,7 @@
         <string name="ex_complement">ex : Appartement B-2</string>
         <string name="ex_code_postal">ex : 34090</string>
         <string name="ex_ville">ex : Montpellier</string>
-    <string name="exLieu">ex : 9 rue de la Vignette, 34090 Montpellier</string>
+        <string name="ex_parking">ex : 10 places</string>
     <string name="remuneration">Remuneration (en €/h)</string>
     <string name="exRemuneration">ex : 25</string>
     <string name="exDetails">ex : Avoir le permis</string>
@@ -264,5 +265,7 @@
     <string name="details_">Détails :</string>
     <string name="dateDebut_">Date de début :</string>
     <string name="dateFin_">Date de fin :</string>
+    <string name="typeOffreSpinner">Sélectionez un type ...</string>
+    <string name="erreur_ville">Entrez une ville</string>
 
 </resources>
