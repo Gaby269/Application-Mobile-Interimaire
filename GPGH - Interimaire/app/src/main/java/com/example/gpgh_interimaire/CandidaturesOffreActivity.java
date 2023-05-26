@@ -29,13 +29,11 @@ public class CandidaturesOffreActivity extends AppCompatActivity {
         Intent i = getIntent();
         String typeCompte = i.getStringExtra("typeCompte");
         String titreOffre = i.getStringExtra("titreOffre");
-        String descriptionOffre = i.getStringExtra("description");
 
         // Affichage du titre et de la description
         TextView titreOffreTextView = findViewById(R.id.titreTextView);
         TextView descriptionOffreTextView = findViewById(R.id.descriptionTextView);
         titreOffreTextView.setText(titreOffre);
-        descriptionOffreTextView.setText(descriptionOffre);
 
         RecyclerView recyclerView = findViewById(R.id.recycleviewEntreprise);
 
