@@ -126,17 +126,16 @@
 
 
                 </LinearLayout>
-                <Spinner
-                    android:id="@+id/filtre_spinner"
+
+                <Button
+                    android:id="@+id/btnFilter"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="right"
                     android:layout_marginStart="30dp"
                     android:background="@drawable/arrondir_edit_white"
-                    android:layout_alignBottom="@+id/bar_recherche"
-                    android:layout_alignEnd="@+id/filter_button"
-                    android:text="Filter"
-                    android:entries="@array/filtreRecherche"/>
+                    android:entries="@array/filtreRecherche"
+                    android:gravity="center"
+                    android:text="Filtre" />
 
             </LinearLayout>
 
