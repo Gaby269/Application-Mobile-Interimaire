@@ -181,7 +181,6 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                     Boolean teletravail = documentSnapshot.getBoolean("teletravail");
                     Boolean ticketResto = documentSnapshot.getBoolean("ticketResto");
 
-                    // TODO changer la view selon les données récupérées
                     titreText.setText(titre);
                     nomEntrepriseText.setText(nomEntreprise);
                     dateText.setText(dateDeb+" - "+dateFin);
@@ -236,10 +235,37 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                         .addOnSuccessListener(aVoid -> {
                             Log.d(TAG, "Offre supprimée avec succès : " + id_offre);
                             Toast.makeText(AfficherDetailsOffreActivity.this, "Offre supprimée",Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
-                            i.putExtra("fragment", "Offre");
-                            i.putExtra("typeCompte", "Entreprise");
-                            startActivity(i);
+
+                            // suppression des favoris de l'offre
+                            db.collection("favoris")
+                            .whereEqualTo("offreId", id_offre)
+                                .get()
+                                .addOnSuccessListener(queryDocumentSnapshots -> {
+                                    if (!queryDocumentSnapshots.isEmpty()) {
+                                        // boucler sur tous les favoris de l'offre
+                                        for (DocumentSnapshot fav : queryDocumentSnapshots.getDocuments()) {
+                                            String id_fav = fav.getId();
+                                            db.collection("favoris").document(id_fav)
+                                                .delete()
+                                                .addOnSuccessListener(aVoid1 -> {
+                                                    Log.d(TAG, "Favori supprimé avec succès : " + id_fav);
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    Log.e(TAG, "Erreur lors de la suppression du favori", e);
+                                                });
+                                        }
+                                    }
+
+                                    Intent i = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
+                                    i.putExtra("fragment", "Offre");
+                                    i.putExtra("typeCompte", "Entreprise");
+                                    startActivity(i);
+
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e(TAG, "Erreur lors de la récupération des favoris", e);
+                                });
+
                         })
                         .addOnFailureListener(e -> {
                             Log.e(TAG, "Erreur lors de la suppression de l'offre", e);

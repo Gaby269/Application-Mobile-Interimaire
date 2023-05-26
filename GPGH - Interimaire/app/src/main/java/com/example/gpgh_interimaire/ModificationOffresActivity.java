@@ -65,7 +65,7 @@ public class ModificationOffresActivity extends AppCompatActivity {
                 i.putExtra("typeCompte", "Entreprise");
                 i.putExtra("fragment", "Offre");
                 startActivity(i);
-                // TODO Modifier les ifnromations dan sla ase de données et sur l'écran
+                // TODO Modifier les ifnromations dans la base de données et sur l'écran
                 Toast.makeText(ModificationOffresActivity.this,R.string.offreModif,Toast.LENGTH_SHORT).show();
             }
         });
