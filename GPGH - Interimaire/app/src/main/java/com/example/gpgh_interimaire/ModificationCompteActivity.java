@@ -310,19 +310,23 @@ public class ModificationCompteActivity extends AppCompatActivity {
                                                 startActivity(i);
                                             })
                                             .addOnFailureListener(e -> {
+                                                dismissLoadingScreen();
                                                 Toast.makeText(this, "Erreur lors de la récupération de l'URL de téléchargement.", Toast.LENGTH_SHORT).show();
                                                 Log.e(TAG, "Erreur lors de la récupération de l'URL de téléchargement.", e);
                                             }))
                                     .addOnFailureListener(e -> {
+                                        dismissLoadingScreen();
                                         Toast.makeText(this, "Erreur lors de l'upload du fichier.", Toast.LENGTH_SHORT).show();
                                         Log.e(TAG, "Erreur lors de l'upload du fichier.", e);
                                     });
                         })
                         .addOnFailureListener(e -> {
+                            dismissLoadingScreen();
                             Toast.makeText(this, "Erreur lors de la mise à jour du CV.", Toast.LENGTH_SHORT).show();
                         });
                     }
                     else {
+                        dismissLoadingScreen();
                         Toast.makeText(ModificationCompteActivity.this,R.string.compteModif,Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(ModificationCompteActivity.this, LoadingNavbarActivity.class);
                         i.putExtra("fragment", "Compte");
@@ -336,7 +340,7 @@ public class ModificationCompteActivity extends AppCompatActivity {
 
 
     public void displayLoadingScreen() {
-        FragLoading loadingFragment = FragLoading.newInstance("Chargement...");
+        FragLoading loadingFragment = FragLoading.newInstance("Enregistrement...");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, loadingFragment, "loading_fragment");
         transaction.commit();

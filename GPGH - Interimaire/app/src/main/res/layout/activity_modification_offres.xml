@@ -62,20 +62,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/toolbar_retour"/>
 
-            <TextView
-                android:id="@+id/offreTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/titreOffre"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@+id/modifOffreTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
 
             <LinearLayout
                 android:id="@+id/layout_Offre"
@@ -142,15 +128,6 @@
                         android:textStyle="bold"
                         android:text="@string/dateFin_" />
                     <TextView
-                        android:id="@+id/textViewLieu"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20px"
-                        android:textStyle="bold"
-                        android:text="@string/lieu_" />
-                    <TextView
                         android:id="@+id/textViewPrix"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -160,14 +137,14 @@
                         android:textStyle="bold"
                         android:text="@string/prix_" />
                     <TextView
-                        android:id="@+id/textViewDetails"
+                        android:id="@+id/textViewParking"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:paddingLeft="20px"
                         android:textStyle="bold"
-                        android:text="@string/details_" />
+                        android:text="@string/parking_" />
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/layout_Offre_edit"
@@ -208,19 +185,13 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical" />
                     <EditText
-                        android:id="@+id/editLieu"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical" />
-                    <EditText
                         android:id="@+id/editPrix"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical" />
                     <EditText
-                        android:id="@+id/editDetails"
+                        android:id="@+id/editParking"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -256,6 +227,12 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <!-- Pour placer le fragment de chargement -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -263,6 +263,7 @@
     <string name="lieu_">Adresse :</string>
     <string name="prix_">Rémunération :</string>
     <string name="details_">Détails :</string>
+    <string name="parking_">Parking :</string>
     <string name="dateDebut_">Date de début :</string>
     <string name="dateFin_">Date de fin :</string>
     <string name="typeOffreSpinner">Sélectionez un type ...</string>

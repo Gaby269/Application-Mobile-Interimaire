@@ -4,6 +4,7 @@
 ** AFICHER DETAILS OFFRES 
 - A FAIRE : Delete offre
 - A FAIRE : Modifier offre
+- A FAIRE : Favori
 
 
 ** AFFICHER DETAILS CANDIDATURES
@@ -14,6 +15,7 @@
 - A FAIRE : laisse la recherche avec le filtre en etant fixé meme quand on scroll
 - A FAIRE : ajuster la barre d'en haut avec le filtre etc
 - A FAIRE : si pas paiment, pas de offres
+- A FAIRE : Autorisations selon si c'est moi qui l'ai créer ou pas
 
 
 ** MODIFIER OFFRE

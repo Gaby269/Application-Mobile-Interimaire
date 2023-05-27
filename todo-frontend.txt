@@ -4,3 +4,6 @@ FragPagesOffres :
 
 Candidatures (Candidat) :
 	- Fix les layout en bordel
+	
+ModificationOffreActivity :
+	- A FAIRE : Fix le champs "description"
