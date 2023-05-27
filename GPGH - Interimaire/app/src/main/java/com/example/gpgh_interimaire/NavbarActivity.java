@@ -6,7 +6,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +31,8 @@ public class NavbarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navbar);
+
+        checkConnection();
 
         // Récupération de l'intent
         Intent i = getIntent();
@@ -230,6 +235,21 @@ public class NavbarActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container_layout, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void checkConnection() {
+        // Vérification de la connectivité internet
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        // Redirection si pas de connexion internet
+        if (!isConnected) {
+            Intent i = new Intent(NavbarActivity.this, NoInternetActivity.class);
+            i.putExtra("activity", "NavbarActivity");
+            startActivity(i);
+            finish();
+        }
     }
 
     @Override

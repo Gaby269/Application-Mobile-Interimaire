@@ -42,10 +42,23 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         typeCompte = i.getStringExtra("typeCompte");
         id_offre = i.getStringExtra("idOffre");
 
-        // Récupération des données de l'offre depuis la base de données
         db = FirebaseFirestore.getInstance();
+        
+        titreText = findViewById(R.id.titre_offre);
+        nomEntrepriseText = findViewById(R.id.entrepriseOffre);
+        dateText = findViewById(R.id.dateOffre);
+        typeText = findViewById(R.id.typeOffre);
+        salaireText = findViewById(R.id.prixOffre);
+        descriptionText = findViewById(R.id.detailsOffre);
+        rueText = findViewById(R.id.adresseOffre);
+        complementAdresseText = findViewById(R.id.complementOffre);
+        codePostalText = findViewById(R.id.codePostaleOffre);
+        parkingText = findViewById(R.id.parking);
+        ticketText = findViewById(R.id.ticket_resto);
+        teletravailText = findViewById(R.id.teletravail);
+        
         getInfoOffre();
-
+        
         Button postulerButton = findViewById(R.id.boutton_postuler);
         postulerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,17 +92,17 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton favorieButton = findViewById(R.id.btn_heart);
-        favorieButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton favoriButton = findViewById(R.id.btn_heart);
+        favoriButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (is_favori){
                     is_favori = false;
-                    favorieButton.setImageResource(R.drawable.icon_favori_white_vide);
+                    favoriButton.setImageResource(R.drawable.icon_favori_white_vide);
                 }
                 else{
                     is_favori = true;
-                    favorieButton.setImageResource(R.drawable.icon_favori_white);
+                    favoriButton.setImageResource(R.drawable.icon_favori_white);
                 }
             }
         });
@@ -119,34 +132,17 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         });
 
         // Visibilité du bouton favori
-        if (typeCompte.equals("Candidat")) { favorieButton.setVisibility(View.VISIBLE); }
-        else { favorieButton.setVisibility(View.GONE); }
+        if (!typeCompte.equals("Candidat")) { favoriButton.setVisibility(View.GONE); }
+        
+        if (typeCompte.equals("Candidat") || typeCompte.equals("Invite")) { 
+            modificationButton.setVisibility(View.GONE); // Visibilité du bouton modification
+            suppressionButton.setVisibility(View.GONE);  // Visibilité du bouton suppression
+        }
 
-        // Visibilité du bouton modification
-        if (typeCompte.equals("Candidat")) { modificationButton.setVisibility(View.GONE); }
-        else { modificationButton.setVisibility(View.VISIBLE); }
-
-        // Visibilité du bouton suppression
-        if (typeCompte.equals("Candidat")) { suppressionButton.setVisibility(View.INVISIBLE); }
-        else { suppressionButton.setVisibility(View.VISIBLE); }
-
-        // Visibilité du bouton postuler
-        if (typeCompte.equals("Candidat")) {postulerButton.setText("Postuler");}
-        else {postulerButton.setText("Voir les candidatures");}
-
-
-        titreText = findViewById(R.id.titre_offre);
-        nomEntrepriseText = findViewById(R.id.entrepriseOffre);
-        dateText = findViewById(R.id.dateOffre);
-        typeText = findViewById(R.id.typeOffre);
-        salaireText = findViewById(R.id.prixOffre);
-        descriptionText = findViewById(R.id.detailsOffre);
-        rueText = findViewById(R.id.adresseOffre);
-        complementAdresseText = findViewById(R.id.complementOffre);
-        codePostalText = findViewById(R.id.codePostaleOffre);
-        parkingText = findViewById(R.id.parking);
-        ticketText = findViewById(R.id.ticket_resto);
-        teletravailText = findViewById(R.id.teletravail);
+        // Texte du bouton postuler
+        if (typeCompte.equals("Candidat")) { postulerButton.setText("Postuler"); }
+        else if (typeCompte.equals("Invite")) { postulerButton.setVisibility(View.GONE); }
+        else { postulerButton.setText("Voir les candidatures"); }
 
     }
 

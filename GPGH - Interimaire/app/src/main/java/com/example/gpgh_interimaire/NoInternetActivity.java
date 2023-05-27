@@ -13,10 +13,15 @@ import android.widget.Toast;
 
 public class NoInternetActivity extends AppCompatActivity {
 
+    String activityToGo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_internet);
+
+        Intent i = getIntent();
+        activityToGo = i.getStringExtra("activity"); // MainActivity ou NavbarActivity
 
         Button retryButton = findViewById(R.id.retry_button);
         retryButton.setOnClickListener(view -> checkConnection());
@@ -30,9 +35,16 @@ public class NoInternetActivity extends AppCompatActivity {
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
         if (isConnected) {
-            Intent i = new Intent(NoInternetActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
+            if (activityToGo.equals("MainActivity")) {
+                Intent i = new Intent(NoInternetActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+            else if (activityToGo.equals("NavbarActivity")) {
+                Intent i = new Intent(NoInternetActivity.this, NavbarActivity.class);
+                startActivity(i);
+                finish();
+            }
         }
         // Affichage d'un message si pas de connexion internet
         else {

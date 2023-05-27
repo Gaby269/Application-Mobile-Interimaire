@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         // Redirection si pas de connexion internet
         if (!isConnected) {
             Intent i = new Intent(MainActivity.this, NoInternetActivity.class);
+            i.putExtra("activity", "MainActivity");
             startActivity(i);
             finish();
         }
