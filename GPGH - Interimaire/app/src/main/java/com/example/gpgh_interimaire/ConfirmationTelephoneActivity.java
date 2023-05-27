@@ -2,6 +2,7 @@ package com.example.gpgh_interimaire;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
@@ -90,17 +91,15 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
         if (codeTel.isEmpty()) {
             codeTelEditText.setError(getString(R.string.code_vide));
             codeTelEditText.requestFocus();
-            dismissLoadingScreen();
             return;
         }
         else if (!codeTel.equals(randomCode)) {
             codeTelEditText.setError(getString(R.string.code_erreur));
             codeTelEditText.requestFocus();
-            dismissLoadingScreen();
             return;
         }
         else {
-            displayloadingScreen();
+            displayLoadingScreen();
             redirectUserIfSuccessful();
         }
     }
@@ -133,16 +132,22 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
     }
 
 
-    public void displayloadingScreen() {
+    public void displayLoadingScreen() {
         FragLoading loadingFragment = FragLoading.newInstance("Validation du numéro...");
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, loadingFragment);
-        transaction.addToBackStack(null);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_container, loadingFragment, "loading_fragment");
         transaction.commit();
     }
 
     public void dismissLoadingScreen() {
-        getSupportFragmentManager().popBackStack();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragLoading loadingFragment = (FragLoading) fragmentManager.findFragmentByTag("loading_fragment");
+
+        if (loadingFragment != null) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.remove(loadingFragment);
+            transaction.commit();
+        }
     }
 
 

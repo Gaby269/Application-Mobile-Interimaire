@@ -5,6 +5,9 @@ FragPagesOffres :
 Candidatures (Candidat) :
 	- Fix les layout en bordel
 	
+AfficherDetailActivity
+	- A FAIRE : afficher les places de parking
+	
 ModificationOffreActivity :
 	- A FAIRE : Fix le champs "description"
 	
