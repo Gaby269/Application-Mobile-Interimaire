@@ -181,7 +181,7 @@
 
     <!-- Creation offres -->
     <string name="creationOffre">Créer votre offre</string>
-    <string name="titreOffre">Titre de l\'offre :</string>
+    <string name="titreOffre">Titre de l\'offre</string>
     <string name="typePoste">Type de poste :</string>
     <string name="descriptionOffre">Description de l\'offre :</string>
     <string name="exTypePoste">ex : Stage</string>

@@ -29,23 +29,17 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         String typeCompte = i.getStringExtra("typeCompte");
-        String titreCandidature = i.getStringExtra("titreCandidature");
+        String idCandidature = i.getStringExtra("idCandidature");
         is_favori = false;
 
-        // TODO Prendre l'id de la candidature est afficher de la base la candidature en entier
-        // Modification des éléments de la candidature
-        TextView titreCandidatureTextView = findViewById(R.id.titre_candidature);
-        titreCandidatureTextView.setText(titreCandidature);
-
-        // Changement du titre de
+        // TODO Prendre l'id de la candidature et afficher de la base la candidature en entier
         TextView candidatureText = findViewById(R.id.candidatureDetailsTextView);
         if (typeCompte.equals("Candidat")) {
             candidatureText.setText("Details de votre candidature");
         }
         else {
-            candidatureText.setText("Details de la candidature :");
+            candidatureText.setText("Details de la candidature");
         }
-
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
         retourButton.setOnClickListener(new View.OnClickListener() {

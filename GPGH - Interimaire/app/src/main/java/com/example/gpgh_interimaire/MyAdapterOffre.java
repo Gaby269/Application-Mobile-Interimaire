@@ -86,10 +86,10 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             // Ajouter le OnClickListener à itemView
             holder.itemView.setOnClickListener(v -> {
                 // Créer une intention pour lancer l'ActivityDetailsOffre
-            Intent intent = new Intent(context, AfficherDetailsOffreActivity.class);
-            intent.putExtra("idOffre", itemsOffres.get(position).getId_offre());
-            intent.putExtra("typeCompte", typeCompte);
-            context.startActivity(intent);
+                Intent intent = new Intent(context, AfficherDetailsOffreActivity.class);
+                intent.putExtra("idOffre", itemsOffres.get(position).getId_offre());
+                intent.putExtra("typeCompte", typeCompte);
+                context.startActivity(intent);
             });
         
             // Bouton modification btn_modif
@@ -101,6 +101,12 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 intent.putExtra("is_details", "false");
                 context.startActivity(intent);
             });
+
+            
+            if (itemsOffres.get(position).getId_offre() == "0") {
+                holder.bouton_favori.setVisibility(View.GONE);
+                holder.itemView.setOnClickListener(null);
+            }
         
             holder.bouton_modif.setVisibility(View.GONE); // Visibilité du bouton modifier
 

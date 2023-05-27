@@ -2,6 +2,8 @@ package com.example.gpgh_interimaire;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -101,11 +103,12 @@ public class PostulerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: Envoyer la candidature
-                if (cvFileUri == null) {
+                if (cvFileUri == null && nomCV == null) {
                     TextView CVTextView = findViewById(R.id.CVTextView);
                     CVTextView.setError(getString(R.string.cv_vide));
                 }
                 else {
+                    displayLoadingScreen();
                     uploadCandidatureToFirebase();
                 }
             }
@@ -127,8 +130,6 @@ public class PostulerActivity extends AppCompatActivity {
                 nomCV = item.getName();
                 editCV.setText(nomCV);
                 editCV.setTextColor(ContextCompat.getColor(this, R.color.bleu_500));
-                // TODO télécharger le fichier lorsque l'on clique dessus
-                // editCV.setOnClickListener(v -> downloadFile(item));
                 return;
             }
             editCV.setText(R.string.no_cv);
@@ -254,10 +255,12 @@ public class PostulerActivity extends AppCompatActivity {
         candidature.put("id_offre", id_offre);
         candidature.put("userId", userId);
         candidature.put("description", description);
+        candidature.put("etat", "En attente");
 
         db.collection("candidatures")
             .add(candidature)
             .addOnSuccessListener(documentReference -> {
+                dismissLoadingScreen();
                 Toast.makeText(this, R.string.candidature_envoyee, Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(PostulerActivity.this, NavbarActivity.class);
                 i.putExtra("fragment", "Offre");
@@ -268,6 +271,25 @@ public class PostulerActivity extends AppCompatActivity {
                 Toast.makeText(this, "Erreur lors de l'enregistrement de la candidature.", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "Erreur lors de l'enregistrement de la candidature.", e);
             });
+    }
+
+
+    public void displayLoadingScreen() {
+        FragLoading loadingFragment = FragLoading.newInstance("Envoi de la candidature...");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_container, loadingFragment, "loading_fragment");
+        transaction.commit();
+    }
+
+    public void dismissLoadingScreen() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragLoading loadingFragment = (FragLoading) fragmentManager.findFragmentByTag("loading_fragment");
+
+        if (loadingFragment != null) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.remove(loadingFragment);
+            transaction.commit();
+        }
     }
     
 }

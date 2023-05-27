@@ -58,26 +58,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/EcouteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/ecoute_text"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/candidatureDetailsTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-
-
-        <!--Faudrait mettre une listeView de layout avec cette decription-->
         <LinearLayout
             android:id="@+id/layout_candidature_details"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginTop="40dp"
@@ -86,7 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/layout_boutton"
-            app:layout_constraintTop_toBottomOf="@+id/EcouteTextView"
+            app:layout_constraintTop_toBottomOf="@+id/candidatureDetailsTextView"
             android:orientation="vertical">
 
 
@@ -115,7 +100,7 @@
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textSize="26dp"
-                    android:text="Nom Prénom du candidat"
+                    android:text="Nom Prénom"
                     android:textColor="@color/white"
                     android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -143,7 +128,7 @@
 
 
             <TextView
-                android:id="@+id/entrepriseOffre"
+                android:id="@+id/entrepriseCandidature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -154,14 +139,26 @@
                 />
 
             <TextView
-                android:id="@+id/descriptionOffre"
+                android:id="@+id/descriptionCandidature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="17dp"
                 android:layout_marginEnd="17dp"
-                android:text="Petite description de l'offre"
+                android:text="description de la candidature"
                 android:textSize="16dp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/cvCandidature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginEnd="17dp"
+                android:text="Affichage CV"
+                android:textSize="16dp"
+                android:textColor="@color/bleu_500"
                 android:gravity="center"/>
 
             <LinearLayout
@@ -171,7 +168,8 @@
                 android:gravity="center"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="vertical"
                 android:background="@drawable/bord_bleu_fond_white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -179,26 +177,14 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/candidatureOffre"
+                    android:id="@+id/etatCandidature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginEnd="17dp"
-                    android:text="Complément de candidature"
-                    android:textSize="16dp"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:id="@+id/cvOffre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_marginBottom="17dp"
-                    android:text="Affichage CV"
-                    android:textSize="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Etat"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>

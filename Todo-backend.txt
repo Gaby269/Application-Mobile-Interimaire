@@ -4,9 +4,17 @@
 
 ** OFFRES
 - si pas paiment, pas de offres
+- Filtrer avec mots cles
 
 
 ** MESSAGERIE
 - Créer une conversation
 - Ouvrir uen conversation
 - Discuter
+
+** CANDIDATURES OFFRES 
+- Télécharger le CV
+
+** COMPTE :
+- Traduction
+- Télécharger le CV

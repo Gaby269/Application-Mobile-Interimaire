@@ -40,78 +40,59 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
         holder.cvView.setText(itemsCandidature.get(position).getCV());
         holder.nameView.setText(itemsCandidature.get(position).getFirstName()+" "+itemsCandidature.get(position).getLastName());
         holder.descriptionCandidatureView.setText(itemsCandidature.get(position).getDescriptionCandidature());
-        holder.complementCandidatureView.setText(itemsCandidature.get(position).getComplementCandidature());
+        holder.etatCandidature.setText(itemsCandidature.get(position).getEtat());
 
         // Ajouter le OnClickListener à itemView
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Créer une intention pour lancer l'Activity2
-                Intent intent = new Intent(context, AfficherDetailsCandidatureActivity.class);
-                intent.putExtra("titreCandidature", holder.nameView.getText());
-                intent.putExtra("typeCompte", typeCompte);
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            // Créer une intention pour lancer l'Activity2
+            Intent intent = new Intent(context, AfficherDetailsCandidatureActivity.class);
+            intent.putExtra("titreCandidature", holder.nameView.getText());
+            intent.putExtra("typeCompte", typeCompte);
+            context.startActivity(intent);
         });
 
-        // Bouton favorie
-        holder.bouton_favori.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (is_favori){
-                    is_favori = false;
-                    holder.bouton_favori.setImageResource(R.drawable.icon_favori_white_vide);
-                }
-                else{
-                    is_favori = true;
-                    holder.bouton_favori.setImageResource(R.drawable.icon_favori_white);
-                }
-
+        // Bouton favori
+        holder.bouton_favori.setOnClickListener(v -> {
+            if (is_favori) {
+                is_favori = false;
+                holder.bouton_favori.setImageResource(R.drawable.icon_favori_white_vide);
             }
+            else {
+                is_favori = true;
+                holder.bouton_favori.setImageResource(R.drawable.icon_favori_white);
+            }
+
         });
-        // Visibilité du bouton favorie des offres
-        if (typeCompte.equals("Candidat") || typeCompte.equals("Admin")){
-            holder.bouton_favori.setVisibility(View.GONE);
-        }
-        else{
-            holder.bouton_favori.setVisibility(View.VISIBLE);
-        }
+
+        holder.bouton_supp.setOnClickListener(v -> {
+            Toast.makeText(context, R.string.offreSupp, Toast.LENGTH_SHORT).show();
+        });
 
         // Bouton modification btn_modif
-        holder.bouton_modif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ModificationCandidatureActivity.class);
-                intent.putExtra("typeCompte", typeCompte);
-                intent.putExtra("titreOffre", holder.nameView.getText());
-                intent.putExtra("is_details", "false");
-                context.startActivity(intent);
-            }
-        });
-        // Visibilité du bouton modification des offres
-        if (typeCompte.equals("Candidat") || typeCompte.equals("Admin")){
-            holder.bouton_modif.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.bouton_modif.setVisibility(View.GONE);
+        // holder.bouton_modif.setOnClickListener(v -> {
+        //     Intent intent = new Intent(context, ModificationCandidatureActivity.class);
+        //     intent.putExtra("typeCompte", typeCompte);
+        //     intent.putExtra("titreOffre", holder.nameView.getText());
+        //     intent.putExtra("is_details", "false");
+        //     context.startActivity(intent);
+        // });
+
+        if (itemsCandidature.get(position).getId_candidature() == "0") {
+            holder.bouton_favori.setVisibility(View.GONE);
+            holder.itemView.setOnClickListener(null);
         }
 
-        // Bouton Suppression btn_supp
-        holder.bouton_supp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Modification pour supprimer la candidature
-                Toast.makeText(context,R.string.offreSupp,Toast.LENGTH_SHORT).show();
-            }
-        });
-        // Visibilité du bouton suppresion des offres
-        if (typeCompte.equals("Candidat")){
-            holder.bouton_supp.setVisibility(View.VISIBLE);
+        holder.bouton_modif.setVisibility(View.GONE);
+
+        if (!typeCompte.equals("Candidat")) {
+            holder.bouton_supp.setVisibility(View.GONE); // Visibilité du bouton suppresion des candidatures
         }
-        else{
-            holder.bouton_supp.setVisibility(View.INVISIBLE);
+
+        if (typeCompte.equals("Candidat") || typeCompte.equals("Admin")){
+            holder.bouton_favori.setVisibility(View.GONE); // Visibilité du bouton favori des candidatures
         }
     }
+
     @Override
     public int getItemCount() {
         return itemsCandidature.size();

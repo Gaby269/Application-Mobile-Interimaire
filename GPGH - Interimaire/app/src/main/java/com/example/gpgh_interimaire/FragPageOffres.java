@@ -92,9 +92,6 @@ public class FragPageOffres extends Fragment {
             .addOnFailureListener(e -> {
                 Log.d(TAG, "Erreur lors de la récupération des offres : ", e);
                 setupRecyclerView(items);
-            })
-            .addOnCompleteListener(task -> {
-                setupRecyclerView(items);
             });
 
 

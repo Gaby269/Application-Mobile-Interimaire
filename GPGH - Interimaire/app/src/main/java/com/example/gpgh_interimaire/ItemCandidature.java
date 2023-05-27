@@ -1,15 +1,15 @@
 package com.example.gpgh_interimaire;
 
 public class ItemCandidature {
-    String id_candidature, id_user, firstName, lastName, descriptionCandidature, complementCandidature, CV;
+    String id_candidature, id_user, firstName, lastName, descriptionCandidature, etat, CV;
 
-    public ItemCandidature(String id_candidature, String id_user, String firstName, String lastName, String descriptionCandidature, String complementCandidature, String CV) {
+    public ItemCandidature(String id_candidature, String id_user, String firstName, String lastName, String descriptionCandidature, String etat, String CV) {
         this.id_candidature = id_candidature;
         this.id_user = id_user;
         this.firstName = firstName;
         this.lastName = lastName;
         this.descriptionCandidature = descriptionCandidature;
-        this.complementCandidature = complementCandidature;
+        this.etat = etat;
         this.CV = CV;
     }
 
@@ -43,11 +43,11 @@ public class ItemCandidature {
 
     public void setDescriptionCandidature(String descriptionCandidature) {this.descriptionCandidature = descriptionCandidature;}
 
-    public String getComplementCandidature() {
-        return complementCandidature;
+    public String getEtat() {
+        return etat;
     }
 
-    public void setComplementCandidature(String complementCandidature) {this.complementCandidature = complementCandidature;}
+    public void setEtat(String etat) {this.etat = etat;}
 
     public String getCV() {
         return CV;

@@ -33,7 +33,7 @@
             android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="26dp"
-            android:text="POINTEAU Gabrielle"
+            android:text="NOM Prenom"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_gravity="center"
@@ -56,6 +56,7 @@
             android:src="@drawable/icon_favori_white_vide" />
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/descriptionCandidature"
         android:layout_width="match_parent"
@@ -68,16 +69,28 @@
         android:textSize="16dp"
         android:gravity="center"/>
 
+    <TextView
+        android:id="@+id/cvCandidature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/descriptionCandidature"
+        android:text="Affichage CV"
+        android:textSize="16dp"
+        android:gravity="center"/>
+
 
     <LinearLayout
         android:id="@+id/layout_candidature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_below="@id/descriptionCandidature"
+        android:layout_below="@id/cvCandidature"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         android:orientation="vertical"
         android:background="@drawable/bord_bleu_fond_white"
@@ -86,26 +99,15 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/complementCandidature"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginEnd="17dp"
-            android:text="Complément de candidature"
-            android:textSize="16dp"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/cvCandidature"
+            android:id="@+id/etatCandidature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginStart="17dp"
             android:layout_marginEnd="17dp"
             android:layout_marginBottom="17dp"
-            android:text="Affichage CV"
-            android:textSize="16dp"
+            android:text="ETAT"
+            android:textSize="20dp"
             android:gravity="center"/>
     </LinearLayout>
 

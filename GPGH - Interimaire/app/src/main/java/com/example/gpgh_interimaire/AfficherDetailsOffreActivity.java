@@ -29,7 +29,8 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
     String userId;
 
     boolean is_favori;
-    String id_offre, titre, typeCompte;
+    boolean is_postule = false;
+    String id_offre, titre, typeCompte, id_candidature;
 
     TextView titreText, nomEntrepriseText, dateText, typeText, salaireText, descriptionText, rueText, complementAdresseText, codePostalText, villeText, parkingText, ticketText, teletravailText;
 
@@ -68,13 +69,21 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (typeCompte.equals("Candidat")) {
-                    Intent i = new Intent(AfficherDetailsOffreActivity.this, PostulerActivity.class);
-                    i.putExtra("idOffre", id_offre);
-                    i.putExtra("titreOffre", titre);
-                    i.putExtra("typeCompte", typeCompte);
-                    startActivity(i);
+                    if (is_postule) {
+                        Intent i = new Intent(AfficherDetailsOffreActivity.this, AfficherDetailsCandidatureActivity.class);
+                        i.putExtra("idCandidature", id_candidature);
+                        i.putExtra("typeCompte", typeCompte);
+                        startActivity(i);
+                    }
+                    else {
+                        Intent i = new Intent(AfficherDetailsOffreActivity.this, PostulerActivity.class);
+                        i.putExtra("idOffre", id_offre);
+                        i.putExtra("titreOffre", titre);
+                        i.putExtra("typeCompte", typeCompte);
+                        startActivity(i);
+                    }
                 }
-                else{
+                else {
                     Intent i = new Intent(AfficherDetailsOffreActivity.this, CandidaturesOffreActivity.class);
                     i.putExtra("idOffre", id_offre);
                     i.putExtra("titreOffre", titre);
@@ -125,7 +134,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
         // Texte du bouton postuler
         if (typeCompte.equals("Candidat")) { 
-            postulerButton.setText("Postuler"); 
+            checkIfAlreadyPostule(userId, id_offre, postulerButton);
         }
         else if (typeCompte.equals("Invite")) { 
             favoriButton.setVisibility(View.GONE);
@@ -137,6 +146,26 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
             checkIfOffreIsMine(userId, id_offre, modificationButton, suppressionButton);
         }
 
+    }
+
+
+    private void checkIfAlreadyPostule(String userId, String id_offre, Button postulerButton) {
+        CollectionReference candidaturesRef = db.collection("candidatures");
+        Query query = candidaturesRef.whereEqualTo("userId", userId).whereEqualTo("id_offre", id_offre);
+
+        query.get()
+            .addOnSuccessListener(queryDocumentSnapshots -> {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    id_candidature = queryDocumentSnapshots.getDocuments().get(0).getId();
+                    is_postule = true;
+
+                    postulerButton.setText("Voir ma candidature");
+                }
+                else {
+                    postulerButton.setText("Postuler"); 
+                }
+            })
+            .addOnFailureListener(e -> Log.d(TAG, "Erreur lors de la récupération de la candidature : " + id_offre));
     }
 
 
