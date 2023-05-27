@@ -80,20 +80,12 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
 
         ImageView accepterButton = findViewById(R.id.bouton_accepter);
         accepterButton.setOnClickListener(view -> {
-            updateCandidature("Acceptée");
-            Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureAcc,Toast.LENGTH_SHORT).show();
-            Intent i1 = new Intent(AfficherDetailsCandidatureActivity.this, CandidaturesOffreActivity.class);
-            i1.putExtra("typeCompte", typeCompte);
-            startActivity(i1);
+            updateCandidature(true);
         });
 
         ImageView refuserButton = findViewById(R.id.bouton_refuser);
         refuserButton.setOnClickListener(view -> {
-            updateCandidature("Refusée");
-            Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureReff,Toast.LENGTH_SHORT).show();
-            Intent i12 = new Intent(AfficherDetailsCandidatureActivity.this, CandidaturesOffreActivity.class);
-            i12.putExtra("typeCompte", typeCompte);
-            startActivity(i12);
+            updateCandidature(false);
         });
 
         ImageButton favoriButton = findViewById(R.id.btn_heart);
@@ -213,8 +205,25 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
     }
 
 
-    private void updateCandidature(String etat) {
-        // TODO update dans la base de données
+    private void updateCandidature(boolean choix) {
+        // update de "etat" dans la base de données
+        String etat;
+        if (choix) { etat = "Acceptée"; }
+        else { etat = "Refusée"; }
+
+        db.collection("candidatures")
+            .document(idCandidature)
+            .update("etat", etat)
+            .addOnSuccessListener(aVoid -> {
+                if (choix) {Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureAcc,Toast.LENGTH_SHORT).show();}
+                else {Toast.makeText(AfficherDetailsCandidatureActivity.this,R.string.candidatureReff,Toast.LENGTH_SHORT).show();}
+        
+                Intent i1 = new Intent(AfficherDetailsCandidatureActivity.this, CandidaturesOffreActivity.class);
+                i1.putExtra("typeCompte", typeCompte);
+                startActivity(i1);
+                finish();
+            });
+
     }
 
 
