@@ -1,12 +1,9 @@
-** INSCRIPTION
-~ Valider le numéro
-
 ** AFFICHER DETAILS CANDIDATURES
 - Ajout d'une candidature pour un candidat
 
 
 ** OFFRES
-- A FAIRE : si pas paiment, pas de offres
+- si pas paiment, pas de offres
 
 
 ** MESSAGERIE

@@ -139,17 +139,10 @@ public class InscriptionActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         String userId = user.getUid();
                         addUserToFirestore(userId, prenom, nom, email, tel, type);
-
-                        dismissLoadingScreen();
-                        Intent i = new Intent(InscriptionActivity.this, ConfirmationTelephoneActivity.class);
-                        i.putExtra("phoneNumber", tel);
-                        startActivity(i);
-                        finish();
                     }
                     else {
                         dismissLoadingScreen();
                         Exception e = task.getException();
-                        // Log.w(TAG, "createUserWithEmail:failure", e);
                         if (e instanceof FirebaseAuthException) {
                             gererExceptionsFirebase((FirebaseAuthException) e);
                         } else { // Erreur inconnue
@@ -172,7 +165,16 @@ public class InscriptionActivity extends AppCompatActivity {
         db.collection("users")
                 .document(userId)
                 .set(user)
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "Utilisateur ajouté à la BDD"))
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Utilisateur ajouté à la BDD");
+
+                    dismissLoadingScreen();
+                    Intent i = new Intent(InscriptionActivity.this, ConfirmationTelephoneActivity.class);
+                    i.putExtra("phoneNumber", tel);
+                    i.putExtra("typeCompte", type);
+                    startActivity(i);
+                    finish();
+                })
                 .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de l'ajout dans la BDD", e));
     }
 

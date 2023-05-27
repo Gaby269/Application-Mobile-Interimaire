@@ -6,11 +6,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,15 +26,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.concurrent.TimeUnit;
 
 public class ConfirmationTelephoneActivity extends AppCompatActivity {
-    private static final String TAG = "ConfirmationTelephoneActivity";
+    
+    String TAG = "ConfirmationTelephoneActivity";
+    FragmentTransaction transaction;
 
-    FirebaseAuth mAuth;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     FirebaseFirestore db;
-    TextView usernameTextView;
-    EditText verificationCodeEditText;
-    String userId, firstName, lastName, phoneNumber, verificationCode, typeCompte;
-    FragmentTransaction transaction;
+    
+    EditText codeTelEditText;
+    String userId, phoneNumber, typeCompte;
+    String randomCode = "0000";
 
     @Override
     @SuppressLint("MissingInflatedId")
@@ -40,114 +43,70 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation_telephone);
 
-        mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        verificationCodeEditText = findViewById(R.id.codeTelEditText);
-        verificationCode = verificationCodeEditText.getText().toString();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        userId = currentUser.getUid();
-
-        if (userId != null) {
-            fetchUserInfo(userId);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userId = currentUser.getUid();
         }
 
-        // on skip tant que ça marche pas
-        //initCallbacks();
-        //sendVerificationCode(phoneNumber);
+        // on récupère le numéro de téléphone
+        Intent intent = getIntent();
+        phoneNumber = intent.getStringExtra("phoneNumber");
+        typeCompte = intent.getStringExtra("typeCompte");
+
+        codeTelEditText = findViewById(R.id.codeTelEditText);
+
+        TextView confirmationButton = findViewById(R.id.codeNonRecuTextView);
+        confirmationButton.setOnClickListener(view -> {
+            randomCode = String.valueOf((int) (Math.random() * (9999 - 1000 + 1) + 1000));
+            sendVerificationCode(phoneNumber, randomCode);
+        });
 
         Button inscriptionButton = findViewById(R.id.boutton_confirmationTel);
         inscriptionButton.setOnClickListener(view -> {
-            displayloadingScreen();
-            redirectUserIfSuccessful();
-
-            /*
-            String verificationCode1 = verificationCodeEditText.getText().toString().trim();
-            String verificationId = ""; // L'ID de vérification reçu dans la méthode onCodeSent
-
-            if (!verificationCode1.isEmpty()) {
-                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, verificationCode1);
-                signInWithPhoneAuthCredential(credential);
-            }
-            else {
-                verificationCodeEditText.setError(getString(R.string.code_incorrect));
-            }
-             */
+            checkIfNumberIsValid();
         });
     }
 
-    private void fetchUserInfo(String userId) {
-        db.collection("users")
-                .document(userId)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        firstName = documentSnapshot.getString("prenom");
-                        lastName = documentSnapshot.getString("nom");
-                        phoneNumber = documentSnapshot.getString("telephone");
-                        typeCompte = documentSnapshot.getString("typeCompte");
 
-                        usernameTextView = findViewById(R.id.UsernameTextView);
-                        usernameTextView.setText("Bonjour " + firstName + " " + lastName);
-
-                    } else {
-                        Log.w(TAG, "DB Non trouvée");
-                        usernameTextView.setText("Bonjour");
-                    }
-                })
-                .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));
+    private void sendVerificationCode(String phoneNumber, String randomCode) {
+        // ouvre l'application de SMS avec écrit le nombre aléatoire
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:" + phoneNumber));
+        intent.putExtra("sms_body", "Code : " + randomCode);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } 
+        else {
+            Toast.makeText(this, "Application de messagerie non disponible", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
-    private void initCallbacks() {
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    private void checkIfNumberIsValid() {
 
-            @Override
-            public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
-                signInWithPhoneAuthCredential(credential);
-            }
+        String codeTel = codeTelEditText.getText().toString();
 
-            @Override
-            public void onVerificationFailed(@NonNull FirebaseException e) {
-                Log.w(TAG, "onVerificationFailed", e);
-            }
-
-            @Override
-            public void onCodeSent(@NonNull String verificationId,
-                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
-                Log.d(TAG, "onCodeSent: " + verificationId);
-            }
-        };
+        if (codeTel.isEmpty()) {
+            codeTelEditText.setError(getString(R.string.code_vide));
+            codeTelEditText.requestFocus();
+            dismissLoadingScreen();
+            return;
+        }
+        else if (!codeTel.equals(randomCode)) {
+            codeTelEditText.setError(getString(R.string.code_erreur));
+            codeTelEditText.requestFocus();
+            dismissLoadingScreen();
+            return;
+        }
+        else {
+            displayloadingScreen();
+            redirectUserIfSuccessful();
+        }
     }
 
-    private void sendVerificationCode(String phoneNumber) {
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phoneNumber)
-                        .setTimeout(60L, TimeUnit.SECONDS)
-                        .setActivity(this)
-                        .setCallbacks(mCallbacks)
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-    }
-
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = task.getResult().getUser();
-                        redirectUserIfSuccessful();
-                    } else {
-                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            Log.w(TAG, "Invalid verification code");
-                        }
-                    }
-                });
-    }
 
     private void redirectUserIfSuccessful() {
-        //afiche un toast avec le type de compte
-        // Toast.makeText(ConfirmationTelephoneActivity.this, "Vous êtes connecté en tant que " + typeCompte, Toast.LENGTH_SHORT).show();
         if (typeCompte.equals("Candidat")) {
             // mettre à jour signup_step dans la BDD 
             db.collection("users")
@@ -172,6 +131,7 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
+
 
     public void displayloadingScreen() {
         FragLoading loadingFragment = FragLoading.newInstance("Validation du numéro...");

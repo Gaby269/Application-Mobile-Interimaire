@@ -43,13 +43,15 @@
     <string name="compte_inexistant">Ce compte n\'existe pas</string>
 
     <!--  Confirmation téléphone -->
-    <string name="hello_user">Bonjour USER</string>
+    <string name="hello_user">Bonjour</string>
     <string name="telephone">Téléphone</string>
     <string name="confTel_text">Confirmations de votre téléphone</string>
-    <string name="codeNonRecu_text">Non reçu ? Renvoyer le code ></string>
+    <string name="codeNonRecu_text">Cliquez ici pour recevoir un code</string>
     <string name="boutton_confTel">Confirmer</string>
     <string name="codeTel">Code à 4 chiffres</string>
-    <string name="codeRecu_text">Code reçu au 06XXXXXX10</string>
+    <string name="codeRecu_text">Entrez le code reçu par SMS</string>
+    <string name="code_vide">Veuillez entrer le code reçu par SMS</string>
+    <string name="code_erreur">Le code entré n\'est pas bon</string>
 
     <!--  Inscription Entreprise  -->
     <string name="entrepriseDonnee_text">Vous êtes un employeur</string>
