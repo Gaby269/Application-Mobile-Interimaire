@@ -38,16 +38,14 @@ public class FragPageOffres extends Fragment {
     @SuppressLint("MissingInflatedId")
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         
+        View view = inflater.inflate(R.layout.frag_page_offres, container, false);
+        recyclerView = view.findViewById(R.id.recycleview);
+  
         db = FirebaseFirestore.getInstance();
 
         // Récupérer les arguments du bundle
         assert getArguments() != null;
         typeCompte = getArguments().getString("typeCompte");
-
-        // Associé la vue au layout du fragment 1
-        View view = inflater.inflate(R.layout.frag_page_offres, container, false);
-
-        recyclerView = view.findViewById(R.id.recycleview);
 
         List<ItemOffre> items = new ArrayList<ItemOffre>();
 
