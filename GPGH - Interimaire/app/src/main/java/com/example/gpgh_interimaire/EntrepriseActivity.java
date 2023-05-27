@@ -62,6 +62,8 @@ public class EntrepriseActivity extends AppCompatActivity {
         mailEditText = findViewById(R.id.mailEditText);
         telephoneEditText = findViewById(R.id.telephoneEditText);
 
+        getContactInformation(currentUser);
+
         //champs contact2
         nomComplet2EditText = findViewById(R.id.nomComplet2EditText);
         prenomComplet2EditText = findViewById(R.id.prenomComplet2EditText);
@@ -217,5 +219,33 @@ public class EntrepriseActivity extends AppCompatActivity {
         }
 
         return check;
+    }
+
+
+    private void getContactInformation(FirebaseUser user) {
+
+        if (user != null) {
+            String email = user.getEmail();
+            mailEditText.setText(email);
+        }
+
+        db.collection("users")
+                .document(user.getUid())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String firstName = documentSnapshot.getString("prenom");
+                        String lastName = documentSnapshot.getString("nom");
+                        String phoneNumber = documentSnapshot.getString("telephone");
+
+                        nomCompletEditText.setText(lastName);
+                        prenomCompletEditText.setText(firstName);
+                        telephoneEditText.setText(phoneNumber);
+                    }
+                    else {
+                        Log.w(TAG, "DB Non trouvée");
+                    }
+                })
+                .addOnFailureListener(e -> Log.w(TAG, "Error fetching user info", e));
     }
 }

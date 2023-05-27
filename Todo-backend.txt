@@ -1,25 +1,15 @@
 ** INSCRIPTION
 ~ Valider le numéro
 
-** AFICHER DETAILS OFFRES 
-- A FAIRE : Delete offre
-- A FAIRE : Modifier offre
-- A FAIRE : Favori
-
-
 ** AFFICHER DETAILS CANDIDATURES
 - Ajout d'une candidature pour un candidat
 
 
 ** OFFRES
-- A FAIRE : laisse la recherche avec le filtre en etant fixé meme quand on scroll
-- A FAIRE : ajuster la barre d'en haut avec le filtre etc
 - A FAIRE : si pas paiment, pas de offres
-- A FAIRE : Autorisations selon si c'est moi qui l'ai créer ou pas
-
-
-** MODIFIER OFFRE
-- A FAIRE : Ajouter liage de la bdd pour afficher les champ de modification
 
 
 ** MESSAGERIE
+- Créer une conversation
+- Ouvrir uen conversation
+- Discuter

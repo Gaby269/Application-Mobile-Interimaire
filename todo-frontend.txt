@@ -7,3 +7,6 @@ Candidatures (Candidat) :
 	
 ModificationOffreActivity :
 	- A FAIRE : Fix le champs "description"
+	
+TUTO : 
+	- A FAIRE : remplir les images
