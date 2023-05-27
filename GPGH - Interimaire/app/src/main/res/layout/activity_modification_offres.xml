@@ -199,32 +199,36 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_boutton"
+            <RelativeLayout
+                android:id="@+id/layout_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/offreTextView">
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_below="@+id/layout_Offre">
 
+                <ImageButton
+                    android:id="@+id/image_delete"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_supprimer_red"
+                    android:layout_centerVertical="true" />
 
                 <Button
                     android:id="@+id/boutton_modifier"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="20dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/boutton_modifier"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/arrondir_edit_bleu"
-                    android:textSize="15sp" />
+                    android:gravity="center"
+                    android:text="@string/boutton_modifier"
+                    android:textSize="15sp"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
 
 
-            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 

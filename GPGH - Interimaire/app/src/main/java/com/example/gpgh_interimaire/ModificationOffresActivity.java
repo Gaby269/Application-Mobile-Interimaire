@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ModificationOffresActivity extends AppCompatActivity {
@@ -71,6 +73,9 @@ public class ModificationOffresActivity extends AppCompatActivity {
                 updateOffreInfo(id_offre);
             }
         });
+
+        ImageButton suppressionButton = findViewById(R.id.image_delete);
+        suppressionButton.setOnClickListener(view -> supprimerOffre(id_offre));
     }
 
 
@@ -140,6 +145,58 @@ public class ModificationOffresActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(this, "Erreur lors de la mise à jour des informations", Toast.LENGTH_SHORT).show());
     }
 
+
+    private void supprimerOffre(String offreId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ModificationOffresActivity.this);
+        builder.setMessage(R.string.suppression_offre_message)
+                .setTitle(R.string.suppression_offre_titre)
+                .setPositiveButton(R.string.oui, (dialog, id) -> {
+                    db.collection("offres").document(offreId)
+                        .delete()
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d(TAG, "Offre supprimée avec succès : " + offreId);
+                            Toast.makeText(ModificationOffresActivity.this, "Offre supprimée",Toast.LENGTH_SHORT).show();
+
+                            // suppression des favoris de l'offre
+                            db.collection("favoris")
+                            .whereEqualTo("offreId", offreId)
+                                .get()
+                                .addOnSuccessListener(queryDocumentSnapshots -> {
+                                    if (!queryDocumentSnapshots.isEmpty()) {
+                                        // boucler sur tous les favoris de l'offre
+                                        for (DocumentSnapshot fav : queryDocumentSnapshots.getDocuments()) {
+                                            String id_fav = fav.getId();
+                                            db.collection("favoris").document(id_fav)
+                                                .delete()
+                                                .addOnSuccessListener(aVoid1 -> {
+                                                    Log.d(TAG, "Favori supprimé avec succès : " + id_fav);
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    Log.e(TAG, "Erreur lors de la suppression du favori", e);
+                                                });
+                                        }
+                                    }
+
+                                    Intent i = new Intent(ModificationOffresActivity.this, NavbarActivity.class);
+                                    i.putExtra("fragment", "Offre");
+                                    i.putExtra("typeCompte", "Entreprise");
+                                    startActivity(i);
+
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e(TAG, "Erreur lors de la récupération des favoris", e);
+                                });
+
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Erreur lors de la suppression de l'offre", e);
+                        });
+                })
+                .setNegativeButton(R.string.annuler, (dialog, id) -> { dialog.dismiss(); });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 
     public void displayLoadingScreen() {

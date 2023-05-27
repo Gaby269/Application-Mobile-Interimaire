@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
@@ -25,6 +26,8 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
     String TAG = "AfficherDetailsOffreActivity";
 
     FirebaseFirestore db;
+    String userId;
+
     boolean is_favori;
     String id_offre, titre, typeCompte;
 
@@ -42,6 +45,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         typeCompte = i.getStringExtra("typeCompte");
         id_offre = i.getStringExtra("idOffre");
 
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db = FirebaseFirestore.getInstance();
         
         titreText = findViewById(R.id.titre_offre);
@@ -82,67 +86,56 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
         });
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
-        retourButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
-                i.putExtra("fragment", "Offre");
-                i.putExtra("typeCompte", typeCompte);
-                startActivity(i);
-            }
+        retourButton.setOnClickListener(view -> {
+            Intent i1 = new Intent(AfficherDetailsOffreActivity.this, NavbarActivity.class);
+            i1.putExtra("fragment", "Offre");
+            i1.putExtra("typeCompte", typeCompte);
+            startActivity(i1);
         });
 
         ImageButton favoriButton = findViewById(R.id.btn_heart);
-        favoriButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (is_favori){
-                    is_favori = false;
-                    favoriButton.setImageResource(R.drawable.icon_favori_white_vide);
-                }
-                else{
-                    is_favori = true;
-                    favoriButton.setImageResource(R.drawable.icon_favori_white);
-                }
+        favoriButton.setOnClickListener(view -> {
+            if (is_favori){
+                is_favori = false;
+                favoriButton.setImageResource(R.drawable.icon_favori_white_vide);
+            }
+            else{
+                is_favori = true;
+                favoriButton.setImageResource(R.drawable.icon_favori_white);
             }
         });
 
         // Modification de l'offre
         ImageButton modificationButton = findViewById(R.id.btn_modif);
-        modificationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO
-                Intent i = new Intent(AfficherDetailsOffreActivity.this, ModificationOffresActivity.class);
-                i.putExtra("is_details", "true");
-                i.putExtra("typeCompte", typeCompte);
-                i.putExtra("idOffre", id_offre);
-                startActivity(i);
-                //Toast.makeText(AfficherDetailsOffreActivity.this, "Offre modifiée",Toast.LENGTH_SHORT).show();
-            }
+        modificationButton.setOnClickListener(view -> {
+            Intent i12 = new Intent(AfficherDetailsOffreActivity.this, ModificationOffresActivity.class);
+            i12.putExtra("is_details", "true");
+            i12.putExtra("typeCompte", typeCompte);
+            i12.putExtra("idOffre", id_offre);
+            startActivity(i12);
         });
 
         // Suppresion de l'offre
         ImageButton suppressionButton = findViewById(R.id.btn_supp);
-        suppressionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                supprimerOffre();
-            }
-        });
+        suppressionButton.setOnClickListener(view -> supprimerOffre());
 
-        // Visibilité du bouton favori
-        if (!typeCompte.equals("Candidat")) { favoriButton.setVisibility(View.GONE); }
         
-        if (typeCompte.equals("Candidat") || typeCompte.equals("Invite")) { 
-            modificationButton.setVisibility(View.GONE); // Visibilité du bouton modification
-            suppressionButton.setVisibility(View.GONE);  // Visibilité du bouton suppression
-        }
+        modificationButton.setVisibility(View.GONE); // Visibilité du bouton modification
+        suppressionButton.setVisibility(View.GONE);  // Visibilité du bouton suppression
 
         // Texte du bouton postuler
-        if (typeCompte.equals("Candidat")) { postulerButton.setText("Postuler"); }
-        else if (typeCompte.equals("Invite")) { postulerButton.setVisibility(View.GONE); }
-        else { postulerButton.setText("Voir les candidatures"); }
+        if (typeCompte.equals("Candidat")) { 
+            postulerButton.setText("Postuler"); 
+        }
+        else if (typeCompte.equals("Invite")) { 
+            favoriButton.setVisibility(View.GONE);
+            postulerButton.setVisibility(View.GONE); 
+        }
+        else { 
+            favoriButton.setVisibility(View.GONE);
+            postulerButton.setText("Voir les candidatures"); 
+            checkIfOffreIsMine(userId, id_offre, modificationButton, suppressionButton);
+        }
 
     }
 
@@ -271,5 +264,30 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+
+    public void checkIfOffreIsMine(String userId, String offreId, ImageButton modificationButton, ImageButton suppressionButton) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("offres")
+            .document(offreId)
+            .get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String createur = document.getString("createur");
+                        if (createur.equals(userId)) {        
+                            modificationButton.setVisibility(View.VISIBLE); // Visibilité du bouton modification
+                            suppressionButton.setVisibility(View.VISIBLE); // Visibilité du bouton suppression
+                        }
+                    }
+                }
+                else {
+                    // Erreur lors de la vérification
+                    Log.d(TAG, "Erreur lors de la vérification du créateur de l'offre : ", task.getException());
+                }
+            });
+
     }
 }

@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -101,11 +102,13 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 context.startActivity(intent);
             });
         
-            if (typeCompte.equals("Candidat") || typeCompte.equals("Invite")) {
-                holder.bouton_modif.setVisibility(View.GONE); // Visibilité du bouton modifier
-            }
-            else if (!typeCompte.equals("Candidat")) {
+            holder.bouton_modif.setVisibility(View.GONE); // Visibilité du bouton modifier
+
+            if (!typeCompte.equals("Candidat")) {
                 holder.bouton_favori.setVisibility(View.GONE); // Visibilité du bouton favori
+                if (!typeCompte.equals("Invite")) {
+                    checkIfOffreIsMine(userId, offreId, holder);
+                }
             }
             
             // Bouton favori
@@ -199,5 +202,29 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                     Log.d(TAG, "Erreur lors de la vérification des favoris : ", task.getException());
                 }
             });
+    }
+
+
+    public void checkIfOffreIsMine(String userId, String offreId, MyViewHolderOffre holder) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("offres")
+            .document(offreId)
+            .get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String createur = document.getString("createur");
+                        if (createur.equals(userId)) {
+                            holder.bouton_modif.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+                else {
+                    // Erreur lors de la vérification
+                    Log.d(TAG, "Erreur lors de la vérification du créateur de l'offre : ", task.getException());
+                }
+            });
+
     }
 }
