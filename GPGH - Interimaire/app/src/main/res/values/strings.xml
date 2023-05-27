@@ -178,6 +178,8 @@
     <string name="erreur_pdf">Veuillez choisir un fichier pdf</string>
     <string name="cv_vide">Veuillez ajouter un CV</string>
     <string name="candidature_envoyee">Candidature envoyée !</string>
+    <string name="suppression_candidature_titre">Suppression de la candidature</string>
+    <string name="suppression_candidature_message">Voulez-vous vraiment supprimer votre candidature ?</string>
 
     <!-- Creation offres -->
     <string name="creationOffre">Créer votre offre</string>

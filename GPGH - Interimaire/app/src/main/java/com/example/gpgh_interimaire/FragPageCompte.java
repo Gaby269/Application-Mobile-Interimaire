@@ -139,10 +139,31 @@ public class FragPageCompte extends Fragment {
         .addOnSuccessListener(listResult -> {
             for (StorageReference item : listResult.getItems()) {
                 nomCV = item.getName();
-                editCV.setText(nomCV);
-                editCV.setTextColor(ContextCompat.getColor(getActivity(), R.color.bleu_500));
-                // TODO télécharger le fichier lorsque l'on clique dessus
-                // editCV.setOnClickListener(v -> downloadFile(item));
+
+                // récupérer l'URL de téléchargement
+                item.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String cvUrl = uri.toString();
+                    editCV.setText(nomCV);
+                    editCV.setTextColor(ContextCompat.getColor(getActivity(), R.color.bleu_500));
+
+                    // télécharger le fichier lorsque l'on clique dessus
+                    editCV.setOnClickListener(v -> {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.parse(cvUrl), "application/pdf");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        Intent chooser = Intent.createChooser(intent, "Open with");
+
+                        // Vérifie qu'il existe une application pouvant gérer l'intent
+                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                            startActivity(chooser);
+                        } else {
+                            Toast.makeText(getActivity(), "No PDF reader installed", Toast.LENGTH_SHORT).show();
+                        }
+
+                    });
+                }).addOnFailureListener(exception -> {
+                    editCV.setText(R.string.no_cv);
+                });
                 return;
             }
             editCV.setText(R.string.no_cv);

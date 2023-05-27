@@ -36,17 +36,24 @@ public class MyAdapterCandidature extends RecyclerView.Adapter<MyViewHolderCandi
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderCandidature holder, int position) {
-        // Si c'est l'offre dans le deffilement
-        holder.cvView.setText(itemsCandidature.get(position).getCV());
-        holder.nameView.setText(itemsCandidature.get(position).getFirstName()+" "+itemsCandidature.get(position).getLastName());
-        holder.descriptionCandidatureView.setText(itemsCandidature.get(position).getDescriptionCandidature());
-        holder.etatCandidature.setText(itemsCandidature.get(position).getEtat());
+        String idCandidature = itemsCandidature.get(position).getId_candidature();
+        String idCandidat = itemsCandidature.get(position).getId_user();
+        String firstName = itemsCandidature.get(position).getFirstName();
+        String lastName = itemsCandidature.get(position).getLastName();
+        String description = itemsCandidature.get(position).getDescriptionCandidature();
+        String etat = itemsCandidature.get(position).getEtat();
+        String cv = itemsCandidature.get(position).getCV();
+
+        holder.cvView.setText(cv);
+        holder.nameView.setText(firstName + " " + lastName);
+        holder.descriptionCandidatureView.setText(description);
+        holder.etatCandidature.setText(etat);
 
         // Ajouter le OnClickListener à itemView
         holder.itemView.setOnClickListener(v -> {
             // Créer une intention pour lancer l'Activity2
             Intent intent = new Intent(context, AfficherDetailsCandidatureActivity.class);
-            intent.putExtra("titreCandidature", holder.nameView.getText());
+            intent.putExtra("idCandidature", idCandidature);
             intent.putExtra("typeCompte", typeCompte);
             context.startActivity(intent);
         });

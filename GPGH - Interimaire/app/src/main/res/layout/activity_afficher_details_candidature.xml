@@ -92,7 +92,7 @@
                     android:src="@drawable/icon_supprimer_white" />
 
                 <TextView
-                    android:id="@+id/titre_candidature"
+                    android:id="@+id/nomCandidat"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -128,7 +128,7 @@
 
 
             <TextView
-                android:id="@+id/entrepriseCandidature"
+                android:id="@+id/offreCandidature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -158,7 +158,6 @@
                 android:layout_marginEnd="17dp"
                 android:text="Affichage CV"
                 android:textSize="16dp"
-                android:textColor="@color/bleu_500"
                 android:gravity="center"/>
 
             <LinearLayout

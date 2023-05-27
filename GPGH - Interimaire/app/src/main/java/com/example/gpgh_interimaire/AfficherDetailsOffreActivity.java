@@ -213,11 +213,11 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                         complementAdresseText.setVisibility(View.GONE);
                     }
                     codePostalText.setText(codePostal+" "+ville);
-                    if (!parking.equals("0")){
+                    if (parking.equals("0") || parking.equals("")){
                         parkingText.setText("Parking non disponible");
                     }
                     else{
-                        parkingText.setText(parking+" places");
+                        parkingText.setText(parking);
                     }
                     if (ticketResto.equals(true)){
                         ticketText.setText("Ticket restaurant possible");
