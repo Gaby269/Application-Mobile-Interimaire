@@ -6,11 +6,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -48,13 +52,40 @@ public class FragPageOffres extends Fragment {
         assert getArguments() != null;
         typeCompte = getArguments().getString("typeCompte");
 
+        
         getOffres("");
-
+        
+        EditText bar_recherche = view.findViewById(R.id.bar_recherche);
         ImageView search_button = view.findViewById(R.id.search_button);
+        
+        ImageView recorder_button = view.findViewById(R.id.recorder_button);
+        TextView clear_filtre = view.findViewById(R.id.clear_filtre);
+        recorder_button.setVisibility(View.GONE);
+        clear_filtre.setVisibility(View.GONE);
+        
+        bar_recherche.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                actionId == EditorInfo.IME_ACTION_SEARCH ||
+                (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                search_button.performClick();
+                return true;
+            }
+            return false;
+        });
+
         search_button.setOnClickListener(v -> {
-            EditText bar_recherche = view.findViewById(R.id.bar_recherche);
+            clear_filtre.setVisibility(View.VISIBLE);
             String filtre = bar_recherche.getText().toString();
+            if (filtre.equals("")) {
+                clear_filtre.setVisibility(View.GONE);
+            }
             getOffres(filtre);
+        });
+
+        clear_filtre.setOnClickListener(v -> {
+            bar_recherche.setText("");
+            clear_filtre.setVisibility(View.GONE);
+            getOffres("");
         });
 
         return view;

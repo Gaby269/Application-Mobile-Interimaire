@@ -32,7 +32,7 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
     FirebaseFirestore db;
     boolean is_favori = false;
     
-    String typeCompte, idCandidature, userId, firstName, lastName, description, etat;
+    String typeCompte, idCandidature, userId, firstName, lastName, description, etat, nomOffre, nomEntreprise;
 
     @Override
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -150,58 +150,65 @@ public class AfficherDetailsCandidatureActivity extends AppCompatActivity {
                     .document(offreId)
                     .get()
                     .addOnSuccessListener(documentSnapshotOffre -> {
-                        String nomOffre = documentSnapshotOffre.getString("titre");
-                        offreCandidature.setText(nomOffre);
+                        nomOffre = documentSnapshotOffre.getString("titre");
+                        nomEntreprise = documentSnapshotOffre.getString("nomEntreprise");
+
+                        if (typeCompte.equals("Candidat")) { 
+                            offreCandidature.setText(nomEntreprise); 
+                            nomCandidat.setText(nomOffre);
+                        }
+                        else { 
+                            db.collection("users")
+                            .document(userId)
+                            .get()
+                            .addOnSuccessListener(documentSnapshotUser -> {
+                                firstName = documentSnapshotUser.getString("prenom");
+                                lastName = documentSnapshotUser.getString("nom");
+                                nomCandidat.setText(firstName + " " + lastName);
+                                offreCandidature.setText(nomOffre); 
+                            });
+                        }
                     });
 
-                db.collection("users")
-                    .document(userId)
-                    .get()
-                    .addOnSuccessListener(documentSnapshotUser -> {
-                        firstName = documentSnapshotUser.getString("prenom");
-                        lastName = documentSnapshotUser.getString("nom");
-                        nomCandidat.setText(firstName + " " + lastName);
-                    });
-            });
+                // récupération du CV
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference fileRef = storageRef.child("CV/" + userId + "/");
 
-        // récupération du CV
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference fileRef = storageRef.child("CV/" + userId + "/");
+                fileRef.listAll()
+                    .addOnSuccessListener(listResult -> {
+                        for (StorageReference item : listResult.getItems()) {
+                            String nomCV = item.getName();
 
-        fileRef.listAll()
-            .addOnSuccessListener(listResult -> {
-                for (StorageReference item : listResult.getItems()) {
-                    String nomCV = item.getName();
+                            // récupérer l'URL de téléchargement
+                            item.getDownloadUrl().addOnSuccessListener(uri -> {
+                                String cvUrl = uri.toString();
+                                cvCandidature.setText(nomCV);
+                                cvCandidature.setTextColor(ContextCompat.getColor(this, R.color.bleu_500));
 
-                    // récupérer l'URL de téléchargement
-                    item.getDownloadUrl().addOnSuccessListener(uri -> {
-                        String cvUrl = uri.toString();
-                        cvCandidature.setText(nomCV);
-                        cvCandidature.setTextColor(ContextCompat.getColor(this, R.color.bleu_500));
+                                // télécharger le fichier lorsque l'on clique dessus
+                                cvCandidature.setOnClickListener(v -> {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setDataAndType(Uri.parse(cvUrl), "application/pdf");
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                    Intent chooser = Intent.createChooser(intent, "Open with");
 
-                        // télécharger le fichier lorsque l'on clique dessus
-                        cvCandidature.setOnClickListener(v -> {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.parse(cvUrl), "application/pdf");
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            Intent chooser = Intent.createChooser(intent, "Open with");
-
-                            // Vérifie qu'il existe une application pouvant gérer l'intent
-                            if (intent.resolveActivity(getPackageManager()) != null) {
-                                startActivity(chooser);
-                            } else {
-                                Toast.makeText(this, "Please install a PDF reader", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }).addOnFailureListener(exception -> {
+                                    // Vérifie qu'il existe une application pouvant gérer l'intent
+                                    if (intent.resolveActivity(getPackageManager()) != null) {
+                                        startActivity(chooser);
+                                    } else {
+                                        Toast.makeText(this, "Please install a PDF reader", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }).addOnFailureListener(exception -> {
+                                cvCandidature.setText(R.string.no_cv);
+                            });
+                            return;
+                        }
                         cvCandidature.setText(R.string.no_cv);
-                    });
-                    return;
-                }
-                cvCandidature.setText(R.string.no_cv);
-            })
-            .addOnFailureListener(exception -> cvCandidature.setText(R.string.no_cv));
- 
+                    })
+                    .addOnFailureListener(exception -> cvCandidature.setText(R.string.no_cv));
+                    
+            });
     }
 
 
