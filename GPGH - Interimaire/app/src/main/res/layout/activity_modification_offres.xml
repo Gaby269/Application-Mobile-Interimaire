@@ -218,11 +218,11 @@
                     android:id="@+id/boutton_modifier"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:background="@drawable/arrondir_edit_bleu"
                     android:gravity="center"
                     android:text="@string/boutton_modifier"
-                    android:textSize="15sp"
-                    android:layout_centerInParent="true" />
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 

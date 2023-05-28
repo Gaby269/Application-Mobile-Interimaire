@@ -31,157 +31,190 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/postulerTextView"
+    <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/postuler"
-        android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/offreTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_retour"/>
-
-    <TextView
-        android:id="@+id/offreTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/titreOffre"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/postulerTextView"
-        app:layout_constraintBottom_toTopOf="@id/CVlayout" />
-
-    <LinearLayout
-        android:id="@+id/layout_complement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/layout_boutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LMlayout"
-        tools:ignore="ExtraText">
-
-        <TextView
-            android:id="@+id/ajoutTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="left"
-            android:text="@string/ajoutCandidatOffre"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/descriptionOffreEditText"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="70dp"
-            android:background="@drawable/arrondir_edit_white"
-            android:gravity="left"
-            android:hint="..."
-            android:inputType="textLongMessage"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:textSize="15sp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/CVlayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/LMlayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/offreTextView">
-
-        <TextView
-            android:id="@+id/CVTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="15sp"
-            android:text="@string/no_cv" />
-
-        <Button
-            android:id="@+id/CVbutton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ajouter_cv" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LMlayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/layout_complement"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CVlayout">
-
-        <TextView
-            android:id="@+id/LMTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="15sp"
-            android:text="@string/no_lm" />
-
-        <Button
-            android:id="@+id/LMbutton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ajouter_lm" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_boutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_complement">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_retour">
 
-        <Button
-            android:id="@+id/boutton_envoyer"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/postulerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="@string/postuler"
+            android:textSize="30dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/offreTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_retour"/>
+
+        <TextView
+            android:id="@+id/offreTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/titreOffre"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postulerTextView"
+            app:layout_constraintBottom_toTopOf="@id/CVlayout" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="@string/boutton_envoyer"
-            android:background="@drawable/arrondir_edit_bleu"
-            android:textSize="15sp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:id="@+id/CVlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/LMlayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/offreTextView">
+
+
+                <TextView
+                    android:id="@+id/CVTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/no_cv" />
+
+                <Button
+                    android:id="@+id/CVbutton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ajouter_cv" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LMlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/layout_complement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CVlayout">
+
+                <TextView
+                    android:id="@+id/LMTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/no_lm" />
+
+                <Button
+                    android:id="@+id/LMbutton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ajouter_lm" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_complement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/layout_boutton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LMlayout"
+            tools:ignore="ExtraText">
+
+            <TextView
+                android:id="@+id/ajoutTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="10dp"
+
+                android:gravity="center"
+                android:text="@string/ajoutCandidatOffre"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/descriptionOffreEditText"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="70dp"
+                android:background="@drawable/arrondir_edit_white"
+                android:gravity="left"
+                android:hint="..."
+                android:inputType="textLongMessage"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_boutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_complement"
+            tools:ignore="NotSibling">
+
+            <Button
+                android:id="@+id/boutton_envoyer"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:gravity="center_vertical"
+                android:text="@string/boutton_envoyer"
+                android:background="@drawable/arrondir_edit_bleu"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
+    </ScrollView>
     <!-- Pour placer le fragment de chargement -->
     <FrameLayout
         android:id="@+id/fragment_container"
