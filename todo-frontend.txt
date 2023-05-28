@@ -6,7 +6,7 @@ PostulerActivity :
 	
 	
 AfficherDetailActivity
-	- A FAIRE : afficher les places de parking
+	- FAIT : afficher les places de parking
 	
 ModificationOffreActivity :
 	- A FAIRE : Fix le champs "description"

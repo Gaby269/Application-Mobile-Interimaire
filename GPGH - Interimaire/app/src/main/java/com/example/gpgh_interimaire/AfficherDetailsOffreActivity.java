@@ -35,7 +35,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
     TextView titreText, nomEntrepriseText, dateText, typeText, salaireText, descriptionText, rueText, complementAdresseText, codePostalText, villeText, parkingText, ticketText, teletravailText;
 
     @Override
-    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
+    @SuppressLint({"MissingInflatedId", "WrongViewCast", "SetTextI18n"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afficher_details_offre);
@@ -149,6 +149,7 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void checkIfAlreadyPostule(String userId, String id_offre, Button postulerButton) {
         CollectionReference candidaturesRef = db.collection("candidatures");
         Query query = candidaturesRef.whereEqualTo("userId", userId).whereEqualTo("id_offre", id_offre);
@@ -213,11 +214,11 @@ public class AfficherDetailsOffreActivity extends AppCompatActivity {
                         complementAdresseText.setVisibility(View.GONE);
                     }
                     codePostalText.setText(codePostal+" "+ville);
-                    if (parking.equals("0") || parking.equals("")){
+                    if (parking.equals("0") || parking.equals("") || parking.equals("0 place") || parking.equals("0 places")){
                         parkingText.setText("Parking non disponible");
                     }
                     else{
-                        parkingText.setText(parking);
+                        parkingText.setText(parking+" places");
                     }
                     if (ticketResto.equals(true)){
                         ticketText.setText("Ticket restaurant possible");
