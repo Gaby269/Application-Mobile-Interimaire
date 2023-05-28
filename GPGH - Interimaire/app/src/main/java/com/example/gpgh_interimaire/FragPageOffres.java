@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -47,13 +48,22 @@ public class FragPageOffres extends Fragment {
         assert getArguments() != null;
         typeCompte = getArguments().getString("typeCompte");
 
-        List<ItemOffre> items = new ArrayList<ItemOffre>();
+        getOffres("");
 
-        // items.add(new ItemOffre("0", "[TEST] Développeur Java", "Temps plein", "25", "ABC Entreprise", "01/06/2023", "31/08/2023", "75000 Paris"));
-        // items.add(new ItemOffre("1", "[TEST] Assistant administratif", "Temps partiel", "15", "XYZ Entreprise", "15/07/2023", "30/09/2023", "69000 Lyon"));
-        // items.add(new ItemOffre("2", "[TEST] Manutentionnaire", "CDD", "10", "123 Entreprise", "01/06/2023", "30/06/2023", "33000 Bordeaux"));
-        // items.add(new ItemOffre("3", "[TEST] Infirmier(e)", "CDI", "30", "456 Entreprise", "01/07/2023", "31/12/2023", "13000 Marseille"));
-        // items.add(new ItemOffre("4", "[TEST] Commercial", "Freelance", "20", "789 Entreprise", "01/06/2023", "31/12/2023", "59000 Lille"));
+        ImageView search_button = view.findViewById(R.id.search_button);
+        search_button.setOnClickListener(v -> {
+            EditText bar_recherche = view.findViewById(R.id.bar_recherche);
+            String filtre = bar_recherche.getText().toString();
+            getOffres(filtre);
+        });
+
+        return view;
+    }
+
+
+    private void getOffres(String filtre) {        
+        
+        List<ItemOffre> items = new ArrayList<ItemOffre>();
 
         Log.d(TAG, "Récupération des offres");
         //Récupérer les offres de la base de données
@@ -73,9 +83,24 @@ public class FragPageOffres extends Fragment {
                             String remuneration = document.getString("remuneration");
                             String titre = document.getString("titre");
                             String type = document.getString("type");
-                            //Ajouter l'offre à la liste des offres
-                            items.add(new ItemOffre(documentId, titre, type, remuneration, nameEntreprise, dateDeb, dateFin, codePostal));
-                            Log.d(TAG, "offre récupérée");
+                            String description = document.getString("description");
+                            if (filtre.equals("")) {
+                                //Ajouter l'offre à la liste des offres
+                                items.add(new ItemOffre(documentId, titre, type, remuneration, nameEntreprise, dateDeb, dateFin, codePostal));
+                                Log.d(TAG, "offre récupérée");
+                            }
+                            else {
+                                // boucle sur les sous chaine du filtre, et si une sous chaine est contenue dans le titre de l'offre, on l'ajoute à la liste
+                                String[] sousChaines = filtre.split(" ");
+                                for (String sousChaine : sousChaines) {
+                                    if (titre.contains(sousChaine) || type.contains(sousChaine) || nameEntreprise.contains(sousChaine) || codePostal.contains(sousChaine) || description.contains(sousChaine)) {
+                                        //Ajouter l'offre à la liste des offres
+                                        items.add(new ItemOffre(documentId, titre, type, remuneration, nameEntreprise, dateDeb, dateFin, codePostal));
+                                        Log.d(TAG, "offre récupérée");
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
                     else { // Le QuerySnapshot est nul
@@ -91,9 +116,6 @@ public class FragPageOffres extends Fragment {
                 Log.d(TAG, "Erreur lors de la récupération des offres : ", e);
                 setupRecyclerView(items);
             });
-
-
-        return view;
     }
 
 

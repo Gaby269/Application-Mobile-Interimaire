@@ -102,7 +102,6 @@ public class PostulerActivity extends AppCompatActivity {
         envoyerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Envoyer la candidature
                 if (cvFileUri == null && nomCV == null) {
                     TextView CVTextView = findViewById(R.id.CVTextView);
                     CVTextView.setError(getString(R.string.cv_vide));
