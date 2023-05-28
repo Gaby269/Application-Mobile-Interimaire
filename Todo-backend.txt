@@ -1,7 +1,0 @@
-** OFFRES
-- si pas paiment, pas de offres
-
-** MESSAGERIE
-- Créer une conversation
-- Ouvrir uen conversation
-- Discuter

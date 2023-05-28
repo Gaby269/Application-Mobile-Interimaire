@@ -1,3 +1,0 @@
-dégradé principal (fond, 60%) rose-bonbon/blanc : #CEB9FE -> #E5DEFD
-couleur secondaires (texte, champs, 30%) blanc : #000000
-couleur attractive (bouttons, mots important, 10%) bleu électrique : #0001d9
