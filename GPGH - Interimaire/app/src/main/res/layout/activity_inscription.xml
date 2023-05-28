@@ -211,6 +211,7 @@
                 android:id="@+id/button"
                 android:layout_width="111dp"
                 android:layout_height="63dp"
+                android:visibility="gone"
                 android:text="tmp_signup" />
 
         </LinearLayout>
