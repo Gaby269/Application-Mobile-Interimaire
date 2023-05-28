@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -74,7 +75,7 @@ public class ModificationOffresActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton suppressionButton = findViewById(R.id.image_delete);
+        ImageView suppressionButton = findViewById(R.id.image_delete);
         suppressionButton.setOnClickListener(view -> supprimerOffre(id_offre));
     }
 
