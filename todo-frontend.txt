@@ -1,8 +1,8 @@
-FragPagesOffres : 
-    - Prendre en charge le bouton "filtrer", faudrait que ça ouvre un menu directement dans le frgment (sans le quitter, genre jsp peut être afficher un linerLayout) pour qu'on puisse sélectionner des prix max/min, dates max/min, localisation (ça sera fake mais pg mdr) genre rayon de 5km, 10km, etc
-	
 ModificationOffreActivity :
-	- A FAIRE : Fix le champs "description"
+	- A FIX : champs "description"
+	- A FIX : Champs "type offre" pas spinner
 	
 TUTO : 
 	- A FAIRE : Mettre du texte dans les images
+	
+	
