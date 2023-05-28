@@ -1,6 +1,5 @@
 ** OFFRES
 - si pas paiment, pas de offres
-- Filtrer avec mots cles
 
 ** MESSAGERIE
 - Créer une conversation

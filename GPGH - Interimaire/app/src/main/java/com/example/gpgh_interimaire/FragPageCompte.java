@@ -7,12 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +43,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 
 public class FragPageCompte extends Fragment {
@@ -50,7 +56,7 @@ public class FragPageCompte extends Fragment {
 
     TextView editNom, editPrenom, editEmail, editNumero, editTypeCompte, editCV;
     String firstName, lastName, phoneNumber, email, typeCompte, nomCV;
-    ImageView profilePictureImageView;
+    ImageView profilePictureImageView, language;
 
     // Constructeur
     public FragPageCompte() {}
@@ -94,12 +100,23 @@ public class FragPageCompte extends Fragment {
             startActivity(i);
         });
 
+        ImageView change_language = view.findViewById(R.id.change_language);
+        change_language.setOnClickListener(view13 -> {
+            selectLanguage();   
+        });
+
         ImageView supprimerButton = view.findViewById(R.id.image_delete);
-        supprimerButton.setOnClickListener(view13 -> { deleteAccount(); });
+        supprimerButton.setOnClickListener(view14 -> { deleteAccount(); });
 
         ImageView logoutButton = view.findViewById(R.id.image_logout);
-        logoutButton.setOnClickListener(view14 -> logoutUser());
+        logoutButton.setOnClickListener(view15 -> logoutUser());
 
+        language = view.findViewById(R.id.language);
+        if (Locale.getDefault().getLanguage().equals("en")) {
+            language.setImageResource(R.drawable.icon_language_us);
+        } else {
+            language.setImageResource(R.drawable.icon_language_fr);
+        }
 
 
         return view;
@@ -269,6 +286,50 @@ public class FragPageCompte extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+
+    private void selectLanguage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.changer_langue)
+                .setTitle(R.string.language)
+                .setPositiveButton(R.string.oui, (dialog, id) -> {
+                    changerLangue();
+                })
+                .setNegativeButton(R.string.annuler, (dialog, id) -> { dialog.dismiss(); });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+
+    public void changerLangue() {
+        Log.d(TAG, "changerLangue: ");
+
+        String languageToLoad;
+        if (Locale.getDefault().getLanguage() == "en") {
+            languageToLoad = "fr";
+            language.setImageResource(R.drawable.icon_language_fr);
+        } 
+        else {
+            languageToLoad = "en";
+            language.setImageResource(R.drawable.icon_language_us);
+        }
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        Context fragmentContext = requireContext();
+        Resources fragmentResources = fragmentContext.getResources();
+        fragmentResources.updateConfiguration(config, fragmentResources.getDisplayMetrics());
+
+        // Refresh le fragment
+        FragmentTransaction fragmentTransaction = requireFragmentManager().beginTransaction();
+        fragmentTransaction.detach(this);
+        fragmentTransaction.attach(this);
+        fragmentTransaction.commit();
+    }
+
     
 
 

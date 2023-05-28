@@ -1,25 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Global-->
-    <string name="app_name" translatable="false">GPGH - Interimaire</string>
-    <string name="home" translatable="false">GPGH</string>
-    <string name="chargement">Chargement...</string>
-    <string name="no_internet">Pas de connexion internet</string>
-    <string name="retry">Réessayer</string>
-    <string name="error_unknown">Une erreur est survenue, veuillez réessayer</string>
-    <string name="oui">Oui</string>
-    <string name="non">Non</string>
-    <string name="annuler">Annuler</string>
+    <string name="chargement">Loading...</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="retry">Retry</string>
+    <string name="error_unknown">A error occured</string>
+    <string name="oui">yes</string>
+    <string name="non">no</string>
+    <string name="annuler">cancel</string>
+
     <!-- Accueil -->
-    <string name="prem_text">L\'application d\'interimaire qui vous correspond</string>
-    <string name="boutton_inscription">S\'inscrire</string>
-    <string name="boutton_connexion">Se connecter</string>
-    <string name="sec_text">Déjà inscrit ? Se connecter ></string>
-    <string name="boutton_invite">Invite</string>
+    <string name="prem_text">The app that\'s made for you</string>
+    <string name="boutton_inscription">Register</string>
+    <string name="boutton_connexion">Login</string>
+    <string name="sec_text">Already registered ? login ></string>
+    <string name="boutton_invite">Guest</string>
 
     <!-- Inscription -->
-    <string name="inscription">Inscription</string>
-    <string name="connexion">Connexion</string>
-    <string name="ecoute_text">Des professionnels à votre écoute</string>
+    <string name="inscription">Register</string>
+    <string name="connexion">Login</string>
+    <string name="ecoute_text">Professionals at your service</string>
+
+    <!-- RESTE A TRADUIRE -->
     <string name="boutton_creaCompte">Créer votre compte</string>
     <string name="mdp">Mot de passe</string>
     <string name="mail">Email</string>
@@ -129,13 +132,12 @@
     <string name="boutton_postuler">Postuler</string>
     <string name="boutton_supprimer">Supprimer</string>
     <string name="boutton_modifier">Modifier</string>
-    <string name="rechercher">Rechercher</string>
+    <string name="rechercher">Search</string>
     <string name="filter">Filter</string>
 
     <!-- Gestion du compte -->
     <string name="compte">Votre compte</string>
     <string name="language">Changer de langue</string>
-    <string name="changer_langue">Voulez vous changer la langue en Anglais ?</string>
     <string name="titreCompte">"Le compte : "</string>
     <string name="modifCompte">Modification du compte</string>
     <string name="compteModif">Informations mises à jour</string>
@@ -197,11 +199,11 @@
     <string name="lieu">Adresse</string>
     <string name="code_postal">Code postal</string>
     <string name="ville">Ville</string>
-        <string name="ex_rue">ex : 8 rue du Charolais</string>
-        <string name="ex_complement">ex : Appartement B-2</string>
-        <string name="ex_code_postal">ex : 34090</string>
-        <string name="ex_ville">ex : Montpellier</string>
-        <string name="ex_parking">ex : 10 places</string>
+    <string name="ex_rue">ex : 8 rue du Charolais</string>
+    <string name="ex_complement">ex : Appartement B-2</string>
+    <string name="ex_code_postal">ex : 34090</string>
+    <string name="ex_ville">ex : Montpellier</string>
+    <string name="ex_parking">ex : 10 places</string>
     <string name="remuneration">Remuneration (en €/h)</string>
     <string name="exRemuneration">ex : 25</string>
     <string name="exDetails">ex : Avoir le permis</string>
@@ -214,18 +216,18 @@
     <string name="modifOffre">Modification de l\'offre</string>
     <string name="offreModif">Offre modifié</string>
     <string name="offreCree">Offre créée !</string>
-        <!-- Erreurs -->
-        <string name="erreur_titre_offre">Entrez un titre</string>
-        <string name="erreur_type_offre">Entrez un type</string>
-        <string name="erreur_description_offre">Entrez une description</string>
-        <string name="erreur_date_deb_offre">Entrez une date valide</string>
-        <string name="erreur_date_fin_offre">Entrez une date valide</string>
-        <string name="erreur_remuneration_offre">Entrez une rémunération</string>
-        <string name="erreur_rue_offre">Entrez une rue</string>
-        <string name="erreur_code_postal_offre">Entrez un code postal valide</string>
-        <string name="erreur_ville_offre">Entrez une ville</string>
+    <!-- Erreurs -->
+    <string name="erreur_titre_offre">Entrez un titre</string>
+    <string name="erreur_type_offre">Entrez un type</string>
+    <string name="erreur_description_offre">Entrez une description</string>
+    <string name="erreur_date_deb_offre">Entrez une date valide</string>
+    <string name="erreur_date_fin_offre">Entrez une date valide</string>
+    <string name="erreur_remuneration_offre">Entrez une rémunération</string>
+    <string name="erreur_rue_offre">Entrez une rue</string>
+    <string name="erreur_code_postal_offre">Entrez un code postal valide</string>
+    <string name="erreur_ville_offre">Entrez une ville</string>
 
-    
+
     <!-- Messagerie -->
     <string name="messagerie">Mes messages</string>
     <string name="nouveau_message">Nouveau message...</string>
@@ -274,5 +276,4 @@
     <string name="dateFin_">Date de fin :</string>
     <string name="typeOffreSpinner">Sélectionez un type ...</string>
     <string name="erreur_ville">Entrez une ville</string>
-
 </resources>
