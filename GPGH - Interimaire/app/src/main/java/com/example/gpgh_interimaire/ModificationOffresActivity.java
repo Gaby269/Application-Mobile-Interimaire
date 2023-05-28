@@ -6,11 +6,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,6 +21,12 @@ import android.widget.Toast;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class ModificationOffresActivity extends AppCompatActivity {
 
     String TAG = "ModificationOffresActivity";
@@ -26,6 +34,12 @@ public class ModificationOffresActivity extends AppCompatActivity {
 
     EditText editTitre, editType, editDescription, editDateDebut, editDateFin, editPrix, editParking;
     String id_offre, is_details;
+
+    private Calendar calendar;
+    private Calendar dateCalendarDeb;
+    private Calendar minDateCalendarFin, dateCalendarFin;
+    private DatePickerDialog datePickerDialogDeb;
+    private DatePickerDialog datePickerDialogFin;
 
     @Override
     @SuppressLint("MissingInflatedId")
@@ -46,7 +60,8 @@ public class ModificationOffresActivity extends AppCompatActivity {
         editDateFin = findViewById(R.id.editDateFin);
         editPrix = findViewById(R.id.editPrix);
         editParking = findViewById(R.id.editParking);
-        
+        calendar = Calendar.getInstance();
+
         fetchOffreInfo(id_offre);
 
         ImageButton retourButton = findViewById(R.id.bouton_retour);
@@ -78,6 +93,93 @@ public class ModificationOffresActivity extends AppCompatActivity {
         ImageView suppressionButton = findViewById(R.id.image_delete);
         suppressionButton.setOnClickListener(view -> supprimerOffre(id_offre));
     }
+
+    // Pour les dates
+    public void showDebDatePickerDialog(View view) {
+        // Récupérer la date de début par défaut
+        String debutDateText = editDateDebut.getText().toString();
+
+        // Convertir la date de début en objet de type Calendar
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        try {
+            Date debutDate = sdf.parse(debutDateText);
+            Log.d(TAG, String.valueOf(debutDate));
+
+            // Mettre à jour la date minimale du champ de date de fin (date de début + 1 jour)
+            Log.d(TAG, String.valueOf(dateCalendarDeb));
+            dateCalendarDeb= Calendar.getInstance();
+            dateCalendarDeb.setTime(debutDate);
+
+            // Créer le DatePickerDialog avec la date minimale initiale
+            datePickerDialogDeb = new DatePickerDialog(this, startDateSetListener,
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH));
+
+            // Mettre à jour la date sélectionnée dans le calendrier du DatePickerDialog
+            datePickerDialogDeb.updateDate(dateCalendarDeb.get(Calendar.YEAR),
+                    dateCalendarDeb.get(Calendar.MONTH),
+                    dateCalendarDeb.get(Calendar.DAY_OF_MONTH));
+
+            datePickerDialogDeb.show();
+            datePickerDialogDeb.show();
+        } catch (ParseException e) {
+            editDateDebut.setError(getString(R.string.erreur_date_deb_offre));
+        }
+    }
+    public void showFinDatePickerDialog(View view) throws ParseException {
+        // Récupérer la date de début par défaut
+        String debutDateText = editDateDebut.getText().toString();
+        String finDateText = editDateFin.getText().toString();
+
+        // Convertir la date de début en objet de type Calendar
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        try {
+            Date debutDate = sdf.parse(debutDateText);
+            Date finDate = sdf.parse(finDateText);
+
+            // Mettre à jour la date minimale du champ de date de fin (date de début + 1 jour)
+            Log.d(TAG, String.valueOf(minDateCalendarFin));
+            minDateCalendarFin= Calendar.getInstance();
+            minDateCalendarFin.setTime(debutDate);
+            minDateCalendarFin.add(Calendar.DAY_OF_MONTH, 1);
+            dateCalendarFin= Calendar.getInstance();
+            dateCalendarFin.setTime(finDate);
+
+            // Créer le DatePickerDialog avec la date minimale initiale
+            datePickerDialogFin = new DatePickerDialog(this, endDateSetListener,
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH));
+            // Mettre à jour la date sélectionnée dans le calendrier du DatePickerDialog
+            datePickerDialogFin.updateDate(dateCalendarFin.get(Calendar.YEAR),
+                    dateCalendarFin.get(Calendar.MONTH),
+                    dateCalendarFin.get(Calendar.DAY_OF_MONTH));
+            // Mettre à jour la date minimale du champ de date de fin (date de début + 1 jour)
+            datePickerDialogFin.getDatePicker().setMinDate(minDateCalendarFin.getTimeInMillis());
+            datePickerDialogFin.show();
+        } catch (ParseException e) {
+            editDateDebut.setError(getString(R.string.erreur_date_deb_offre));
+        }
+
+
+    }
+
+    private DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
+            editDateDebut.setText(selectedDate);
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
+            editDateFin.setText(selectedDate);
+        }
+    };
 
 
 

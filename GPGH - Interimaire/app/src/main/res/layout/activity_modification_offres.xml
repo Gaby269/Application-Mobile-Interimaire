@@ -176,14 +176,20 @@
                         android:id="@+id/editDateDebut"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:inputType="none"
+                        android:focusable="false"
                         android:layout_weight="1"
-                        android:gravity="center_vertical" />
+                        android:gravity="center_vertical"
+                        android:onClick="showDebDatePickerDialog" />
                     <EditText
                         android:id="@+id/editDateFin"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:inputType="none"
+                        android:focusable="false"
                         android:layout_weight="1"
-                        android:gravity="center_vertical" />
+                        android:gravity="center_vertical"
+                        android:onClick="showFinDatePickerDialog" />
                     <EditText
                         android:id="@+id/editPrix"
                         android:layout_width="match_parent"
