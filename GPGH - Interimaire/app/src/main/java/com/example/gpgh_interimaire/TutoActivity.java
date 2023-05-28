@@ -41,7 +41,31 @@ public class TutoActivity extends AppCompatActivity {
                 fragment = new FragTuto4();
                 break;
             case "5":
-                fragment = new FragTuto5();
+                fragment = new FragTuto6();
+                break;
+            case "6":
+                fragment = new FragTuto7();
+                break;
+            case "7":
+                fragment = new FragTuto8();
+                break;
+            case "8":
+                fragment = new FragTuto9();
+                break;
+            case "9":
+                fragment = new FragTuto10();
+                break;
+            case "10":
+                fragment = new FragTuto11();
+                break;
+            case "11":
+                fragment = new FragTuto12();
+                break;
+            case "12":
+                fragment = new FragTuto13();
+                break;
+            case "13":
+                fragment = new FragTuto14();
                 break;
             default:
                 fragment = new FragTuto1();
@@ -94,6 +118,51 @@ public class TutoActivity extends AppCompatActivity {
                         tuto = "4";
                         pastButton.setVisibility(View.VISIBLE);
                         break;
+                    case "6":
+                        fragment = new FragTuto5();
+                        tuto = "5";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
+                    case "7":
+                        fragment = new FragTuto6();
+                        tuto = "6";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
+                    case "8":
+                        fragment = new FragTuto7();
+                        tuto = "7";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
+                    case "9":
+                        fragment = new FragTuto8();
+                        tuto = "8";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
+                    case "10":
+                        fragment = new FragTuto9();
+                        tuto = "9";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
+                    case "11":
+                        fragment = new FragTuto10();
+                        tuto = "10";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
+                    case "12":
+                        fragment = new FragTuto11();
+                        tuto = "11";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
+                    case "13":
+                        fragment = new FragTuto12();
+                        tuto = "12";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
+                    case "14":
+                        fragment = new FragTuto13();
+                        tuto = "13";
+                        pastButton.setVisibility(View.VISIBLE);
+                        break;
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_tuto, fragment);
@@ -133,6 +202,51 @@ public class TutoActivity extends AppCompatActivity {
                         case "4":
                             fragment = new FragTuto5();
                             tuto = "5";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "5":
+                            fragment = new FragTuto6();
+                            tuto = "6";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "6":
+                            fragment = new FragTuto7();
+                            tuto = "7";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "7":
+                            fragment = new FragTuto8();
+                            tuto = "8";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "8":
+                            fragment = new FragTuto9();
+                            tuto = "9";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "9":
+                            fragment = new FragTuto10();
+                            tuto = "10";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "10":
+                            fragment = new FragTuto11();
+                            tuto = "11";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "11":
+                            fragment = new FragTuto12();
+                            tuto = "12";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "12":
+                            fragment = new FragTuto13();
+                            tuto = "13";
+                            pastButton.setVisibility(View.VISIBLE);
+                            break;
+                        case "13":
+                            fragment = new FragTuto14();
+                            tuto = "14";
                             pastButton.setVisibility(View.VISIBLE);
                             break;
                     }

@@ -8,7 +8,7 @@
         android:id="@+id/recorder_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/tuto2"
+        android:src="@drawable/tuto13"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"

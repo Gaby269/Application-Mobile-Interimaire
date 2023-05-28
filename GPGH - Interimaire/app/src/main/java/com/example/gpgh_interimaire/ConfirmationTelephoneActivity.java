@@ -115,7 +115,7 @@ public class ConfirmationTelephoneActivity extends AppCompatActivity {
                     .addOnFailureListener(e -> Log.w(TAG, "Erreur lors de la MaJ de signup_step", e));
 
             dismissLoadingScreen();
-            Intent i = new Intent(ConfirmationTelephoneActivity.this, LoadingNavbarActivity.class);
+            Intent i = new Intent(ConfirmationTelephoneActivity.this, TutoActivity.class);
             startActivity(i);
         }
         else {
