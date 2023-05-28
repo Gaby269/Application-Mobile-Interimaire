@@ -1,8 +1,2 @@
-ModificationOffreActivity :
-	- FAIT : champs "description"
-
-	
 TUTO : 
 	- A FAIRE : Mettre du texte dans les images
-	
-	

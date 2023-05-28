@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -102,6 +104,18 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
                 context.startActivity(intent);
             });
 
+            if ((holder.bouton_modif.getVisibility() == View.GONE) && (!typeCompte.equals("Candidat"))){
+                Log.d(TAG, String.valueOf(holder.bouton_modif.getVisibility()));
+                TextView titre = holder.titreView.findViewById(R.id.titre_offre);
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) titre.getLayoutParams();
+                TypedValue typedValue = new TypedValue();
+                holder.itemView.getContext().getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true);
+                int actionBarSize = holder.titreView.getResources().getDimensionPixelSize(typedValue.resourceId);
+                int customPadding = actionBarSize; // Remplacez cette valeur par celle que vous souhaitez
+                layoutParams.setMarginEnd(customPadding);
+                titre.setLayoutParams(layoutParams);
+            }
+
             
             if (itemsOffres.get(position).getId_offre() == "0") {
                 holder.bouton_favori.setVisibility(View.GONE);
@@ -121,6 +135,8 @@ public class MyAdapterOffre extends RecyclerView.Adapter<MyViewHolderOffre> {
             holder.bouton_favori.setOnClickListener(v -> {
                 setFavori(userId, offreId, holder);
             });
+
+
         }
         
     }
