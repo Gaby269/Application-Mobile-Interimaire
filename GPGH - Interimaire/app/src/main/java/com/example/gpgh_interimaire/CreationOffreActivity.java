@@ -67,6 +67,7 @@ public class CreationOffreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation_offre);
 
+
         Intent i = getIntent();
         typeCompte = i.getStringExtra("typeCompte");
 
@@ -94,6 +95,8 @@ public class CreationOffreActivity extends AppCompatActivity {
         placeParkingEditText = findViewById(R.id.parkingEditText);
         checkBoxTicketResto = findViewById(R.id.checkBoxTicketResto);
         checkBoxTeletravail = findViewById(R.id.checkBoxTeletravail);
+
+        checkIfUserHasPayed();
 
         // récupération du nom de l'entreprise depuis la BDD
         db.collection("entreprises").document(mAuth.getCurrentUser().getUid()).get()
@@ -385,4 +388,28 @@ public class CreationOffreActivity extends AppCompatActivity {
             dateFinEditText.setText(selectedDate);
         }
     };
+
+    private void checkIfUserHasPayed() {
+        // Vérifier si l'utilisateur a payé
+        db.collection("users")
+                .document(mAuth.getCurrentUser().getUid())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String abonnement = documentSnapshot.getString("abonnement");
+                        if (abonnement == null || abonnement.equals("") || abonnement.equals("0")) {
+                            // L'utilisateur n'a pas payé, rediriger vers la page de paiement
+                            redirectToPayement();
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> redirectToPayement());
+    }
+
+
+    private void redirectToPayement() {
+        Intent intent = new Intent(this, AbonnementActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

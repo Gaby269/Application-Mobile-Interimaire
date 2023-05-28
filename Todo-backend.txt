@@ -5,6 +5,3 @@
 - Créer une conversation
 - Ouvrir uen conversation
 - Discuter
-
-** COMPTE :
-- Traduction
