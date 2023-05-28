@@ -1,6 +1,6 @@
 ModificationOffreActivity :
-	- A FIX : champs "description"
-	- A FIX : Champs "type offre" pas spinner
+	- FAIT : champs "description"
+
 	
 TUTO : 
 	- A FAIRE : Mettre du texte dans les images
