@@ -22,258 +22,252 @@
     <string name="connexion">Login</string>
     <string name="ecoute_text">Professionals at your service</string>
 
-    <!-- RESTE A TRADUIRE -->
-    <string name="boutton_creaCompte">Créer votre compte</string>
-    <string name="mdp">Mot de passe</string>
-    <string name="mail">Email</string>
-    <string name="nom">Nom</string>
-    <string name="prenom">Prénom</string>
-    <string name="creaCompte_text">Créez un compte avec votre adresse email</string>
-    <string name="connexion_text">Entrez vos informations</string>
-    <string name="typeCompteSpinner">Type de compte</string>
-    <!-- Erreurs -->
-    <string name="code_incorrect">Code incorrect</string>
-    <string name="nom_vide">Entrez un nom</string>
-    <string name="prenom_vide">Entrez un prenom</string>
-    <string name="email_vide">L\'email ne peut pas être vide</string>
-    <string name="email_invalide">Entrez un email valide</string>
-    <string name="mdp_vide">Le mot de passe ne peut pas être vide</string>
-    <string name="tel_vide">Entrez un numéro de téléphone valide</string>
-    <string name="mdp_court">Le mot de passe doit contenir au moins 6 caractères</string>
-    <string name="mdp_incorrect">Le mot de passe est incorrect</string>
-    <string name="choisir_compte">Choissisez un type de compte</string>
-    <string name="email_deja_utilise">Cette adresse email est déjà utilisée</string>
-    <string name="compte_inexistant">Ce compte n\'existe pas</string>
-
-    <!--  Confirmation téléphone -->
-    <string name="hello_user">Bonjour</string>
-    <string name="telephone">Téléphone</string>
-    <string name="confTel_text">Confirmations de votre téléphone</string>
-    <string name="codeNonRecu_text">Cliquez ici pour recevoir un code</string>
-    <string name="boutton_confTel">Confirmer</string>
-    <string name="codeTel">Code à 4 chiffres</string>
-    <string name="codeRecu_text">Entrez le code reçu par SMS</string>
-    <string name="code_vide">Veuillez entrer le code reçu par SMS</string>
-    <string name="code_erreur">Le code entré n\'est pas bon</string>
-
-    <!--  Inscription Entreprise  -->
-    <string name="entrepriseDonnee_text">Vous êtes un employeur</string>
-    <string name="nomEntreprise">  Nom de l\'entreprise</string>
-    <string name="siret">Numéro SIRET</string>
-    <string name="adresse">Adresse Postale</string>
-    <string name="contactPrin_text">Contact princial</string>
-    <string name="AjoutercontactSec_text">Ajouter un contact secondaire</string>
-    <string name="contactSec_text">Contact Secondaire</string>
-    <string name="nomComplet">Nom Complet</string>
-    <!-- Erreurs -->
-    <string name="erreurChamp">Ce champ ne peut pas être vide</string>
-    <string name="choix_obligatoire">Choisissez une offre</string>
-
-    <!--  Abonnement -->
-    <string name="service_text">Notre expertise à votre service</string>
-    <string name="boutton_choixAbo">Choisir</string>
-    <string name="abonnement">Abonnement</string>
-    <string name="boutton_payer">Payer</string>
-    <string name="moyen_payer">Moyen de paiement</string>
-    <string name="recap_payer">Recapitulatif du prix</string>
-    <string name="boutton_confirmer">Confirmer l\'abonnement</string>
-    <string name="code_promo_non_cumulabe">Les codes promos ne sont pas cumulables</string>
-    <string name="code_promo_incorrect">Le code promo est incorrect</string>
-    <string name="code_promo_10">Réduction de 10% :</string>
-    <string name="code_promo_30">Réduction de 30% :</string>
-    <!-- Carte bancaire -->
-    <string name="nom_carte">Nom sur la carte</string>
-    <string name="numero_carte">Numéro de carte</string>
-    <string name="date_carte">Date d\'expiration</string>
-    <string name="code_carte">Code CVV</string>
-    <string name="save_carte">Enregistrer votre carte</string>
-    <string name="ou">ou</string>
-    <string name="payer_paypal">Payer avec Paypal :</string>
-    <string name="erreur_vide">Ce champ ne peut pas être vide</string>
-    <string name="erreur_nom">Entrez un nom</string>
-    <string name="erreur_carte">Entrez un numéro de carte valide</string>
-    <string name="erreur_date">Entrez une date d\'expiration valide</string>
-    <string name="erreur_code">Entrez un code CVV valide</string>
-    <string name="erreur_parking">Entrez un nombre de place de parking</string>
-
-    <!-- Type abonnement -->
-    <string name="choisir_abonnement">Choisir le type d\'abonnement</string>
-    <string name="type_abonnement">Type d\'abonnement</string>
-    <string name="ponctuel">Ponctuel (une annonce)</string>
-    <string name="mensuel">Mensuel</string>
-    <string name="trimestriel">Trimestriel</string>
-    <string name="semestriel">Semestriel</string>
-    <string name="annuel">Annuel</string>
-    <string name="renouvelable">Indétérminé</string>
-
-    <!-- Offres -->
-    <string name="offre">Offre</string>
-    <string name="ponctuelle">Offre ponctuelle</string>
-    <string name="mensuelle">Offre mensuelle</string>
-    <string name="trimestrielle">Offre trimestrielle</string>
-    <string name="semestrielle">Offre semestrielle</string>
-    <string name="annuelle">Offre annuelle</string>
-    <string name="offre_renouvelable">Offre indétéminé</string>
-    <string name="suppression_offre_titre">Suppression de l\'offre</string>
-    <string name="suppression_offre_message">Voulez-vous vraiment supprimer votre offre ?</string>
-
-
-    <!-- Tutoriel entreprise -->
-    <string name="tuto">Tutoriel</string>
-    <string name="boutton_passer">Passer</string>
-    <string name="boutton_next">Suivant</string>
-    <string name="boutton_past">Précédent</string>
-
-    <!-- Navigation principale -->
-    <string name="filtrer">Filtrer</string>
-    <string name="favoris">Favoris</string>
-    <string name="boutton_retour">Retour</string>
-    <string name="detailsOff">Details de l\'offre</string>
-    <string name="boutton_postuler">Postuler</string>
-    <string name="boutton_supprimer">Supprimer</string>
-    <string name="boutton_modifier">Modifier</string>
-    <string name="rechercher">Search</string>
-    <string name="filter">Filter</string>
-
-    <!-- Gestion du compte -->
-    <string name="compte">Votre compte</string>
-    <string name="language">Changer de langue</string>
-    <string name="titreCompte">"Le compte : "</string>
-    <string name="modifCompte">Modification du compte</string>
-    <string name="compteModif">Informations mises à jour</string>
-    <string name="nom_">Nom :</string>
-    <string name="prenom_">Prénom :</string>
-    <string name="mail_">Email :</string>
-    <string name="telephone_">Téléphone :</string>
-    <string name="typeCompte_">Type de compte :</string>
-    <string name="cv_">CV :</string>
-    <string name="mdp_">Mot de passe :</string>
-    <string name="add_profile_picture">Ajouter une photo de profil</string>
-    <string name="enregistrer">Enregistrer</string>
-    <string name="echec_upload">Echec de téléchargement</string>
-    <string name="success_upload">Image téléchargée</string>
-    <string name="deconnexion_titre">Deconnexion</string>
-    <string name="suppression_titre">Suppression du compte</string>
-    <string name="deconnexion_message">Se deconnecter ?</string>
-    <string name="suppression_message">Voulez-vous vraiment supprimer votre compte ?</string>
-    <string name="compte_supprime_succes">Votre compte a bien été supprimé</string>
-    <string name="compte_supprime_echec">Echec de la suppression du compte</string>
-    <string name="deconnexion_succes">Vous avez été déconnecté</string>
-
-    <!-- Candidatures -->
-    <string name="boutton_candidature">Voir Candidatures</string>
-    <string name="boutton_candidater">Candidater</string>
-    <string name="mesCandidatures">Mes Candidatures</string>
-    <string name="modifCandidature">Modification de votre candidature</string>
-    <string name="detailsCand">Details de votre candidature</string>
-    <string name="postuler">Postuler pour l\'offre :</string>
-    <string name="ajoutCandidatOffre">Complément à votre candidature</string>
-    <string name="candidatureReff">Candidature refusée</string>
-    <string name="candidatureAcc">Candidature Acceptée</string>
-    <string name="candidatureModif">Candidature modifiée</string>
-    <string name="candidatureSupp">Candidature supprimée</string>
-    <string name="Candidatures">Candidatures de l\'offre</string>
-    <string name="boutton_refuser">Refuser</string>
-    <string name="boutton_accepter">Accepter</string>
-    <string name="ajouter_cv">Ajouter un CV</string>
-    <string name="no_cv">Pas de CV</string>
-    <string name="ajouter_lm">Ajouter une LM</string>
-    <string name="no_lm">Pas de LM</string>
-    <string name="erreur_pdf">Veuillez choisir un fichier pdf</string>
-    <string name="cv_vide">Veuillez ajouter un CV</string>
-    <string name="candidature_envoyee">Candidature envoyée !</string>
-    <string name="suppression_candidature_titre">Suppression de la candidature</string>
-    <string name="suppression_candidature_message">Voulez-vous vraiment supprimer votre candidature ?</string>
-
-    <!-- Creation offres -->
-    <string name="creationOffre">Créer votre offre</string>
-    <string name="titreOffre">Titre de l\'offre</string>
-    <string name="typePoste">Type de poste :</string>
-    <string name="descriptionOffre">Description de l\'offre :</string>
-    <string name="exTypePoste">ex : Stage</string>
-    <string name="exTitre">ex : Stagiaire RH</string>
-    <string name="boutton_suivant">Suivant ></string>
-    <string name="periodeOffre">Date de l\'emploi</string>
-    <string name="date_debut">Date début</string>
-    <string name="date_fin">Date fin</string>
-    <string name="lieu">Adresse</string>
-    <string name="code_postal">Code postal</string>
-    <string name="ville">Ville</string>
-    <string name="ex_rue">ex : 8 rue du Charolais</string>
-    <string name="ex_complement">ex : Appartement B-2</string>
-    <string name="ex_code_postal">ex : 34090</string>
-    <string name="ex_ville">ex : Montpellier</string>
-    <string name="ex_parking">ex : 10 places</string>
-    <string name="remuneration">Remuneration (en €/h)</string>
-    <string name="exRemuneration">ex : 25</string>
-    <string name="exDetails">ex : Avoir le permis</string>
-    <string name="detailsOffre">Details suplémentaires</string>
-    <string name="parking">Parking</string>
-    <string name="ticket_resto">Ticket restaurant</string>
-    <string name="teletravail">Télétravail</string>
-    <string name="boutton_terminer">Terminer</string>
-    <string name="boutton_envoyer">Envoyer</string>
-    <string name="modifOffre">Modification de l\'offre</string>
-    <string name="offreModif">Offre modifié</string>
-    <string name="offreCree">Offre créée !</string>
-    <!-- Erreurs -->
-    <string name="erreur_titre_offre">Entrez un titre</string>
-    <string name="erreur_type_offre">Entrez un type</string>
-    <string name="erreur_description_offre">Entrez une description</string>
-    <string name="erreur_date_deb_offre">Entrez une date valide</string>
-    <string name="erreur_date_fin_offre">Entrez une date valide</string>
-    <string name="erreur_remuneration_offre">Entrez une rémunération</string>
-    <string name="erreur_rue_offre">Entrez une rue</string>
-    <string name="erreur_code_postal_offre">Entrez un code postal valide</string>
-    <string name="erreur_ville_offre">Entrez une ville</string>
-
-
-    <!-- Messagerie -->
-    <string name="messagerie">Mes messages</string>
-    <string name="nouveau_message">Nouveau message...</string>
-    <string name="envoyer_message">Envoyer</string>
-    <string name="no_auto_chat">Vous ne pouvez pas démarrer une conversation avec vous-même</string>
-
-
-    <!-- Spinners -->
-    <string-array name="typeCompte">
-        <item>Entreprise</item>
-        <item>Candidat</item>
-    </string-array>
-    <string-array name="typeAbonnement">
-        <item>Ponctuelle (un abonnement)</item>
-        <item>Mensuelle</item>
-        <item>Trimestrielle</item>
-        <item>Semestrielle</item>
-        <item>Annuelle</item>
-        <item>Renouvelable</item>
-    </string-array>
-    <string-array name="filtreRecherche">
-        <item>Filter</item>
-        <item>Plus grand</item>
-    </string-array>
-
-
-    <!-- placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="boutton_valider">Valider</string>
-    <string name="longTexte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae nibh auctor, tempor tortor ac, semper leo. Phasellus euismod tortor sit amet faucibus auctor. Pellentesque magna mauris, hendrerit aliquam libero consequat, iaculis auctor urna. Maecenas vitae sagittis metus. Pellentesque fringilla velit ac facilisis luctus. Nulla ac nunc sit amet eros posuere efficitur. Sed consequat imperdiet tempor. Sed volutpat consequat nisl, aliquam vestibulum felis porttitor quis. In tincidunt finibus lacinia. Nullam bibendum orci in est viverra consectetur. Proin sed mattis tellus. Sed eu est lacinia, cursus urna et, accumsan orci. Nam magna risus, consequat mollis odio quis, imperdiet tristique enim. Mauris nibh diam, eleifend sed euismod vel, semper eu nibh. Duis fringilla vulputate elementum. Proin tincidunt semper posuere. Maecenas non tempus odio, ac pretium justo. Sed vehicula urna sed neque sollicitudin, in vulputate neque dignissim. Sed suscipit consequat metus quis lobortis. Integer facilisis efficitur est, a tincidunt nulla eleifend id. Aliquam dignissim mollis quam, ut gravida nisl ornare nec.</string>
-    <string name="complementOffre">Complément de l\'offre</string>
-    <string name="offreSupp">Offre supprimé</string>
-    <string name="deconexion">Déconnexion</string>
-    <string name="informations">Informations :</string>
-    <string name="adresseTotal">Adresse de l\'entreprise : </string>
-    <string name="infoPlus">Caracteristiques :</string>
-    <string name="description_">Description :</string>
-    <string name="titre_">Titre :</string>
-    <string name="type_">Type :</string>
-    <string name="date_">Date :</string>
-    <string name="lieu_">Adresse :</string>
-    <string name="prix_">Rémunération :</string>
-    <string name="details_">Détails :</string>
-    <string name="parking_">Parking :</string>
-    <string name="dateDebut_">Date de début :</string>
-    <string name="dateFin_">Date de fin :</string>
-    <string name="typeOffreSpinner">Sélectionez un type ...</string>
-    <string name="erreur_ville">Entrez une ville</string>
+<!-- RESTE A TRADUIRE -->
+<string name="boutton_creaCompte">Create your account</string>
+<string name="mdp">Password</string>
+<string name="mail">Email</string>
+<string name="nom">Surname</string>
+<string name="prenom">Name</string>
+<string name="creaCompte_text">Create an account with your email adress</string>
+<string name="connexion_text">Enter your informations</string>
+<string name="typeCompteSpinner">Account type</string>
+<!-- Erreurs -->
+<string name="code_incorrect">Incorrect code</string>
+<string name="nom_vide">Enter a surname</string>
+<string name="prenom_vide">Enter a name</string>
+<string name="email_vide">The email cannot be empty</string>
+<string name="email_invalide">Enter a valid email</string>
+<string name="mdp_vide">The password cannot be empty</string>
+<string name="tel_vide">Enter a valid phone number</string>
+<string name="mdp_court">The password must be at least 6 characters long</string>
+<string name="mdp_incorrect">The password is not correct</string>
+<string name="choisir_compte">Choose your account type</string>
+<string name="email_deja_utilise">This email address is already in use</string>
+<string name="compte_inexistant">This account does not exist</string>
+<!-- Confirmation téléphone -->
+<string name="hello_user">Hello</string>
+<string name="telephone">Phone</string>
+<string name="confTel_text">Confirmation of your phone number</string>
+<string name="codeNonRecu_text">Click here to send a code</string>
+<string name="boutton_confTel">Confirm</string>
+<string name="codeTel">4 digits code</string>
+<string name="codeRecu_text">Enter the code received by SMS</string>
+<string name="code_vide">Please enter the code received by SMS</string>
+<string name="code_erreur">This code is not valid</string>
+<!-- Inscription Entreprise -->
+<string name="entrepriseDonnee_text">You are an employer</string>
+<string name="nomEntreprise">Name of the company</string>
+<string name="siret">SIRET number</string>
+<string name="adresse">Postal adress</string>
+<string name="contactPrin_text">Primary contact</string>
+<string name="AjoutercontactSec_text">Add a secondary contact</string>
+<string name="contactSec_text">Secondary contact</string>
+<string name="nomComplet">Full name</string>
+<!-- Erreurs -->
+<string name="erreurChamp">This field cannot be empty</string>
+<string name="choix_obligatoire">Choose an offer</string>
+<!-- Abonnement -->
+<string name="service_text">Our expertise at your service</string>
+<string name="boutton_choixAbo">Choose</string>
+<string name="abonnement">Subscription</string>
+<string name="boutton_payer">Pay</string>
+<string name="moyen_payer">Payment method</string>
+<string name="recap_payer">Payment overview</string>
+<string name="boutton_confirmer">Confirm the subscription</string>
+<string name="code_promo_non_cumulabe">Promo codes cannot be combined</string>
+<string name="code_promo_incorrect">The promo code is incorrect</string>
+<string name="code_promo_10">10% discount :</string>
+<string name="code_promo_30">30% discount :</string>
+<!-- Carte bancaire -->
+<string name="nom_carte">Name on the card</string>
+<string name="numero_carte">Number on the card</string>
+<string name="date_carte">Expiration date</string>
+<string name="code_carte">CVV code</string>
+<string name="save_carte">Register your card</string>
+<string name="ou">or</string>
+<string name="payer_paypal">Pay with PayPal :</string>
+<string name="erreur_vide">This field cannot be empty</string>
+<string name="erreur_nom">Enter a name</string>
+<string name="erreur_carte">Enter a valid card number</string>
+<string name="erreur_date">Enter a valid expiration date</string>
+<string name="erreur_code">Enter a valid CVV code</string>
+<string name="erreur_parking">Enter a number of parking spaces</string>
+<!-- Type abonnement -->
+<string name="choisir_abonnement">Choose the type of subscription</string>
+<string name="type_abonnement">Type of subscription</string>
+<string name="ponctuel">One-tims</string>
+<string name="mensuel">Monthly</string>
+<string name="trimestriel">Quarterly</string>
+<string name="semestriel">Half-yearly</string>
+<string name="annuel">Yearly</string>
+<string name="renouvelable">Unspecified</string>
+<!-- Offres -->
+<string name="offre">Offer</string>
+<string name="ponctuelle">One-time offer</string>
+<string name="mensuelle">Monthly offer</string>
+<string name="trimestrielle">Quarterly offer</string>
+<string name="semestrielle">Half-yearly offer</string>
+<string name="annuelle">Yearly offer</string>
+<string name="offre_renouvelable">Unspecified offer</string>
+<string name="suppression_offre_titre">Deletion of the offer</string>
+<string name="suppression_offre_message">Do you really want to delete your offer ?</string>
+<!-- Tutoriel entreprise -->
+<string name="tuto">Tutorial</string>
+<string name="boutton_passer">Pass</string>
+<string name="boutton_next">Next</string>
+<string name="boutton_past">Previous</string>
+<!-- Navigation principale -->
+<string name="filtrer">Filter</string>
+<string name="favoris">Favorite</string>
+<string name="boutton_retour">Return</string>
+<string name="detailsOff">Offer details</string>
+<string name="boutton_postuler">Apply</string>
+<string name="boutton_supprimer">Delete</string>
+<string name="boutton_modifier">Modify</string>
+<string name="rechercher">Search</string>
+<string name="filter">Filter</string>
+<string name="nav_statistiques">Statistics</string>
+<string name="nav_favoris">Favorites</string>
+<string name="nav_messages">Messages</string>
+<string name="nav_creer">Create</string>
+<string name="nav_connexion">Log in</string>
+<string name="nav_offres">Offers</string>
+<string name="nav_candidater">Candidate</string>
+<string name="nav_postuler">Apply</string>
+<string name="nav_compte">Account</string>
+<!-- Gestion du compte -->
+<string name="compte">Your account</string>
+<string name="language">Change language</string>
+<string name="changer_langue">Do you want to switch language to French ?</string>
+<string name="titreCompte">"The account : "</string>
+<string name="modifCompte">Modification of the account :</string>
+<string name="compteModif">Informations updated</string>
+<string name="nom_">Surname :</string>
+<string name="prenom_">Name :</string>
+<string name="mail_">Email :</string>
+<string name="telephone_">Phone :</string>
+<string name="typeCompte_">Account type :</string>
+<string name="cv_">CV :</string>
+<string name="mdp_">Password :</string>
+<string name="add_profile_picture">Add a profile picture</string>
+<string name="enregistrer">Save</string>
+<string name="echec_upload">Uploading failed</string>
+<string name="success_upload">Picture uploaded successfully</string>
+<string name="deconnexion_titre">Log off</string>
+<string name="suppression_titre">Account deletion</string>
+<string name="deconnexion_message">Log off?</string>
+<string name="suppression_message">Do you really want to delete your account?</string>
+<string name="compte_supprime_succes">Account successfully deleted</string>
+<string name="compte_supprime_echec">Deletion failed</string>
+<string name="deconnexion_succes">You have been disconnected</string>
+<!-- Candidatures -->
+<string name="boutton_candidature">See applications</string>
+<string name="boutton_candidater">Apply</string>
+<string name="mesCandidatures">My applications</string>
+<string name="modifCandidature">Modify your application</string>
+<string name="detailsCand">Application details</string>
+<string name="postuler">Apply to this offer :</string>
+<string name="ajoutCandidatOffre">Additional information to your application</string>
+<string name="candidatureReff">Application refused</string>
+<string name="candidatureAcc">Application accepted</string>
+<string name="candidatureModif">Application modified</string>
+<string name="candidatureSupp">Application deleted</string>
+<string name="Candidatures">Applications for the offer</string>
+<string name="boutton_refuser">Refuse</string>
+<string name="boutton_accepter">Accept</string>
+<string name="ajouter_cv">Add a CV</string>
+<string name="no_cv">No CV</string>
+<string name="ajouter_lm">Ajouter une LM</string>
+<string name="no_lm">Add a CL</string>
+<string name="erreur_pdf">Choose a PDF</string>
+<string name="cv_vide">Add a CV</string>
+<string name="candidature_envoyee">Application sent !</string>
+<string name="suppression_candidature_titre">Deletion of the application</string>
+<string name="suppression_candidature_message">Do you really want to delete your
+application ?</string>
+<!-- Creation offres -->
+<string name="creationOffre">Create your offer</string>
+<string name="titreOffre">Offer title</string>
+<string name="typePoste">Position type :</string>
+<string name="descriptionOffre">Offer description :</string>
+<string name="exTypePoste">ex : Internship</string>
+<string name="exTitre">ex : HR intern</string>
+<string name="boutton_suivant">Next ></string>
+<string name="periodeOffre">Employment duration</string>
+<string name="date_debut">Beginning date</string>
+<string name="date_fin">End date</string>
+<string name="lieu">Adress</string>
+<string name="code_postal">Postal code</string>
+<string name="ville">City</string>
+<string name="ex_rue">ex : 8 Charolais street</string>
+<string name="ex_complement">ex : apartment B-2</string>
+<string name="ex_code_postal">ex : 34090</string>
+<string name="ex_ville">ex : Montpellier</string>
+<string name="ex_parking">ex : 10 spaces</string>
+<string name="remuneration">Compensation (€/h)</string>
+<string name="exRemuneration">ex : 25</string>
+<string name="exDetails">ex : Driver\'s licence needed</string>
+<string name="detailsOffre">Additional details</string>
+<string name="parking">Parking</string>
+<string name="ticket_resto">Luncheon vouchers</string>
+<string name="teletravail">Remote working</string>
+<string name="boutton_terminer">Finish</string>
+<string name="boutton_envoyer">Send</string>
+<string name="modifOffre">Modification of the offer</string>
+<string name="offreModif">Offer modified</string>
+<string name="offreCree">Offer created !</string>
+<!-- Erreurs -->
+<string name="erreur_titre_offre">Enter a title</string>
+<string name="erreur_type_offre">Enter a type</string>
+<string name="erreur_description_offre">Enter a description</string>
+<string name="erreur_date_deb_offre">Enter a valid date</string>
+<string name="erreur_date_fin_offre">Enter a valid date</string>
+<string name="erreur_remuneration_offre">Enter a compensation</string>
+<string name="erreur_rue_offre">Enter a street</string>
+<string name="erreur_code_postal_offre">Enter a valid postal code</string>
+<string name="erreur_ville_offre">Enter a city</string>
+<!-- Messagerie -->
+<string name="messagerie">My messages</string>
+<string name="nouveau_message">New message...</string>
+<string name="envoyer_message">Send</string>
+<string name="no_auto_chat">You cannot have a conversation with yourself</string>
+<!-- Spinners -->
+<string-array name="typeCompte">
+<item>Company</item>
+<item>Applicant</item>
+</string-array>
+<string-array name="typeAbonnement">
+<item>One-time</item>
+<item>Monthly</item>
+<item>Quarterly</item>
+<item>Half-yearly</item>
+<item>Yearly</item>
+<item>Renewable</item>
+</string-array>
+<string-array name="filtreRecherche">
+<item>Filter</item>
+<item>Larger</item>
+</string-array>
+<!-- placeholder text -->
+<string name="hello_blank_fragment">Hello blank fragment</string>
+<string name="boutton_valider">Validate</string>
+<string name="longTexte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae</string>
+<string name="complementOffre">Offer additional details</string>
+<string name="offreSupp">Offer deleted</string>
+<string name="deconexion">Log off</string>
+<string name="informations">Informations :</string>
+<string name="adresseTotal">Company adress : </string>
+<string name="infoPlus">Characteristics :</string>
+<string name="description_">Description :</string>
+<string name="titre_">Title :</string>
+<string name="type_">Type :</string>
+<string name="date_">Date :</string>
+<string name="lieu_">Adress :</string>
+<string name="prix_">Compensation :</string>
+<string name="details_">Details :</string>
+<string name="parking_">Parking :</string>
+<string name="dateDebut_">Beginning date :</string>
+<string name="dateFin_">End date :</string>
+<string name="typeOffreSpinner">Choose 1 type...</string>
+<string name="erreur_ville">Enter a city</string>
 </resources>

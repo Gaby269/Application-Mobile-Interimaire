@@ -13,9 +13,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -112,12 +114,13 @@ public class FragPageCompte extends Fragment {
         logoutButton.setOnClickListener(view15 -> logoutUser());
 
         language = view.findViewById(R.id.language);
-        if (Locale.getDefault().getLanguage().equals("en")) {
-            language.setImageResource(R.drawable.icon_language_us);
-        } else {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+        String currentLanguage = sharedPreferences.getString("language", "fr");
+        if (currentLanguage.equals("fr")) {
             language.setImageResource(R.drawable.icon_language_fr);
+        } else {
+            language.setImageResource(R.drawable.icon_language_us);
         }
-
 
         return view;
     }
@@ -303,10 +306,12 @@ public class FragPageCompte extends Fragment {
 
 
     public void changerLangue() {
-        Log.d(TAG, "changerLangue: ");
+        
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("appPreferences", Context.MODE_PRIVATE);
+        String currentLanguage = sharedPreferences.getString("language", "fr");
 
         String languageToLoad;
-        if (Locale.getDefault().getLanguage() == "en") {
+        if (currentLanguage.equals("en")) {
             languageToLoad = "fr";
             language.setImageResource(R.drawable.icon_language_fr);
         } 
@@ -314,20 +319,30 @@ public class FragPageCompte extends Fragment {
             languageToLoad = "en";
             language.setImageResource(R.drawable.icon_language_us);
         }
+
+        // Sauvegarder la langue
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("language", languageToLoad);
+        editor.apply();
+
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
-        config.locale = locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            config.setLocale(locale);
+        } else{
+            config.locale = locale;
+        }
 
-        Context fragmentContext = requireContext();
-        Resources fragmentResources = fragmentContext.getResources();
-        fragmentResources.updateConfiguration(config, fragmentResources.getDisplayMetrics());
+        // Mettre à jour la configuration locale
+        Context context = getActivity();
+        if (context != null) {
+            context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        }
 
-        // Refresh le fragment
-        FragmentTransaction fragmentTransaction = requireFragmentManager().beginTransaction();
-        fragmentTransaction.detach(this);
-        fragmentTransaction.attach(this);
-        fragmentTransaction.commit();
+        //redirigier vers le menu
+        Intent intent = new Intent(getActivity(), LoadingNavbarActivity.class);
+        startActivity(intent);
     }
 
     

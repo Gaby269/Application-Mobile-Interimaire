@@ -131,6 +131,16 @@
     <string name="boutton_modifier">Modifier</string>
     <string name="rechercher">Rechercher</string>
     <string name="filter">Filter</string>
+    <string name="nav_statistiques">Statistiques</string>
+    <string name="nav_favoris">Favoris</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_creer">Créer</string>
+    <string name="nav_connexion">Connexion</string>
+    <string name="nav_offres">Offres</string>
+    <string name="nav_candidater">Candidater</string>
+    <string name="nav_postuler">Postuler</string>
+    <string name="nav_compte">Compte</string>
+
 
     <!-- Gestion du compte -->
     <string name="compte">Votre compte</string>
