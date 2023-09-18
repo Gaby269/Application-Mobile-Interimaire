@@ -2,7 +2,7 @@
 
 ## Description
 
-Le projet consitait à créer une application mobile servant aux utilisateurs a mettre en ligne des offres d'emploi d'interimaire par des entreprises ou des agences d'interimaire et que les utilisateurs en tant que candidat puissent postuler aux offres.
+Le projet consitait à créer une application mobile servant aux utilisateurs à mettre en ligne des offres d'emploi d'interimaire par des entreprises ou des agences d'interimaire et que les utilisateurs en tant que candidat puissent postuler aux offres. On devait donc créer un compte en tant que candidat ou entreprise puis celon le type de compte, on a accès à différentes fonctions comme pouvoir créer des annonces d'emplois ou alors postuler aux différentes annonces par exemple.
 
 
 ## Dossiers / Fichiers
