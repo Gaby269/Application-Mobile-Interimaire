@@ -12,4 +12,6 @@ Le projet consitait à créer une application mobile servant aux utilisateurs à
 - [**_HADDAD_POINTEAU_Presentation-Interimaire.pdf_**](https://github.com/Gaby269/Projet_M1_IASD/blob/main/HADDAD_POINTEAU_Presentation-Interimaire.pdf) : Slide de présentation du projet
 - [**_GPGH-Interimaire.apk_**](https://github.com/Gaby269/Projet_M1_IASD/blob/main/GPGH-Interimaire.apk) : Fichier apk pour notre appication
 
+## Utilisation
 
+Télécharger l'apk sur mobile et ouvrir l'application sur le mobile. ATTENTION : On ne peut tester que sur android.
