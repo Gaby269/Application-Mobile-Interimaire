@@ -1,4 +1,4 @@
-# Projet_M1_IASD : Développement Mobile - Application d'Interimaire
+# Projet de Développement Mobile - Application d'Interimaire
 
 ## Description
 
